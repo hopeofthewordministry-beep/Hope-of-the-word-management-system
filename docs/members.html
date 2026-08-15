@@ -60,6 +60,24 @@
       margin-top: 0;
     }
 
+    .total-card {
+      background: #123b5d;
+      color: white;
+      padding: 18px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .total-label {
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+
+    .total-number {
+      font-size: 32px;
+      font-weight: bold;
+    }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -95,7 +113,12 @@
       cursor: pointer;
     }
 
+    .save:disabled {
+      opacity: 0.6;
+    }
+
     .search {
+      width: 100%;
       margin-bottom: 15px;
     }
 
@@ -146,6 +169,11 @@
       color: #a00000;
     }
 
+    .loading {
+      text-align: center;
+      padding: 20px;
+    }
+
     @media (max-width: 600px) {
       .container {
         padding: 12px;
@@ -184,6 +212,25 @@
   <div
     id="message"
     class="message">
+  </div>
+
+
+  <!-- TOTAL MEMBERS -->
+
+  <div class="total-card">
+
+    <div class="total-label">
+      Total Church Members
+    </div>
+
+    <div
+      class="total-number"
+      id="totalMembers">
+
+      0
+
+    </div>
+
   </div>
 
 
@@ -360,7 +407,7 @@ const SUPABASE_URL =
 
 
 const SUPABASE_KEY =
-  "sb_publishable_KPNyDlm7lteOz0f1bivVAw_CbTAGbtH";
+  "PASTE_YOUR_PUBLISHABLE_KEY_HERE";
 
 
 const supabaseClient =
@@ -371,7 +418,7 @@ const supabaseClient =
 
 
 /* ==================================
-   TABLE
+   DATABASE TABLE
 ================================== */
 
 const TABLE_NAME =
@@ -395,8 +442,12 @@ async function loadMembers() {
 
   list.innerHTML = `
     <tr>
-      <td colspan="7">
+      <td
+        colspan="7"
+        class="loading">
+
         Loading members...
+
       </td>
     </tr>
   `;
@@ -416,11 +467,18 @@ async function loadMembers() {
 
   if (error) {
 
+    console.error(
+      "Load members error:",
+      error
+    );
+
+
     showMessage(
       "Could not load members: " +
       error.message,
       "error"
     );
+
 
     return;
   }
@@ -428,6 +486,16 @@ async function loadMembers() {
 
   allMembers =
     data || [];
+
+
+  /*
+    TOTAL MEMBERS
+  */
+
+  document.getElementById(
+    "totalMembers"
+  ).textContent =
+    allMembers.length;
 
 
   displayMembers(
@@ -460,9 +528,15 @@ function displayMembers(
 
     list.innerHTML = `
       <tr>
-        <td colspan="7">
+
+        <td
+          colspan="7"
+          style="text-align:center;padding:20px;">
+
           No members found.
+
         </td>
+
       </tr>
     `;
 
@@ -478,6 +552,15 @@ function displayMembers(
           "tr"
         );
 
+
+      /*
+        Your actual column is:
+
+        phone number
+
+        Because there is a space,
+        we use bracket notation.
+      */
 
       const phone =
         member["phone number"] || "";
@@ -653,11 +736,18 @@ async function addMember() {
 
   if (error) {
 
+    console.error(
+      "Add member error:",
+      error
+    );
+
+
     showMessage(
       "Could not add member: " +
       error.message,
       "error"
     );
+
 
     return;
   }
@@ -699,7 +789,7 @@ async function addMember() {
   ).value = "Active";
 
 
-  loadMembers();
+  await loadMembers();
 
 }
 
@@ -712,12 +802,13 @@ async function deleteMember(
   id
 ) {
 
-  if (
-    !confirm(
+  const confirmed =
+    confirm(
       "Are you sure you want to delete this member?"
-    )
-  ) {
+    );
 
+
+  if (!confirmed) {
     return;
   }
 
@@ -740,6 +831,7 @@ async function deleteMember(
       "error"
     );
 
+
     return;
   }
 
@@ -750,13 +842,13 @@ async function deleteMember(
   );
 
 
-  loadMembers();
+  await loadMembers();
 
 }
 
 
 /* ==================================
-   SEARCH
+   SEARCH MEMBERS
 ================================== */
 
 function filterMembers() {
@@ -842,7 +934,7 @@ function showMessage(
 
 
 /* ==================================
-   SECURITY
+   ESCAPE HTML
 ================================== */
 
 function escapeHTML(
@@ -900,4 +992,4 @@ loadMembers();
 </script>
 
 </body>
-        </html>
+  </html>
