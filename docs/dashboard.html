@@ -1,219 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
+  <title>Dashboard - Hope of the Word Ministry</title>
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<title>Church Management Dashboard</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
 
-<style>
+    body {
+      margin: 0;
+      background: #f4f6f9;
+      color: #222;
+    }
 
-*{
-box-sizing:border-box;
-margin:0;
-padding:0;
-font-family:Arial,sans-serif;
-}
+    header {
+      background: #123b5d;
+      color: white;
+      padding: 18px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-body{
-background:#f4f6f9;
-color:#1f2937;
-}
+    header h1 {
+      margin: 0;
+      font-size: 20px;
+    }
 
-header{
-background:#123b5d;
-color:white;
-padding:18px 20px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
+    .logout {
+      background: white;
+      color: #123b5d;
+      border: none;
+      padding: 9px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
 
-.church-name{
-font-size:20px;
-font-weight:bold;
-}
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 20px;
+    }
 
-.branch{
-font-size:12px;
-margin-top:5px;
-opacity:.8;
-}
+    .welcome {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    }
 
-.logout{
-background:white;
-color:#123b5d;
-border:none;
-padding:10px 15px;
-border-radius:7px;
-font-weight:bold;
-cursor:pointer;
-}
+    .welcome h2 {
+      margin: 0 0 8px;
+      color: #123b5d;
+    }
 
-.container{
-max-width:1200px;
-margin:auto;
-padding:25px;
-}
+    .welcome p {
+      margin: 0;
+      color: #666;
+    }
 
-.welcome{
-margin-bottom:25px;
-}
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(
+        auto-fit,
+        minmax(220px, 1fr)
+      );
+      gap: 18px;
+      margin-bottom: 25px;
+    }
 
-.welcome h2{
-font-size:26px;
-color:#123b5d;
-margin-bottom:7px;
-}
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+      cursor: pointer;
+    }
 
-.welcome p{
-color:#6b7280;
-}
+    .card:hover {
+      transform: translateY(-2px);
+    }
 
-.role{
-display:inline-block;
-margin-top:10px;
-padding:6px 12px;
-background:#e6f0f6;
-color:#123b5d;
-border-radius:20px;
-font-size:12px;
-font-weight:bold;
-}
+    .card-title {
+      font-size: 15px;
+      color: #666;
+      margin-bottom: 10px;
+    }
 
-.cards{
-display:grid;
-grid-template-columns:
-repeat(auto-fit,minmax(200px,1fr));
-gap:16px;
-}
+    .card-number {
+      font-size: 34px;
+      font-weight: bold;
+      color: #123b5d;
+    }
 
-.card{
-background:white;
-padding:22px;
-border-radius:12px;
-box-shadow:0 2px 8px rgba(0,0,0,.07);
-}
+    .card-button {
+      margin-top: 12px;
+      background: #123b5d;
+      color: white;
+      border: none;
+      padding: 9px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
 
-.card-title{
-font-size:14px;
-color:#6b7280;
-}
+    .menu {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    }
 
-.card-number{
-font-size:27px;
-font-weight:bold;
-color:#123b5d;
-margin-top:10px;
-}
+    .menu h2 {
+      color: #123b5d;
+      margin-top: 0;
+    }
 
-.section{
-background:white;
-padding:22px;
-border-radius:12px;
-margin-top:25px;
-box-shadow:0 2px 8px rgba(0,0,0,.06);
-}
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(
+        auto-fit,
+        minmax(180px, 1fr)
+      );
+      gap: 12px;
+    }
 
-.section h3{
-color:#123b5d;
-margin-bottom:16px;
-}
+    .menu-item {
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #fafafa;
+    }
 
-.menu{
-display:grid;
-grid-template-columns:
-repeat(auto-fit,minmax(180px,1fr));
-gap:12px;
-}
+    .menu-item:hover {
+      background: #f0f3f6;
+    }
 
-.menu button{
-border:none;
-background:#123b5d;
-color:white;
-padding:16px;
-border-radius:8px;
-font-size:14px;
-cursor:pointer;
-}
+    .error {
+      background: #ffdede;
+      color: #a00000;
+      padding: 12px;
+      border-radius: 6px;
+      margin-bottom: 15px;
+      display: none;
+    }
 
-.menu button:hover{
-background:#0d2d46;
-}
+    @media (max-width: 600px) {
 
-.notice{
-background:#eef6fa;
-padding:15px;
-border-radius:8px;
-color:#36566a;
-font-size:14px;
-}
+      .container {
+        padding: 12px;
+      }
 
-footer{
-text-align:center;
-padding:30px;
-color:#777;
-font-size:12px;
-}
+      header h1 {
+        font-size: 17px;
+      }
 
-@media(max-width:600px){
+      .card-number {
+        font-size: 30px;
+      }
 
-header{
-padding:15px;
-}
-
-.church-name{
-font-size:16px;
-}
-
-.logout{
-padding:8px 10px;
-font-size:12px;
-}
-
-.container{
-padding:16px;
-}
-
-.welcome h2{
-font-size:22px;
-}
-
-}
-
-</style>
-
+    }
+  </style>
 </head>
-
 
 <body>
 
-
 <header>
 
-<div>
+  <h1>
+    Hope of the Word Ministry
+  </h1>
 
-<div class="church-name">
-Hope of the Word Ministry
-</div>
+  <button
+    class="logout"
+    onclick="logout()">
 
-<div class="branch">
-Buoho Framoase Branch
-</div>
+    Logout
 
-</div>
-
-
-<button
-class="logout"
-onclick="logout()">
-
-Logout
-
-</button>
+  </button>
 
 </header>
 
@@ -221,317 +193,413 @@ Logout
 <div class="container">
 
 
-<div class="welcome">
+  <!-- ERROR MESSAGE -->
 
-<h2 id="welcomeText">
-Welcome
-</h2>
+  <div
+    id="errorMessage"
+    class="error">
+  </div>
 
-<p>
-Church Management System
-</p>
 
-<div
-id="roleText"
-class="role">
+  <!-- WELCOME -->
 
-Loading...
+  <div class="welcome">
+
+    <h2>
+      Dashboard
+    </h2>
+
+    <p>
+      Welcome to Hope of the Word Ministry Management System.
+    </p>
+
+  </div>
+
+
+  <!-- DASHBOARD CARDS -->
+
+  <div class="cards">
+
+
+    <!-- TOTAL MEMBERS -->
+
+    <div
+      class="card"
+      onclick="openMembers()">
+
+      <div class="card-title">
+        Total Church Members
+      </div>
+
+      <div
+        id="totalMembers"
+        class="card-number">
+
+        0
+
+      </div>
+
+      <button
+        class="card-button"
+        onclick="event.stopPropagation(); openMembers()">
+
+        View Members
+
+      </button>
+
+    </div>
+
+
+    <!-- ATTENDANCE -->
+
+    <div class="card">
+
+      <div class="card-title">
+        Attendance
+      </div>
+
+      <div class="card-number">
+        -
+      </div>
+
+      <button
+        class="card-button"
+        onclick="comingSoon()">
+
+        Open Attendance
+
+      </button>
+
+    </div>
+
+
+    <!-- CONTRIBUTIONS -->
+
+    <div class="card">
+
+      <div class="card-title">
+        Contributions
+      </div>
+
+      <div class="card-number">
+        -
+      </div>
+
+      <button
+        class="card-button"
+        onclick="comingSoon()">
+
+        Open Contributions
+
+      </button>
+
+    </div>
+
+
+    <!-- REPORTS -->
+
+    <div class="card">
+
+      <div class="card-title">
+        Reports
+      </div>
+
+      <div class="card-number">
+        -
+      </div>
+
+      <button
+        class="card-button"
+        onclick="comingSoon()">
+
+        View Reports
+
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- QUICK MENU -->
+
+  <div class="menu">
+
+    <h2>
+      Quick Menu
+    </h2>
+
+
+    <div class="menu-grid">
+
+
+      <div
+        class="menu-item"
+        onclick="openMembers()">
+
+        <strong>
+          Members
+        </strong>
+
+        <br>
+
+        <small>
+          Add and manage church members
+        </small>
+
+      </div>
+
+
+      <div
+        class="menu-item"
+        onclick="comingSoon()">
+
+        <strong>
+          Attendance
+        </strong>
+
+        <br>
+
+        <small>
+          Record church attendance
+        </small>
+
+      </div>
+
+
+      <div
+        class="menu-item"
+        onclick="comingSoon()">
+
+        <strong>
+          Contributions
+        </strong>
+
+        <br>
+
+        <small>
+          Manage church contributions
+        </small>
+
+      </div>
+
+
+      <div
+        class="menu-item"
+        onclick="comingSoon()">
+
+        <strong>
+          Events
+        </strong>
+
+        <br>
+
+        <small>
+          Manage church events
+        </small>
+
+      </div>
+
+
+      <div
+        class="menu-item"
+        onclick="comingSoon()">
+
+        <strong>
+          Reports
+        </strong>
+
+        <br>
+
+        <small>
+          View church reports
+        </small>
+
+      </div>
+
+
+      <div
+        class="menu-item"
+        onclick="comingSoon()">
+
+        <strong>
+          Settings
+        </strong>
+
+        <br>
+
+        <small>
+          System settings
+        </small>
+
+      </div>
+
+    </div>
+
+  </div>
 
 </div>
-
-</div>
-
-
-<div class="cards">
-
-
-<div class="card">
-
-<div class="card-title">
-Total Members
-</div>
-
-<div class="card-number">
-0
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-title">
-Today's Attendance
-</div>
-
-<div class="card-number">
-0
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-title">
-Tithes
-</div>
-
-<div class="card-number">
-GH₵0.00
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-title">
-Offerings
-</div>
-
-<div class="card-number">
-GH₵0.00
-</div>
-
-</div>
-
-</div>
-
-
-<div class="section">
-
-<h3>
-Available Activities
-</h3>
-
-<div
-id="menu"
-class="menu">
-</div>
-
-</div>
-
-
-<div class="section">
-
-<h3>
-Church Information
-</h3>
-
-<div class="notice">
-
-Your available activities depend on your
-church role.
-
-</div>
-
-</div>
-
-
-</div>
-
-
-<footer>
-
-© 2026 Hope of the Word Ministry
-
-</footer>
 
 
 <script>
 
-/* GET LOGIN */
+/* ==================================
+   SUPABASE
+================================== */
 
-const role =
-localStorage.getItem("churchRole");
-
-const username =
-localStorage.getItem("churchUser");
+const SUPABASE_URL =
+  "https://lcrhoossfgxpktrvwdtj.supabase.co";
 
 
-/* PROTECT DASHBOARD */
+const SUPABASE_KEY =
+  "PASTE_YOUR_PUBLISHABLE_KEY_HERE";
 
-if(!role || !username){
 
-window.location.href =
-"index.html";
+const supabaseClient =
+  supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+
+/* ==================================
+   TABLE
+================================== */
+
+const TABLE_NAME =
+  "church_members";
+
+
+/* ==================================
+   GET TOTAL MEMBERS
+================================== */
+
+async function loadMemberCount() {
+
+  const counter =
+    document.getElementById(
+      "totalMembers"
+    );
+
+
+  counter.textContent =
+    "...";
+
+
+  const { count, error } =
+    await supabaseClient
+      .from(TABLE_NAME)
+      .select(
+        "*",
+        {
+          count: "exact",
+          head: true
+        }
+      );
+
+
+  if (error) {
+
+    console.error(
+      "Member count error:",
+      error
+    );
+
+
+    counter.textContent =
+      "0";
+
+
+    showError(
+      "Could not load member count: " +
+      error.message
+    );
+
+
+    return;
+  }
+
+
+  counter.textContent =
+    count || 0;
 
 }
 
 
-/* ROLE NAMES */
+/* ==================================
+   OPEN MEMBERS
+================================== */
 
-const roleNames = {
+function openMembers() {
 
-pastor:"Pastor",
-
-secretary:"Secretary",
-
-treasurer:"Treasurer",
-
-admin:"Administrator"
-
-};
-
-
-const displayRole =
-roleNames[role] || role;
-
-
-document.getElementById(
-"welcomeText"
-).textContent =
-"Welcome, " + displayRole;
-
-
-document.getElementById(
-"roleText"
-).textContent =
-"Logged in as: " + displayRole;
-
-
-/* ROLE-BASED ACTIVITIES */
-
-const activities = {
-
-
-pastor:[
-
-"👥 Members",
-
-"⛪ Attendance",
-
-"📅 Church Activities",
-
-"👨‍👩‍👧 Departments",
-
-"💰 Tithes & Offerings",
-
-"📢 Announcements",
-
-"📊 Reports",
-
-"⚙️ My Account"
-
-],
-
-
-secretary:[
-
-"👥 Members",
-
-"⛪ Attendance",
-
-"📅 Church Activities",
-
-"👨‍👩‍👧 Departments",
-
-"📢 Announcements",
-
-"📊 Reports",
-
-"⚙️ My Account"
-
-],
-
-
-treasurer:[
-
-"💰 Tithes & Offerings",
-
-"📊 Financial Reports",
-
-"⚙️ My Account"
-
-],
-
-
-admin:[
-
-"👥 Members",
-
-"⛪ Attendance",
-
-"📅 Church Activities",
-
-"👨‍👩‍👧 Departments",
-
-"💰 Tithes & Offerings",
-
-"📢 Announcements",
-
-"📊 Reports",
-
-"👤 User Management",
-
-"⚙️ System Settings"
-
-]
-
-};
-
-
-/* DISPLAY ACTIVITIES */
-
-const menu =
-document.getElementById("menu");
-
-const allowedActivities =
-activities[role] || [];
-
-
-allowedActivities.forEach(function(activity){
-
-const button =
-document.createElement("button");
-
-button.textContent =
-activity;
-
-button.onclick = function(){
-
-if(activity.includes("Members")){
-
-window.location.href = "members.html";
+  window.location.href =
+    "members.html";
 
 }
 
-else{
 
-alert(
-activity +
-" will be developed next."
-);
+/* ==================================
+   LOGOUT
+================================== */
+
+function logout() {
+
+  /*
+    If you later add Supabase
+    authentication, this can also
+    sign the user out of Supabase.
+  */
+
+  window.location.href =
+    "index.html";
+
+}
+
+
+/* ==================================
+   ERROR
+================================== */
+
+function showError(
+  message
+) {
+
+  const box =
+    document.getElementById(
+      "errorMessage"
+    );
+
+
+  box.textContent =
+    message;
+
+
+  box.style.display =
+    "block";
 
 }
 
-};
 
-menu.appendChild(button);
+/* ==================================
+   COMING SOON
+================================== */
 
-});
+function comingSoon() {
 
-
-/* LOGOUT */
-
-function logout(){
-
-localStorage.removeItem(
-"churchRole"
-);
-
-localStorage.removeItem(
-"churchUser"
-);
-
-window.location.href =
-"index.html";
+  alert(
+    "This feature will be added soon."
+  );
 
 }
+
+
+/* ==================================
+   START
+================================== */
+
+loadMemberCount();
 
 </script>
-
 
 </body>
 </html>
