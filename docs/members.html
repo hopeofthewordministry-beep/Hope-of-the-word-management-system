@@ -570,25 +570,23 @@ async function addMember() {
     we use ["phone number"].
   */
 
-  const memberData = {
+  conconst memberData = {
 
-    full_name:
-      fullName,
+  full_name: fullName,
 
-    "phone number":
-      phone,
+  "phone number": phone,
 
-    gender:
-      gender,
+  gender: gender,
 
-    date_of_birth:
-      dateOfBirth || null,
+  date_of_birth: dateOfBirth || null,
 
-    address:
-      address,
+  address: address,
 
-    membership_status:
-      status
+  membership_status: status,
+
+  created_at: new Date().toISOString()
+
+};
 
   };
 
