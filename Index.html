@@ -1,152 +1,247 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hope of the Word Ministry</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
-      color: #222;
-    }
+<title>Church Management System</title>
 
-    header {
-      background: #173b57;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
+<style>
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+font-family:Arial,sans-serif;
+}
 
-    header h1 {
-      margin: 0;
-      font-size: 24px;
-    }
+body{
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+background:linear-gradient(135deg,#123b5d,#1d607d);
+padding:20px;
+}
 
-    header p {
-      margin: 6px 0 0;
-    }
+.login-box{
+width:100%;
+max-width:420px;
+background:white;
+padding:35px;
+border-radius:16px;
+box-shadow:0 15px 40px rgba(0,0,0,.2);
+}
 
-    .container {
-      max-width: 1000px;
-      margin: 20px auto;
-      padding: 15px;
-    }
+.logo{
+width:75px;
+height:75px;
+margin:0 auto 18px;
+background:#123b5d;
+color:white;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+}
 
-    .welcome {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-    }
+h1{
+text-align:center;
+color:#123b5d;
+font-size:22px;
+}
 
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 15px;
-    }
+.subtitle{
+text-align:center;
+color:#6b7280;
+font-size:13px;
+margin:8px 0 25px;
+}
 
-    .card {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      text-align: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
+label{
+display:block;
+font-size:13px;
+font-weight:bold;
+margin-bottom:7px;
+}
 
-    .card h2 {
-      color: #173b57;
-      margin: 0;
-    }
+select,input{
+width:100%;
+padding:13px;
+border:1px solid #d1d5db;
+border-radius:8px;
+margin-bottom:18px;
+font-size:15px;
+}
 
-    .menu {
-      margin-top: 20px;
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-    }
+button{
+width:100%;
+padding:13px;
+background:#123b5d;
+color:white;
+border:0;
+border-radius:8px;
+font-size:15px;
+font-weight:bold;
+cursor:pointer;
+}
 
-    .menu button {
-      width: 100%;
-      padding: 14px;
-      margin: 6px 0;
-      border: none;
-      border-radius: 7px;
-      background: #173b57;
-      color: white;
-      font-size: 16px;
-    }
+button:hover{
+background:#0d2d46;
+}
 
-    footer {
-      text-align: center;
-      padding: 20px;
-      color: #666;
-    }
-  </style>
+#error{
+display:none;
+background:#fee2e2;
+color:#b91c1c;
+padding:10px;
+border-radius:7px;
+text-align:center;
+margin-bottom:15px;
+font-size:13px;
+}
+
+.footer{
+text-align:center;
+color:#777;
+font-size:12px;
+margin-top:20px;
+}
+</style>
 </head>
 
 <body>
 
-  <header>
-    <h1>Hope of the Word Ministry</h1>
-    <p>Church Management System</p>
-  </header>
+<div class="login-box">
 
-  <div class="container">
+<div class="logo">⛪</div>
 
-    <div class="welcome">
-      <h2>Welcome</h2>
-      <p>
-        Manage church members, attendance, activities,
-        departments and finances from one place.
-      </p>
-    </div>
+<h1>Hope of the Word Ministry</h1>
 
-    <div class="cards">
+<p class="subtitle">
+Church Management System
+</p>
 
-      <div class="card">
-        <h3>Total Members</h3>
-        <h2>0</h2>
-      </div>
+<div id="error">
+Incorrect login details.
+</div>
 
-      <div class="card">
-        <h3>Attendance</h3>
-        <h2>0</h2>
-      </div>
+<form onsubmit="login(event)">
 
-      <div class="card">
-        <h3>Departments</h3>
-        <h2>0</h2>
-      </div>
+<label>Login as</label>
 
-      <div class="card">
-        <h3>Upcoming Events</h3>
-        <h2>0</h2>
-      </div>
+<select id="role" required>
 
-    </div>
+<option value="">Select your role</option>
 
-    <div class="menu">
+<option value="pastor">Pastor</option>
 
-      <h2>Church Management</h2>
+<option value="secretary">Secretary</option>
 
-      <button>Members</button>
-      <button>Attendance</button>
-      <button>Tithes & Offerings</button>
-      <button>Church Activities</button>
-      <button>Departments</button>
-      <button>Announcements</button>
-      <button>Reports</button>
+<option value="treasurer">Treasurer</option>
 
-    </div>
+<option value="admin">Administrator</option>
 
-  </div>
+</select>
 
-  <footer>
-    © 2026 Hope of the Word Ministry
-  </footer>
+
+<label>Username</label>
+
+<input
+type="text"
+id="username"
+placeholder="Enter username"
+required
+>
+
+
+<label>Password</label>
+
+<input
+type="password"
+id="password"
+placeholder="Enter password"
+required
+>
+
+
+<button type="submit">
+Login
+</button>
+
+</form>
+
+<div class="footer">
+© 2026 Hope of the Word Ministry
+</div>
+
+</div>
+
+
+<script>
+
+function login(event){
+
+event.preventDefault();
+
+const role =
+document.getElementById("role").value;
+
+const username =
+document.getElementById("username").value.trim();
+
+const password =
+document.getElementById("password").value;
+
+
+/* TEST ACCOUNTS */
+
+const accounts = {
+
+pastor:{
+username:"pastor",
+password:"pastor123"
+},
+
+secretary:{
+username:"secretary",
+password:"secretary123"
+},
+
+treasurer:{
+username:"treasurer",
+password:"treasurer123"
+},
+
+admin:{
+username:"admin",
+password:"admin123"
+}
+
+};
+
+
+if(
+accounts[role] &&
+accounts[role].username === username &&
+accounts[role].password === password
+){
+
+localStorage.setItem("churchRole",role);
+
+localStorage.setItem("churchUser",username);
+
+window.location.href="dashboard.html";
+
+}else{
+
+document.getElementById("error").style.display="block";
+
+}
+
+}
+
+</script>
 
 </body>
 </html>
