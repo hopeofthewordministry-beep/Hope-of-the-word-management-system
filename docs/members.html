@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Members - Hope of the Word Ministry</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -33,14 +34,11 @@
       font-size: 20px;
     }
 
-    button {
-      cursor: pointer;
-    }
-
     .back {
       border: none;
       padding: 9px 14px;
       border-radius: 6px;
+      cursor: pointer;
     }
 
     .container {
@@ -94,6 +92,7 @@
       border: none;
       padding: 12px 20px;
       border-radius: 6px;
+      cursor: pointer;
     }
 
     .search {
@@ -127,6 +126,7 @@
       border: none;
       padding: 6px 10px;
       border-radius: 5px;
+      cursor: pointer;
     }
 
     .message {
@@ -145,23 +145,46 @@
       background: #ffdede;
       color: #a00000;
     }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 12px;
+      }
+
+      .box {
+        padding: 15px;
+      }
+
+      header h1 {
+        font-size: 17px;
+      }
+    }
   </style>
 </head>
 
 <body>
 
 <header>
+
   <h1>Hope of the Word Ministry</h1>
 
-  <button class="back" onclick="goBack()">
+  <button
+    class="back"
+    onclick="goBack()">
+
     Dashboard
+
   </button>
+
 </header>
 
 
 <div class="container">
 
-  <div id="message" class="message"></div>
+  <div
+    id="message"
+    class="message">
+  </div>
 
 
   <!-- ADD MEMBER -->
@@ -173,36 +196,54 @@
     <div class="grid">
 
       <div>
+
         <label>Full Name</label>
+
         <input
           id="full_name"
           type="text"
           placeholder="Full name">
+
       </div>
 
 
       <div>
+
         <label>Phone Number</label>
+
         <input
           id="phone"
           type="text"
           placeholder="Phone number">
+
       </div>
 
 
       <div>
+
         <label>Gender</label>
 
         <select id="gender">
-          <option value="">Select gender</option>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
+
+          <option value="">
+            Select gender
+          </option>
+
+          <option value="Male">
+            Male
+          </option>
+
+          <option value="Female">
+            Female
+          </option>
+
         </select>
 
       </div>
 
 
       <div>
+
         <label>Date of Birth</label>
 
         <input
@@ -282,6 +323,7 @@
         <thead>
 
           <tr>
+
             <th>Name</th>
             <th>Phone</th>
             <th>Gender</th>
@@ -289,6 +331,7 @@
             <th>Address</th>
             <th>Status</th>
             <th>Action</th>
+
           </tr>
 
         </thead>
@@ -308,21 +351,16 @@
 
 <script>
 
-/* ==============================
-   SUPABASE
-============================== */
+/* ==================================
+   SUPABASE CONNECTION
+================================== */
 
 const SUPABASE_URL =
   "https://lcrhoossfgxpktrvwdtj.supabase.co";
 
 
-/*
-  PASTE YOUR SUPABASE PUBLISHABLE KEY
-  BETWEEN THE QUOTATION MARKS BELOW.
-*/
-
 const SUPABASE_KEY =
-  "sb_publishable_KPNyDlm7lteOz0f1bivVAw_CbTAGbtH";
+  "PASTE_YOUR_PUBLISHABLE_KEY_HERE";
 
 
 const supabaseClient =
@@ -332,9 +370,9 @@ const supabaseClient =
   );
 
 
-/*
-  YOUR ACTUAL SUPABASE TABLE
-*/
+/* ==================================
+   TABLE
+================================== */
 
 const TABLE_NAME =
   "church_members";
@@ -343,9 +381,9 @@ const TABLE_NAME =
 let allMembers = [];
 
 
-/* ==============================
+/* ==================================
    LOAD MEMBERS
-============================== */
+================================== */
 
 async function loadMembers() {
 
@@ -378,8 +416,6 @@ async function loadMembers() {
 
   if (error) {
 
-    console.error(error);
-
     showMessage(
       "Could not load members: " +
       error.message,
@@ -390,17 +426,24 @@ async function loadMembers() {
   }
 
 
-  allMembers = data || [];
+  allMembers =
+    data || [];
 
-  displayMembers(allMembers);
+
+  displayMembers(
+    allMembers
+  );
+
 }
 
 
-/* ==============================
+/* ==================================
    DISPLAY MEMBERS
-============================== */
+================================== */
 
-function displayMembers(members) {
+function displayMembers(
+  members
+) {
 
   const list =
     document.getElementById(
@@ -411,7 +454,9 @@ function displayMembers(members) {
   list.innerHTML = "";
 
 
-  if (members.length === 0) {
+  if (
+    members.length === 0
+  ) {
 
     list.innerHTML = `
       <tr>
@@ -425,79 +470,85 @@ function displayMembers(members) {
   }
 
 
-  members.forEach(function(member) {
+  members.forEach(
+    function(member) {
 
-    const row =
-      document.createElement("tr");
-
-
-    const phoneNumber =
-      member["phone number"] || "";
-
-
-    row.innerHTML = `
-
-      <td>
-        ${escapeHTML(
-          member.full_name || ""
-        )}
-      </td>
-
-      <td>
-        ${escapeHTML(
-          phoneNumber
-        )}
-      </td>
-
-      <td>
-        ${escapeHTML(
-          member.gender || ""
-        )}
-      </td>
-
-      <td>
-        ${escapeHTML(
-          member.date_of_birth || ""
-        )}
-      </td>
-
-      <td>
-        ${escapeHTML(
-          member.address || ""
-        )}
-      </td>
-
-      <td>
-        ${escapeHTML(
-          member.membership_status || ""
-        )}
-      </td>
-
-      <td>
-
-        <button
-          class="delete"
-          onclick="deleteMember('${member.id}')">
-
-          Delete
-
-        </button>
-
-      </td>
-
-    `;
+      const row =
+        document.createElement(
+          "tr"
+        );
 
 
-    list.appendChild(row);
+      const phone =
+        member["phone number"] || "";
 
-  });
+
+      row.innerHTML = `
+
+        <td>
+          ${escapeHTML(
+            member.full_name || ""
+          )}
+        </td>
+
+        <td>
+          ${escapeHTML(
+            phone
+          )}
+        </td>
+
+        <td>
+          ${escapeHTML(
+            member.gender || ""
+          )}
+        </td>
+
+        <td>
+          ${escapeHTML(
+            member.date_of_birth || ""
+          )}
+        </td>
+
+        <td>
+          ${escapeHTML(
+            member.address || ""
+          )}
+        </td>
+
+        <td>
+          ${escapeHTML(
+            member.membership_status || ""
+          )}
+        </td>
+
+        <td>
+
+          <button
+            class="delete"
+            onclick="deleteMember('${member.id}')">
+
+            Delete
+
+          </button>
+
+        </td>
+
+      `;
+
+
+      list.appendChild(
+        row
+      );
+
+    }
+  );
 
 }
 
 
-/* ==============================
+/* ==================================
    ADD MEMBER
-============================== */
+================================== */
 
 async function addMember() {
 
@@ -560,33 +611,28 @@ async function addMember() {
     "Saving...";
 
 
-  /*
-    IMPORTANT:
-    Your database column is exactly:
+  const memberData = {
 
-    phone number
+    full_name:
+      fullName,
 
-    Because it contains a space,
-    we use ["phone number"].
-  */
+    "phone number":
+      phone,
 
-  conconst memberData = {
+    gender:
+      gender,
 
-  full_name: fullName,
+    date_of_birth:
+      dateOfBirth || null,
 
-  "phone number": phone,
+    address:
+      address,
 
-  gender: gender,
+    membership_status:
+      status,
 
-  date_of_birth: dateOfBirth || null,
-
-  address: address,
-
-  membership_status: status,
-
-  created_at: new Date().toISOString()
-
-};
+    created_at:
+      new Date().toISOString()
 
   };
 
@@ -594,7 +640,9 @@ async function addMember() {
   const { error } =
     await supabaseClient
       .from(TABLE_NAME)
-      .insert(memberData);
+      .insert(
+        memberData
+      );
 
 
   button.disabled = false;
@@ -604,8 +652,6 @@ async function addMember() {
 
 
   if (error) {
-
-    console.error(error);
 
     showMessage(
       "Could not add member: " +
@@ -658,11 +704,13 @@ async function addMember() {
 }
 
 
-/* ==============================
+/* ==================================
    DELETE MEMBER
-============================== */
+================================== */
 
-async function deleteMember(id) {
+async function deleteMember(
+  id
+) {
 
   if (
     !confirm(
@@ -707,9 +755,9 @@ async function deleteMember(id) {
 }
 
 
-/* ==============================
+/* ==================================
    SEARCH
-============================== */
+================================== */
 
 function filterMembers() {
 
@@ -746,14 +794,16 @@ function filterMembers() {
     );
 
 
-  displayMembers(filtered);
+  displayMembers(
+    filtered
+  );
 
 }
 
 
-/* ==============================
+/* ==================================
    MESSAGE
-============================== */
+================================== */
 
 function showMessage(
   text,
@@ -791,11 +841,13 @@ function showMessage(
 }
 
 
-/* ==============================
+/* ==================================
    SECURITY
-============================== */
+================================== */
 
-function escapeHTML(value) {
+function escapeHTML(
+  value
+) {
 
   return String(value)
 
@@ -827,9 +879,9 @@ function escapeHTML(value) {
 }
 
 
-/* ==============================
+/* ==================================
    DASHBOARD
-============================== */
+================================== */
 
 function goBack() {
 
@@ -839,13 +891,13 @@ function goBack() {
 }
 
 
-/* ==============================
+/* ==================================
    START
-============================== */
+================================== */
 
 loadMembers();
 
 </script>
 
 </body>
-</html>
+        </html>
