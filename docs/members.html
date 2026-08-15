@@ -404,7 +404,7 @@ async function loadMembers(){
 
   const { data, error } =
     await supabaseClient
-      .from("members")
+      .from("church_members")
       .select("*")
       .order(
         "created_at",
