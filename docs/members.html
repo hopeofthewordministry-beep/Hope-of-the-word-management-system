@@ -536,7 +536,7 @@ async function addMember(){
 
   const { error } =
     await supabaseClient
-      .from("members")
+      .from("church_members")
       .insert({
 
         full_name:full_name,
@@ -617,7 +617,7 @@ async function deleteMember(id){
 
   const { error } =
     await supabaseClient
-      .from("members")
+      .from("church_members")
       .delete()
       .eq("id",id);
 
