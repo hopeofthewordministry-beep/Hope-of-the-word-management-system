@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Church Management Dashboard</title>
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+Hope of the Word Ministry
+</title>
 
 <style>
 
@@ -12,583 +18,374 @@
 box-sizing:border-box;
 margin:0;
 padding:0;
-font-family:Arial,Helvetica,sans-serif;
+font-family:Arial,sans-serif;
 }
 
 body{
-background:#f4f6f9;
-color:#1f2937;
-}
 
-/* HEADER */
+min-height:100vh;
 
-header{
-background:#123b5d;
-color:white;
-padding:18px 22px;
 display:flex;
-justify-content:space-between;
+
 align-items:center;
+
+justify-content:center;
+
+background:linear-gradient(
+135deg,
+#123b5d,
+#1d607d
+);
+
+padding:20px;
+
 }
 
-.church-name{
-font-size:20px;
-font-weight:bold;
-}
+.login-box{
 
-.branch{
-font-size:12px;
-margin-top:5px;
-opacity:.8;
-}
+width:100%;
 
-.logout{
+max-width:430px;
+
 background:white;
-color:#123b5d;
-border:none;
-padding:10px 15px;
-border-radius:7px;
-font-weight:bold;
-cursor:pointer;
+
+padding:35px;
+
+border-radius:18px;
+
+box-shadow:
+0 15px 40px
+rgba(0,0,0,.25);
+
 }
 
-/* MAIN */
+.logo{
 
-.container{
-max-width:1200px;
-margin:auto;
-padding:25px;
-}
+width:80px;
 
-.welcome{
-margin-bottom:25px;
-}
+height:80px;
 
-.welcome h2{
-font-size:26px;
-color:#123b5d;
-margin-bottom:7px;
-}
+margin:0 auto 20px;
 
-.welcome p{
-color:#6b7280;
-}
-
-.role{
-display:inline-block;
-margin-top:10px;
-padding:6px 12px;
-background:#e6f0f6;
-color:#123b5d;
-border-radius:20px;
-font-size:12px;
-font-weight:bold;
-}
-
-/* CARDS */
-
-.cards{
-display:grid;
-grid-template-columns:
-repeat(auto-fit,minmax(200px,1fr));
-gap:16px;
-}
-
-.card{
-background:white;
-padding:22px;
-border-radius:12px;
-box-shadow:0 2px 8px rgba(0,0,0,.07);
-}
-
-.card-title{
-font-size:14px;
-color:#6b7280;
-}
-
-.card-number{
-font-size:27px;
-font-weight:bold;
-color:#123b5d;
-margin-top:10px;
-}
-
-/* SECTIONS */
-
-.section{
-background:white;
-padding:22px;
-border-radius:12px;
-margin-top:25px;
-box-shadow:0 2px 8px rgba(0,0,0,.06);
-}
-
-.section h3{
-color:#123b5d;
-margin-bottom:16px;
-}
-
-/* MENU */
-
-.menu{
-display:grid;
-grid-template-columns:
-repeat(auto-fit,minmax(180px,1fr));
-gap:12px;
-}
-
-.menu button{
-border:none;
 background:#123b5d;
+
 color:white;
-padding:16px;
-border-radius:8px;
-font-size:14px;
-cursor:pointer;
+
+border-radius:50%;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:35px;
+
 }
 
-.menu button:hover{
-background:#0d2d46;
-}
+h1{
 
-/* NOTICE */
-
-.notice{
-background:#eef6fa;
-padding:15px;
-border-radius:8px;
-color:#36566a;
-font-size:14px;
-}
-
-/* FOOTER */
-
-footer{
 text-align:center;
-padding:30px;
+
+color:#123b5d;
+
+font-size:23px;
+
+}
+
+.subtitle{
+
+text-align:center;
+
 color:#777;
-font-size:12px;
+
+font-size:13px;
+
+margin:8px 0 28px;
+
 }
 
-/* MOBILE */
+label{
 
-@media(max-width:600px){
+display:block;
 
-header{
-padding:15px;
+font-weight:bold;
+
+font-size:14px;
+
+margin-bottom:7px;
+
 }
 
-.church-name{
+select,
+input{
+
+width:100%;
+
+padding:14px;
+
+border:1px solid #ccc;
+
+border-radius:8px;
+
+margin-bottom:18px;
+
+font-size:15px;
+
+background:white;
+
+}
+
+button{
+
+width:100%;
+
+padding:14px;
+
+background:#123b5d;
+
+color:white;
+
+border:none;
+
+border-radius:8px;
+
 font-size:16px;
+
+font-weight:bold;
+
+cursor:pointer;
+
 }
 
-.logout{
-padding:8px 10px;
+button:hover{
+
+background:#0d2d46;
+
+}
+
+#error{
+
+display:none;
+
+background:#fee2e2;
+
+color:#b91c1c;
+
+padding:12px;
+
+border-radius:8px;
+
+text-align:center;
+
+margin-bottom:18px;
+
+font-size:13px;
+
+}
+
+.footer{
+
+text-align:center;
+
+color:#888;
+
 font-size:12px;
-}
 
-.container{
-padding:16px;
-}
-
-.welcome h2{
-font-size:22px;
-}
+margin-top:25px;
 
 }
 
 </style>
+
 </head>
+
 
 <body>
 
 
-<!-- HEADER -->
+<div class="login-box">
 
-<header>
 
-<div>
+<div class="logo">
+⛪
+</div>
 
-<div class="church-name">
+
+<h1>
 Hope of the Word Ministry
-</div>
-
-<div class="branch">
-Buoho Framoase Branch
-</div>
-
-</div>
-
-<button
-class="logout"
-onclick="logout()">
-
-Logout
-
-</button>
-
-</header>
+</h1>
 
 
-<!-- MAIN -->
-
-<div class="container">
-
-
-<!-- WELCOME -->
-
-<div class="welcome">
-
-<h2 id="welcomeText">
-Welcome
-</h2>
-
-<p>
+<p class="subtitle">
 Church Management System
 </p>
 
-<div
-id="roleText"
-class="role">
 
-Loading...
-
-</div>
-
+<div id="error">
+Incorrect login details.
 </div>
 
 
-<!-- DASHBOARD CARDS -->
-
-<div class="cards">
+<form onsubmit="login(event)">
 
 
-<div class="card">
-
-<div class="card-title">
-Total Members
-</div>
-
-<div
-class="card-number">
-
-0
-
-</div>
-
-</div>
+<label>
+Login as
+</label>
 
 
-<div class="card">
+<select id="role" required>
 
-<div class="card-title">
-Today's Attendance
-</div>
+<option value="">
+Select your role
+</option>
 
-<div
-class="card-number">
+<option value="pastor">
+Pastor
+</option>
 
-0
+<option value="secretary">
+Secretary
+</option>
 
-</div>
+<option value="treasurer">
+Treasurer
+</option>
 
-</div>
+<option value="admin">
+Administrator
+</option>
 
-
-<div class="card">
-
-<div class="card-title">
-Tithes
-
-</div>
-
-<div
-class="card-number">
-
-GH₵0.00
-
-</div>
-
-</div>
+</select>
 
 
-<div class="card">
-
-<div class="card-title">
-Offerings
-</div>
-
-<div
-class="card-number">
-
-GH₵0.00
-
-</div>
-
-</div>
+<label>
+Username
+</label>
 
 
-</div>
+<input
+type="text"
+id="username"
+placeholder="Enter username"
+required
+>
 
 
-<!-- ROLE MENU -->
-
-<div class="section">
-
-<h3>
-Available Management Areas
-</h3>
-
-<div
-id="menu"
-class="menu">
-</div>
-
-</div>
+<label>
+Password
+</label>
 
 
-<!-- INFORMATION -->
-
-<div class="section">
-
-<h3>
-Church Information
-</h3>
-
-<div class="notice">
-
-Your access is based on your church role.
-
-The Administrator controls system users and settings.
-
-</div>
-
-</div>
+<input
+type="password"
+id="password"
+placeholder="Enter password"
+required
+>
 
 
-</div>
+<button type="submit">
+Login
+</button>
 
 
-<footer>
+</form>
 
+
+<div class="footer">
 © 2026 Hope of the Word Ministry
+</div>
 
-</footer>
+
+</div>
 
 
 <script>
 
+function login(event){
 
-/*
-GET LOGIN INFORMATION
-*/
+event.preventDefault();
 
 const role =
-localStorage.getItem("churchRole");
+document.getElementById("role").value;
 
 const username =
-localStorage.getItem("churchUser");
+document.getElementById("username").value.trim();
+
+const password =
+document.getElementById("password").value;
 
 
-/*
-IF NOT LOGGED IN
-*/
+/* CHURCH ACCOUNTS */
 
-if(!role || !username){
+const accounts = {
+
+pastor:{
+username:"pastor",
+password:"pastor123"
+},
+
+secretary:{
+username:"secretary",
+password:"secretary123"
+},
+
+treasurer:{
+username:"treasurer",
+password:"treasurer123"
+},
+
+admin:{
+username:"admin",
+password:"admin123"
+}
+
+};
+
+
+/* CHECK LOGIN */
+
+if(
+
+accounts[role] &&
+
+accounts[role].username === username &&
+
+accounts[role].password === password
+
+){
+
+localStorage.setItem(
+"churchRole",
+role
+);
+
+localStorage.setItem(
+"churchUser",
+username
+);
 
 window.location.href =
-"index.html";
+"dashboard.html";
 
 }
 
-
-/*
-ROLE NAMES
-*/
-
-const roleNames = {
-
-pastor:"Pastor",
-
-secretary:"Secretary",
-
-treasurer:"Treasurer",
-
-admin:"Administrator"
-
-};
-
-
-/*
-DISPLAY ROLE
-*/
-
-const displayRole =
-roleNames[role] || role;
-
+else{
 
 document.getElementById(
-"welcomeText"
-).textContent =
-"Welcome, " + displayRole;
-
-
-document.getElementById(
-"roleText"
-).textContent =
-"Logged in as: " + displayRole;
-
-
-/*
-MENU ITEMS
-*/
-
-const menus = {
-
-
-/* PASTOR */
-
-pastor:[
-
-"👥 Members",
-
-"⛪ Attendance",
-
-"📅 Church Activities",
-
-"👨‍👩‍👧 Departments",
-
-"💰 Tithes & Offerings",
-
-"📢 Announcements",
-
-"📊 Reports",
-
-"⚙️ My Account"
-
-],
-
-
-/* SECRETARY */
-
-secretary:[
-
-"👥 Members",
-
-"⛪ Attendance",
-
-"📅 Church Activities",
-
-"👨‍👩‍👧 Departments",
-
-"📢 Announcements",
-
-"📊 Reports",
-
-"⚙️ My Account"
-
-],
-
-
-/* TREASURER */
-
-treasurer:[
-
-"💰 Tithes & Offerings",
-
-"📊 Financial Reports",
-
-"⚙️ My Account"
-
-],
-
-
-/* ADMINISTRATOR */
-
-admin:[
-
-"👥 Members",
-
-"⛪ Attendance",
-
-"📅 Church Activities",
-
-"👨‍👩‍👧 Departments",
-
-"💰 Tithes & Offerings",
-
-"📢 Announcements",
-
-"📊 Reports",
-
-"👤 User Management",
-
-"⚙️ System Settings"
-
-]
-
-};
-
-
-/*
-GET MENU
-*/
-
-const menu =
-document.getElementById("menu");
-
-
-const userMenus =
-menus[role] || [];
-
-
-/*
-CREATE BUTTONS
-*/
-
-userMenus.forEach(function(item){
-
-const button =
-document.createElement("button");
-
-button.textContent =
-item;
-
-button.onclick =
-function(){
-
-alert(
-item +
-" section will be built next."
-);
-
-};
-
-menu.appendChild(button);
-
-});
-
-
-/*
-LOGOUT
-*/
-
-function logout(){
-
-localStorage.removeItem(
-"churchRole"
-);
-
-localStorage.removeItem(
-"churchUser"
-);
-
-window.location.href =
-"index.html";
+"error"
+).style.display =
+"block";
+
+}
 
 }
 
 </script>
 
+
 </body>
+
 </html>
