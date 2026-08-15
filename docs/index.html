@@ -1,12 +1,13 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Hope of the Word Ministry | Church Management System</title>
+<title>Admin Login | Hope of the Word Ministry</title>
 
 <style>
+
 *{
   box-sizing:border-box;
   margin:0;
@@ -15,552 +16,209 @@
 }
 
 body{
-  background:#f5f7fb;
-  color:#1f2937;
-}
-
-/* HEADER */
-.header{
-  background:#123b5d;
-  color:white;
-  padding:18px 25px;
+  min-height:100vh;
   display:flex;
-  justify-content:space-between;
   align-items:center;
-}
-
-.church-name{
-  font-size:20px;
-  font-weight:bold;
-}
-
-.subtitle{
-  font-size:12px;
-  opacity:.85;
-  margin-top:4px;
-}
-
-.admin{
-  background:white;
-  color:#123b5d;
-  padding:9px 14px;
-  border-radius:20px;
-  font-size:13px;
-}
-
-/* LAYOUT */
-.layout{
-  display:flex;
-  min-height:calc(100vh - 75px);
-}
-
-/* SIDEBAR */
-.sidebar{
-  width:240px;
-  background:white;
-  border-right:1px solid #e5e7eb;
-  padding:20px 12px;
-}
-
-.sidebar h3{
-  font-size:12px;
-  color:#8a94a6;
-  margin:10px 12px;
-  text-transform:uppercase;
-}
-
-.sidebar button{
-  width:100%;
-  border:0;
-  background:white;
-  text-align:left;
-  padding:13px 15px;
-  margin:3px 0;
-  border-radius:8px;
-  cursor:pointer;
-  color:#374151;
-  font-size:14px;
-}
-
-.sidebar button:hover,
-.sidebar button.active{
-  background:#e9f1f7;
-  color:#123b5d;
-  font-weight:bold;
-}
-
-/* CONTENT */
-.content{
-  flex:1;
-  padding:25px;
-  max-width:1400px;
-}
-
-.page-title{
-  font-size:25px;
-  margin-bottom:6px;
-}
-
-.page-description{
-  color:#6b7280;
-  margin-bottom:25px;
-}
-
-/* CARDS */
-.cards{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
-  gap:18px;
-}
-
-.card{
-  background:white;
-  padding:22px;
-  border-radius:12px;
-  border:1px solid #e7eaf0;
-}
-
-.card-title{
-  color:#6b7280;
-  font-size:13px;
-}
-
-.card-number{
-  font-size:28px;
-  font-weight:bold;
-  color:#123b5d;
-  margin-top:10px;
-}
-
-.card-icon{
-  float:right;
-  font-size:25px;
-}
-
-/* PANELS */
-.panel{
-  background:white;
-  border:1px solid #e7eaf0;
-  border-radius:12px;
-  margin-top:22px;
+  justify-content:center;
+  background:linear-gradient(135deg,#123b5d,#1d607d);
   padding:20px;
 }
 
-.panel-title{
-  font-size:17px;
-  font-weight:bold;
-  margin-bottom:15px;
-}
-
-/* TABLE */
-.table-container{
-  overflow-x:auto;
-}
-
-table{
+.login-container{
   width:100%;
-  border-collapse:collapse;
+  max-width:420px;
 }
 
-th,td{
-  padding:13px;
-  border-bottom:1px solid #eee;
-  text-align:left;
-  font-size:13px;
+.login-box{
+  background:white;
+  border-radius:16px;
+  padding:35px;
+  box-shadow:0 15px 40px rgba(0,0,0,.2);
 }
 
-th{
-  color:#6b7280;
-  background:#f9fafb;
-}
-
-/* STATUS */
-.status{
-  padding:5px 9px;
-  border-radius:15px;
-  font-size:11px;
-  background:#e8f5e9;
-  color:#2e7d32;
-}
-
-/* BUTTON */
-.primary{
+.logo{
+  width:75px;
+  height:75px;
+  margin:0 auto 18px;
   background:#123b5d;
   color:white;
-  border:0;
-  padding:10px 16px;
-  border-radius:7px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:30px;
+}
+
+h1{
+  text-align:center;
+  color:#123b5d;
+  font-size:22px;
+}
+
+.subtitle{
+  text-align:center;
+  color:#6b7280;
+  font-size:13px;
+  margin-top:7px;
+  margin-bottom:28px;
+}
+
+label{
+  display:block;
+  font-size:13px;
+  font-weight:bold;
+  color:#374151;
+  margin-bottom:7px;
+}
+
+input{
+  width:100%;
+  padding:13px;
+  border:1px solid #d1d5db;
+  border-radius:8px;
+  margin-bottom:18px;
+  font-size:15px;
+  outline:none;
+}
+
+input:focus{
+  border-color:#123b5d;
+}
+
+.login-button{
+  width:100%;
+  padding:13px;
+  background:#123b5d;
+  color:white;
+  border:none;
+  border-radius:8px;
+  font-size:15px;
+  font-weight:bold;
   cursor:pointer;
 }
 
-.primary:hover{
+.login-button:hover{
   background:#0d2d46;
 }
 
-/* QUICK ACTIONS */
-.actions{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:12px;
+.error{
+  display:none;
+  background:#fee2e2;
+  color:#b91c1c;
+  padding:10px;
+  border-radius:7px;
+  font-size:13px;
+  margin-bottom:15px;
+  text-align:center;
 }
 
-.action{
-  padding:15px;
-  border:1px solid #e5e7eb;
-  border-radius:8px;
-  background:#fff;
-  cursor:pointer;
+.footer{
+  text-align:center;
+  color:#9ca3af;
+  font-size:12px;
+  margin-top:20px;
 }
 
-.action:hover{
-  background:#f5f8fa;
-}
-
-/* MOBILE */
-@media(max-width:800px){
-
-  .layout{
-    display:block;
-  }
-
-  .sidebar{
-    width:100%;
-    display:flex;
-    overflow-x:auto;
-    padding:10px;
-    border-right:0;
-    border-bottom:1px solid #ddd;
-  }
-
-  .sidebar h3{
-    display:none;
-  }
-
-  .sidebar button{
-    min-width:max-content;
-    width:auto;
-    margin-right:5px;
-  }
-
-  .content{
-    padding:17px;
-  }
-
-  .header{
-    padding:15px;
-  }
-
-  .church-name{
-    font-size:16px;
-  }
-
-  .admin{
-    font-size:11px;
-  }
-
-}
 </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
+<div class="login-container">
 
-<header class="header">
+<div class="login-box">
 
-<div>
-<div class="church-name">
-Hope of the Word Ministry
+<div class="logo">
+⛪
 </div>
 
-<div class="subtitle">
-Buoho Framoase Branch • Church Management System
-</div>
-</div>
+<h1>Hope of the Word Ministry</h1>
 
-<div class="admin">
-Administrator
-</div>
-
-</header>
-
-
-<div class="layout">
-
-<!-- SIDEBAR -->
-
-<aside class="sidebar">
-
-<h3>Main Menu</h3>
-
-<button class="active">📊 Dashboard</button>
-
-<button>👥 Members</button>
-
-<button>⛪ Attendance</button>
-
-<button>📅 Church Activities</button>
-
-<h3>Management</h3>
-
-<button>👨‍👩‍👧 Departments</button>
-
-<button>💰 Tithes & Offerings</button>
-
-<button>📢 Announcements</button>
-
-<h3>Reports</h3>
-
-<button>📈 Reports</button>
-
-<button>⚙️ Settings</button>
-
-</aside>
-
-
-<!-- MAIN CONTENT -->
-
-<main class="content">
-
-<h1 class="page-title">
-Church Dashboard
-</h1>
-
-<p class="page-description">
-Welcome to the Hope of the Word Ministry Church Management System.
+<p class="subtitle">
+Church Management System
 </p>
 
-
-<!-- DASHBOARD CARDS -->
-
-<section class="cards">
-
-<div class="card">
-
-<span class="card-icon">👥</span>
-
-<div class="card-title">
-Total Members
+<div id="error" class="error">
+Incorrect username or password.
 </div>
 
-<div class="card-number">
-0
-</div>
+<form onsubmit="login(event)">
 
-</div>
+<label>
+Username
+</label>
 
+<input
+type="text"
+id="username"
+placeholder="Enter username"
+required
+>
 
-<div class="card">
+<label>
+Password
+</label>
 
-<span class="card-icon">⛪</span>
+<input
+type="password"
+id="password"
+placeholder="Enter password"
+required
+>
 
-<div class="card-title">
-Today's Attendance
-</div>
-
-<div class="card-number">
-0
-</div>
-
-</div>
-
-
-<div class="card">
-
-<span class="card-icon">💰</span>
-
-<div class="card-title">
-Tithes
-</div>
-
-<div class="card-number">
-GH₵0.00
-</div>
-
-</div>
-
-
-<div class="card">
-
-<span class="card-icon">🎁</span>
-
-<div class="card-title">
-Offerings
-</div>
-
-<div class="card-number">
-GH₵0.00
-</div>
-
-</div>
-
-</section>
-
-
-<!-- QUICK ACTIONS -->
-
-<section class="panel">
-
-<div class="panel-title">
-Quick Actions
-</div>
-
-<div class="actions">
-
-<div class="action">
-👤 Register New Member
-</div>
-
-<div class="action">
-⛪ Record Attendance
-</div>
-
-<div class="action">
-💰 Record Tithe
-</div>
-
-<div class="action">
-📅 Add Church Activity
-</div>
-
-</div>
-
-</section>
-
-
-<!-- RECENT MEMBERS -->
-
-<section class="panel">
-
-<div class="panel-title">
-Recent Members
-
-<button class="primary" style="float:right">
-+ Add Member
+<button class="login-button" type="submit">
+Login
 </button>
 
-</div>
-
-<div class="table-container">
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>Member ID</th>
-
-<th>Name</th>
-
-<th>Phone</th>
-
-<th>Department</th>
-
-<th>Status</th>
-
-</tr>
-
-</thead>
-
-
-<tbody>
-
-<tr>
-
-<td>---</td>
-
-<td>No members registered</td>
-
-<td>---</td>
-
-<td>---</td>
-
-<td>
-<span class="status">
-Active
-</span>
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
+</form>
 
 </div>
 
-</section>
-
-
-<!-- UPCOMING ACTIVITIES -->
-
-<section class="panel">
-
-<div class="panel-title">
-Upcoming Church Activities
+<div class="footer">
+© 2026 Hope of the Word Ministry
 </div>
-
-<div class="table-container">
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>Activity</th>
-
-<th>Date</th>
-
-<th>Time</th>
-
-<th>Location</th>
-
-</tr>
-
-</thead>
-
-<tbody>
-
-<tr>
-
-<td>No activities added</td>
-
-<td>---</td>
-
-<td>---</td>
-
-<td>---</td>
-
-</tr>
-
-</tbody>
-
-</table>
 
 </div>
 
-</section>
 
+<script>
 
-<!-- ANNOUNCEMENT -->
+function login(event){
 
-<section class="panel">
+event.preventDefault();
 
-<div class="panel-title">
-📢 Latest Announcement
-</div>
+const username =
+document.getElementById("username").value;
 
-<p style="color:#6b7280;">
-No announcements have been posted yet.
-</p>
+const password =
+document.getElementById("password").value;
 
-</section>
+/*
+DEMO LOGIN
 
-</main>
+Username: admin
+Password: admin123
 
-</div>
+This is only for testing.
+We will replace it with secure
+authentication later.
+*/
+
+if(username === "admin" && password === "admin123"){
+
+window.location.href =
+"dashboard.html";
+
+}else{
+
+document.getElementById("error").style.display =
+"block";
+
+}
+
+}
+
+</script>
 
 </body>
 </html>
