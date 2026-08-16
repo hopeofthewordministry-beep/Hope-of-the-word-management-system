@@ -1,1 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>Create Account - Hope of the Word Ministry</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #f4f6f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 450px;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #123b5d;
+      margin-bottom: 5px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin: 14px 0 6px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 22px;
+      padding: 13px;
+      background: #123b5d;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .login {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .login a {
+      color: #123b5d;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .message {
+      display: none;
+      padding: 12px;
+      border-radius: 6px;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    .success {
+      background: #d9f7df;
+      color: #176b2c;
+    }
+
+    .error {
+      background: #ffdede;
+      color: #a00000;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>Create Account</h1>
+
+  <div class="subtitle">
+    Hope of the Word Ministry
+  </div>
+
+  <form id="signupForm">
+
+    <label for="full_name">
+      Full Name
+    </label>
+
+    <input
+      type="text"
+      id="full_name"
+      placeholder="Enter your full name"
+      required
+    >
+
+
+    <label for="email">
+      Email Address
+    </label>
+
+    <input
+      type="email"
+      id="email"
+      placeholder="Enter your email"
+      required
+    >
+
+
+    <label for="phone">
+      Phone Number
+    </label>
+
+    <input
+      type="tel"
+      id="phone"
+      placeholder="Enter your phone number"
+      required
+    >
+
+
+    <label for="password">
+      Password
+    </label>
+
+    <input
+      type="password"
+      id="password"
+      placeholder="Create a password"
+      required
+    >
+
+
+    <label for="confirmPassword">
+      Confirm Password
+    </label>
+
+    <input
+      type="password"
+      id="confirmPassword"
+      placeholder="Confirm your password"
+      required
+    >
+
+
+    <label for="role">
+      Select Role
+    </label>
+
+    <select id="role" required>
+
+      <option value="">
+        Select your role
+      </option>
+
+      <option value="pastor">
+        Pastor
+      </option>
+
+      <option value="secretary">
+        Secretary
+      </option>
+
+      <option value="treasurer">
+        Treasurer
+      </option>
+
+      <option value="administrator">
+        Administrator
+      </option>
+
+    </select>
+
+
+    <button
+      type="submit"
+      id="signupButton">
+
+      Create Account
+
+    </button>
+
+  </form>
+
+
+  <div
+    id="message"
+    class="message">
+  </div>
+
+
+  <div class="login">
+
+    Already have an account?
+
+    <a href="index.html">
+      Login
+    </a>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* ==================================
+   SUPABASE
+================================== */
+
+const SUPABASE_URL =
+  "https://lcrhoossfgxpktrvwdtj.supabase.co";
+
+
+/*
+  IMPORTANT:
+  Replace this with the SAME
+  publishable/anon key used
+  by your working index.html.
+*/
+
+const SUPABASE_KEY =
+  "PASTE_YOUR_PUBLISHABLE_KEY_HERE";
+
+
+const supabaseClient =
+  supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+
+/* ==================================
+   SIGN UP
+================================== */
+
+document
+  .getElementById("signupForm")
+  .addEventListener(
+    "submit",
+    async function(event) {
+
+      event.preventDefault();
+
+
+      const fullName =
+        document
+          .getElementById("full_name")
+          .value
+          .trim();
+
+
+      const email =
+        document
+          .getElementById("email")
+          .value
+          .trim();
+
+
+      const phone =
+        document
+          .getElementById("phone")
+          .value
+          .trim();
+
+
+      const password =
+        document
+          .getElementById("password")
+          .value;
+
+
+      const confirmPassword =
+        document
+          .getElementById("confirmPassword")
+          .value;
+
+
+      const role =
+        document
+          .getElementById("role")
+          .value;
+
+
+      const button =
+        document
+          .getElementById("signupButton");
+
+
+      if (
+        password !==
+        confirmPassword
+      ) {
+
+        showMessage(
+          "Passwords do not match.",
+          "error"
+        );
+
+        return;
+      }
+
+
+      if (
+        password.length < 6
+      ) {
+
+        showMessage(
+          "Password must be at least 6 characters.",
+          "error"
+        );
+
+        return;
+      }
+
+
+      if (!role) {
+
+        showMessage(
+          "Please select a role.",
+          "error"
+        );
+
+        return;
+      }
+
+
+      button.disabled =
+        true;
+
+      button.textContent =
+        "Creating account...";
+
+
+      /*
+        CREATE AUTH ACCOUNT
+      */
+
+      const {
+        data,
+        error
+      } =
+        await supabaseClient.auth.signUp({
+
+          email:
+            email,
+
+          password:
+            password
+
+        });
+
+
+      if (error) {
+
+        button.disabled =
+          false;
+
+        button.textContent =
+          "Create Account";
+
+
+        showMessage(
+          error.message,
+          "error"
+        );
+
+        return;
+      }
+
+
+      /*
+        ACCOUNT CREATED
+      */
+
+      /*
+        We temporarily store the
+        registration information locally.
+
+        We will connect this properly
+        to user_profiles after fixing
+        the UUID structure.
+      */
+
+      localStorage.setItem(
+        "pending_profile",
+        JSON.stringify({
+
+          full_name:
+            fullName,
+
+          email:
+            email,
+
+          phone:
+            phone,
+
+          role:
+            role,
+
+          user_id:
+            data.user?.id || ""
+
+        })
+      );
+
+
+      showMessage(
+        "Account created successfully. Your role is pending Administrator approval.",
+        "success"
+      );
+
+
+      button.textContent =
+        "Account Created";
+
+
+      document
+        .getElementById("signupForm")
+        .reset();
+
+    }
+  );
+
+
+/* ==================================
+   MESSAGE
+================================== */
+
+function showMessage(
+  text,
+  type
+) {
+
+  const message =
+    document.getElementById(
+      "message"
+    );
+
+
+  message.textContent =
+    text;
+
+
+  message.className =
+    "message " + type;
+
+
+  message.style.display =
+    "block";
+
+}
+
+</script>
+
+</body>
+    </html>
