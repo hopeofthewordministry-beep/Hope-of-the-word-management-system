@@ -23,7 +23,7 @@
     header {
       background: #123b5d;
       color: white;
-      padding: 18px;
+      padding: 18px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -70,17 +70,20 @@
 
     .total-label {
       font-size: 14px;
-      margin-bottom: 5px;
     }
 
     .total-number {
       font-size: 32px;
       font-weight: bold;
+      margin-top: 5px;
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(
+        auto-fit,
+        minmax(200px, 1fr)
+      );
       gap: 15px;
     }
 
@@ -103,8 +106,14 @@
       grid-column: 1 / -1;
     }
 
-    .save {
+    .buttons {
       margin-top: 18px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .save {
       background: #123b5d;
       color: white;
       border: none;
@@ -113,12 +122,17 @@
       cursor: pointer;
     }
 
-    .save:disabled {
-      opacity: 0.6;
+    .cancel {
+      background: #777;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: none;
     }
 
     .search {
-      width: 100%;
       margin-bottom: 15px;
     }
 
@@ -141,6 +155,16 @@
 
     th {
       background: #f1f3f5;
+    }
+
+    .edit {
+      background: #1565c0;
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-right: 5px;
     }
 
     .delete {
@@ -168,25 +192,6 @@
       background: #ffdede;
       color: #a00000;
     }
-
-    .loading {
-      text-align: center;
-      padding: 20px;
-    }
-
-    @media (max-width: 600px) {
-      .container {
-        padding: 12px;
-      }
-
-      .box {
-        padding: 15px;
-      }
-
-      header h1 {
-        font-size: 17px;
-      }
-    }
   </style>
 </head>
 
@@ -194,7 +199,9 @@
 
 <header>
 
-  <h1>Hope of the Word Ministry</h1>
+  <h1>
+    Hope of the Word Ministry
+  </h1>
 
   <button
     class="back"
@@ -224,8 +231,8 @@
     </div>
 
     <div
-      class="total-number"
-      id="totalMembers">
+      id="totalMembers"
+      class="total-number">
 
       0
 
@@ -234,17 +241,21 @@
   </div>
 
 
-  <!-- ADD MEMBER -->
+  <!-- MEMBER FORM -->
 
   <div class="box">
 
-    <h2>Add Church Member</h2>
+    <h2 id="formTitle">
+      Add Church Member
+    </h2>
 
     <div class="grid">
 
       <div>
 
-        <label>Full Name</label>
+        <label>
+          Full Name
+        </label>
 
         <input
           id="full_name"
@@ -256,7 +267,9 @@
 
       <div>
 
-        <label>Phone Number</label>
+        <label>
+          Phone Number
+        </label>
 
         <input
           id="phone"
@@ -268,7 +281,9 @@
 
       <div>
 
-        <label>Gender</label>
+        <label>
+          Gender
+        </label>
 
         <select id="gender">
 
@@ -291,7 +306,9 @@
 
       <div>
 
-        <label>Date of Birth</label>
+        <label>
+          Date of Birth
+        </label>
 
         <input
           id="date_of_birth"
@@ -302,7 +319,9 @@
 
       <div class="full">
 
-        <label>Address</label>
+        <label>
+          Address
+        </label>
 
         <input
           id="address"
@@ -314,7 +333,9 @@
 
       <div>
 
-        <label>Membership Status</label>
+        <label>
+          Membership Status
+        </label>
 
         <select id="membership_status">
 
@@ -337,23 +358,39 @@
     </div>
 
 
-    <button
-      class="save"
-      id="saveButton"
-      onclick="addMember()">
+    <div class="buttons">
 
-      Add Member
+      <button
+        class="save"
+        id="saveButton"
+        onclick="saveMember()">
 
-    </button>
+        Add Member
+
+      </button>
+
+
+      <button
+        class="cancel"
+        id="cancelButton"
+        onclick="cancelEdit()">
+
+        Cancel
+
+      </button>
+
+    </div>
 
   </div>
 
 
-  <!-- MEMBER LIST -->
+  <!-- MEMBERS LIST -->
 
   <div class="box">
 
-    <h2>Church Members</h2>
+    <h2>
+      Church Members
+    </h2>
 
     <input
       id="search"
@@ -371,17 +408,38 @@
 
           <tr>
 
-            <th>Name</th>
-            <th>Phone</th>
-            <th>Gender</th>
-            <th>Date of Birth</th>
-            <th>Address</th>
-            <th>Status</th>
-            <th>Action</th>
+            <th>
+              Name
+            </th>
+
+            <th>
+              Phone
+            </th>
+
+            <th>
+              Gender
+            </th>
+
+            <th>
+              Date of Birth
+            </th>
+
+            <th>
+              Address
+            </th>
+
+            <th>
+              Status
+            </th>
+
+            <th>
+              Action
+            </th>
 
           </tr>
 
         </thead>
+
 
         <tbody id="membersList">
 
@@ -399,15 +457,21 @@
 <script>
 
 /* ==================================
-   SUPABASE CONNECTION
+   SUPABASE
 ================================== */
 
 const SUPABASE_URL =
   "https://lcrhoossfgxpktrvwdtj.supabase.co";
 
 
+/*
+  IMPORTANT:
+  Put your CURRENT WORKING
+  Supabase publishable key here.
+*/
+
 const SUPABASE_KEY =
-  "sb_publishable_KPNyDlm7lteOz0f1bivVAw_CbTAGbtH";
+  "PASTE_YOUR_PUBLISHABLE_KEY_HERE";
 
 
 const supabaseClient =
@@ -418,7 +482,7 @@ const supabaseClient =
 
 
 /* ==================================
-   DATABASE TABLE
+   TABLE
 ================================== */
 
 const TABLE_NAME =
@@ -426,6 +490,13 @@ const TABLE_NAME =
 
 
 let allMembers = [];
+
+
+/*
+  This stores the member being edited.
+*/
+
+let editingMemberId = null;
 
 
 /* ==================================
@@ -444,7 +515,7 @@ async function loadMembers() {
     <tr>
       <td
         colspan="7"
-        class="loading">
+        style="text-align:center;padding:20px;">
 
         Loading members...
 
@@ -467,18 +538,11 @@ async function loadMembers() {
 
   if (error) {
 
-    console.error(
-      "Load members error:",
-      error
-    );
-
-
     showMessage(
       "Could not load members: " +
       error.message,
       "error"
     );
-
 
     return;
   }
@@ -487,10 +551,6 @@ async function loadMembers() {
   allMembers =
     data || [];
 
-
-  /*
-    TOTAL MEMBERS
-  */
 
   document.getElementById(
     "totalMembers"
@@ -528,7 +588,6 @@ function displayMembers(
 
     list.innerHTML = `
       <tr>
-
         <td
           colspan="7"
           style="text-align:center;padding:20px;">
@@ -536,7 +595,6 @@ function displayMembers(
           No members found.
 
         </td>
-
       </tr>
     `;
 
@@ -552,15 +610,6 @@ function displayMembers(
           "tr"
         );
 
-
-      /*
-        Your actual column is:
-
-        phone number
-
-        Because there is a space,
-        we use bracket notation.
-      */
 
       const phone =
         member["phone number"] || "";
@@ -607,6 +656,14 @@ function displayMembers(
         <td>
 
           <button
+            class="edit"
+            onclick="editMember('${member.id}')">
+
+            Edit
+
+          </button>
+
+          <button
             class="delete"
             onclick="deleteMember('${member.id}')">
 
@@ -630,10 +687,10 @@ function displayMembers(
 
 
 /* ==================================
-   ADD MEMBER
+   SAVE OR UPDATE MEMBER
 ================================== */
 
-async function addMember() {
+async function saveMember() {
 
   const fullName =
     document.getElementById(
@@ -691,7 +748,9 @@ async function addMember() {
   button.disabled = true;
 
   button.textContent =
-    "Saving...";
+    editingMemberId
+      ? "Updating..."
+      : "Saving...";
 
 
   const memberData = {
@@ -712,41 +771,72 @@ async function addMember() {
       address,
 
     membership_status:
-      status,
-
-    created_at:
-      new Date().toISOString()
+      status
 
   };
 
 
-  const { error } =
-    await supabaseClient
-      .from(TABLE_NAME)
-      .insert(
-        memberData
-      );
+  let result;
+
+
+  /*
+    UPDATE EXISTING MEMBER
+  */
+
+  if (editingMemberId) {
+
+    result =
+      await supabaseClient
+        .from(TABLE_NAME)
+        .update(
+          memberData
+        )
+        .eq(
+          "id",
+          editingMemberId
+        );
+
+
+  } else {
+
+
+    /*
+      ADD NEW MEMBER
+    */
+
+    memberData.created_at =
+      new Date().toISOString();
+
+
+    result =
+      await supabaseClient
+        .from(TABLE_NAME)
+        .insert(
+          memberData
+        );
+
+  }
 
 
   button.disabled = false;
 
-  button.textContent =
-    "Add Member";
 
-
-  if (error) {
-
-    console.error(
-      "Add member error:",
-      error
-    );
-
+  if (result.error) {
 
     showMessage(
-      "Could not add member: " +
-      error.message,
+      editingMemberId
+        ? "Could not update member: " +
+          result.error.message
+        : "Could not add member: " +
+          result.error.message,
       "error"
     );
+
+
+    button.textContent =
+      editingMemberId
+        ? "Update Member"
+        : "Add Member";
 
 
     return;
@@ -754,9 +844,135 @@ async function addMember() {
 
 
   showMessage(
-    "Member added successfully.",
+    editingMemberId
+      ? "Member updated successfully."
+      : "Member added successfully.",
     "success"
   );
+
+
+  resetForm();
+
+
+  await loadMembers();
+
+}
+
+
+/* ==================================
+   EDIT MEMBER
+================================== */
+
+function editMember(
+  id
+) {
+
+  const member =
+    allMembers.find(
+      function(item) {
+
+        return item.id === id;
+
+      }
+    );
+
+
+  if (!member) {
+
+    showMessage(
+      "Member not found.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  editingMemberId =
+    id;
+
+
+  document.getElementById(
+    "full_name"
+  ).value =
+    member.full_name || "";
+
+
+  document.getElementById(
+    "phone"
+  ).value =
+    member["phone number"] || "";
+
+
+  document.getElementById(
+    "gender"
+  ).value =
+    member.gender || "";
+
+
+  document.getElementById(
+    "date_of_birth"
+  ).value =
+    member.date_of_birth || "";
+
+
+  document.getElementById(
+    "address"
+  ).value =
+    member.address || "";
+
+
+  document.getElementById(
+    "membership_status"
+  ).value =
+    member.membership_status || "Active";
+
+
+  document.getElementById(
+    "formTitle"
+  ).textContent =
+    "Edit Church Member";
+
+
+  document.getElementById(
+    "saveButton"
+  ).textContent =
+    "Update Member";
+
+
+  document.getElementById(
+    "cancelButton"
+  ).style.display =
+    "inline-block";
+
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+}
+
+
+/* ==================================
+   CANCEL EDIT
+================================== */
+
+function cancelEdit() {
+
+  resetForm();
+
+}
+
+
+/* ==================================
+   RESET FORM
+================================== */
+
+function resetForm() {
+
+  editingMemberId =
+    null;
 
 
   document.getElementById(
@@ -789,7 +1005,22 @@ async function addMember() {
   ).value = "Active";
 
 
-  await loadMembers();
+  document.getElementById(
+    "formTitle"
+  ).textContent =
+    "Add Church Member";
+
+
+  document.getElementById(
+    "saveButton"
+  ).textContent =
+    "Add Member";
+
+
+  document.getElementById(
+    "cancelButton"
+  ).style.display =
+    "none";
 
 }
 
@@ -831,7 +1062,6 @@ async function deleteMember(
       "error"
     );
 
-
     return;
   }
 
@@ -848,7 +1078,7 @@ async function deleteMember(
 
 
 /* ==================================
-   SEARCH MEMBERS
+   SEARCH
 ================================== */
 
 function filterMembers() {
