@@ -306,7 +306,98 @@ Login
 
 <script>
 
-function login(event){
+async function login(event) {
+
+  event.preventDefault();
+
+  const email =
+    document.getElementById("email").value.trim();
+
+  const password =
+    document.getElementById("password").value;
+
+  if (!email || !password) {
+    alert("Please enter your email and password.");
+    return;
+  }
+
+  try {
+
+    // Sign in with Supabase
+    const { data, error } =
+      await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: password
+      });
+
+    if (error) {
+      alert(error.message);
+      return;
+    }
+
+    // Find the user's role
+    const { data: profile, error: profileError } =
+      await supabaseClient
+        .from("user_profiles")
+        .select("full_name, email, role")
+        .eq("email", email)
+        .single();
+
+    if (profileError || !profile) {
+      alert(
+        "Your account is created, but your church profile has not been assigned yet."
+      );
+
+      await supabaseClient.auth.signOut();
+      return;
+    }
+
+    const role = profile.role;
+
+    // Save login information
+    localStorage.setItem(
+      "user_profile",
+      JSON.stringify(profile)
+    );
+
+    // Send user to the appropriate dashboard
+    if (role === "administrator") {
+
+      window.location.href =
+        "dashboard.html";
+
+    } else if (role === "pastor") {
+
+      window.location.href =
+        "dashboard.html";
+
+    } else if (role === "secretary") {
+
+      window.location.href =
+        "dashboard.html";
+
+    } else if (role === "treasurer") {
+
+      window.location.href =
+        "dashboard.html";
+
+    } else {
+
+      alert("Your account has an invalid role.");
+
+      await supabaseClient.auth.signOut();
+    }
+
+  } catch (error) {
+
+    alert(
+      "Something went wrong: " +
+      error.message
+    );
+
+  }
+
+}
 
 event.preventDefault();
 
