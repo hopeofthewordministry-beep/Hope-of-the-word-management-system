@@ -2,590 +2,396 @@
 <html lang="en">
 
 <head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>
-Hope of the Word Ministry
-</title>
-
-<style>
-
-*{
-box-sizing:border-box;
-margin:0;
-padding:0;
-font-family:Arial,sans-serif;
-}
-
-body{
-
-min-height:100vh;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-background:linear-gradient(
-135deg,
-#123b5d,
-#1d607d
-);
-
-padding:20px;
-
-}
-
-.login-box{
-
-width:100%;
-
-max-width:430px;
-
-background:white;
-
-padding:35px;
-
-border-radius:18px;
-
-box-shadow:
-0 15px 40px
-rgba(0,0,0,.25);
-
-}
-
-.logo{
-
-width:80px;
-
-height:80px;
-
-margin:0 auto 20px;
-
-background:#123b5d;
-
-color:white;
-
-border-radius:50%;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-font-size:35px;
-
-}
-
-h1{
-
-text-align:center;
-
-color:#123b5d;
-
-font-size:23px;
-
-}
-
-.subtitle{
-
-text-align:center;
-
-color:#777;
-
-font-size:13px;
-
-margin:8px 0 28px;
-
-}
-
-label{
-
-display:block;
-
-font-weight:bold;
-
-font-size:14px;
-
-margin-bottom:7px;
-
-}
-
-select,
-input{
-
-width:100%;
-
-padding:14px;
-
-border:1px solid #ccc;
-
-border-radius:8px;
-
-margin-bottom:18px;
-
-font-size:15px;
-
-background:white;
-
-}
-
-button{
-
-width:100%;
-
-padding:14px;
-
-background:#123b5d;
-
-color:white;
-
-border:none;
-
-border-radius:8px;
-
-font-size:16px;
-
-font-weight:bold;
-
-cursor:pointer;
-
-}
-
-button:hover{
-
-background:#0d2d46;
-
-}
-
-#error{
-
-display:none;
-
-background:#fee2e2;
-
-color:#b91c1c;
-
-padding:12px;
-
-border-radius:8px;
-
-text-align:center;
-
-margin-bottom:18px;
-
-font-size:13px;
-
-}
-
-.footer{
-
-text-align:center;
-
-color:#888;
-
-font-size:12px;
-
-margin-top:25px;
-
-}
-
-</style>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Hope of the Word Ministry</title>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+  </script>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .login-box {
+      width: 92%;
+      max-width: 420px;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .logo h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .logo p {
+      margin-top: 8px;
+      color: #666;
+    }
+
+    label {
+      display: block;
+      margin-top: 16px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 13px;
+      margin-top: 22px;
+      border: none;
+      border-radius: 6px;
+      background: #123b5d;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+    }
+
+    .signup {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .signup a {
+      color: #123b5d;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    #message {
+      margin-top: 15px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+  </style>
 
 </head>
 
 
 <body>
 
+  <div class="login-box">
 
-<div class="login-box">
+    <div class="logo">
 
+      <h1>Hope of the Word Ministry</h1>
 
-<div class="logo">
-⛪
-</div>
+      <p>Management System</p>
 
-
-<h1>
-Hope of the Word Ministry
-</h1>
+    </div>
 
 
-<p class="subtitle">
-Church Management System
-</p>
+    <form id="loginForm">
+
+      <label for="email">
+        Email Address
+      </label>
+
+      <input
+        type="email"
+        id="email"
+        placeholder="Enter your email"
+        required
+      >
 
 
-<div id="error">
-Incorrect login details.
-</div>
+      <label for="password">
+        Password
+      </label>
+
+      <input
+        type="password"
+        id="password"
+        placeholder="Enter your password"
+        required
+      >
 
 
-<form onsubmit="login(event)">
+      <button
+        type="submit"
+        id="loginButton"
+      >
+        Login
+      </button>
+
+    </form>
 
 
-<label>
-Login as
-</label>
+    <div id="message"></div>
 
 
-<select id="role" required>
+    <div class="signup">
 
-<option value="">
-Select your role
-</option>
+      Don't have an account?
 
-<option value="pastor">
-Pastor
-</option>
+      <a href="signup.html">
+        Create an Account
+      </a>
 
-<option value="secretary">
-Secretary
-</option>
+    </div>
 
-<option value="treasurer">
-Treasurer
-</option>
-
-<option value="admin">
-Administrator
-</option>
-
-</select>
-
-
-<label>
-email address 
-</label>
-
-
-<input
-type="text"
-id="email"
-placeholder="Enter email"
-required
->
-
-
-<label>
-Password
-</label>
-
-
-<input
-type="password"
-id="password"
-placeholder="Enter password"
-required
->
-
-
-<button type="submit">
-Login
-</button>
-<div style="text-align:center; margin-top:15px;">
-  <a href="signup.html">Create an Account</a>
-</div>
-
-</form>
-
-
-<div class="footer">
-© 2026 Hope of the Word Ministry
-</div>
-
-
-</div>
+  </div>
 
 
 <script>
 
-async function login(event) {async function login(event) {
-  event.preventDefault();
 
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
+/* =========================================
+   SUPABASE CONNECTION
+   ========================================= */
 
-  if (!email || !password) {
-    alert("Please enter your email and password.");
-    return;
-  }
+const SUPABASE_URL =
+  "YOUR_EXISTING_SUPABASE_URL";
 
-  try {
-    const { data, error } =
-      await supabaseClient.auth.signInWithPassword({
-        email: email,
-        password: password
-      });
+const SUPABASE_KEY =
+  "YOUR_EXISTING_SUPABASE_KEY";
 
-    if (error) {
-      alert(error.message);
-      return;
+
+const supabaseClient =
+  supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+
+/* =========================================
+   LOGIN
+   ========================================= */
+
+document
+  .getElementById("loginForm")
+  .addEventListener(
+    "submit",
+    async function(event) {
+
+      event.preventDefault();
+
+
+      const email =
+        document
+          .getElementById("email")
+          .value
+          .trim();
+
+
+      const password =
+        document
+          .getElementById("password")
+          .value;
+
+
+      const button =
+        document
+          .getElementById("loginButton");
+
+
+      const message =
+        document
+          .getElementById("message");
+
+
+      if (!email || !password) {
+
+        message.textContent =
+          "Please enter your email and password.";
+
+        return;
+      }
+
+
+      button.disabled = true;
+
+      button.textContent =
+        "Logging in...";
+
+
+      message.textContent = "";
+
+
+      try {
+
+
+        /* SIGN IN */
+
+        const {
+          data: authData,
+          error: authError
+        } =
+          await supabaseClient.auth
+            .signInWithPassword({
+
+              email: email,
+
+              password: password
+
+            });
+
+
+        if (authError) {
+
+          message.textContent =
+            authError.message;
+
+          button.disabled = false;
+
+          button.textContent =
+            "Login";
+
+          return;
+        }
+
+
+        if (!authData.user) {
+
+          message.textContent =
+            "Login failed.";
+
+          button.disabled = false;
+
+          button.textContent =
+            "Login";
+
+          return;
+        }
+
+
+        /* GET PROFILE */
+
+        const {
+          data: profile,
+          error: profileError
+        } =
+          await supabaseClient
+            .from("user_profiles")
+            .select(
+              "id, full_name, email, role, status, auth_user_id, phone"
+            )
+            .eq(
+              "auth_user_id",
+              authData.user.id
+            )
+            .single();
+
+
+        if (profileError) {
+
+          console.error(
+            "Profile error:",
+            profileError
+          );
+
+          message.textContent =
+            "Login successful, but your profile could not be found.";
+
+          await supabaseClient.auth.signOut();
+
+          button.disabled = false;
+
+          button.textContent =
+            "Login";
+
+          return;
+        }
+
+
+        /* CHECK APPROVAL */
+
+        if (
+          profile.status !==
+          "approved"
+        ) {
+
+          message.textContent =
+            "Your account is still pending Administrator approval.";
+
+          await supabaseClient.auth.signOut();
+
+          button.disabled = false;
+
+          button.textContent =
+            "Login";
+
+          return;
+        }
+
+
+        /* SAVE PROFILE */
+
+        localStorage.setItem(
+          "user_profile",
+          JSON.stringify(profile)
+        );
+
+
+        /* OPEN DASHBOARD */
+
+        window.location.href =
+          "dashboard.html";
+
+      }
+
+      catch (error) {
+
+        console.error(
+          "Login error:",
+          error
+        );
+
+        message.textContent =
+          "Something went wrong: " +
+          error.message;
+
+        button.disabled = false;
+
+        button.textContent =
+          "Login";
+      }
+
     }
+  );
 
-    const { data: profile, error: profileError } =
-      await supabaseClient
-        .from("user_profiles")
-        .select("full_name, email, role, status")
-        .eq("email", email)
-        .single();
-
-    if (profileError || !profile) {
-      alert("Your profile could not be found.");
-      return;
-    }
-
-    if (profile.status !== "approved") {
-      alert("Your account is still pending Administrator approval.");
-      await supabaseClient.auth.signOut();
-      return;
-    }
-
-    localStorage.setItem(
-      "user_profile",
-      JSON.stringify(profile)
-    );
-
-    window.location.href = "dashboard.html";
-
-  } catch (error) {
-    alert("Login error: " + error.message);
-  }
-}
-  event.preventDefault();
-
-  const email =
-    document.getElementById("email").value.trim();
-
-  const password =
-    document.getElementById("password").value;
-
-  if (!email || !password) {
-    alert("Please enter your email and password.");
-    return;
-  }
-
-  try {
-    const { data, error } =
-      await supabaseClient.auth.signInWithPassword({
-        email: email,
-        password: password
-      });
-
-    if (error) {
-      alert(error.message);
-      return;
-    }
-
-    const { data: profile, error: profileError } =
-      await supabaseClient
-        .from("user_profiles")
-        .select("full_name, email, role, status")
-        .eq("email", email)
-        .single();
-
-    if (profileError || !profile) {
-      alert("Your profile could not be found.");
-      await supabaseClient.auth.signOut();
-      return;
-    }
-
-    if (profile.status !== "approved") {
-      alert(
-        "Your account is still pending Administrator approval."
-      );
-
-      await supabaseClient.auth.signOut();
-      return;
-    }
-
-    localStorage.setItem(
-      "user_profile",
-      JSON.stringify(profile)
-    );
-
-    window.location.href = "dashboard.html";
-
-  } catch (error) {
-    alert("Login error: " + error.message);
-  }
-}
-  event.preventDefault();
-
-  const email =
-    document.getElementById("email").value.trim();
-
-  const password =
-    document.getElementById("password").value;
-
-  if (!email || !password) {
-    alert("Please enter your email and password.");
-    return;
-  }
-
-  try {
-
-    // Sign in with Supabase
-    const { data, error } =
-      await supabaseClient.auth.signInWithPassword({
-        email: email,
-        password: password
-      });
-
-    if (error) {
-      alert(error.message);
-      return;
-    }
-
-    // Find the user's role
-    const { data: profile, error: profileError } =
-      await supabaseClient
-        .from("user_profiles")
-        .select("full_name, email, role")
-        .eq("email", email)
-        .single();
-
-    if (profileError || !profile) {
-      alert(
-        "Your account is created, but your church profile has not been assigned yet."
-      );
-
-      await supabaseClient.auth.signOut();
-      return;
-    }
-
-    const role = profile.role;
-
-    // Save login information
-    localStorage.setItem(
-      "user_profile",
-      JSON.stringify(profile)
-    );
-
-    // Send user to the appropriate dashboard
-    if (role === "administrator") {
-
-      window.location.href =
-        "dashboard.html";
-
-    } else if (role === "pastor") {
-
-      window.location.href =
-        "dashboard.html";
-
-    } else if (role === "secretary") {
-
-      window.location.href =
-        "dashboard.html";
-
-    } else if (role === "treasurer") {
-
-      window.location.href =
-        "dashboard.html";
-
-    } else {
-
-      alert("Your account has an invalid role.");
-
-      await supabaseClient.auth.signOut();
-    }
-
-  } catch (error) {
-
-    alert(
-      "Something went wrong: " +
-      error.message
-    );
-
-  }
-
-}
-
-event.preventDefault();
-
-const role =
-document.getElementById("role").value;
-
-const email =
-document.getElementById("email").value.trim();
-
-const password =
-document.getElementById("password").value;
-
-
-/* CHURCH ACCOUNTS */
-
-const accounts = {
-
-pastor:{
-username:"pastor",
-password:"pastor123"
-},
-
-secretary:{
-username:"secretary",
-password:"secretary123"
-},
-
-treasurer:{
-username:"treasurer",
-password:"treasurer123"
-},
-
-admin:{
-username:"admin",
-password:"admin123"
-}
-
-};
-
-
-/* CHECK LOGIN */
-
-if(
-
-accounts[role] &&
-
-accounts[role].username === username &&
-
-accounts[role].password === password
-
-){
-
-localStorage.setItem(
-"churchRole",
-role
-);
-
-localStorage.setItem(
-"churchUser",
-username
-);
-
-window.location.href =
-"dashboard.html";
-
-}
-
-else{
-
-document.getElementById(
-"error"
-).style.display =
-"block";
-
-}
-
-}
 
 </script>
-
 
 </body>
 
