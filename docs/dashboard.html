@@ -4,456 +4,750 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Dashboard - Hope of the Word Ministry</title>
+  <title>Administrator Dashboard | Hope of the Word Ministry</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
     * {
       box-sizing: border-box;
-      font-family: Arial, sans-serif;
     }
 
     body {
       margin: 0;
+      font-family: Arial, sans-serif;
       background: #f4f6f9;
-      color: #222;
+      color: #1f2937;
     }
 
-    header {
+    .layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* SIDEBAR */
+
+    .sidebar {
+      width: 250px;
       background: #123b5d;
       color: white;
-      padding: 18px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      padding: 22px 15px;
+      z-index: 1000;
     }
 
-    header h1 {
+    .brand {
+      text-align: center;
+      padding: 10px 5px 25px;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .brand h2 {
       margin: 0;
-      font-size: 20px;
+      font-size: 19px;
+    }
+
+    .brand p {
+      margin: 7px 0 0;
+      font-size: 12px;
+      opacity: 0.8;
+    }
+
+    .menu {
+      margin-top: 25px;
+    }
+
+    .menu button {
+      width: 100%;
+      border: none;
+      background: transparent;
+      color: white;
+      text-align: left;
+      padding: 13px 14px;
+      margin-bottom: 5px;
+      border-radius: 7px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .menu button:hover,
+    .menu button.active {
+      background: rgba(255,255,255,0.15);
     }
 
     .logout {
-      background: white;
-      color: #123b5d;
+      position: absolute;
+      bottom: 25px;
+      left: 15px;
+      right: 15px;
+    }
+
+    .logout button {
+      width: 100%;
+      padding: 12px;
       border: none;
-      padding: 9px 14px;
-      border-radius: 6px;
+      border-radius: 7px;
+      background: #b42318;
+      color: white;
       cursor: pointer;
     }
 
-    .container {
-      max-width: 1100px;
-      margin: auto;
-      padding: 20px;
+    /* MAIN */
+
+    .main {
+      margin-left: 250px;
+      width: calc(100% - 250px);
+      min-height: 100vh;
+    }
+
+    .topbar {
+      background: white;
+      padding: 16px 25px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.08);
+    }
+
+    .topbar h3 {
+      margin: 0;
+    }
+
+    .menu-btn {
+      display: none;
+      border: none;
+      background: #123b5d;
+      color: white;
+      padding: 9px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    .content {
+      padding: 25px;
     }
 
     .welcome {
       background: white;
-      padding: 20px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 22px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
 
-    .welcome h2 {
-      margin: 0 0 8px;
-      color: #123b5d;
+    .welcome h1 {
+      margin: 0 0 7px;
+      font-size: 25px;
     }
 
     .welcome p {
       margin: 0;
-      color: #666;
+      color: #6b7280;
     }
 
-    .cards {
+    /* STATISTICS */
+
+    .stats {
       display: grid;
-      grid-template-columns: repeat(
-        auto-fit,
-        minmax(220px, 1fr)
-      );
+      grid-template-columns: repeat(4, 1fr);
       gap: 18px;
       margin-bottom: 25px;
     }
 
-    .card {
+    .stat-card {
       background: white;
       padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,.08);
-      cursor: pointer;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
 
-    .card:hover {
-      transform: translateY(-2px);
-    }
-
-    .card-title {
-      font-size: 15px;
-      color: #666;
+    .stat-title {
+      color: #6b7280;
+      font-size: 13px;
       margin-bottom: 10px;
     }
 
-    .card-number {
-      font-size: 34px;
+    .stat-number {
+      font-size: 30px;
       font-weight: bold;
       color: #123b5d;
     }
 
-    .card-button {
-      margin-top: 12px;
+    /* SECTIONS */
+
+    .section {
+      background: white;
+      padding: 22px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .section-header h2 {
+      margin: 0;
+      font-size: 19px;
+    }
+
+    .refresh-btn {
+      border: none;
       background: #123b5d;
       color: white;
-      border: none;
       padding: 9px 14px;
       border-radius: 6px;
       cursor: pointer;
     }
 
-    .menu {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,.08);
-    }
+    /* USER CARDS */
 
-    .menu h2 {
-      color: #123b5d;
-      margin-top: 0;
-    }
-
-    .menu-grid {
+    .user-list {
       display: grid;
-      grid-template-columns: repeat(
-        auto-fit,
-        minmax(180px, 1fr)
-      );
       gap: 12px;
     }
 
-    .menu-item {
-      padding: 15px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      cursor: pointer;
-      background: #fafafa;
+    .user-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 9px;
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
     }
 
-    .menu-item:hover {
-      background: #f0f3f6;
+    .user-info h3 {
+      margin: 0 0 5px;
+      font-size: 16px;
+    }
+
+    .user-info p {
+      margin: 3px 0;
+      color: #6b7280;
+      font-size: 13px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .approve-btn,
+    .reject-btn {
+      border: none;
+      color: white;
+      padding: 9px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .approve-btn {
+      background: #16803c;
+    }
+
+    .reject-btn {
+      background: #b42318;
+    }
+
+    .approve-btn:disabled,
+    .reject-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* BADGES */
+
+    .badge {
+      display: inline-block;
+      padding: 4px 9px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: bold;
+      margin-top: 4px;
+    }
+
+    .pending {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    .approved {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .rejected {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .role {
+      background: #e5eef5;
+      color: #123b5d;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 25px;
+      color: #6b7280;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 20px;
+      color: #6b7280;
     }
 
     .error {
-      background: #ffdede;
-      color: #a00000;
+      background: #fee2e2;
+      color: #991b1b;
       padding: 12px;
-      border-radius: 6px;
+      border-radius: 7px;
       margin-bottom: 15px;
-      display: none;
     }
 
-    @media (max-width: 600px) {
+    /* MOBILE */
 
-      .container {
-        padding: 12px;
-      }
+    @media (max-width: 900px) {
 
-      header h1 {
-        font-size: 17px;
-      }
-
-      .card-number {
-        font-size: 30px;
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
       }
 
     }
+
+    @media (max-width: 700px) {
+
+      .sidebar {
+        transform: translateX(-100%);
+        transition: 0.3s;
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .main {
+        margin-left: 0;
+        width: 100%;
+      }
+
+      .menu-btn {
+        display: block;
+      }
+
+      .topbar {
+        padding: 13px 16px;
+      }
+
+      .content {
+        padding: 15px;
+      }
+
+      .stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .stat-card {
+        padding: 15px;
+      }
+
+      .stat-number {
+        font-size: 25px;
+      }
+
+      .user-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .actions {
+        width: 100%;
+      }
+
+      .approve-btn,
+      .reject-btn {
+        flex: 1;
+      }
+
+      .welcome h1 {
+        font-size: 21px;
+      }
+
+    }
+
+    @media (max-width: 420px) {
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
   </style>
 </head>
 
 <body>
 
-<header>
+<div class="layout">
 
-  <h1>
-    Hope of the Word Ministry
-  </h1>
+  <!-- SIDEBAR -->
 
-  <button
-    class="logout"
-    onclick="logout()">
+  <aside class="sidebar" id="sidebar">
 
-    Logout
+    <div class="brand">
+      <h2>Hope of the Word</h2>
+      <p>Ministry Management System</p>
+    </div>
 
-  </button>
+    <div class="menu">
 
-</header>
+      <button class="active" onclick="showSection('dashboardSection', this)">
+        🏠 Dashboard
+      </button>
 
+      <button onclick="showSection('pendingSection', this)">
+        ⏳ Pending Approvals
+      </button>
 
-<div class="container">
+      <button onclick="showSection('usersSection', this)">
+        👥 Users
+      </button>
 
+      <button onclick="showSection('activitiesSection', this)">
+        ⛪ Church Activities
+      </button>
 
-  <!-- ERROR MESSAGE -->
+      <button onclick="showSection('eventsSection', this)">
+        📅 Events
+      </button>
 
-  <div
-    id="errorMessage"
-    class="error">
-  </div>
+      <button onclick="showSection('financeSection', this)">
+        💰 Finance
+      </button>
 
+      <button onclick="showSection('announcementsSection', this)">
+        📢 Announcements
+      </button>
 
-  <!-- WELCOME -->
-
-  <div class="welcome">
-
-    <h2>
-      Dashboard
-    </h2>
-
-    <p>
-      Welcome to Hope of the Word Ministry Management System.
-    </p>
-
-  </div>
-
-
-  <!-- DASHBOARD CARDS -->
-
-  <div class="cards">
-
-
-    <!-- TOTAL MEMBERS -->
-
-    <div
-      class="card"
-      onclick="openMembers()">
-
-      <div class="card-title">
-        Total Church Members
-      </div>
-
-      <div
-        id="totalMembers"
-        class="card-number">
-
-        0
-
-      </div>
-
-      <button
-        class="card-button"
-        onclick="event.stopPropagation(); openMembers()">
-
-        View Members
-
+      <button onclick="showSection('settingsSection', this)">
+        ⚙️ Settings
       </button>
 
     </div>
 
+    <div class="logout">
+      <button onclick="logout()">
+        🚪 Logout
+      </button>
+    </div>
 
-    <!-- ATTENDANCE -->
+  </aside>
 
-    <div class="card">
 
-      <div class="card-title">
-        Attendance
-      </div>
+  <!-- MAIN -->
 
-      <div class="card-number">
-        -
-      </div>
+  <main class="main">
+
+    <header class="topbar">
 
       <button
-        class="card-button"
-        onclick="comingSoon()">
-
-        Open Attendance
-
+        class="menu-btn"
+        onclick="toggleSidebar()"
+      >
+        ☰
       </button>
 
+      <h3>Administrator Dashboard</h3>
+
+      <span id="topUserName">
+        Administrator
+      </span>
+
+    </header>
+
+
+    <div class="content">
+
+
+      <!-- DASHBOARD -->
+
+      <section
+        id="dashboardSection"
+        class="dashboard-section"
+      >
+
+        <div class="welcome">
+
+          <h1>
+            Welcome, <span id="welcomeName">
+              Administrator
+            </span>
+          </h1>
+
+          <p>
+            Manage Hope of the Word Ministry from your dashboard.
+          </p>
+
+        </div>
+
+
+        <!-- STATISTICS -->
+
+        <div class="stats">
+
+          <div class="stat-card">
+            <div class="stat-title">
+              Total Users
+            </div>
+
+            <div
+              class="stat-number"
+              id="totalUsers"
+            >
+              0
+            </div>
+          </div>
+
+
+          <div class="stat-card">
+            <div class="stat-title">
+              Pastors
+            </div>
+
+            <div
+              class="stat-number"
+              id="totalPastors"
+            >
+              0
+            </div>
+          </div>
+
+
+          <div class="stat-card">
+            <div class="stat-title">
+              Secretaries
+            </div>
+
+            <div
+              class="stat-number"
+              id="totalSecretaries"
+            >
+              0
+            </div>
+          </div>
+
+
+          <div class="stat-card">
+            <div class="stat-title">
+              Treasurers
+            </div>
+
+            <div
+              class="stat-number"
+              id="totalTreasurers"
+            >
+              0
+            </div>
+          </div>
+
+        </div>
+
+
+        <!-- PENDING PREVIEW -->
+
+        <div class="section">
+
+          <div class="section-header">
+
+            <h2>
+              Pending Account Requests
+            </h2>
+
+            <button
+              class="refresh-btn"
+              onclick="loadAllData()"
+            >
+              Refresh
+            </button>
+
+          </div>
+
+          <div
+            id="dashboardPendingUsers"
+            class="user-list"
+          >
+            <div class="loading">
+              Loading...
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- PENDING APPROVALS -->
+
+      <section
+        id="pendingSection"
+        class="section"
+        style="display:none;"
+      >
+
+        <div class="section-header">
+
+          <h2>
+            Pending Account Approvals
+          </h2>
+
+          <button
+            class="refresh-btn"
+            onclick="loadAllData()"
+          >
+            Refresh
+          </button>
+
+        </div>
+
+        <div
+          id="pendingUsers"
+          class="user-list"
+        >
+          <div class="loading">
+            Loading...
+          </div>
+        </div>
+
+      </section>
+
+
+      <!-- ALL USERS -->
+
+      <section
+        id="usersSection"
+        class="section"
+        style="display:none;"
+      >
+
+        <div class="section-header">
+
+          <h2>
+            All Users
+          </h2>
+
+          <button
+            class="refresh-btn"
+            onclick="loadAllData()"
+          >
+            Refresh
+          </button>
+
+        </div>
+
+        <div
+          id="allUsers"
+          class="user-list"
+        >
+          <div class="loading">
+            Loading...
+          </div>
+        </div>
+
+      </section>
+
+
+      <!-- PLACEHOLDER SECTIONS -->
+
+      <section
+        id="activitiesSection"
+        class="section"
+        style="display:none;"
+      >
+        <h2>Church Activities</h2>
+        <div class="empty">
+          Church activities management will be added here.
+        </div>
+      </section>
+
+
+      <section
+        id="eventsSection"
+        class="section"
+        style="display:none;"
+      >
+        <h2>Events</h2>
+        <div class="empty">
+          Events management will be added here.
+        </div>
+      </section>
+
+
+      <section
+        id="financeSection"
+        class="section"
+        style="display:none;"
+      >
+        <h2>Finance</h2>
+        <div class="empty">
+          Finance management will be added here.
+        </div>
+      </section>
+
+
+      <section
+        id="announcementsSection"
+        class="section"
+        style="display:none;"
+      >
+        <h2>Announcements</h2>
+        <div class="empty">
+          Announcements management will be added here.
+        </div>
+      </section>
+
+
+      <section
+        id="settingsSection"
+        class="section"
+        style="display:none;"
+      >
+        <h2>Settings</h2>
+        <div class="empty">
+          System settings will be added here.
+        </div>
+      </section>
+
+
     </div>
 
-
-    <!-- CONTRIBUTIONS -->
-
-    <div class="card">
-
-      <div class="card-title">
-        Contributions
-      </div>
-
-      <div class="card-number">
-        -
-      </div>
-
-      <button
-        class="card-button"
-        onclick="comingSoon()">
-
-        Open Contributions
-
-      </button>
-
-    </div>
-
-
-    <!-- REPORTS -->
-
-    <div class="card">
-
-      <div class="card-title">
-        Reports
-      </div>
-
-      <div class="card-number">
-        -
-      </div>
-
-      <button
-        class="card-button"
-        onclick="comingSoon()">
-
-        View Reports
-
-      </button>
-
-    </div>
-
-  </div>
-
-
-  <!-- QUICK MENU -->
-
-  <div class="menu">
-
-    <h2>
-      Quick Menu
-    </h2>
-
-
-    <div class="menu-grid">
-
-
-      <div
-        class="menu-item"
-        onclick="openMembers()">
-
-        <strong>
-          Members
-        </strong>
-
-        <br>
-
-        <small>
-          Add and manage church members
-        </small>
-
-      </div>
-
-
-      <div
-        class="menu-item"
-        onclick="comingSoon()">
-
-        <strong>
-          Attendance
-        </strong>
-
-        <br>
-
-        <small>
-          Record church attendance
-        </small>
-
-      </div>
-
-
-      <div
-        class="menu-item"
-        onclick="comingSoon()">
-
-        <strong>
-          Contributions
-        </strong>
-
-        <br>
-
-        <small>
-          Manage church contributions
-        </small>
-
-      </div>
-
-
-      <div
-        class="menu-item"
-        onclick="comingSoon()">
-
-        <strong>
-          Events
-        </strong>
-
-        <br>
-
-        <small>
-          Manage church events
-        </small>
-
-      </div>
-
-
-      <div
-        class="menu-item"
-        onclick="comingSoon()">
-
-        <strong>
-          Reports
-        </strong>
-
-        <br>
-
-        <small>
-          View church reports
-        </small>
-
-      </div>
-
-
-      <div
-        class="menu-item"
-        onclick="comingSoon()">
-
-        <strong>
-          Settings
-        </strong>
-
-        <br>
-
-        <small>
-          System settings
-        </small>
-
-      </div>
-
-    </div>
-
-  </div>
+  </main>
 
 </div>
 
 
 <script>
 
-/* ==================================
-   SUPABASE
-================================== */
+/* ==========================================
+   SUPABASE CONNECTION
+   ========================================== */
 
 const SUPABASE_URL =
-  "https://lcrhoossfgxpktrvwdtj.supabase.co";
-
+  "YOUR_EXISTING_SUPABASE_URL";
 
 const SUPABASE_KEY =
-  "sb_publishable_KPNyDlm7lteOz0f1bivVAw_CbTAGbtH";
-
+  "YOUR_EXISTING_SUPABASE_KEY";
 
 const supabaseClient =
   supabase.createClient(
@@ -462,265 +756,877 @@ const supabaseClient =
   );
 
 
-/* ==================================
-   TABLE
-================================== */
+/* ==========================================
+   PAGE START
+   ========================================== */
 
-const TABLE_NAME =
-  "church_members";
+document.addEventListener(
+  "DOMContentLoaded",
+  async function() {
+
+    await checkAdministrator();
+
+  }
+);
 
 
-/* ==================================
-   GET TOTAL MEMBERS
-================================== */
+/* ==========================================
+   CHECK ADMINISTRATOR
+   ========================================== */
 
-async function loadMemberCount() {
+async function checkAdministrator() {
 
-  const counter =
+  try {
+
+    const {
+      data: {
+        user
+      },
+      error: authError
+    } =
+      await supabaseClient.auth.getUser();
+
+
+    if (
+      authError ||
+      !user
+    ) {
+
+      window.location.href =
+        "index.html";
+
+      return;
+
+    }
+
+
+    const {
+      data: profile,
+      error: profileError
+    } =
+      await supabaseClient
+        .from("user_profiles")
+        .select(
+          "id, full_name, email, role, status, auth_user_id, phone"
+        )
+        .eq(
+          "auth_user_id",
+          user.id
+        )
+        .single();
+
+
+    if (
+      profileError ||
+      !profile
+    ) {
+
+      alert(
+        "Your profile could not be found."
+      );
+
+      await supabaseClient.auth.signOut();
+
+      window.location.href =
+        "index.html";
+
+      return;
+
+    }
+
+
+    if (
+      profile.role !==
+      "administrator"
+    ) {
+
+      alert(
+        "Administrator access is required."
+      );
+
+      await supabaseClient.auth.signOut();
+
+      window.location.href =
+        "index.html";
+
+      return;
+
+    }
+
+
+    if (
+      profile.status !==
+      "approved"
+    ) {
+
+      alert(
+        "Your account is not approved."
+      );
+
+      await supabaseClient.auth.signOut();
+
+      window.location.href =
+        "index.html";
+
+      return;
+
+    }
+
+
+    const displayName =
+      profile.full_name ||
+      "Administrator";
+
+
     document.getElementById(
-      "totalMembers"
-    );
+      "welcomeName"
+    ).textContent =
+      displayName;
 
 
-  counter.textContent =
-    "...";
+    document.getElementById(
+      "topUserName"
+    ).textContent =
+      displayName;
 
 
-  const { count, error } =
+    await loadAllData();
+
+  }
+
+  catch (error) {
+
+    console.error(error);
+
+    window.location.href =
+      "index.html";
+
+  }
+
+}
+
+
+/* ==========================================
+   LOAD ALL DATA
+   ========================================== */
+
+async function loadAllData() {
+
+  await loadUsers();
+
+}
+
+
+/* ==========================================
+   LOAD USERS
+   ========================================== */
+
+async function loadUsers() {
+
+  const {
+    data: users,
+    error
+  } =
     await supabaseClient
-      .from(TABLE_NAME)
+      .from("user_profiles")
       .select(
-        "*",
+        "id, full_name, email, role, status, auth_user_id, phone"
+      )
+      .order(
+        "id",
         {
-          count: "exact",
-          head: true
+          ascending: false
         }
       );
 
 
   if (error) {
 
-    console.error(
-      "Member count error:",
-      error
-    );
-
-
-    counter.textContent =
-      "0";
-
+    console.error(error);
 
     showError(
-      "Could not load member count: " +
+      "dashboardPendingUsers",
       error.message
     );
 
+    showError(
+      "pendingUsers",
+      error.message
+    );
 
+    showError(
+      "allUsers",
+      error.message
+    );
+
+    return;
+
+  }
+
+
+  const safeUsers =
+    users || [];
+
+
+  /* STATISTICS */
+
+  document.getElementById(
+    "totalUsers"
+  ).textContent =
+    safeUsers.length;
+
+
+  document.getElementById(
+    "totalPastors"
+  ).textContent =
+    safeUsers.filter(
+      user =>
+        user.role === "pastor"
+    ).length;
+
+
+  document.getElementById(
+    "totalSecretaries"
+  ).textContent =
+    safeUsers.filter(
+      user =>
+        user.role === "secretary"
+    ).length;
+
+
+  document.getElementById(
+    "totalTreasurers"
+  ).textContent =
+    safeUsers.filter(
+      user =>
+        user.role === "treasurer"
+    ).length;
+
+
+  const pendingUsers =
+    safeUsers.filter(
+      user =>
+        user.status === "pending"
+    );
+
+
+  renderUsers(
+    pendingUsers,
+    "pendingUsers",
+    true
+  );
+
+
+  renderUsers(
+    pendingUsers,
+    "dashboardPendingUsers",
+    true
+  );
+
+
+  renderUsers(
+    safeUsers,
+    "allUsers",
+    false
+  );
+
+}
+
+
+/* ==========================================
+   RENDER USERS
+   ========================================== */
+
+function renderUsers(
+  users,
+  containerId,
+  showActions
+) {
+
+  const container =
+    document.getElementById(
+      containerId
+    );
+
+
+  if (!container) {
     return;
   }
 
 
-  counter.textContent =
-    count || 0;
+  container.innerHTML = "";
+
+
+  if (
+    !users ||
+    users.length === 0
+  ) {
+
+    const empty =
+      document.createElement("div");
+
+    empty.className =
+      "empty";
+
+    empty.textContent =
+      showActions
+        ? "No pending account requests."
+        : "No users found.";
+
+    container.appendChild(
+      empty
+    );
+
+    return;
+
+  }
+
+
+  users.forEach(
+    user => {
+
+      const card =
+        document.createElement("div");
+
+      card.className =
+        "user-card";
+
+
+      const info =
+        document.createElement("div");
+
+      info.className =
+        "user-info";
+
+
+      const name =
+        document.createElement("h3");
+
+      name.textContent =
+        user.full_name ||
+        "Unnamed User";
+
+
+      const email =
+        document.createElement("p");
+
+      email.textContent =
+        "Email: " +
+        (user.email || "N/A");
+
+
+      const phone =
+        document.createElement("p");
+
+      phone.textContent =
+        "Phone: " +
+        (user.phone || "N/A");
+
+
+      const roleBadge =
+        document.createElement("span");
+
+      roleBadge.className =
+        "badge role";
+
+      roleBadge.textContent =
+        formatRole(
+          user.role
+        );
+
+
+      const statusBadge =
+        document.createElement("span");
+
+      statusBadge.className =
+        "badge " +
+        getStatusClass(
+          user.status
+        );
+
+      statusBadge.textContent =
+        formatStatus(
+          user.status
+        );
+
+
+      info.appendChild(
+        name
+      );
+
+      info.appendChild(
+        email
+      );
+
+      info.appendChild(
+        phone
+      );
+
+      info.appendChild(
+        roleBadge
+      );
+
+      info.appendChild(
+        statusBadge
+      );
+
+
+      card.appendChild(
+        info
+      );
+
+
+      if (showActions) {
+
+        const actions =
+          document.createElement("div");
+
+        actions.className =
+          "actions";
+
+
+        const approve =
+          document.createElement("button");
+
+        approve.className =
+          "approve-btn";
+
+        approve.textContent =
+          "Approve";
+
+        approve.onclick =
+          function() {
+
+            approveUser(
+              user.id,
+              approve,
+              reject
+            );
+
+          };
+
+
+        const reject =
+          document.createElement("button");
+
+        reject.className =
+          "reject-btn";
+
+        reject.textContent =
+          "Reject";
+
+        reject.onclick =
+          function() {
+
+            rejectUser(
+              user.id,
+              approve,
+              reject
+            );
+
+          };
+
+
+        actions.appendChild(
+          approve
+        );
+
+        actions.appendChild(
+          reject
+        );
+
+        card.appendChild(
+          actions
+        );
+
+      }
+
+
+      container.appendChild(
+        card
+      );
+
+    }
+  );
 
 }
 
 
-/* ==================================
-   OPEN MEMBERS
-================================== */
+/* ==========================================
+   APPROVE USER
+   ========================================== */
 
-function openMembers() {
+async function approveUser(
+  id,
+  approveButton,
+  rejectButton
+) {
 
-  window.location.href =
-    "members.html";
+  if (
+    !confirm(
+      "Approve this account?"
+    )
+  ) {
+    return;
+  }
+
+
+  approveButton.disabled =
+    true;
+
+  rejectButton.disabled =
+    true;
+
+
+  const {
+    error
+  } =
+    await supabaseClient
+      .from("user_profiles")
+      .update({
+        status: "approved"
+      })
+      .eq(
+        "id",
+        id
+      );
+
+
+  if (error) {
+
+    alert(
+      "Could not approve account:\n" +
+      error.message
+    );
+
+    approveButton.disabled =
+      false;
+
+    rejectButton.disabled =
+      false;
+
+    return;
+
+  }
+
+
+  alert(
+    "Account approved successfully."
+  );
+
+
+  await loadAllData();
 
 }
 
 
-/* ==================================
+/* ==========================================
+   REJECT USER
+   ========================================== */
+
+async function rejectUser(
+  id,
+  approveButton,
+  rejectButton
+) {
+
+  if (
+    !confirm(
+      "Reject this account?"
+    )
+  ) {
+    return;
+  }
+
+
+  approveButton.disabled =
+    true;
+
+  rejectButton.disabled =
+    true;
+
+
+  const {
+    error
+  } =
+    await supabaseClient
+      .from("user_profiles")
+      .update({
+        status: "rejected"
+      })
+      .eq(
+        "id",
+        id
+      );
+
+
+  if (error) {
+
+    alert(
+      "Could not reject account:\n" +
+      error.message
+    );
+
+    approveButton.disabled =
+      false;
+
+    rejectButton.disabled =
+      false;
+
+    return;
+
+  }
+
+
+  alert(
+    "Account rejected."
+  );
+
+
+  await loadAllData();
+
+}
+
+
+/* ==========================================
+   FORMAT ROLE
+   ========================================== */
+
+function formatRole(
+  role
+) {
+
+  if (!role) {
+    return "Unknown";
+  }
+
+  return role
+    .charAt(0)
+    .toUpperCase() +
+    role.slice(1);
+
+}
+
+
+/* ==========================================
+   FORMAT STATUS
+   ========================================== */
+
+function formatStatus(
+  status
+) {
+
+  if (!status) {
+    return "Unknown";
+  }
+
+  return status
+    .charAt(0)
+    .toUpperCase() +
+    status.slice(1);
+
+}
+
+
+/* ==========================================
+   STATUS CSS CLASS
+   ========================================== */
+
+function getStatusClass(
+  status
+) {
+
+  if (
+    status ===
+    "approved"
+  ) {
+
+    return "approved";
+
+  }
+
+  if (
+    status ===
+    "rejected"
+  ) {
+
+    return "rejected";
+
+  }
+
+  return "pending";
+
+}
+
+
+/* ==========================================
+   SHOW ERROR
+   ========================================== */
+
+function showError(
+  containerId,
+  message
+) {
+
+  const container =
+    document.getElementById(
+      containerId
+    );
+
+  if (!container) {
+    return;
+  }
+
+  container.innerHTML = "";
+
+  const error =
+    document.createElement("div");
+
+  error.className =
+    "error";
+
+  error.textContent =
+    message;
+
+  container.appendChild(
+    error
+  );
+
+}
+
+
+/* ==========================================
+   SIDEBAR
+   ========================================== */
+
+function toggleSidebar() {
+
+  const sidebar =
+    document.getElementById(
+      "sidebar"
+    );
+
+  sidebar.classList.toggle(
+    "open"
+  );
+
+}
+
+
+/* ==========================================
+   SECTION NAVIGATION
+   ========================================== */
+
+function showSection(
+  sectionId,
+  button
+) {
+
+  const sections =
+    document.querySelectorAll(
+      ".content > section"
+    );
+
+
+  sections.forEach(
+    section => {
+
+      section.style.display =
+        "none";
+
+    }
+  );
+
+
+  const selected =
+    document.getElementById(
+      sectionId
+    );
+
+
+  if (selected) {
+
+    selected.style.display =
+      "block";
+
+  }
+
+
+  const buttons =
+    document.querySelectorAll(
+      ".menu button"
+    );
+
+
+  buttons.forEach(
+    item => {
+
+      item.classList.remove(
+        "active"
+      );
+
+    }
+  );
+
+
+  if (button) {
+
+    button.classList.add(
+      "active"
+    );
+
+  }
+
+
+  if (
+    window.innerWidth <=
+    700
+  ) {
+
+    document
+      .getElementById(
+        "sidebar"
+      )
+      .classList.remove(
+        "open"
+      );
+
+  }
+
+}
+
+
+/* ==========================================
    LOGOUT
-================================== */
+   ========================================== */
 
-function logout() {
+async function logout() {
 
-  /*
-    If you later add Supabase
-    authentication, this can also
-    sign the user out of Supabase.
-  */
+  const confirmed =
+    confirm(
+      "Are you sure you want to logout?"
+    );
+
+
+  if (!confirmed) {
+    return;
+  }
+
+
+  await supabaseClient.auth.signOut();
+
+
+  localStorage.removeItem(
+    "user_profile"
+  );
+
 
   window.location.href =
     "index.html";
 
 }
 
-
-/* ==================================
-   ERROR
-================================== */
-
-function showError(
-  message
-) {
-
-  const box =
-    document.getElementById(
-      "errorMessage"
-    );
-
-
-  box.textContent =
-    message;
-
-
-  box.style.display =
-    "block";
-
-}
-
-
-/* ==================================
-   COMING SOON
-================================== */
-
-function comingSoon() {
-
-  alert(
-    "This feature will be added soon."
-  );
-
-}
-
-
-/* ==================================
-   START
-================================== */
-
-loadMemberCount();
-async function loadPendingUsers() {
-
-  const container =
-    document.getElementById("pendingUsers");
-
-  if (!container) return;
-
-  const {
-    data,
-    error
-  } =
-    await supabaseClient
-      .from("user_profiles")
-      .select("id, full_name, email, role, status")
-      .eq("status", "pending")
-      .order("id", { ascending: false });
-
-  if (error) {
-
-    container.innerHTML =
-      "Unable to load pending accounts.";
-
-    console.error(error);
-
-    return;
-  }
-
-  if (!data || data.length === 0) {
-
-    container.innerHTML =
-      "No pending account requests.";
-
-    return;
-  }
-
-  container.innerHTML = "";
-
-  data.forEach(user => {
-
-    const div =
-      document.createElement("div");
-
-    div.style.padding = "15px";
-    div.style.marginBottom = "10px";
-    div.style.border = "1px solid #ddd";
-    div.style.borderRadius = "8px";
-
-    div.innerHTML = `
-      <strong>${user.full_name}</strong><br>
-      Email: ${user.email}<br>
-      Role: ${user.role}<br>
-      Status: ${user.status}<br><br>
-
-      <button onclick="approveUser(${user.id})">
-        Approve
-      </button>
-
-      <button onclick="rejectUser(${user.id})">
-        Reject
-      </button>
-    `;
-
-    container.appendChild(div);
-
-  });
-
-}
-
-
-async function approveUser(id) {
-
-  const { error } =
-    await supabaseClient
-      .from("user_profiles")
-      .update({
-        status: "approved"
-      })
-      .eq("id", id);
-
-  if (error) {
-
-    alert(
-      "Could not approve account: " +
-      error.message
-    );
-
-    return;
-  }
-
-  alert("Account approved successfully.");
-
-  loadPendingUsers();
-}
-
-
-async function rejectUser(id) {
-
-  const { error } =
-    await supabaseClient
-      .from("user_profiles")
-      .update({
-        status: "rejected"
-      })
-      .eq("id", id);
-
-  if (error) {
-
-    alert(
-      "Could not reject account: " +
-      error.message
-    );
-
-    return;
-  }
-
-  alert("Account rejected.");
-
-  loadPendingUsers();
-}
-
-
-loadPendingUsers();
 </script>
 
 </body>
-</html>
+  </html>
