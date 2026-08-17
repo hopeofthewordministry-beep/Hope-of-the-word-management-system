@@ -306,7 +306,58 @@ Login
 
 <script>
 
-async function login(event) {
+async function login(event) {async function login(event) {
+  event.preventDefault();
+
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+
+  if (!email || !password) {
+    alert("Please enter your email and password.");
+    return;
+  }
+
+  try {
+    const { data, error } =
+      await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: password
+      });
+
+    if (error) {
+      alert(error.message);
+      return;
+    }
+
+    const { data: profile, error: profileError } =
+      await supabaseClient
+        .from("user_profiles")
+        .select("full_name, email, role, status")
+        .eq("email", email)
+        .single();
+
+    if (profileError || !profile) {
+      alert("Your profile could not be found.");
+      return;
+    }
+
+    if (profile.status !== "approved") {
+      alert("Your account is still pending Administrator approval.");
+      await supabaseClient.auth.signOut();
+      return;
+    }
+
+    localStorage.setItem(
+      "user_profile",
+      JSON.stringify(profile)
+    );
+
+    window.location.href = "dashboard.html";
+
+  } catch (error) {
+    alert("Login error: " + error.message);
+  }
+}
   event.preventDefault();
 
   const email =
