@@ -6,7 +6,7 @@
 
 <meta
   name="viewport"
-  content="width=device-width,initial-scale=1.0"
+  content="width=device-width, initial-scale=1.0"
 >
 
 <title>Create Account | Hope of the Word Ministry</title>
@@ -15,248 +15,376 @@
 
 <style>
 
-*{box-sizing:border-box}
+* {
+  box-sizing: border-box;
+}
 
-body{
-  margin:0;
-  min-height:100vh;
-  font-family:Arial,sans-serif;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  padding:20px;
+body {
+  margin: 0;
 
-  background:linear-gradient(
-    to bottom,
-    #ce1126 0%,#ce1126 33.33%,
-    #fcd116 33.33%,#fcd116 66.66%,
-    #006b3c 66.66%,#006b3c 100%
+  min-height: 100vh;
+
+  font-family: Arial, sans-serif;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  padding: 20px;
+
+  background: linear-gradient(
+    135deg,
+    #F4C430,
+    #FFFFFF,
+    #90EE90
   );
 }
 
-.card{
-  width:100%;
-  max-width:450px;
-  background:white;
-  padding:28px 24px;
-  border-radius:20px;
-  box-shadow:0 15px 40px rgba(0,0,0,.25);
+.card {
+  width: 100%;
+
+  max-width: 450px;
+
+  background: #FFFFFF;
+
+  padding: 28px 24px;
+
+  border-radius: 20px;
+
+  box-shadow:
+    0 15px 40px rgba(0, 0, 0, 0.20);
 }
 
-.logo{
-  width:75px;
-  height:75px;
-  margin:0 auto 12px;
-  border-radius:50%;
+.logo {
+  width: 75px;
+  height: 75px;
 
-  background:linear-gradient(
-    to bottom,
-    #ce1126 0%,#ce1126 33%,
-    #fcd116 33%,#fcd116 66%,
-    #006b3c 66%,#006b3c 100%
-  );
+  margin: 0 auto 12px;
 
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  border-radius: 50%;
 
-  color:white;
-  font-size:32px;
-  font-weight:bold;
+  background: #F4C430;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  color: #14532D;
+
+  font-size: 32px;
+
+  font-weight: bold;
+
+  border: 5px solid #90EE90;
 }
 
-h1{
-  text-align:center;
-  color:#123b5d;
-  font-size:23px;
-  margin:5px 0;
+h1 {
+  text-align: center;
+
+  color: #14532D;
+
+  font-size: 22px;
+
+  margin: 5px 0;
 }
 
-.subtitle{
-  text-align:center;
-  color:#6b7280;
-  font-size:14px;
-  margin-bottom:22px;
+.subtitle {
+  text-align: center;
+
+  color: #6b7280;
+
+  font-size: 14px;
+
+  margin-bottom: 22px;
 }
 
-label{
-  display:block;
-  margin-bottom:6px;
-  font-size:14px;
-  font-weight:bold;
+label {
+  display: block;
+
+  margin-bottom: 6px;
+
+  font-size: 14px;
+
+  font-weight: bold;
+
+  color: #374151;
 }
 
-input,select{
-  width:100%;
-  padding:13px;
-  margin-bottom:15px;
-  border:1px solid #d1d5db;
-  border-radius:8px;
-  font-size:15px;
-  background:white;
+input,
+select {
+  width: 100%;
+
+  padding: 13px;
+
+  margin-bottom: 15px;
+
+  border: 1px solid #d1d5db;
+
+  border-radius: 8px;
+
+  font-size: 15px;
+
+  background: white;
 }
 
-button{
-  width:100%;
-  padding:14px;
-  border:0;
-  border-radius:8px;
-  background:#006b3c;
-  color:white;
-  font-size:16px;
-  font-weight:bold;
-  cursor:pointer;
+input:focus,
+select:focus {
+
+  outline: none;
+
+  border-color: #90EE90;
+
+  box-shadow:
+    0 0 0 2px rgba(144, 238, 144, 0.25);
 }
 
-button:disabled{
-  opacity:.6;
+button {
+
+  width: 100%;
+
+  padding: 14px;
+
+  border: 0;
+
+  border-radius: 8px;
+
+  background: #90EE90;
+
+  color: #14532D;
+
+  font-size: 16px;
+
+  font-weight: bold;
+
+  cursor: pointer;
 }
 
-.signin{
-  display:block;
-  text-align:center;
-  margin-top:18px;
-  padding:12px;
-  border:1px solid #ce1126;
-  border-radius:8px;
-  color:#ce1126;
-  text-decoration:none;
-  font-weight:bold;
+button:hover {
+
+  background: #7edc7e;
 }
 
-.message{
-  display:none;
-  padding:12px;
-  border-radius:7px;
-  margin-bottom:15px;
-  text-align:center;
-  font-size:14px;
+button:disabled {
+
+  opacity: .6;
+
+  cursor: not-allowed;
 }
 
-.error{
-  background:#fee2e2;
-  color:#991b1b;
+.signin {
+
+  display: block;
+
+  text-align: center;
+
+  margin-top: 18px;
+
+  padding: 12px;
+
+  border: 2px solid #F4C430;
+
+  border-radius: 8px;
+
+  color: #14532D;
+
+  text-decoration: none;
+
+  font-weight: bold;
 }
 
-.pending{
-  background:#fef3c7;
-  color:#92400e;
+.signin:hover {
+
+  background: #fffbea;
+}
+
+.message {
+
+  display: none;
+
+  padding: 12px;
+
+  border-radius: 7px;
+
+  margin-bottom: 15px;
+
+  text-align: center;
+
+  font-size: 14px;
+}
+
+.error {
+
+  background: #fee2e2;
+
+  color: #991b1b;
+}
+
+.pending {
+
+  background: #fff8cc;
+
+  color: #795600;
+}
+
+.success {
+
+  background: #dcfce7;
+
+  color: #166534;
 }
 
 </style>
+
 </head>
 
 <body>
 
 <div class="card">
 
-<div class="logo">★</div>
+  <div class="logo">
+    ★
+  </div>
 
-<h1>Hope of the Word Ministry</h1>
+  <h1>
+    Hope of the Word Ministry
+  </h1>
 
-<div class="subtitle">
-Create New Account
-</div>
+  <div class="subtitle">
+    Create New Account
+  </div>
 
-<div id="message" class="message"></div>
+  <div
+    id="message"
+    class="message"
+  ></div>
 
-<form id="signupForm">
+  <form id="signupForm">
 
-<label>Full Name</label>
+    <label>
+      Full Name
+    </label>
 
-<input
-  type="text"
-  id="fullName"
-  placeholder="Enter your full name"
-  required
->
+    <input
+      type="text"
+      id="fullName"
+      placeholder="Enter your full name"
+      required
+    >
 
-<label>Email Address</label>
 
-<input
-  type="email"
-  id="email"
-  placeholder="Enter your email"
-  required
->
+    <label>
+      Email Address
+    </label>
 
-<label>Phone Number</label>
+    <input
+      type="email"
+      id="email"
+      placeholder="Enter your email"
+      autocomplete="email"
+      required
+    >
 
-<input
-  type="tel"
-  id="phone"
-  placeholder="Enter your phone number"
-  required
->
 
-<label>Account Type</label>
+    <label>
+      Phone Number
+    </label>
 
-<select id="role" required>
+    <input
+      type="tel"
+      id="phone"
+      placeholder="Enter your phone number"
+      required
+    >
 
-<option value="">
-Select account type
-</option>
 
-<option value="member">
-Church Member
-</option>
+    <label>
+      Account Type
+    </label>
 
-<option value="leader">
-Church Leader
-</option>
+    <select
+      id="role"
+      required
+    >
 
-</select>
+      <option value="">
+        Select account type
+      </option>
 
-<label>Password</label>
+      <option value="member">
+        Church Member
+      </option>
 
-<input
-  type="password"
-  id="password"
-  placeholder="Create a password"
-  minlength="6"
-  required
->
+      <option value="leader">
+        Church Leader
+      </option>
 
-<label>Confirm Password</label>
+    </select>
 
-<input
-  type="password"
-  id="confirmPassword"
-  placeholder="Confirm your password"
-  minlength="6"
-  required
->
 
-<button
-  type="submit"
-  id="signupButton"
->
-Create Account
-</button>
+    <label>
+      Password
+    </label>
 
-</form>
+    <input
+      type="password"
+      id="password"
+      placeholder="Create a password"
+      autocomplete="new-password"
+      minlength="6"
+      required
+    >
 
-<a
-  href="index.html"
-  class="signin"
->
-Already have an account? Sign In
-</a>
+
+    <label>
+      Confirm Password
+    </label>
+
+    <input
+      type="password"
+      id="confirmPassword"
+      placeholder="Confirm your password"
+      autocomplete="new-password"
+      minlength="6"
+      required
+    >
+
+
+    <button
+      type="submit"
+      id="signupButton"
+    >
+      Create Account
+    </button>
+
+  </form>
+
+
+  <a
+    href="index.html"
+    class="signin"
+  >
+    Already have an account? Sign In
+  </a>
 
 </div>
 
 
 <script>
 
-/* ==============================
+/* =================================
    SUPABASE
-   ============================== */
+   ================================= */
 
 const SUPABASE_URL =
-"https://lcrhoossfgxpktrvwdtj.supabase.co";
+"YOUR_EXISTING_SUPABASE_URL";
 
 const SUPABASE_KEY =
-"sb_publishable_KPNyDlm7lteOz0f1bivVAw_CbTAGbtH";
+"YOUR_EXISTING_SUPABASE_KEY";
+
 
 const supabaseClient =
 supabase.createClient(
@@ -265,225 +393,304 @@ supabase.createClient(
 );
 
 
-/* ==============================
+/* =================================
    SIGN UP
-   ============================== */
+   ================================= */
 
 document
 .getElementById("signupForm")
-.addEventListener("submit",async function(e){
+.addEventListener(
+  "submit",
+  async function(event) {
 
-  e.preventDefault();
-
-  const fullName=
-    document.getElementById("fullName")
-    .value.trim();
-
-  const email=
-    document.getElementById("email")
-    .value.trim()
-    .toLowerCase();
-
-  const phone=
-    document.getElementById("phone")
-    .value.trim();
-
-  const role=
-    document.getElementById("role")
-    .value;
-
-  const password=
-    document.getElementById("password")
-    .value;
-
-  const confirmPassword=
-    document.getElementById("confirmPassword")
-    .value;
-
-  const button=
-    document.getElementById("signupButton");
+    event.preventDefault();
 
 
-  hideMessage();
+    const fullName =
+      document
+      .getElementById("fullName")
+      .value
+      .trim();
 
 
-  if(password!==confirmPassword){
-
-    showMessage(
-      "Passwords do not match.",
-      "error"
-    );
-
-    return;
-  }
+    const email =
+      document
+      .getElementById("email")
+      .value
+      .trim()
+      .toLowerCase();
 
 
-  if(password.length<6){
-
-    showMessage(
-      "Password must be at least 6 characters.",
-      "error"
-    );
-
-    return;
-  }
+    const phone =
+      document
+      .getElementById("phone")
+      .value
+      .trim();
 
 
-  button.disabled=true;
-  button.textContent="Creating account...";
+    const role =
+      document
+      .getElementById("role")
+      .value;
 
 
-  try{
-
-    /* CREATE SUPABASE AUTH USER */
-
-    const {
-      data,
-      error
-    } =
-    await supabaseClient.auth.signUp({
-
-      email:email,
-      password:password
-
-    });
+    const password =
+      document
+      .getElementById("password")
+      .value;
 
 
-    if(error){
+    const confirmPassword =
+      document
+      .getElementById("confirmPassword")
+      .value;
+
+
+    const button =
+      document
+      .getElementById("signupButton");
+
+
+    hideMessage();
+
+
+    if (
+      password !==
+      confirmPassword
+    ) {
 
       showMessage(
-        error.message,
+        "Passwords do not match.",
         "error"
       );
-
-      button.disabled=false;
-      button.textContent="Create Account";
 
       return;
     }
 
 
-    const user=data.user;
-
-
-    if(!user){
+    if (
+      password.length < 6
+    ) {
 
       showMessage(
-        "Account could not be created.",
+        "Password must be at least 6 characters.",
         "error"
       );
-
-      button.disabled=false;
-      button.textContent="Create Account";
 
       return;
     }
 
 
-    /*
-      VERY IMPORTANT:
-      auth_user_id is EXACTLY user.id
-    */
-
-    const {
-      error:profileError
-    } =
-    await supabaseClient
-    .from("user_profiles")
-    .insert({
-
-      auth_user_id:user.id,
-
-      full_name:fullName,
-
-      email:email,
-
-      phone:phone,
-
-      role:role,
-
-      status:"pending"
-
-    });
-
-
-    if(profileError){
-
-      console.error(profileError);
+    if (!role) {
 
       showMessage(
-        "Account was created but the profile could not be saved. Contact the administrator.",
+        "Please select an account type.",
         "error"
       );
-
-      button.disabled=false;
-      button.textContent="Create Account";
 
       return;
     }
 
 
-    if(data.session){
+    button.disabled = true;
+
+    button.textContent =
+      "Creating account...";
+
+
+    try {
+
+      /*
+       * CREATE AUTH ACCOUNT
+       */
+
+      const {
+        data,
+        error
+      } =
+      await supabaseClient
+      .auth
+      .signUp({
+
+        email: email,
+
+        password: password
+
+      });
+
+
+      if (error) {
+
+        console.error(
+          "Signup error:",
+          error
+        );
+
+        showMessage(
+          error.message,
+          "error"
+        );
+
+        button.disabled = false;
+
+        button.textContent =
+          "Create Account";
+
+        return;
+      }
+
+
+      const user =
+        data.user;
+
+
+      if (!user) {
+
+        showMessage(
+          "Account could not be created.",
+          "error"
+        );
+
+        button.disabled = false;
+
+        button.textContent =
+          "Create Account";
+
+        return;
+      }
+
+
+      /*
+       * CREATE PROFILE
+       *
+       * auth_user_id MUST be
+       * the same user.id above.
+       */
+
+      const {
+        error: profileError
+      } =
+      await supabaseClient
+
+      .from("user_profiles")
+
+      .insert({
+
+        auth_user_id: user.id,
+
+        full_name: fullName,
+
+        email: email,
+
+        phone: phone,
+
+        role: role,
+
+        status: "pending"
+
+      });
+
+
+      if (profileError) {
+
+        console.error(
+          "Profile creation error:",
+          profileError
+        );
+
+        showMessage(
+          "Your login account was created, but your church profile could not be saved. Please contact the administrator.",
+          "error"
+        );
+
+        button.disabled = false;
+
+        button.textContent =
+          "Create Account";
+
+        return;
+      }
+
+
+      /*
+       * Sign out after registration.
+       */
 
       await supabaseClient
-        .auth
-        .signOut();
-
-    }
+      .auth
+      .signOut();
 
 
-    document
+      document
       .getElementById("signupForm")
       .reset();
 
 
-    showMessage(
-      "Account created successfully. Your account is now PENDING Administrator approval.",
-      "pending"
-    );
+      showMessage(
+        "Account created successfully. Your account is now PENDING Administrator approval.",
+        "pending"
+      );
 
 
-    button.disabled=false;
-    button.textContent="Create Account";
+      button.disabled = false;
 
+      button.textContent =
+        "Create Account";
 
-  }catch(error){
+    }
 
-    console.error(error);
+    catch (error) {
 
-    showMessage(
-      "Something went wrong. Please try again.",
-      "error"
-    );
+      console.error(
+        "Unexpected signup error:",
+        error
+      );
 
-    button.disabled=false;
-    button.textContent="Create Account";
+      showMessage(
+        "Something went wrong. Please try again.",
+        "error"
+      );
+
+      button.disabled = false;
+
+      button.textContent =
+        "Create Account";
+    }
 
   }
+);
 
-});
 
+/* =================================
+   MESSAGE
+   ================================= */
 
-function showMessage(text,type){
+function showMessage(
+  text,
+  type
+) {
 
-  const box=
-    document.getElementById("message");
+  const message =
+    document
+    .getElementById("message");
 
-  box.textContent=text;
+  message.textContent =
+    text;
 
-  box.className=
-    "message "+type;
+  message.className =
+    "message " + type;
 
-  box.style.display="block";
-
+  message.style.display =
+    "block";
 }
 
 
-function hideMessage(){
+function hideMessage() {
 
-  document.getElementById("message")
-    .style.display="none";
-
+  document
+  .getElementById("message")
+  .style.display =
+    "none";
 }
 
 </script>
