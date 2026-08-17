@@ -1,49 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Create Account | Hope of the Word Ministry</title>
 
-  <script
-    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
-  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
-
     * {
       box-sizing: border-box;
     }
 
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f6f9;
       min-height: 100vh;
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       padding: 20px;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #123b5d, #1d638f);
     }
 
     .signup-box {
       width: 100%;
       max-width: 500px;
       background: white;
-      padding: 30px;
-      border-radius: 14px;
-      box-shadow: 0 5px 25px rgba(0,0,0,0.10);
+      padding: 32px;
+      border-radius: 16px;
+      box-shadow: 0 10px 35px rgba(0,0,0,0.18);
     }
 
     .header {
       text-align: center;
-      margin-bottom: 25px;
+      margin-bottom: 22px;
     }
 
     .header h1 {
@@ -54,7 +46,7 @@
 
     .header p {
       color: #6b7280;
-      margin-top: 8px;
+      margin: 8px 0 0;
     }
 
     label {
@@ -81,12 +73,6 @@
       border-color: #123b5d;
     }
 
-    .password-note {
-      font-size: 12px;
-      color: #6b7280;
-      margin-top: 5px;
-    }
-
     .signup-button {
       width: 100%;
       padding: 14px;
@@ -96,33 +82,50 @@
       background: #123b5d;
       color: white;
       font-size: 16px;
+      font-weight: bold;
       cursor: pointer;
     }
 
     .signup-button:disabled {
       opacity: 0.6;
-      cursor: not-allowed;
     }
 
     .message {
-      margin-top: 18px;
-      padding: 12px;
-      border-radius: 7px;
       display: none;
+      margin-top: 15px;
+      padding: 13px;
+      border-radius: 7px;
       font-size: 14px;
       line-height: 1.5;
     }
 
-    .success {
+    .message.success {
       display: block;
       background: #d1fae5;
       color: #065f46;
     }
 
-    .error {
+    .message.error {
       display: block;
       background: #fee2e2;
       color: #991b1b;
+    }
+
+    .pending-box {
+      display: none;
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 9px;
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      color: #9a3412;
+      text-align: center;
+    }
+
+    .pending-box strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 16px;
     }
 
     .login-link {
@@ -137,32 +140,26 @@
       text-decoration: none;
     }
 
+    .status-note {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #6b7280;
+      text-align: center;
+    }
   </style>
-
 </head>
-
 
 <body>
 
   <div class="signup-box">
 
     <div class="header">
-
-      <h1>
-        Hope of the Word Ministry
-      </h1>
-
-      <p>
-        Create your Ministry Management Account
-      </p>
-
+      <h1>Hope of the Word Ministry</h1>
+      <p>Create New Account</p>
     </div>
 
 
     <form id="signupForm">
-
-
-      <!-- FULL NAME -->
 
       <label for="fullName">
         Full Name
@@ -176,8 +173,6 @@
       >
 
 
-      <!-- EMAIL -->
-
       <label for="email">
         Email Address
       </label>
@@ -190,8 +185,6 @@
       >
 
 
-      <!-- PHONE -->
-
       <label for="phone">
         Phone Number
       </label>
@@ -202,8 +195,6 @@
         placeholder="Enter your phone number"
       >
 
-
-      <!-- ROLE -->
 
       <label for="role">
         User Role
@@ -233,8 +224,6 @@
       </select>
 
 
-      <!-- PASSWORD -->
-
       <label for="password">
         Password
       </label>
@@ -247,12 +236,6 @@
         required
       >
 
-      <div class="password-note">
-        Password must be at least 6 characters.
-      </div>
-
-
-      <!-- CONFIRM PASSWORD -->
 
       <label for="confirmPassword">
         Confirm Password
@@ -261,7 +244,7 @@
       <input
         type="password"
         id="confirmPassword"
-        placeholder="Enter password again"
+        placeholder="Confirm your password"
         minlength="6"
         required
       >
@@ -282,6 +265,31 @@
       ></div>
 
 
+      <!-- PENDING STATUS -->
+
+      <div
+        id="pendingBox"
+        class="pending-box"
+      >
+
+        <strong>
+          🟠 Pending Administrator Approval
+        </strong>
+
+        Your account has been created successfully.
+
+        <br>
+
+        Please wait for the Administrator
+        to approve your account before signing in.
+
+      </div>
+
+
+      <div class="status-note">
+        Your account remains pending until it is approved.
+      </div>
+
     </form>
 
 
@@ -290,7 +298,7 @@
       Already have an account?
 
       <a href="index.html">
-        Login
+        Sign In
       </a>
 
     </div>
@@ -382,16 +390,19 @@ document
           .getElementById("message");
 
 
-      /* CLEAR MESSAGE */
+      const pendingBox =
+        document
+          .getElementById("pendingBox");
+
 
       message.className =
         "message";
 
-      message.textContent =
-        "";
+      message.textContent = "";
 
+      pendingBox.style.display =
+        "none";
 
-      /* VALIDATION */
 
       if (
         !fullName ||
@@ -407,7 +418,6 @@ document
           "Please complete all required fields.";
 
         return;
-
       }
 
 
@@ -422,7 +432,6 @@ document
           "Password must be at least 6 characters.";
 
         return;
-
       }
 
 
@@ -438,7 +447,6 @@ document
           "Passwords do not match.";
 
         return;
-
       }
 
 
@@ -446,15 +454,13 @@ document
         true;
 
       button.textContent =
-        "Creating account...";
+        "Creating Account...";
 
 
       try {
 
 
-        /* =================================
-           CREATE AUTH ACCOUNT
-           ================================= */
+        /* CREATE AUTH USER */
 
         const {
           data: authData,
@@ -473,60 +479,30 @@ document
 
         if (authError) {
 
-          message.className =
-            "message error";
-
-          message.textContent =
-            authError.message;
-
-          button.disabled =
-            false;
-
-          button.textContent =
-            "Create Account";
-
-          return;
+          throw authError;
 
         }
 
 
-        /* =================================
-           GET AUTH USER ID
-           ================================= */
+        if (
+          !authData ||
+          !authData.user
+        ) {
 
-        const user =
-          authData.user;
-
-
-        if (!user) {
-
-          message.className =
-            "message error";
-
-          message.textContent =
-            "Account could not be created. Please try again.";
-
-          button.disabled =
-            false;
-
-          button.textContent =
-            "Create Account";
-
-          return;
+          throw new Error(
+            "The account could not be created."
+          );
 
         }
 
 
         const authUserId =
-          user.id;
+          authData.user.id;
 
 
-        /* =================================
-           CREATE USER PROFILE
-           ================================= */
+        /* CREATE PROFILE */
 
         const {
-          data: profile,
           error: profileError
         } =
           await supabaseClient
@@ -551,9 +527,7 @@ document
               status:
                 "pending"
 
-            })
-            .select()
-            .single();
+            });
 
 
         if (profileError) {
@@ -563,45 +537,34 @@ document
             profileError
           );
 
-
-          /*
-           If profile creation fails,
-           remove the authentication
-           session so the user can try
-           again after the problem is fixed.
-          */
-
-          await supabaseClient.auth.signOut();
-
-
-          message.className =
-            "message error";
-
-          message.textContent =
+          throw new Error(
             "Account was created, but the profile could not be saved: " +
-            profileError.message;
-
-
-          button.disabled =
-            false;
-
-          button.textContent =
-            "Create Account";
-
-          return;
+            profileError.message
+          );
 
         }
 
 
-        /* =================================
-           SUCCESS
-           ================================= */
+        /* SUCCESS */
 
         message.className =
           "message success";
 
         message.textContent =
-          "Account created successfully. Pending Administrator approval.";
+          "Account created successfully.";
+
+
+        pendingBox.style.display =
+          "block";
+
+
+        /*
+          Sign the user out because
+          Administrator approval is
+          required before login.
+        */
+
+        await supabaseClient.auth.signOut();
 
 
         document
@@ -615,16 +578,8 @@ document
         button.textContent =
           "Create Account";
 
-
-        /*
-         Sign out after successful
-         profile creation because the
-         account is still pending.
-        */
-
-        await supabaseClient.auth.signOut();
-
       }
+
 
       catch (error) {
 
@@ -638,7 +593,6 @@ document
           "message error";
 
         message.textContent =
-          "Something went wrong: " +
           error.message;
 
 
@@ -653,9 +607,7 @@ document
     }
   );
 
-
 </script>
 
 </body>
-
 </html>
