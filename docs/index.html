@@ -3,137 +3,205 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Sign In | Hope of the Word Ministry</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-*{box-sizing:border-box}
+* {
+  box-sizing: border-box;
+}
 
-body{
-  margin:0;
-  min-height:100vh;
-  font-family:Arial,sans-serif;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  padding:20px;
-  background:linear-gradient(
-    to bottom,
-    #ce1126 0%,#ce1126 33.33%,
-    #fcd116 33.33%,#fcd116 66.66%,
-    #006b3c 66.66%,#006b3c 100%
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 20px;
+
+  background: linear-gradient(
+    135deg,
+    #F4C430,
+    #FFFFFF,
+    #90EE90
   );
 }
 
-.card{
-  width:100%;
-  max-width:430px;
-  background:white;
-  padding:30px 25px;
-  border-radius:20px;
-  box-shadow:0 15px 40px rgba(0,0,0,.28);
+.card {
+  width: 100%;
+  max-width: 430px;
+
+  background: #FFFFFF;
+
+  padding: 30px 25px;
+
+  border-radius: 20px;
+
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.20);
 }
 
-.logo{
-  width:80px;
-  height:80px;
-  margin:0 auto 15px;
-  border-radius:50%;
-  background:linear-gradient(
-    to bottom,
-    #ce1126 0%,#ce1126 33%,
-    #fcd116 33%,#fcd116 66%,
-    #006b3c 66%,#006b3c 100%
-  );
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:white;
-  font-size:35px;
-  font-weight:bold;
-  border:4px solid white;
+.logo {
+  width: 78px;
+  height: 78px;
+
+  margin: 0 auto 15px;
+
+  border-radius: 50%;
+
+  background: #F4C430;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: #14532D;
+
+  font-size: 34px;
+  font-weight: bold;
+
+  border: 5px solid #90EE90;
 }
 
-h1{
-  text-align:center;
-  color:#123b5d;
-  font-size:23px;
-  margin:5px 0;
+h1 {
+  text-align: center;
+
+  color: #14532D;
+
+  font-size: 22px;
+
+  margin: 5px 0;
 }
 
-.subtitle{
-  text-align:center;
-  color:#6b7280;
-  font-size:14px;
-  margin-bottom:25px;
+.subtitle {
+  text-align: center;
+
+  color: #6b7280;
+
+  font-size: 14px;
+
+  margin-bottom: 25px;
 }
 
-label{
-  display:block;
-  font-size:14px;
-  font-weight:bold;
-  margin-bottom:6px;
+label {
+  display: block;
+
+  font-size: 14px;
+
+  font-weight: bold;
+
+  margin-bottom: 6px;
+
+  color: #374151;
 }
 
-input{
-  width:100%;
-  padding:13px;
-  border:1px solid #d1d5db;
-  border-radius:8px;
-  margin-bottom:16px;
-  font-size:15px;
+input {
+  width: 100%;
+
+  padding: 13px;
+
+  border: 1px solid #d1d5db;
+
+  border-radius: 8px;
+
+  margin-bottom: 16px;
+
+  font-size: 15px;
 }
 
-button{
-  width:100%;
-  padding:14px;
-  border:0;
-  border-radius:8px;
-  background:#006b3c;
-  color:white;
-  font-size:16px;
-  font-weight:bold;
-  cursor:pointer;
+input:focus {
+  outline: none;
+
+  border-color: #90EE90;
+
+  box-shadow: 0 0 0 2px rgba(144, 238, 144, 0.25);
 }
 
-button:disabled{
-  opacity:.6;
+button {
+  width: 100%;
+
+  padding: 14px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: #90EE90;
+
+  color: #14532D;
+
+  font-size: 16px;
+
+  font-weight: bold;
+
+  cursor: pointer;
 }
 
-.signup{
-  display:block;
-  text-align:center;
-  margin-top:18px;
-  padding:13px;
-  border:1px solid #ce1126;
-  border-radius:8px;
-  color:#ce1126;
-  text-decoration:none;
-  font-weight:bold;
+button:hover {
+  background: #7edc7e;
 }
 
-.message{
-  display:none;
-  padding:12px;
-  margin-bottom:15px;
-  border-radius:7px;
-  text-align:center;
-  font-size:14px;
+button:disabled {
+  opacity: 0.6;
+
+  cursor: not-allowed;
 }
 
-.error{
-  background:#fee2e2;
-  color:#991b1b;
+.signup {
+  display: block;
+
+  text-align: center;
+
+  margin-top: 18px;
+
+  padding: 13px;
+
+  border: 2px solid #F4C430;
+
+  border-radius: 8px;
+
+  color: #14532D;
+
+  text-decoration: none;
+
+  font-weight: bold;
 }
 
-.pending{
-  background:#fef3c7;
-  color:#92400e;
+.signup:hover {
+  background: #fffbea;
 }
 
-@media(max-width:480px){
-  .card{padding:25px 20px}
+.message {
+  display: none;
+
+  padding: 12px;
+
+  margin-bottom: 15px;
+
+  border-radius: 7px;
+
+  text-align: center;
+
+  font-size: 14px;
+}
+
+.error {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.pending {
+  background: #fff8cc;
+  color: #795600;
+}
+
+.success {
+  background: #dcfce7;
+  color: #166534;
 }
 </style>
 </head>
@@ -142,57 +210,78 @@ button:disabled{
 
 <div class="card">
 
-<div class="logo">★</div>
+  <div class="logo">
+    ★
+  </div>
 
-<h1>Hope of the Word Ministry</h1>
+  <h1>
+    Hope of the Word Ministry
+  </h1>
 
-<div class="subtitle">Church Management System</div>
+  <div class="subtitle">
+    Church Management System
+  </div>
 
-<div id="message" class="message"></div>
+  <div
+    id="message"
+    class="message"
+  ></div>
 
-<form id="loginForm">
+  <form id="loginForm">
 
-<label>Email Address</label>
+    <label>
+      Email Address
+    </label>
 
-<input
-  type="email"
-  id="email"
-  placeholder="Enter your email"
-  required
->
+    <input
+      type="email"
+      id="email"
+      placeholder="Enter your email"
+      autocomplete="email"
+      required
+    >
 
-<label>Password</label>
+    <label>
+      Password
+    </label>
 
-<input
-  type="password"
-  id="password"
-  placeholder="Enter your password"
-  required
->
+    <input
+      type="password"
+      id="password"
+      placeholder="Enter your password"
+      autocomplete="current-password"
+      required
+    >
 
-<button id="loginButton" type="submit">
-Sign In
-</button>
+    <button
+      type="submit"
+      id="loginButton"
+    >
+      Sign In
+    </button>
 
-</form>
+  </form>
 
-<a class="signup" href="signup.html">
-Create New Account
-</a>
+  <a
+    href="signup.html"
+    class="signup"
+  >
+    Create New Account
+  </a>
 
 </div>
 
 <script>
 
-/* ==============================
+/* =================================
    SUPABASE
-   ============================== */
+   ================================= */
 
 const SUPABASE_URL =
-"https://lcrhoossfgxpktrvwdtj.supabase.co";
+"YOUR_EXISTING_SUPABASE_URL";
 
 const SUPABASE_KEY =
-"sb_publishable_KPNyDlm7lteOz0f1bivVAw_CbTAGbtH";
+"YOUR_EXISTING_SUPABASE_KEY";
 
 const supabaseClient =
 supabase.createClient(
@@ -201,212 +290,302 @@ supabase.createClient(
 );
 
 
-/* ==============================
+/* =================================
    LOGIN
-   ============================== */
+   ================================= */
 
 document
 .getElementById("loginForm")
-.addEventListener("submit", async function(e){
+.addEventListener(
+  "submit",
+  async function(event) {
 
-  e.preventDefault();
+    event.preventDefault();
 
-  const email =
-    document.getElementById("email")
-    .value.trim().toLowerCase();
-
-  const password =
-    document.getElementById("password")
-    .value;
-
-  const button =
-    document.getElementById("loginButton");
-
-  hideMessage();
-
-  button.disabled=true;
-  button.textContent="Signing in...";
-
-  try{
-
-    const {
-      data,
-      error
-    } =
-    await supabaseClient.auth
-    .signInWithPassword({
-      email:email,
-      password:password
-    });
-
-    if(error){
-
-      showMessage(
-        "Invalid email or password.",
-        "error"
-      );
-
-      button.disabled=false;
-      button.textContent="Sign In";
-
-      return;
-    }
-
-    const user=data.user;
-
-    if(!user){
-
-      showMessage(
-        "Unable to sign in.",
-        "error"
-      );
-
-      button.disabled=false;
-      button.textContent="Sign In";
-
-      return;
-    }
-
-
-    /* FIND PROFILE USING AUTH UID */
-
-    const {
-      data:profile,
-      error:profileError
-    } =
-    await supabaseClient
-    .from("user_profiles")
-    .select("*")
-    .eq("auth_user_id",user.id)
-    .maybeSingle();
-
-
-    if(profileError || !profile){
-
-      await supabaseClient.auth.signOut();
-
-      showMessage(
-        "Your church profile was not found. Please contact the administrator.",
-        "error"
-      );
-
-      button.disabled=false;
-      button.textContent="Sign In";
-
-      return;
-    }
-
-
-    const status =
-      String(profile.status || "")
+    const email =
+      document
+      .getElementById("email")
+      .value
       .trim()
       .toLowerCase();
 
-    const role =
-      String(profile.role || "")
-      .trim()
-      .toLowerCase();
+    const password =
+      document
+      .getElementById("password")
+      .value;
+
+    const button =
+      document
+      .getElementById("loginButton");
+
+    hideMessage();
+
+    button.disabled = true;
+
+    button.textContent =
+      "Signing in...";
+
+    try {
+
+      const {
+        data,
+        error
+      } =
+      await supabaseClient
+      .auth
+      .signInWithPassword({
+        email: email,
+        password: password
+      });
+
+      if (error) {
+
+        console.error(
+          "Login error:",
+          error
+        );
+
+        showMessage(
+          "Invalid email or password.",
+          "error"
+        );
+
+        button.disabled = false;
+
+        button.textContent =
+          "Sign In";
+
+        return;
+      }
+
+      const user =
+        data.user;
+
+      if (!user) {
+
+        showMessage(
+          "Unable to find your account.",
+          "error"
+        );
+
+        button.disabled = false;
+
+        button.textContent =
+          "Sign In";
+
+        return;
+      }
 
 
-    if(status==="pending"){
+      /* Find profile using Auth UID */
 
-      await supabaseClient.auth.signOut();
+      const {
+        data: profile,
+        error: profileError
+      } =
+      await supabaseClient
+      .from("user_profiles")
+      .select("*")
+      .eq(
+        "auth_user_id",
+        user.id
+      )
+      .maybeSingle();
 
-      showMessage(
-        "Your account is pending Administrator approval.",
-        "pending"
+
+      if (profileError) {
+
+        console.error(
+          "Profile error:",
+          profileError
+        );
+
+        await supabaseClient
+        .auth
+        .signOut();
+
+        showMessage(
+          "Unable to load your church profile.",
+          "error"
+        );
+
+        button.disabled = false;
+
+        button.textContent =
+          "Sign In";
+
+        return;
+      }
+
+
+      if (!profile) {
+
+        await supabaseClient
+        .auth
+        .signOut();
+
+        showMessage(
+          "Your church profile was not found. Please contact the administrator.",
+          "error"
+        );
+
+        button.disabled = false;
+
+        button.textContent =
+          "Sign In";
+
+        return;
+      }
+
+
+      const status =
+        String(
+          profile.status || ""
+        )
+        .trim()
+        .toLowerCase();
+
+
+      const role =
+        String(
+          profile.role || ""
+        )
+        .trim()
+        .toLowerCase();
+
+
+      if (status === "pending") {
+
+        await supabaseClient
+        .auth
+        .signOut();
+
+        showMessage(
+          "Your account is pending Administrator approval.",
+          "pending"
+        );
+
+        button.disabled = false;
+
+        button.textContent =
+          "Sign In";
+
+        return;
+      }
+
+
+      if (status === "rejected") {
+
+        await supabaseClient
+        .auth
+        .signOut();
+
+        showMessage(
+          "Your account has been rejected. Please contact the Administrator.",
+          "error"
+        );
+
+        button.disabled = false;
+
+        button.textContent =
+          "Sign In";
+
+        return;
+      }
+
+
+      if (status !== "approved") {
+
+        await supabaseClient
+        .auth
+        .signOut();
+
+        showMessage(
+          "Your account has not been approved yet.",
+          "pending"
+        );
+
+        button.disabled = false;
+
+        button.textContent =
+          "Sign In";
+
+        return;
+      }
+
+
+      localStorage.setItem(
+        "user_profile",
+        JSON.stringify(profile)
       );
 
-      button.disabled=false;
-      button.textContent="Sign In";
 
-      return;
+      if (role === "administrator") {
+
+        window.location.href =
+          "dashboard.html";
+
+        return;
+      }
+
+
+      window.location.href =
+        "dashboard.html";
+
     }
 
+    catch (error) {
 
-    if(status==="rejected"){
-
-      await supabaseClient.auth.signOut();
+      console.error(
+        "Unexpected login error:",
+        error
+      );
 
       showMessage(
-        "Your account was rejected. Please contact the Administrator.",
+        "Something went wrong. Please try again.",
         "error"
       );
 
-      button.disabled=false;
-      button.textContent="Sign In";
+      button.disabled = false;
 
-      return;
+      button.textContent =
+        "Sign In";
     }
 
-
-    if(status!=="approved"){
-
-      await supabaseClient.auth.signOut();
-
-      showMessage(
-        "Your account has not been approved yet.",
-        "pending"
-      );
-
-      button.disabled=false;
-      button.textContent="Sign In";
-
-      return;
-    }
+  }
+);
 
 
-    localStorage.setItem(
-      "user_profile",
-      JSON.stringify(profile)
-    );
-
-
-    if(role==="administrator"){
-
-      window.location.href="dashboard.html";
-
-    }else{
-
-      /*
-       Temporary:
-       approved normal users also
-       enter the dashboard.
-       A separate member dashboard
-       can be created later.
-      */
-
-      window.location.href="dashboard.html";
-
-    }
-
-});
-
-}
-
-
-/* ==============================
+/* =================================
    MESSAGES
-   ============================== */
+   ================================= */
 
-function showMessage(text,type){
+function showMessage(
+  text,
+  type
+) {
 
-  const box=
-    document.getElementById("message");
+  const message =
+    document
+    .getElementById("message");
 
-  box.textContent=text;
+  message.textContent =
+    text;
 
-  box.className=
-    "message "+type;
+  message.className =
+    "message " + type;
 
-  box.style.display="block";
+  message.style.display =
+    "block";
 }
 
-function hideMessage(){
 
-  document.getElementById("message")
-  .style.display="none";
+function hideMessage() {
 
+  document
+  .getElementById("message")
+  .style.display =
+    "none";
 }
 
 </script>
