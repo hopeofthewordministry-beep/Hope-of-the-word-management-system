@@ -1,148 +1,309 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Create Account</title>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <title>Create Account | Hope of the Word Ministry</title>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+  </script>
 
   <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
+      margin: 0;
       font-family: Arial, sans-serif;
       background: #f4f6f9;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       padding: 20px;
     }
 
-    .box {
-      max-width: 450px;
-      margin: 30px auto;
+    .signup-box {
+      width: 100%;
+      max-width: 500px;
       background: white;
-      padding: 25px;
-      border-radius: 10px;
+      padding: 30px;
+      border-radius: 14px;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.10);
     }
 
-    h2 {
+    .header {
       text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .header h1 {
+      margin: 0;
+      color: #123b5d;
+      font-size: 25px;
+    }
+
+    .header p {
+      color: #6b7280;
+      margin-top: 8px;
     }
 
     label {
       display: block;
       margin-top: 15px;
       font-weight: bold;
+      color: #374151;
     }
 
-    input, select {
+    input,
+    select {
       width: 100%;
-      padding: 12px;
-      margin-top: 6px;
-      box-sizing: border-box;
+      padding: 13px;
+      margin-top: 7px;
+      border: 1px solid #d1d5db;
+      border-radius: 7px;
+      font-size: 16px;
+      background: white;
     }
 
-    button {
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: #123b5d;
+    }
+
+    .password-note {
+      font-size: 12px;
+      color: #6b7280;
+      margin-top: 5px;
+    }
+
+    .signup-button {
       width: 100%;
-      padding: 12px;
-      margin-top: 20px;
+      padding: 14px;
+      margin-top: 24px;
+      border: none;
+      border-radius: 7px;
       background: #123b5d;
       color: white;
-      border: none;
+      font-size: 16px;
       cursor: pointer;
     }
 
-    #message {
-      margin-top: 15px;
-      text-align: center;
-      font-weight: bold;
+    .signup-button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
     }
+
+    .message {
+      margin-top: 18px;
+      padding: 12px;
+      border-radius: 7px;
+      display: none;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .success {
+      display: block;
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .error {
+      display: block;
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .login-link {
+      text-align: center;
+      margin-top: 20px;
+      color: #6b7280;
+    }
+
+    .login-link a {
+      color: #123b5d;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
   </style>
+
 </head>
+
 
 <body>
 
-<div class="box">
+  <div class="signup-box">
 
-  <h2>Create Account</h2>
+    <div class="header">
 
-  <form id="signupForm">
+      <h1>
+        Hope of the Word Ministry
+      </h1>
 
-    <label>Full Name</label>
-    <input
-      type="text"
-      id="full_name"
-      required
-    >
+      <p>
+        Create your Ministry Management Account
+      </p>
 
-    <label>Email Address</label>
-    <input
-      type="email"
-      id="email"
-      required
-    >
+    </div>
 
-    <label>Phone Number</label>
-    <input
-      type="tel"
-      id="phone"
-      required
-    >
 
-    <label>Password</label>
-    <input
-      type="password"
-      id="password"
-      required
-    >
+    <form id="signupForm">
 
-    <label>Confirm Password</label>
-    <input
-      type="password"
-      id="confirmPassword"
-      required
-    >
 
-    <label>Select Role</label>
+      <!-- FULL NAME -->
 
-    <select id="role" required>
+      <label for="fullName">
+        Full Name
+      </label>
 
-      <option value="">
-        Select role
-      </option>
+      <input
+        type="text"
+        id="fullName"
+        placeholder="Enter your full name"
+        required
+      >
 
-      <option value="pastor">
-        Pastor
-      </option>
 
-      <option value="secretary">
-        Secretary
-      </option>
+      <!-- EMAIL -->
 
-      <option value="treasurer">
-        Treasurer
-      </option>
+      <label for="email">
+        Email Address
+      </label>
 
-      <option value="administrator">
-        Administrator
-      </option>
+      <input
+        type="email"
+        id="email"
+        placeholder="Enter your email address"
+        required
+      >
 
-    </select>
 
-    <button type="submit">
-      Create Account
-    </button>
+      <!-- PHONE -->
 
-  </form>
+      <label for="phone">
+        Phone Number
+      </label>
 
-  <div id="message"></div>
+      <input
+        type="tel"
+        id="phone"
+        placeholder="Enter your phone number"
+      >
 
-  <p style="text-align:center;">
-    <a href="index.html">Back to Login</a>
-  </p>
 
-</div>
+      <!-- ROLE -->
+
+      <label for="role">
+        User Role
+      </label>
+
+      <select
+        id="role"
+        required
+      >
+
+        <option value="">
+          Select your role
+        </option>
+
+        <option value="pastor">
+          Pastor
+        </option>
+
+        <option value="secretary">
+          Secretary
+        </option>
+
+        <option value="treasurer">
+          Treasurer
+        </option>
+
+      </select>
+
+
+      <!-- PASSWORD -->
+
+      <label for="password">
+        Password
+      </label>
+
+      <input
+        type="password"
+        id="password"
+        placeholder="Create a password"
+        minlength="6"
+        required
+      >
+
+      <div class="password-note">
+        Password must be at least 6 characters.
+      </div>
+
+
+      <!-- CONFIRM PASSWORD -->
+
+      <label for="confirmPassword">
+        Confirm Password
+      </label>
+
+      <input
+        type="password"
+        id="confirmPassword"
+        placeholder="Enter password again"
+        minlength="6"
+        required
+      >
+
+
+      <button
+        type="submit"
+        class="signup-button"
+        id="signupButton"
+      >
+        Create Account
+      </button>
+
+
+      <div
+        id="message"
+        class="message"
+      ></div>
+
+
+    </form>
+
+
+    <div class="login-link">
+
+      Already have an account?
+
+      <a href="index.html">
+        Login
+      </a>
+
+    </div>
+
+  </div>
 
 
 <script>
+
+
+/* =========================================
+   SUPABASE CONNECTION
+   ========================================= */
 
 const SUPABASE_URL =
   "https://lcrhoossfgxpktrvwdtj.supabase.co";
@@ -158,6 +319,10 @@ const supabaseClient =
   );
 
 
+/* =========================================
+   SIGNUP
+   ========================================= */
+
 document
   .getElementById("signupForm")
   .addEventListener(
@@ -166,17 +331,21 @@ document
 
       event.preventDefault();
 
+
       const fullName =
         document
-          .getElementById("full_name")
+          .getElementById("fullName")
           .value
           .trim();
+
 
       const email =
         document
           .getElementById("email")
           .value
-          .trim();
+          .trim()
+          .toLowerCase();
+
 
       const phone =
         document
@@ -184,15 +353,6 @@ document
           .value
           .trim();
 
-      const password =
-        document
-          .getElementById("password")
-          .value;
-
-      const confirmPassword =
-        document
-          .getElementById("confirmPassword")
-          .value;
 
       const role =
         document
@@ -200,110 +360,302 @@ document
           .value;
 
 
-      if (
-        password !==
-        confirmPassword
-      ) {
-
+      const password =
         document
-          .getElementById("message")
-          .textContent =
-          "Passwords do not match.";
+          .getElementById("password")
+          .value;
 
-        return;
-      }
+
+      const confirmPassword =
+        document
+          .getElementById("confirmPassword")
+          .value;
+
+
+      const button =
+        document
+          .getElementById("signupButton");
 
 
       const message =
         document
           .getElementById("message");
 
+
+      /* CLEAR MESSAGE */
+
+      message.className =
+        "message";
+
       message.textContent =
+        "";
+
+
+      /* VALIDATION */
+
+      if (
+        !fullName ||
+        !email ||
+        !role ||
+        !password
+      ) {
+
+        message.className =
+          "message error";
+
+        message.textContent =
+          "Please complete all required fields.";
+
+        return;
+
+      }
+
+
+      if (
+        password.length < 6
+      ) {
+
+        message.className =
+          "message error";
+
+        message.textContent =
+          "Password must be at least 6 characters.";
+
+        return;
+
+      }
+
+
+      if (
+        password !==
+        confirmPassword
+      ) {
+
+        message.className =
+          "message error";
+
+        message.textContent =
+          "Passwords do not match.";
+
+        return;
+
+      }
+
+
+      button.disabled =
+        true;
+
+      button.textContent =
         "Creating account...";
 
 
-      const {
-        data,
-        error
-      } =
-        await supabaseClient.auth.signUp({
-
-          email:
-            email,
-
-          password:
-            password
-
-        });
+      try {
 
 
-      if (error) {
+        /* =================================
+           CREATE AUTH ACCOUNT
+           ================================= */
 
-        message.textContent =
-          error.message;
-
-        return;
-      }
-
-
-      if (!data.user) {
-
-        message.textContent =
-          "Account could not be created.";
-
-        return;
-      }
-
-
-      const {
-        error: profileError
-      } =
-        await supabaseClient
-          .from("user_profiles")
-          .insert({
-
-            full_name:
-              fullName,
+        const {
+          data: authData,
+          error: authError
+        } =
+          await supabaseClient.auth.signUp({
 
             email:
               email,
 
-            role:
-              role,
-
-            auth_user_id:
-              data.user.id,
-
-            phone:
-              phone,
-
-            status:
-              "pending"
+            password:
+              password
 
           });
 
 
-      if (profileError) {
+        if (authError) {
+
+          message.className =
+            "message error";
+
+          message.textContent =
+            authError.message;
+
+          button.disabled =
+            false;
+
+          button.textContent =
+            "Create Account";
+
+          return;
+
+        }
+
+
+        /* =================================
+           GET AUTH USER ID
+           ================================= */
+
+        const user =
+          authData.user;
+
+
+        if (!user) {
+
+          message.className =
+            "message error";
+
+          message.textContent =
+            "Account could not be created. Please try again.";
+
+          button.disabled =
+            false;
+
+          button.textContent =
+            "Create Account";
+
+          return;
+
+        }
+
+
+        const authUserId =
+          user.id;
+
+
+        /* =================================
+           CREATE USER PROFILE
+           ================================= */
+
+        const {
+          data: profile,
+          error: profileError
+        } =
+          await supabaseClient
+            .from("user_profiles")
+            .insert({
+
+              auth_user_id:
+                authUserId,
+
+              full_name:
+                fullName,
+
+              email:
+                email,
+
+              phone:
+                phone || null,
+
+              role:
+                role,
+
+              status:
+                "pending"
+
+            })
+            .select()
+            .single();
+
+
+        if (profileError) {
+
+          console.error(
+            "Profile error:",
+            profileError
+          );
+
+
+          /*
+           If profile creation fails,
+           remove the authentication
+           session so the user can try
+           again after the problem is fixed.
+          */
+
+          await supabaseClient.auth.signOut();
+
+
+          message.className =
+            "message error";
+
+          message.textContent =
+            "Account was created, but the profile could not be saved: " +
+            profileError.message;
+
+
+          button.disabled =
+            false;
+
+          button.textContent =
+            "Create Account";
+
+          return;
+
+        }
+
+
+        /* =================================
+           SUCCESS
+           ================================= */
+
+        message.className =
+          "message success";
 
         message.textContent =
-          "Account created, but profile could not be saved: " +
-          profileError.message;
+          "Account created successfully. Pending Administrator approval.";
 
-        return;
+
+        document
+          .getElementById("signupForm")
+          .reset();
+
+
+        button.disabled =
+          false;
+
+        button.textContent =
+          "Create Account";
+
+
+        /*
+         Sign out after successful
+         profile creation because the
+         account is still pending.
+        */
+
+        await supabaseClient.auth.signOut();
+
       }
 
+      catch (error) {
 
-      message.textContent =
-        "Account created successfully. Pending Administrator approval.";
+        console.error(
+          "Signup error:",
+          error
+        );
 
-      document
-        .getElementById("signupForm")
-        .reset();
+
+        message.className =
+          "message error";
+
+        message.textContent =
+          "Something went wrong: " +
+          error.message;
+
+
+        button.disabled =
+          false;
+
+        button.textContent =
+          "Create Account";
+
+      }
 
     }
   );
 
+
 </script>
 
 </body>
+
 </html>
