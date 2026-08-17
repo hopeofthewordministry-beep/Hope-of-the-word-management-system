@@ -3,80 +3,68 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hope of the Word Ministry - Login</title>
+
+  <title>Sign In | Hope of the Word Ministry</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
     }
 
     body {
+      margin: 0;
       min-height: 100vh;
-      background: linear-gradient(135deg, #123b5d, #1d607d);
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       padding: 20px;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #123b5d, #1d638f);
     }
 
     .login-box {
       width: 100%;
-      max-width: 430px;
+      max-width: 420px;
       background: white;
-      padding: 35px;
-      border-radius: 18px;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+      padding: 32px;
+      border-radius: 16px;
+      box-shadow: 0 10px 35px rgba(0,0,0,0.18);
     }
 
-    .church-icon {
-      width: 75px;
-      height: 75px;
-      background: #123b5d;
-      color: white;
-      border-radius: 50%;
-      margin: 0 auto 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 32px;
-    }
-
-    h1 {
+    .header {
       text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .header h1 {
+      margin: 0;
       color: #123b5d;
-      font-size: 22px;
+      font-size: 25px;
     }
 
-    .subtitle {
-      text-align: center;
-      color: #777;
-      font-size: 13px;
-      margin: 8px 0 25px;
+    .header p {
+      margin: 8px 0 0;
+      color: #6b7280;
     }
 
     label {
       display: block;
-      font-size: 14px;
+      margin-top: 16px;
       font-weight: bold;
-      margin-bottom: 7px;
       color: #374151;
     }
 
-    select,
     input {
       width: 100%;
       padding: 13px;
+      margin-top: 7px;
       border: 1px solid #d1d5db;
-      border-radius: 8px;
-      margin-bottom: 18px;
-      font-size: 15px;
-      background: white;
+      border-radius: 7px;
+      font-size: 16px;
     }
 
-    select:focus,
     input:focus {
       outline: none;
       border-color: #123b5d;
@@ -85,45 +73,55 @@
     .login-button {
       width: 100%;
       padding: 14px;
+      margin-top: 24px;
+      border: none;
+      border-radius: 7px;
       background: #123b5d;
       color: white;
-      border: none;
-      border-radius: 8px;
       font-size: 16px;
       font-weight: bold;
       cursor: pointer;
     }
 
-    .login-button:hover {
-      background: #0d2d46;
+    .login-button:disabled {
+      opacity: 0.6;
     }
 
-    .error {
+    .message {
       display: none;
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 7px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .message.error {
+      display: block;
       background: #fee2e2;
-      color: #b91c1c;
-      padding: 11px;
-      border-radius: 8px;
-      text-align: center;
-      font-size: 13px;
-      margin-bottom: 18px;
+      color: #991b1b;
     }
 
-    .test-info {
-      background: #f3f6f8;
-      margin-top: 20px;
-      padding: 13px;
-      border-radius: 8px;
-      font-size: 12px;
-      color: #555;
-      line-height: 1.6;
+    .message.success {
+      display: block;
+      background: #d1fae5;
+      color: #065f46;
     }
 
-    .footer {
+    .create-account {
       text-align: center;
-      color: #888;
-      font-size: 12px;
       margin-top: 22px;
+      color: #6b7280;
+    }
+
+    .create-account a {
+      color: #123b5d;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .create-account a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -132,109 +130,49 @@
 
   <div class="login-box">
 
-    <div class="church-icon">
-      ⛪
+    <div class="header">
+      <h1>Hope of the Word Ministry</h1>
+      <p>Management System</p>
     </div>
 
-    <h1>Hope of the Word Ministry</h1>
+    <form id="loginForm">
 
-    <p class="subtitle">
-      Church Management System
-    </p>
-
-    <div id="errorMessage" class="error">
-      Incorrect role, username or password.
-    </div>
-
-    <form onsubmit="login(event)">
-
-      <label for="role">
-        Login as
-      </label>
-
-      <select id="role" required>
-
-        <option value="">
-          Select your role
-        </option>
-
-        <option value="pastor">
-          Pastor
-        </option>
-
-        <option value="secretary">
-          Secretary
-        </option>
-
-        <option value="treasurer">
-          Treasurer
-        </option>
-
-        <option value="admin">
-          Administrator
-        </option>
-
-      </select>
-
-
-      <label for="username">
-        Username
-      </label>
+      <label for="email">Email Address</label>
 
       <input
-        type="text"
-        id="username"
-        placeholder="Enter username"
-        autocomplete="username"
+        type="email"
+        id="email"
+        placeholder="Enter your email"
         required
       >
 
-
-      <label for="password">
-        Password
-      </label>
+      <label for="password">Password</label>
 
       <input
         type="password"
         id="password"
-        placeholder="Enter password"
-        autocomplete="current-password"
+        placeholder="Enter your password"
         required
       >
 
-
       <button
         type="submit"
-        class="login-button">
-        Login
+        class="login-button"
+        id="loginButton"
+      >
+        Sign In
       </button>
+
+      <div
+        id="message"
+        class="message"
+      ></div>
 
     </form>
 
-
-    <!-- TEMPORARY TEST INFORMATION -->
-
-    <div class="test-info">
-
-      <strong>Test Accounts</strong><br>
-
-      Pastor:
-      pastor / pastor123<br>
-
-      Secretary:
-      secretary / secretary123<br>
-
-      Treasurer:
-      treasurer / treasurer123<br>
-
-      Administrator:
-      admin / admin123
-
-    </div>
-
-
-    <div class="footer">
-      © 2026 Hope of the Word Ministry
+    <div class="create-account">
+      Don't have an account?
+      <a href="signup.html">Create New Account</a>
     </div>
 
   </div>
@@ -242,80 +180,202 @@
 
 <script>
 
-function login(event) {
+const SUPABASE_URL =
+  "https://lcrhoossfgxpktrvwdtj.supabase.co";
 
-  event.preventDefault();
+const SUPABASE_KEY =
+  "sb_publishable_KPNyDlm7lteOz0f1bivVAw_CbTAGbtH";
 
-  const role =
-    document.getElementById("role").value;
-
-  const username =
-    document.getElementById("username").value.trim();
-
-  const password =
-    document.getElementById("password").value;
+const supabaseClient =
+  supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
 
 
-  /*
-    TEMPORARY DEMO ACCOUNTS
+document
+  .getElementById("loginForm")
+  .addEventListener(
+    "submit",
+    async function(event) {
 
-    These will later be replaced
-    with secure authentication.
-  */
+      event.preventDefault();
 
-  const accounts = {
+      const email =
+        document
+          .getElementById("email")
+          .value
+          .trim()
+          .toLowerCase();
 
-    pastor: {
-      username: "pastor",
-      password: "pastor123"
-    },
+      const password =
+        document
+          .getElementById("password")
+          .value;
 
-    secretary: {
-      username: "secretary",
-      password: "secretary123"
-    },
+      const button =
+        document
+          .getElementById("loginButton");
 
-    treasurer: {
-      username: "treasurer",
-      password: "treasurer123"
-    },
+      const message =
+        document
+          .getElementById("message");
 
-    admin: {
-      username: "admin",
-      password: "admin123"
+
+      message.className = "message";
+      message.textContent = "";
+
+      button.disabled = true;
+      button.textContent = "Signing In...";
+
+
+      try {
+
+        const {
+          data: authData,
+          error: authError
+        } =
+          await supabaseClient.auth
+            .signInWithPassword({
+              email: email,
+              password: password
+            });
+
+
+        if (authError) {
+
+          message.className =
+            "message error";
+
+          message.textContent =
+            authError.message;
+
+          button.disabled = false;
+          button.textContent = "Sign In";
+
+          return;
+        }
+
+
+        if (!authData.user) {
+
+          throw new Error(
+            "Unable to identify your account."
+          );
+
+        }
+
+
+        const {
+          data: profile,
+          error: profileError
+        } =
+          await supabaseClient
+            .from("user_profiles")
+            .select(
+              "id, full_name, email, phone, role, status, auth_user_id"
+            )
+            .eq(
+              "auth_user_id",
+              authData.user.id
+            )
+            .single();
+
+
+        if (profileError || !profile) {
+
+          await supabaseClient.auth.signOut();
+
+          message.className =
+            "message error";
+
+          message.textContent =
+            "Your profile could not be found.";
+
+          button.disabled = false;
+          button.textContent = "Sign In";
+
+          return;
+        }
+
+
+        if (profile.status !== "approved") {
+
+          await supabaseClient.auth.signOut();
+
+          message.className =
+            "message error";
+
+          message.textContent =
+            "Your account is still pending Administrator approval.";
+
+          button.disabled = false;
+          button.textContent = "Sign In";
+
+          return;
+        }
+
+
+        localStorage.setItem(
+          "user_profile",
+          JSON.stringify(profile)
+        );
+
+
+        if (
+          profile.role ===
+          "administrator"
+        ) {
+
+          window.location.href =
+            "dashboard.html";
+
+        } else if (
+          profile.role === "pastor"
+        ) {
+
+          window.location.href =
+            "pastor.html";
+
+        } else if (
+          profile.role === "secretary"
+        ) {
+
+          window.location.href =
+            "secretary.html";
+
+        } else if (
+          profile.role === "treasurer"
+        ) {
+
+          window.location.href =
+            "treasurer.html";
+
+        } else {
+
+          window.location.href =
+            "dashboard.html";
+
+        }
+
+      }
+
+      catch (error) {
+
+        console.error(error);
+
+        message.className =
+          "message error";
+
+        message.textContent =
+          error.message;
+
+        button.disabled = false;
+        button.textContent = "Sign In";
+      }
+
     }
-
-  };
-
-
-  if (
-    accounts[role] &&
-    accounts[role].username === username &&
-    accounts[role].password === password
-  ) {
-
-    localStorage.setItem(
-      "churchRole",
-      role
-    );
-
-    localStorage.setItem(
-      "churchUser",
-      username
-    );
-
-    window.location.href =
-      "dashboard.html";
-
-  } else {
-
-    document.getElementById(
-      "errorMessage"
-    ).style.display = "block";
-
-  }
-
-}
+  );
 
 </script>
 
