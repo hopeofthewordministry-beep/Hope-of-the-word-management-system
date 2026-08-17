@@ -38,18 +38,21 @@ body {
 
   background: #FFFFFF;
 
-  padding: 30px 25px;
+  padding: 32px 25px;
 
   border-radius: 20px;
 
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.20);
+  box-shadow:
+    0 15px 40px rgba(0, 0, 0, 0.20);
 }
 
-.logo {
-  width: 78px;
-  height: 78px;
+/* LARGE PROFESSIONAL CHURCH ICON */
 
-  margin: 0 auto 15px;
+.logo {
+  width: 105px;
+  height: 105px;
+
+  margin: 0 auto 18px;
 
   border-radius: 50%;
 
@@ -61,10 +64,15 @@ body {
 
   color: #14532D;
 
-  font-size: 34px;
-  font-weight: bold;
+  font-size: 58px;
 
-  border: 5px solid #90EE90;
+  border: 6px solid #90EE90;
+
+  box-shadow:
+    0 6px 18px rgba(0, 0, 0, 0.15);
+
+  text-shadow:
+    1px 2px 2px rgba(0, 0, 0, 0.15);
 }
 
 h1 {
@@ -118,7 +126,8 @@ input:focus {
 
   border-color: #90EE90;
 
-  box-shadow: 0 0 0 2px rgba(144, 238, 144, 0.25);
+  box-shadow:
+    0 0 0 2px rgba(144, 238, 144, 0.25);
 }
 
 button {
@@ -211,7 +220,7 @@ button:disabled {
 <div class="card">
 
   <div class="logo">
-    ★
+    ⛪
   </div>
 
   <h1>
@@ -229,9 +238,7 @@ button:disabled {
 
   <form id="loginForm">
 
-    <label>
-      Email Address
-    </label>
+    <label>Email Address</label>
 
     <input
       type="email"
@@ -241,9 +248,7 @@ button:disabled {
       required
     >
 
-    <label>
-      Password
-    </label>
+    <label>Password</label>
 
     <input
       type="password"
@@ -273,15 +278,11 @@ button:disabled {
 
 <script>
 
-/* =================================
-   SUPABASE
-   ================================= */
-
 const SUPABASE_URL =
-"https://lcrhoossfgxpktrvwdtj.supabase.co";
+"YOUR_EXISTING_SUPABASE_URL";
 
 const SUPABASE_KEY =
-"sb_publishable_KPNyDlm7lteOz0f1bivVAw_CbTAGbtH";
+"YOUR_EXISTING_SUPABASE_KEY";
 
 const supabaseClient =
 supabase.createClient(
@@ -289,10 +290,6 @@ supabase.createClient(
   SUPABASE_KEY
 );
 
-
-/* =================================
-   LOGIN
-   ================================= */
 
 document
 .getElementById("loginForm")
@@ -340,10 +337,7 @@ document
 
       if (error) {
 
-        console.error(
-          "Login error:",
-          error
-        );
+        console.error(error);
 
         showMessage(
           "Invalid email or password.",
@@ -376,9 +370,6 @@ document
         return;
       }
 
-
-      /* Find profile using Auth UID */
-
       const {
         data: profile,
         error: profileError
@@ -392,13 +383,9 @@ document
       )
       .maybeSingle();
 
-
       if (profileError) {
 
-        console.error(
-          "Profile error:",
-          profileError
-        );
+        console.error(profileError);
 
         await supabaseClient
         .auth
@@ -416,7 +403,6 @@ document
 
         return;
       }
-
 
       if (!profile) {
 
@@ -437,7 +423,6 @@ document
         return;
       }
 
-
       const status =
         String(
           profile.status || ""
@@ -445,14 +430,12 @@ document
         .trim()
         .toLowerCase();
 
-
       const role =
         String(
           profile.role || ""
         )
         .trim()
         .toLowerCase();
-
 
       if (status === "pending") {
 
@@ -473,7 +456,6 @@ document
         return;
       }
 
-
       if (status === "rejected") {
 
         await supabaseClient
@@ -492,7 +474,6 @@ document
 
         return;
       }
-
 
       if (status !== "approved") {
 
@@ -513,33 +494,19 @@ document
         return;
       }
 
-
       localStorage.setItem(
         "user_profile",
         JSON.stringify(profile)
       );
-
-
-      if (role === "administrator") {
-
-        window.location.href =
-          "dashboard.html";
-
-        return;
-      }
-
 
       window.location.href =
         "dashboard.html";
 
     }
 
-    catch (error) {
+    catch(error) {
 
-      console.error(
-        "Unexpected login error:",
-        error
-      );
+      console.error(error);
 
       showMessage(
         "Something went wrong. Please try again.",
@@ -555,10 +522,6 @@ document
   }
 );
 
-
-/* =================================
-   MESSAGES
-   ================================= */
 
 function showMessage(
   text,
@@ -585,7 +548,7 @@ function hideMessage() {
   document
   .getElementById("message")
   .style.display =
-    "none";
+  "none";
 }
 
 </script>
