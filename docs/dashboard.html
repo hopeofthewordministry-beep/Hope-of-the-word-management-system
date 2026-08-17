@@ -20,308 +20,418 @@
       color: #1f2937;
     }
 
-    .layout {
+    /* =========================
+       TOP BAR - GHANA COLOURS
+       ========================= */
+
+    .topbar {
+      height: 65px;
+
+      background:
+        linear-gradient(
+          90deg,
+          #ce1126 0%,
+          #ce1126 33.33%,
+          #fcd116 33.33%,
+          #fcd116 66.66%,
+          #006b3c 66.66%,
+          #006b3c 100%
+        );
+
+      color: white;
+
       display: flex;
-      min-height: 100vh;
+      align-items: center;
+
+      padding: 0 18px;
+
+      position: sticky;
+      top: 0;
+
+      z-index: 1000;
+
+      box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.15);
     }
 
-    /* SIDEBAR */
+    .menu-toggle {
+      border: none;
+      background: rgba(0, 0, 0, 0.18);
+      color: white;
+
+      font-size: 28px;
+
+      cursor: pointer;
+
+      margin-right: 15px;
+
+      width: 45px;
+      height: 42px;
+
+      border-radius: 7px;
+    }
+
+    .menu-toggle:hover {
+      background: rgba(0, 0, 0, 0.30);
+    }
+
+    .topbar-title {
+      font-size: 19px;
+      font-weight: bold;
+      flex: 1;
+
+      text-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    .logout-top {
+      border: none;
+      background: #ce1126;
+      color: white;
+
+      padding: 9px 13px;
+
+      border-radius: 6px;
+
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .logout-top:hover {
+      background: #a80e1e;
+    }
+
+    /* =========================
+       SIDE MENU
+       ========================= */
 
     .sidebar {
-      width: 250px;
-      background: #123b5d;
-      color: white;
       position: fixed;
+
+      top: 65px;
       left: 0;
-      top: 0;
-      bottom: 0;
-      padding: 22px 15px;
-      z-index: 1000;
+
+      width: 250px;
+
+      height: calc(100vh - 65px);
+
+      background: white;
+
+      border-right: 4px solid #fcd116;
+
+      box-shadow:
+        2px 0 10px rgba(0, 0, 0, 0.08);
+
+      padding: 15px;
+
+      overflow-y: auto;
+
+      z-index: 900;
+
+      transition: 0.3s;
     }
 
-    .brand {
-      text-align: center;
-      padding: 10px 5px 25px;
-      border-bottom: 1px solid rgba(255,255,255,0.2);
-    }
-
-    .brand h2 {
-      margin: 0;
-      font-size: 19px;
-    }
-
-    .brand p {
-      margin: 7px 0 0;
-      font-size: 12px;
-      opacity: 0.8;
-    }
-
-    .menu {
-      margin-top: 25px;
+    .sidebar.hidden {
+      left: -260px;
     }
 
     .menu button {
       width: 100%;
+
+      padding: 13px;
+
+      margin-bottom: 8px;
+
       border: none;
-      background: transparent;
-      color: white;
-      text-align: left;
-      padding: 13px 14px;
-      margin-bottom: 5px;
+
       border-radius: 7px;
+
+      background: transparent;
+
+      text-align: left;
+
+      font-size: 15px;
+
       cursor: pointer;
-      font-size: 14px;
+
+      transition: 0.2s;
     }
 
     .menu button:hover,
     .menu button.active {
-      background: rgba(255,255,255,0.15);
+      background: #eaf6ef;
+
+      color: #006b3c;
+
+      font-weight: bold;
+
+      border-left: 4px solid #ce1126;
     }
 
-    .logout {
-      position: absolute;
-      bottom: 25px;
-      left: 15px;
-      right: 15px;
-    }
-
-    .logout button {
-      width: 100%;
-      padding: 12px;
-      border: none;
-      border-radius: 7px;
-      background: #b42318;
-      color: white;
-      cursor: pointer;
-    }
-
-    /* MAIN */
+    /* =========================
+       MAIN
+       ========================= */
 
     .main {
       margin-left: 250px;
-      width: calc(100% - 250px);
-      min-height: 100vh;
-    }
 
-    .topbar {
-      background: white;
-      padding: 16px 25px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: 0 1px 5px rgba(0,0,0,0.08);
-    }
-
-    .topbar h3 {
-      margin: 0;
-    }
-
-    .menu-btn {
-      display: none;
-      border: none;
-      background: #123b5d;
-      color: white;
-      padding: 9px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 20px;
-    }
-
-    .content {
       padding: 25px;
+
+      transition: 0.3s;
     }
+
+    .main.full {
+      margin-left: 0;
+    }
+
+    /* =========================
+       WELCOME
+       ========================= */
 
     .welcome {
-      background: white;
+      background:
+        linear-gradient(
+          135deg,
+          #ffffff 0%,
+          #fffdf0 100%
+        );
+
       border-radius: 12px;
-      padding: 25px;
-      margin-bottom: 22px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+
+      padding: 22px;
+
+      margin-bottom: 20px;
+
+      border-top: 5px solid #ce1126;
+
+      box-shadow:
+        0 3px 12px rgba(0, 0, 0, 0.06);
     }
 
     .welcome h1 {
       margin: 0 0 7px;
-      font-size: 25px;
+
+      color: #006b3c;
     }
 
     .welcome p {
       margin: 0;
+
       color: #6b7280;
     }
 
-    /* STATISTICS */
+    /* =========================
+       STATISTICS
+       ========================= */
 
     .stats {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
+
+      grid-template-columns:
+        repeat(4, 1fr);
+
+      gap: 15px;
+
       margin-bottom: 25px;
     }
 
     .stat-card {
       background: white;
+
       padding: 20px;
+
       border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+
+      box-shadow:
+        0 3px 12px rgba(0, 0, 0, 0.06);
+
+      border-top: 4px solid #006b3c;
     }
 
-    .stat-title {
+    .stat-card:nth-child(2) {
+      border-top-color: #fcd116;
+    }
+
+    .stat-card:nth-child(3) {
+      border-top-color: #006b3c;
+    }
+
+    .stat-card:nth-child(4) {
+      border-top-color: #ce1126;
+    }
+
+    .stat-card h3 {
+      margin: 0;
+
+      font-size: 14px;
+
       color: #6b7280;
-      font-size: 13px;
-      margin-bottom: 10px;
     }
 
     .stat-number {
       font-size: 30px;
+
       font-weight: bold;
+
       color: #123b5d;
+
+      margin-top: 8px;
     }
 
-    /* SECTIONS */
+    /* =========================
+       SECTIONS
+       ========================= */
 
     .section {
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    /* =========================
+       CARDS
+       ========================= */
+
+    .card {
       background: white;
-      padding: 22px;
+
+      padding: 20px;
+
       border-radius: 12px;
-      margin-bottom: 25px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+
+      margin-bottom: 20px;
+
+      box-shadow:
+        0 3px 12px rgba(0, 0, 0, 0.06);
+
+      border-top: 3px solid #fcd116;
     }
 
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 18px;
+    .card h2 {
+      margin-top: 0;
+
+      color: #006b3c;
     }
 
-    .section-header h2 {
-      margin: 0;
-      font-size: 19px;
-    }
-
-    .refresh-btn {
-      border: none;
-      background: #123b5d;
-      color: white;
-      padding: 9px 14px;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    /* USER CARDS */
-
-    .user-list {
-      display: grid;
-      gap: 12px;
-    }
+    /* =========================
+       USER CARDS
+       ========================= */
 
     .user-card {
-      border: 1px solid #e5e7eb;
+      border:
+        1px solid #e5e7eb;
+
       border-radius: 9px;
-      padding: 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 15px;
+
+      padding: 15px;
+
+      margin-bottom: 12px;
+
+      background: #ffffff;
     }
 
-    .user-info h3 {
-      margin: 0 0 5px;
-      font-size: 16px;
-    }
+    .user-card h3 {
+      margin: 0 0 6px;
 
-    .user-info p {
-      margin: 3px 0;
-      color: #6b7280;
-      font-size: 13px;
-    }
-
-    .actions {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .approve-btn,
-    .reject-btn {
-      border: none;
-      color: white;
-      padding: 9px 14px;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    .approve-btn {
-      background: #16803c;
-    }
-
-    .reject-btn {
-      background: #b42318;
-    }
-
-    .approve-btn:disabled,
-    .reject-btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
-    /* BADGES */
-
-    .badge {
-      display: inline-block;
-      padding: 4px 9px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: bold;
-      margin-top: 4px;
-    }
-
-    .pending {
-      background: #fff3cd;
-      color: #856404;
-    }
-
-    .approved {
-      background: #d1fae5;
-      color: #065f46;
-    }
-
-    .rejected {
-      background: #fee2e2;
-      color: #991b1b;
-    }
-
-    .role {
-      background: #e5eef5;
       color: #123b5d;
     }
 
-    .empty {
-      text-align: center;
-      padding: 25px;
+    .user-info {
       color: #6b7280;
+
+      font-size: 14px;
+
+      line-height: 1.7;
+    }
+
+    /* =========================
+       BUTTONS
+       ========================= */
+
+    .buttons {
+      display: flex;
+
+      gap: 8px;
+
+      margin-top: 12px;
+    }
+
+    .approve,
+    .reject {
+      border: none;
+
+      padding: 9px 14px;
+
+      border-radius: 6px;
+
+      color: white;
+
+      cursor: pointer;
+
+      font-weight: bold;
+    }
+
+    .approve {
+      background: #006b3c;
+    }
+
+    .approve:hover {
+      background: #00532e;
+    }
+
+    .reject {
+      background: #ce1126;
+    }
+
+    .reject:hover {
+      background: #a80e1e;
+    }
+
+    /* =========================
+       EMPTY / LOADING / ERROR
+       ========================= */
+
+    .empty {
+      padding: 20px;
+
+      text-align: center;
+
+      color: #6b7280;
+
+      background: #f9fafb;
+
+      border-radius: 8px;
     }
 
     .loading {
-      text-align: center;
       padding: 20px;
+
+      text-align: center;
+
       color: #6b7280;
     }
 
     .error {
+      padding: 15px;
+
       background: #fee2e2;
+
       color: #991b1b;
-      padding: 12px;
+
       border-radius: 7px;
-      margin-bottom: 15px;
     }
 
-    /* MOBILE */
+    /* =========================
+       MOBILE
+       ========================= */
 
     @media (max-width: 900px) {
 
       .stats {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns:
+          repeat(2, 1fr);
       }
 
     }
@@ -329,68 +439,52 @@
     @media (max-width: 700px) {
 
       .sidebar {
-        transform: translateX(-100%);
-        transition: 0.3s;
+        left: -260px;
       }
 
       .sidebar.open {
-        transform: translateX(0);
+        left: 0;
       }
 
       .main {
         margin-left: 0;
-        width: 100%;
-      }
 
-      .menu-btn {
-        display: block;
-      }
-
-      .topbar {
-        padding: 13px 16px;
-      }
-
-      .content {
         padding: 15px;
       }
 
       .stats {
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
+        grid-template-columns:
+          1fr 1fr;
       }
 
-      .stat-card {
-        padding: 15px;
+      .topbar-title {
+        font-size: 16px;
       }
 
-      .stat-number {
-        font-size: 25px;
+      .logout-top {
+        font-size: 12px;
       }
 
-      .user-card {
-        flex-direction: column;
-        align-items: flex-start;
-      }
+    }
 
-      .actions {
-        width: 100%;
-      }
+    @media (max-width: 450px) {
 
-      .approve-btn,
-      .reject-btn {
-        flex: 1;
+      .stats {
+        grid-template-columns:
+          1fr;
       }
 
       .welcome h1 {
         font-size: 21px;
       }
 
-    }
+      .buttons {
+        flex-direction: column;
+      }
 
-    @media (max-width: 420px) {
-
-      .stats {
-        grid-template-columns: 1fr;
+      .approve,
+      .reject {
+        width: 100%;
       }
 
     }
@@ -400,1323 +494,1152 @@
 
 <body>
 
-<div class="layout">
+  <!-- =========================
+       TOP BAR
+       ========================= -->
 
-  <!-- SIDEBAR -->
+  <div class="topbar">
 
-  <aside class="sidebar" id="sidebar">
+    <button
+      class="menu-toggle"
+      onclick="toggleMenu()"
+      aria-label="Open menu"
+    >
+      ☰
+    </button>
 
-    <div class="brand">
-      <h2>Hope of the Word</h2>
-      <p>Ministry Management System</p>
+    <div class="topbar-title">
+      Hope of the Word Ministry
     </div>
+
+    <button
+      class="logout-top"
+      onclick="logout()"
+    >
+      Logout
+    </button>
+
+  </div>
+
+
+  <!-- =========================
+       SIDEBAR
+       ========================= -->
+
+  <aside
+    class="sidebar"
+    id="sidebar"
+  >
 
     <div class="menu">
 
-      <button class="active" onclick="showSection('dashboardSection', this)">
+      <button
+        class="active"
+        onclick="showSection('dashboardSection', this)"
+      >
         🏠 Dashboard
       </button>
 
-      <button onclick="showSection('pendingSection', this)">
+      <button
+        onclick="showSection('pendingSection', this)"
+      >
         ⏳ Pending Approvals
       </button>
 
-      <button onclick="showSection('usersSection', this)">
+      <button
+        onclick="showSection('usersSection', this)"
+      >
         👥 Users
       </button>
 
-      <button onclick="showSection('activitiesSection', this)">
+      <button
+        onclick="showSection('activitiesSection', this)"
+      >
         ⛪ Church Activities
       </button>
 
-      <button onclick="showSection('eventsSection', this)">
-        📅 Events
-      </button>
-
-      <button onclick="showSection('financeSection', this)">
-        💰 Finance
-      </button>
-
-      <button onclick="showSection('announcementsSection', this)">
-        📢 Announcements
-      </button>
-
-      <button onclick="showSection('settingsSection', this)">
-        ⚙️ Settings
-      </button>
-
-    </div>
-
-    <div class="logout">
-      <button onclick="logout()">
-        🚪 Logout
-      </button>
     </div>
 
   </aside>
 
 
-  <!-- MAIN -->
+  <!-- =========================
+       MAIN
+       ========================= -->
 
-  <main class="main">
+  <main
+    class="main"
+    id="main"
+  >
 
-    <header class="topbar">
+    <!-- DASHBOARD -->
 
-      <button
-        class="menu-btn"
-        onclick="toggleSidebar()"
-      >
-        ☰
-      </button>
+    <section
+      id="dashboardSection"
+      class="section active"
+    >
 
-      <h3>Administrator Dashboard</h3>
+      <div class="welcome">
 
-      <span id="topUserName">
-        Administrator
-      </span>
+        <h1 id="welcomeName">
+          Welcome, Administrator
+        </h1>
 
-    </header>
+        <p>
+          Manage Hope of the Word Ministry
+          from your administrator dashboard.
+        </p>
 
-
-    <div class="content">
-
-
-      <!-- DASHBOARD -->
-
-      <section
-        id="dashboardSection"
-        class="dashboard-section"
-      >
-
-        <div class="welcome">
-
-          <h1>
-            Welcome, <span id="welcomeName">
-              Administrator
-            </span>
-          </h1>
-
-          <p>
-            Manage Hope of the Word Ministry from your dashboard.
-          </p>
-
-        </div>
+      </div>
 
 
-        <!-- STATISTICS -->
+      <!-- STATISTICS -->
 
-        <div class="stats">
+      <div class="stats">
 
-          <div class="stat-card">
-            <div class="stat-title">
-              Total Users
-            </div>
+        <div class="stat-card">
 
-            <div
-              class="stat-number"
-              id="totalUsers"
-            >
-              0
-            </div>
-          </div>
-
-
-          <div class="stat-card">
-            <div class="stat-title">
-              Pastors
-            </div>
-
-            <div
-              class="stat-number"
-              id="totalPastors"
-            >
-              0
-            </div>
-          </div>
-
-
-          <div class="stat-card">
-            <div class="stat-title">
-              Secretaries
-            </div>
-
-            <div
-              class="stat-number"
-              id="totalSecretaries"
-            >
-              0
-            </div>
-          </div>
-
-
-          <div class="stat-card">
-            <div class="stat-title">
-              Treasurers
-            </div>
-
-            <div
-              class="stat-number"
-              id="totalTreasurers"
-            >
-              0
-            </div>
-          </div>
-
-        </div>
-
-
-        <!-- PENDING PREVIEW -->
-
-        <div class="section">
-
-          <div class="section-header">
-
-            <h2>
-              Pending Account Requests
-            </h2>
-
-            <button
-              class="refresh-btn"
-              onclick="loadAllData()"
-            >
-              Refresh
-            </button>
-
-          </div>
+          <h3>
+            Total Users
+          </h3>
 
           <div
-            id="dashboardPendingUsers"
-            class="user-list"
+            class="stat-number"
+            id="totalUsers"
           >
-            <div class="loading">
-              Loading...
-            </div>
+            0
           </div>
 
         </div>
 
-      </section>
 
+        <div class="stat-card">
 
-      <!-- PENDING APPROVALS -->
+          <h3>
+            Pending Approvals
+          </h3>
 
-      <section
-        id="pendingSection"
-        class="section"
-        style="display:none;"
-      >
-
-        <div class="section-header">
-
-          <h2>
-            Pending Account Approvals
-          </h2>
-
-          <button
-            class="refresh-btn"
-            onclick="loadAllData()"
+          <div
+            class="stat-number"
+            id="pendingUsers"
           >
-            Refresh
-          </button>
+            0
+          </div>
 
         </div>
+
+
+        <div class="stat-card">
+
+          <h3>
+            Approved Users
+          </h3>
+
+          <div
+            class="stat-number"
+            id="approvedUsers"
+          >
+            0
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <h3>
+            Administrators
+          </h3>
+
+          <div
+            class="stat-number"
+            id="adminUsers"
+          >
+            0
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- PENDING ON DASHBOARD -->
+
+      <div class="card">
+
+        <h2>
+          Pending Account Requests
+        </h2>
 
         <div
-          id="pendingUsers"
-          class="user-list"
+          id="dashboardPending"
+          class="loading"
         >
-          <div class="loading">
-            Loading...
-          </div>
+          Loading pending approvals...
         </div>
 
-      </section>
+      </div>
+
+    </section>
 
 
-      <!-- ALL USERS -->
+    <!-- =========================
+         PENDING APPROVALS
+         ========================= -->
 
-      <section
-        id="usersSection"
-        class="section"
-        style="display:none;"
-      >
+    <section
+      id="pendingSection"
+      class="section"
+    >
 
-        <div class="section-header">
+      <div class="card">
 
-          <h2>
-            All Users
-          </h2>
-
-          <button
-            class="refresh-btn"
-            onclick="loadAllData()"
-          >
-            Refresh
-          </button>
-
-        </div>
+        <h2>
+          Pending Approvals
+        </h2>
 
         <div
-          id="allUsers"
-          class="user-list"
+          id="pendingList"
+          class="loading"
         >
-          <div class="loading">
-            Loading...
-          </div>
+          Loading pending approvals...
         </div>
 
-      </section>
+      </div>
+
+    </section>
 
 
-      <!-- PLACEHOLDER SECTIONS -->
+    <!-- =========================
+         USERS
+         ========================= -->
 
-      <section
-        id="activitiesSection"
-        class="section"
-        style="display:none;"
-      >
-        <h2>Church Activities</h2>
-        <div class="empty">
-          Church activities management will be added here.
+    <section
+      id="usersSection"
+      class="section"
+    >
+
+      <div class="card">
+
+        <h2>
+          All Users
+        </h2>
+
+        <div
+          id="usersList"
+          class="loading"
+        >
+          Loading users...
         </div>
-      </section>
+
+      </div>
+
+    </section>
 
 
-      <section
-        id="eventsSection"
-        class="section"
-        style="display:none;"
-      >
-        <h2>Events</h2>
-        <div class="empty">
-          Events management will be added here.
-        </div>
-      </section>
+    <!-- =========================
+         CHURCH ACTIVITIES
+         ========================= -->
 
+    <section
+      id="activitiesSection"
+      class="section"
+    >
 
-      <section
-        id="financeSection"
-        class="section"
-        style="display:none;"
-      >
-        <h2>Finance</h2>
-        <div class="empty">
-          Finance management will be added here.
-        </div>
-      </section>
+      <div class="card">
 
+        <h2>
+          Church Activities
+        </h2>
 
-      <section
-        id="announcementsSection"
-        class="section"
-        style="display:none;"
-      >
-        <h2>Announcements</h2>
-        <div class="empty">
-          Announcements management will be added here.
-        </div>
-      </section>
+        <p>
+          Church activities management
+          will be added here.
+        </p>
 
+      </div>
 
-      <section
-        id="settingsSection"
-        class="section"
-        style="display:none;"
-      >
-        <h2>Settings</h2>
-        <div class="empty">
-          System settings will be added here.
-        </div>
-      </section>
-
-
-    </div>
+    </section>
 
   </main>
 
-</div>
+
+  <!-- =========================
+       JAVASCRIPT
+       ========================= -->
+
+  <script>
+
+    /* =====================================
+       SUPABASE CONNECTION
+       ===================================== */
+
+    const SUPABASE_URL =
+      "https://lcrhoossfgxpktrvwdtj.supabase.co";
+
+    const SUPABASE_KEY =
+      "sb_publishable_KPNyDlm7lteOz0f1bivVAw_CbTAGbtH";
 
 
-<script>
-
-/* ==========================================
-   SUPABASE CONNECTION
-   ========================================== */
-
-const SUPABASE_URL =
-  "https://lcrhoossfgxpktrvwdtj.supabase.co";
-
-const SUPABASE_KEY =
-  "sb_publishable_KPNyDlm7lteOz0f1bivVAw_CbTAGbtH";
-
-const supabaseClient =
-  supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
-
-
-/* ==========================================
-   PAGE START
-   ========================================== */
-
-document.addEventListener(
-  "DOMContentLoaded",
-  async function() {
-
-    await checkAdministrator();
-
-  }
-);
-
-
-/* ==========================================
-   CHECK ADMINISTRATOR
-   ========================================== */
-
-async function checkAdministrator() {
-
-  try {
-
-    const {
-      data: {
-        user
-      },
-      error: authError
-    } =
-      await supabaseClient.auth.getUser();
-
-
-    if (
-      authError ||
-      !user
-    ) {
-
-      window.location.href =
-        "index.html";
-
-      return;
-
-    }
-
-
-    const {
-      data: profile,
-      error: profileError
-    } =
-      await supabaseClient
-        .from("user_profiles")
-        .select(
-          "id, full_name, email, role, status, auth_user_id, phone"
-        )
-        .eq(
-          "auth_user_id",
-          user.id
-        )
-        .single();
-
-
-    if (
-      profileError ||
-      !profile
-    ) {
-
-      alert(
-        "Your profile could not be found."
+    const supabaseClient =
+      supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
       );
 
-      await supabaseClient.auth.signOut();
 
-      window.location.href =
-        "index.html";
+    /* =====================================
+       PAGE START
+       ===================================== */
 
-      return;
+    document.addEventListener(
+      "DOMContentLoaded",
+      function () {
 
-    }
+        checkAdministrator();
 
+      }
+    );
 
-    const userRole =
-  String(profile.role || "")
-    .trim()
-    .toLowerCase();
 
-const {
-  data: {
-    user
-  },
-  error: authError
-} = await supabaseClient.auth.getUser();
+    /* =====================================
+       CHECK ADMINISTRATOR
+       ===================================== */
 
-if (authError || !user) {
-  window.location.href = "index.html";
-  return;
-}
+    async function checkAdministrator() {
 
+      try {
 
-/* Get the profile belonging to the logged-in Auth user */
+        const {
+          data: {
+            user
+          },
+          error: authError
+        } =
+          await supabaseClient.auth.getUser();
 
-const {
-  data: profile,
-  error: profileError
-} = await supabaseClient
-  .from("user_profiles")
-  .select("*")
-  .eq("auth_user_id", user.id)
-  .single();
 
+        if (
+          authError ||
+          !user
+        ) {
 
-if (profileError || !profile) {
+          window.location.href =
+            "index.html";
 
-  alert(
-    "Administrator profile was not found."
-  );
+          return;
 
-  await supabaseClient.auth.signOut();
-
-  window.location.href =
-    "index.html";
-
-  return;
-}
-
-
-/* Check approval */
-
-const userStatus =
-  String(profile.status || "")
-    .trim()
-    .toLowerCase();
-
-
-if (userStatus !== "approved") {
-
-  alert(
-    "Your account is still pending Administrator approval."
-  );
-
-  await supabaseClient.auth.signOut();
-
-  window.location.href =
-    "index.html";
-
-  return;
-}
-
-
-/* Check Administrator role */
-
-const userRole =
-  String(profile.role || "")
-    .trim()
-    .toLowerCase();
-
-
-if (userRole !== "administrator") {
-
-  alert(
-    "Administrator access is required. Current role: " +
-    userRole
-  );
-
-  await supabaseClient.auth.signOut();
-
-  window.location.href =
-    "index.html";
-
-  return;
-}
-
-
-/* Administrator is verified */
-
-console.log(
-  "Administrator verified:",
-  profile
-);
-
-      await supabaseClient.auth.signOut();
-
-      window.location.href =
-        "index.html";
-
-      return;
-
-    }
-
-
-    if (
-      profile.status !==
-      "approved"
-    ) {
-
-      alert(
-        "Your account is not approved."
-      );
-
-      await supabaseClient.auth.signOut();
-
-      window.location.href =
-        "index.html";
-
-      return;
-
-    }
-
-
-    const displayName =
-      profile.full_name ||
-      "Administrator";
-
-
-    document.getElementById(
-      "welcomeName"
-    ).textContent =
-      displayName;
-
-
-    document.getElementById(
-      "topUserName"
-    ).textContent =
-      displayName;
-
-
-    await loadAllData();
-
-  }
-
-  catch (error) {
-
-    console.error(error);
-
-    window.location.href =
-      "index.html";
-
-  }
-
-}
-
-
-/* ==========================================
-   LOAD ALL DATA
-   ========================================== */
-
-async function loadAllData() {
-
-  await loadUsers();
-
-}
-
-
-/* ==========================================
-   LOAD USERS
-   ========================================== */
-
-async function loadUsers() {
-
-  const {
-    data: users,
-    error
-  } =
-    await supabaseClient
-      .from("user_profiles")
-      .select(
-        "id, full_name, email, role, status, auth_user_id, phone"
-      )
-      .order(
-        "id",
-        {
-          ascending: false
         }
-      );
 
 
-  if (error) {
+        const {
+          data: profile,
+          error: profileError
+        } =
+          await supabaseClient
+            .from("user_profiles")
+            .select("*")
+            .eq(
+              "auth_user_id",
+              user.id
+            )
+            .single();
 
-    console.error(error);
 
-    showError(
-      "dashboardPendingUsers",
-      error.message
-    );
+        if (
+          profileError ||
+          !profile
+        ) {
 
-    showError(
-      "pendingUsers",
-      error.message
-    );
+          alert(
+            "Administrator profile was not found."
+          );
 
-    showError(
-      "allUsers",
-      error.message
-    );
+          await logout();
 
-    return;
+          return;
 
-  }
+        }
 
 
-  const safeUsers =
-    users || [];
+        const userRole =
+          String(
+            profile.role || ""
+          )
+            .trim()
+            .toLowerCase();
 
 
-  /* STATISTICS */
+        const userStatus =
+          String(
+            profile.status || ""
+          )
+            .trim()
+            .toLowerCase();
 
-  document.getElementById(
-    "totalUsers"
-  ).textContent =
-    safeUsers.length;
 
+        if (
+          userRole !==
+          "administrator"
+        ) {
 
-  document.getElementById(
-    "totalPastors"
-  ).textContent =
-    safeUsers.filter(
-      user =>
-        user.role === "pastor"
-    ).length;
+          alert(
+            "Administrator access is required. Current role: " +
+            userRole
+          );
 
+          await logout();
 
-  document.getElementById(
-    "totalSecretaries"
-  ).textContent =
-    safeUsers.filter(
-      user =>
-        user.role === "secretary"
-    ).length;
+          return;
 
+        }
 
-  document.getElementById(
-    "totalTreasurers"
-  ).textContent =
-    safeUsers.filter(
-      user =>
-        user.role === "treasurer"
-    ).length;
 
+        if (
+          userStatus !==
+          "approved"
+        ) {
 
-  const pendingUsers =
-    safeUsers.filter(
-      user =>
-        user.status === "pending"
-    );
+          alert(
+            "Your Administrator account is not approved."
+          );
 
+          await logout();
 
-  renderUsers(
-    pendingUsers,
-    "pendingUsers",
-    true
-  );
+          return;
 
+        }
 
-  renderUsers(
-    pendingUsers,
-    "dashboardPendingUsers",
-    true
-  );
 
+        document
+          .getElementById(
+            "welcomeName"
+          )
+          .textContent =
+          "Welcome, " +
+          (
+            profile.full_name ||
+            "Administrator"
+          );
 
-  renderUsers(
-    safeUsers,
-    "allUsers",
-    false
-  );
 
-}
+        await loadDashboard();
 
+      }
 
-/* ==========================================
-   RENDER USERS
-   ========================================== */
+      catch (error) {
 
-function renderUsers(
-  users,
-  containerId,
-  showActions
-) {
-
-  const container =
-    document.getElementById(
-      containerId
-    );
-
-
-  if (!container) {
-    return;
-  }
-
-
-  container.innerHTML = "";
-
-
-  if (
-    !users ||
-    users.length === 0
-  ) {
-
-    const empty =
-      document.createElement("div");
-
-    empty.className =
-      "empty";
-
-    empty.textContent =
-      showActions
-        ? "No pending account requests."
-        : "No users found.";
-
-    container.appendChild(
-      empty
-    );
-
-    return;
-
-  }
-
-
-  users.forEach(
-    user => {
-
-      const card =
-        document.createElement("div");
-
-      card.className =
-        "user-card";
-
-
-      const info =
-        document.createElement("div");
-
-      info.className =
-        "user-info";
-
-
-      const name =
-        document.createElement("h3");
-
-      name.textContent =
-        user.full_name ||
-        "Unnamed User";
-
-
-      const email =
-        document.createElement("p");
-
-      email.textContent =
-        "Email: " +
-        (user.email || "N/A");
-
-
-      const phone =
-        document.createElement("p");
-
-      phone.textContent =
-        "Phone: " +
-        (user.phone || "N/A");
-
-
-      const roleBadge =
-        document.createElement("span");
-
-      roleBadge.className =
-        "badge role";
-
-      roleBadge.textContent =
-        formatRole(
-          user.role
+        console.error(
+          error
         );
 
-
-      const statusBadge =
-        document.createElement("span");
-
-      statusBadge.className =
-        "badge " +
-        getStatusClass(
-          user.status
-        );
-
-      statusBadge.textContent =
-        formatStatus(
-          user.status
-        );
-
-
-      info.appendChild(
-        name
-      );
-
-      info.appendChild(
-        email
-      );
-
-      info.appendChild(
-        phone
-      );
-
-      info.appendChild(
-        roleBadge
-      );
-
-      info.appendChild(
-        statusBadge
-      );
-
-
-      card.appendChild(
-        info
-      );
-
-
-      if (showActions) {
-
-        const actions =
-          document.createElement("div");
-
-        actions.className =
-          "actions";
-
-
-        const approve =
-          document.createElement("button");
-
-        approve.className =
-          "approve-btn";
-
-        approve.textContent =
-          "Approve";
-
-        approve.onclick =
-          function() {
-
-            approveUser(
-              user.id,
-              approve,
-              reject
-            );
-
-          };
-
-
-        const reject =
-          document.createElement("button");
-
-        reject.className =
-          "reject-btn";
-
-        reject.textContent =
-          "Reject";
-
-        reject.onclick =
-          function() {
-
-            rejectUser(
-              user.id,
-              approve,
-              reject
-            );
-
-          };
-
-
-        actions.appendChild(
-          approve
-        );
-
-        actions.appendChild(
-          reject
-        );
-
-        card.appendChild(
-          actions
+        alert(
+          "Unable to load administrator dashboard."
         );
 
       }
 
+    }
 
-      container.appendChild(
-        card
-      );
+
+    /* =====================================
+       LOAD DASHBOARD
+       ===================================== */
+
+    async function loadDashboard() {
+
+      await loadStatistics();
+
+      await loadPendingUsers();
+
+      await loadAllUsers();
 
     }
-  );
 
-}
 
-
-/* ==========================================
-   APPROVE USER
-   ========================================== */
-
-async function approveUser(
-  id,
-  approveButton,
-  rejectButton
-) {
-
-  if (
-    !confirm(
-      "Approve this account?"
-    )
-  ) {
-    return;
-  }
-
-
-  approveButton.disabled =
-    true;
-
-  rejectButton.disabled =
-    true;
-
-
-  const {
-    error
-  } =
-    await supabaseClient
-      .from("user_profiles")
-      .update({
-        status: "approved"
-      })
-      .eq(
-        "id",
-        id
-      );
-
-
-  if (error) {
-
-    alert(
-      "Could not approve account:\n" +
-      error.message
-    );
-
-    approveButton.disabled =
-      false;
-
-    rejectButton.disabled =
-      false;
-
-    return;
-
-  }
-
-
-  alert(
-    "Account approved successfully."
-  );
-
-
-  await loadAllData();
-
-}
-
-
-/* ==========================================
-   REJECT USER
-   ========================================== */
-
-async function rejectUser(
-  id,
-  approveButton,
-  rejectButton
-) {
-
-  if (
-    !confirm(
-      "Reject this account?"
-    )
-  ) {
-    return;
-  }
-
-
-  approveButton.disabled =
-    true;
-
-  rejectButton.disabled =
-    true;
-
-
-  const {
-    error
-  } =
-    await supabaseClient
-      .from("user_profiles")
-      .update({
-        status: "rejected"
-      })
-      .eq(
-        "id",
-        id
-      );
-
-
-  if (error) {
-
-    alert(
-      "Could not reject account:\n" +
-      error.message
-    );
-
-    approveButton.disabled =
-      false;
-
-    rejectButton.disabled =
-      false;
-
-    return;
-
-  }
-
-
-  alert(
-    "Account rejected."
-  );
-
-
-  await loadAllData();
-
-}
-
-
-/* ==========================================
-   FORMAT ROLE
-   ========================================== */
-
-function formatRole(
-  role
-) {
-
-  if (!role) {
-    return "Unknown";
-  }
-
-  return role
-    .charAt(0)
-    .toUpperCase() +
-    role.slice(1);
-
-}
-
-
-/* ==========================================
-   FORMAT STATUS
-   ========================================== */
-
-function formatStatus(
-  status
-) {
-
-  if (!status) {
-    return "Unknown";
-  }
-
-  return status
-    .charAt(0)
-    .toUpperCase() +
-    status.slice(1);
-
-}
-
-
-/* ==========================================
-   STATUS CSS CLASS
-   ========================================== */
-
-function getStatusClass(
-  status
-) {
-
-  if (
-    status ===
-    "approved"
-  ) {
-
-    return "approved";
-
-  }
-
-  if (
-    status ===
-    "rejected"
-  ) {
-
-    return "rejected";
-
-  }
-
-  return "pending";
-
-}
-
-
-/* ==========================================
-   SHOW ERROR
-   ========================================== */
-
-function showError(
-  containerId,
-  message
-) {
-
-  const container =
-    document.getElementById(
-      containerId
-    );
-
-  if (!container) {
-    return;
-  }
-
-  container.innerHTML = "";
-
-  const error =
-    document.createElement("div");
-
-  error.className =
-    "error";
-
-  error.textContent =
-    message;
-
-  container.appendChild(
-    error
-  );
-
-}
-
-
-/* ==========================================
-   SIDEBAR
-   ========================================== */
-
-function toggleSidebar() {
-
-  const sidebar =
-    document.getElementById(
-      "sidebar"
-    );
-
-  sidebar.classList.toggle(
-    "open"
-  );
-
-}
-
-
-/* ==========================================
-   SECTION NAVIGATION
-   ========================================== */
-
-function showSection(
-  sectionId,
-  button
-) {
-
-  const sections =
-    document.querySelectorAll(
-      ".content > section"
-    );
-
-
-  sections.forEach(
-    section => {
-
-      section.style.display =
-        "none";
+    /* =====================================
+       STATISTICS
+       ===================================== */
+
+    async function loadStatistics() {
+
+      const {
+        data: users,
+        error
+      } =
+        await supabaseClient
+          .from("user_profiles")
+          .select(
+            "role,status"
+          );
+
+
+      if (error) {
+
+        console.error(
+          "Statistics error:",
+          error
+        );
+
+        return;
+
+      }
+
+
+      const total =
+        users.length;
+
+
+      const pending =
+        users.filter(
+          user =>
+            String(
+              user.status || ""
+            )
+              .trim()
+              .toLowerCase() ===
+            "pending"
+        ).length;
+
+
+      const approved =
+        users.filter(
+          user =>
+            String(
+              user.status || ""
+            )
+              .trim()
+              .toLowerCase() ===
+            "approved"
+        ).length;
+
+
+      const admins =
+        users.filter(
+          user =>
+            String(
+              user.role || ""
+            )
+              .trim()
+              .toLowerCase() ===
+            "administrator"
+        ).length;
+
+
+      document
+        .getElementById(
+          "totalUsers"
+        )
+        .textContent =
+        total;
+
+
+      document
+        .getElementById(
+          "pendingUsers"
+        )
+        .textContent =
+        pending;
+
+
+      document
+        .getElementById(
+          "approvedUsers"
+        )
+        .textContent =
+        approved;
+
+
+      document
+        .getElementById(
+          "adminUsers"
+        )
+        .textContent =
+        admins;
 
     }
-  );
 
 
-  const selected =
-    document.getElementById(
-      sectionId
-    );
+    /* =====================================
+       LOAD PENDING USERS
+       ===================================== */
+
+    async function loadPendingUsers() {
+
+      const dashboardPending =
+        document
+          .getElementById(
+            "dashboardPending"
+          );
 
 
-  if (selected) {
-
-    selected.style.display =
-      "block";
-
-  }
-
-
-  const buttons =
-    document.querySelectorAll(
-      ".menu button"
-    );
+      const pendingList =
+        document
+          .getElementById(
+            "pendingList"
+          );
 
 
-  buttons.forEach(
-    item => {
+      dashboardPending.innerHTML =
+        "Loading pending approvals...";
 
-      item.classList.remove(
-        "active"
-      );
+
+      pendingList.innerHTML =
+        "Loading pending approvals...";
+
+
+      const {
+        data: users,
+        error
+      } =
+        await supabaseClient
+          .from("user_profiles")
+          .select(
+            "id,auth_user_id,full_name,email,phone,role,status,created_at"
+          )
+          .eq(
+            "status",
+            "pending"
+          )
+          .order(
+            "created_at",
+            {
+              ascending: false
+            }
+          );
+
+
+      if (error) {
+
+        console.error(
+          "Pending users error:",
+          error
+        );
+
+
+        dashboardPending.innerHTML =
+          `
+          <div class="error">
+            Unable to load pending users:
+            ${escapeHtml(error.message)}
+          </div>
+          `;
+
+
+        pendingList.innerHTML =
+          `
+          <div class="error">
+            Unable to load pending users:
+            ${escapeHtml(error.message)}
+          </div>
+          `;
+
+        return;
+
+      }
+
+
+      if (
+        !users ||
+        users.length === 0
+      ) {
+
+        dashboardPending.innerHTML =
+          `
+          <div class="empty">
+            No pending account requests.
+          </div>
+          `;
+
+
+        pendingList.innerHTML =
+          `
+          <div class="empty">
+            No pending account requests.
+          </div>
+          `;
+
+        return;
+
+      }
+
+
+      const html =
+        users
+          .map(
+            user =>
+              createUserCard(
+                user
+              )
+          )
+          .join("");
+
+
+      dashboardPending.innerHTML =
+        html;
+
+
+      pendingList.innerHTML =
+        html;
 
     }
-  );
 
 
-  if (button) {
+    /* =====================================
+       CREATE USER CARD
+       ===================================== */
 
-    button.classList.add(
-      "active"
-    );
+    function createUserCard(
+      user
+    ) {
 
-  }
+      const role =
+        String(
+          user.role ||
+          "Not specified"
+        );
 
 
-  if (
-    window.innerWidth <=
-    700
-  ) {
+      const phone =
+        user.phone ||
+        "Not provided";
 
-    document
-      .getElementById(
-        "sidebar"
-      )
-      .classList.remove(
+
+      return `
+
+        <div class="user-card">
+
+          <h3>
+            ${escapeHtml(
+              user.full_name ||
+              "Unnamed User"
+            )}
+          </h3>
+
+          <div class="user-info">
+
+            <strong>Email:</strong>
+            ${escapeHtml(
+              user.email ||
+              "Not provided"
+            )}
+
+            <br>
+
+            <strong>Phone:</strong>
+            ${escapeHtml(
+              phone
+            )}
+
+            <br>
+
+            <strong>Role:</strong>
+            ${escapeHtml(
+              role
+            )}
+
+            <br>
+
+            <strong>Status:</strong>
+            Pending
+
+          </div>
+
+
+          <div class="buttons">
+
+            <button
+              class="approve"
+              onclick="approveUser('${user.id}')"
+            >
+              ✓ Approve
+            </button>
+
+
+            <button
+              class="reject"
+              onclick="rejectUser('${user.id}')"
+            >
+              ✕ Reject
+            </button>
+
+          </div>
+
+        </div>
+
+      `;
+
+    }
+
+
+    /* =====================================
+       APPROVE USER
+       ===================================== */
+
+    async function approveUser(
+      profileId
+    ) {
+
+      const confirmed =
+        confirm(
+          "Approve this account?"
+        );
+
+
+      if (!confirmed) {
+        return;
+      }
+
+
+      const {
+        error
+      } =
+        await supabaseClient
+          .from("user_profiles")
+          .update({
+            status:
+              "approved"
+          })
+          .eq(
+            "id",
+            profileId
+          );
+
+
+      if (error) {
+
+        alert(
+          "Approval failed: " +
+          error.message
+        );
+
+        return;
+
+      }
+
+
+      alert(
+        "Account approved successfully."
+      );
+
+
+      await loadDashboard();
+
+    }
+
+
+    /* =====================================
+       REJECT USER
+       ===================================== */
+
+    async function rejectUser(
+      profileId
+    ) {
+
+      const confirmed =
+        confirm(
+          "Reject this account?"
+        );
+
+
+      if (!confirmed) {
+        return;
+      }
+
+
+      const {
+        error
+      } =
+        await supabaseClient
+          .from("user_profiles")
+          .update({
+            status:
+              "rejected"
+          })
+          .eq(
+            "id",
+            profileId
+          );
+
+
+      if (error) {
+
+        alert(
+          "Rejection failed: " +
+          error.message
+        );
+
+        return;
+
+      }
+
+
+      alert(
+        "Account rejected."
+      );
+
+
+      await loadDashboard();
+
+    }
+
+
+    /* =====================================
+       LOAD ALL USERS
+       ===================================== */
+
+    async function loadAllUsers() {
+
+      const container =
+        document
+          .getElementById(
+            "usersList"
+          );
+
+
+      const {
+        data: users,
+        error
+      } =
+        await supabaseClient
+          .from("user_profiles")
+          .select(
+            "id,full_name,email,phone,role,status,created_at"
+          )
+          .order(
+            "created_at",
+            {
+              ascending: false
+            }
+          );
+
+
+      if (error) {
+
+        container.innerHTML =
+          `
+          <div class="error">
+            Unable to load users:
+            ${escapeHtml(error.message)}
+          </div>
+          `;
+
+        return;
+
+      }
+
+
+      if (
+        !users ||
+        users.length === 0
+      ) {
+
+        container.innerHTML =
+          `
+          <div class="empty">
+            No users found.
+          </div>
+          `;
+
+        return;
+
+      }
+
+
+      container.innerHTML =
+        users
+          .map(
+            user => `
+
+              <div class="user-card">
+
+                <h3>
+                  ${escapeHtml(
+                    user.full_name ||
+                    "Unnamed User"
+                  )}
+                </h3>
+
+                <div class="user-info">
+
+                  <strong>Email:</strong>
+                  ${escapeHtml(
+                    user.email ||
+                    "Not provided"
+                  )}
+
+                  <br>
+
+                  <strong>Phone:</strong>
+                  ${escapeHtml(
+                    user.phone ||
+                    "Not provided"
+                  )}
+
+                  <br>
+
+                  <strong>Role:</strong>
+                  ${escapeHtml(
+                    user.role ||
+                    "Not specified"
+                  )}
+
+                  <br>
+
+                  <strong>Status:</strong>
+                  ${escapeHtml(
+                    user.status ||
+                    "Not specified"
+                  )}
+
+                </div>
+
+              </div>
+
+            `
+          )
+          .join("");
+
+    }
+
+
+    /* =====================================
+       OPEN / CLOSE MENU
+       ===================================== */
+
+    function toggleMenu() {
+
+      const sidebar =
+        document
+          .getElementById(
+            "sidebar"
+          );
+
+
+      sidebar.classList.toggle(
         "open"
       );
 
-  }
-
-}
+    }
 
 
-/* ==========================================
-   LOGOUT
-   ========================================== */
+    /* =====================================
+       SHOW SECTIONS
+       ===================================== */
 
-async function logout() {
+    function showSection(
+      sectionId,
+      button
+    ) {
 
-  const confirmed =
-    confirm(
-      "Are you sure you want to logout?"
-    );
+      document
+        .querySelectorAll(
+          ".section"
+        )
+        .forEach(
+          section => {
+
+            section.classList.remove(
+              "active"
+            );
+
+          }
+        );
 
 
-  if (!confirmed) {
-    return;
-  }
+      document
+        .getElementById(
+          sectionId
+        )
+        .classList.add(
+          "active"
+        );
 
 
-  await supabaseClient.auth.signOut();
+      document
+        .querySelectorAll(
+          ".menu button"
+        )
+        .forEach(
+          btn => {
+
+            btn.classList.remove(
+              "active"
+            );
+
+          }
+        );
 
 
-  localStorage.removeItem(
-    "user_profile"
-  );
+      button.classList.add(
+        "active"
+      );
 
 
-  window.location.href =
-    "index.html";
+      document
+        .getElementById(
+          "sidebar"
+        )
+        .classList.remove(
+          "open"
+        );
 
-}
+    }
 
-</script>
+
+    /* =====================================
+       LOGOUT
+       ===================================== */
+
+    async function logout() {
+
+      await supabaseClient.auth.signOut();
+
+      localStorage.removeItem(
+        "user_profile"
+      );
+
+      window.location.href =
+        "index.html";
+
+    }
+
+
+    /* =====================================
+       SECURITY / HTML ESCAPE
+       ===================================== */
+
+    function escapeHtml(
+      value
+    ) {
+
+      return String(
+        value
+      )
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+        .replace(
+          /</g,
+          "&lt;"
+        )
+        .replace(
+          />/g,
+          "&gt;"
+        )
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+
+    }
+
+  </script>
 
 </body>
-  </html>
+</html>
