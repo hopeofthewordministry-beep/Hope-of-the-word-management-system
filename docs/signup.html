@@ -49,7 +49,7 @@ body {
 
   background: #FFFFFF;
 
-  padding: 28px 24px;
+  padding: 30px 24px;
 
   border-radius: 20px;
 
@@ -57,11 +57,13 @@ body {
     0 15px 40px rgba(0, 0, 0, 0.20);
 }
 
-.logo {
-  width: 75px;
-  height: 75px;
+/* LARGE PROFESSIONAL CHURCH ICON */
 
-  margin: 0 auto 12px;
+.logo {
+  width: 105px;
+  height: 105px;
+
+  margin: 0 auto 18px;
 
   border-radius: 50%;
 
@@ -75,11 +77,15 @@ body {
 
   color: #14532D;
 
-  font-size: 32px;
+  font-size: 58px;
 
-  font-weight: bold;
+  border: 6px solid #90EE90;
 
-  border: 5px solid #90EE90;
+  box-shadow:
+    0 6px 18px rgba(0, 0, 0, 0.15);
+
+  text-shadow:
+    1px 2px 2px rgba(0, 0, 0, 0.15);
 }
 
 h1 {
@@ -246,7 +252,7 @@ button:disabled {
 <div class="card">
 
   <div class="logo">
-    ★
+    ⛪
   </div>
 
   <h1>
@@ -275,7 +281,6 @@ button:disabled {
       required
     >
 
-
     <label>
       Email Address
     </label>
@@ -288,7 +293,6 @@ button:disabled {
       required
     >
 
-
     <label>
       Phone Number
     </label>
@@ -299,7 +303,6 @@ button:disabled {
       placeholder="Enter your phone number"
       required
     >
-
 
     <label>
       Account Type
@@ -324,7 +327,6 @@ button:disabled {
 
     </select>
 
-
     <label>
       Password
     </label>
@@ -337,7 +339,6 @@ button:disabled {
       minlength="6"
       required
     >
-
 
     <label>
       Confirm Password
@@ -352,7 +353,6 @@ button:disabled {
       required
     >
 
-
     <button
       type="submit"
       id="signupButton"
@@ -361,7 +361,6 @@ button:disabled {
     </button>
 
   </form>
-
 
   <a
     href="index.html"
@@ -372,19 +371,13 @@ button:disabled {
 
 </div>
 
-
 <script>
 
-/* =================================
-   SUPABASE
-   ================================= */
-
 const SUPABASE_URL =
-"https://lcrhoossfgxpktrvwdtj.supabase.co";
+"YOUR_EXISTING_SUPABASE_URL";
 
 const SUPABASE_KEY =
-"sb_publishable_KPNyDlm7lteOz0f1bivVAw_CbTAGbtH";
-
+"YOUR_EXISTING_SUPABASE_KEY";
 
 const supabaseClient =
 supabase.createClient(
@@ -392,10 +385,6 @@ supabase.createClient(
   SUPABASE_KEY
 );
 
-
-/* =================================
-   SIGN UP
-   ================================= */
 
 document
 .getElementById("signupForm")
@@ -405,13 +394,11 @@ document
 
     event.preventDefault();
 
-
     const fullName =
       document
       .getElementById("fullName")
       .value
       .trim();
-
 
     const email =
       document
@@ -420,36 +407,30 @@ document
       .trim()
       .toLowerCase();
 
-
     const phone =
       document
       .getElementById("phone")
       .value
       .trim();
 
-
     const role =
       document
       .getElementById("role")
       .value;
-
 
     const password =
       document
       .getElementById("password")
       .value;
 
-
     const confirmPassword =
       document
       .getElementById("confirmPassword")
       .value;
 
-
     const button =
       document
       .getElementById("signupButton");
-
 
     hideMessage();
 
@@ -500,10 +481,6 @@ document
 
     try {
 
-      /*
-       * CREATE AUTH ACCOUNT
-       */
-
       const {
         data,
         error
@@ -521,10 +498,7 @@ document
 
       if (error) {
 
-        console.error(
-          "Signup error:",
-          error
-        );
+        console.error(error);
 
         showMessage(
           error.message,
@@ -560,13 +534,6 @@ document
       }
 
 
-      /*
-       * CREATE PROFILE
-       *
-       * auth_user_id MUST be
-       * the same user.id above.
-       */
-
       const {
         error: profileError
       } =
@@ -594,12 +561,11 @@ document
       if (profileError) {
 
         console.error(
-          "Profile creation error:",
           profileError
         );
 
         showMessage(
-          "Your login account was created, but your church profile could not be saved. Please contact the administrator.",
+          "Your login account was created, but your church profile could not be saved.",
           "error"
         );
 
@@ -611,10 +577,6 @@ document
         return;
       }
 
-
-      /*
-       * Sign out after registration.
-       */
 
       await supabaseClient
       .auth
@@ -639,12 +601,9 @@ document
 
     }
 
-    catch (error) {
+    catch(error) {
 
-      console.error(
-        "Unexpected signup error:",
-        error
-      );
+      console.error(error);
 
       showMessage(
         "Something went wrong. Please try again.",
@@ -660,10 +619,6 @@ document
   }
 );
 
-
-/* =================================
-   MESSAGE
-   ================================= */
 
 function showMessage(
   text,
@@ -690,7 +645,7 @@ function hideMessage() {
   document
   .getElementById("message")
   .style.display =
-    "none";
+  "none";
 }
 
 </script>
