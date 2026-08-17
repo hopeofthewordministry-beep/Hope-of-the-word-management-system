@@ -1,613 +1,1687 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Create Account | Hope of the Word Ministry</title>
+<meta charset="UTF-8">
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<title>Administrator Dashboard | Hope of the Word Ministry</title>
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #123b5d, #1d638f);
-    }
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    .signup-box {
-      width: 100%;
-      max-width: 500px;
-      background: white;
-      padding: 32px;
-      border-radius: 16px;
-      box-shadow: 0 10px 35px rgba(0,0,0,0.18);
-    }
+<style>
 
-    .header {
-      text-align: center;
-      margin-bottom: 22px;
-    }
+*{
+  box-sizing:border-box;
+}
 
-    .header h1 {
-      margin: 0;
-      color: #123b5d;
-      font-size: 25px;
-    }
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f4f6f9;
+  color:#1f2937;
+}
 
-    .header p {
-      color: #6b7280;
-      margin: 8px 0 0;
-    }
 
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
-      color: #374151;
-    }
+/* =========================
+   TOP BAR
+   ========================= */
 
-    input,
-    select {
-      width: 100%;
-      padding: 13px;
-      margin-top: 7px;
-      border: 1px solid #d1d5db;
-      border-radius: 7px;
-      font-size: 16px;
-      background: white;
-    }
+.topbar{
+  height:65px;
 
-    input:focus,
-    select:focus {
-      outline: none;
-      border-color: #123b5d;
-    }
+  background:
+    linear-gradient(
+      to right,
+      #ce1126 0%,
+      #ce1126 33%,
+      #fcd116 33%,
+      #fcd116 66%,
+      #006b3c 66%,
+      #006b3c 100%
+    );
 
-    .signup-button {
-      width: 100%;
-      padding: 14px;
-      margin-top: 24px;
-      border: none;
-      border-radius: 7px;
-      background: #123b5d;
-      color: white;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-    }
+  color:white;
 
-    .signup-button:disabled {
-      opacity: 0.6;
-    }
+  display:flex;
+  align-items:center;
 
-    .message {
-      display: none;
-      margin-top: 15px;
-      padding: 13px;
-      border-radius: 7px;
-      font-size: 14px;
-      line-height: 1.5;
-    }
+  padding:0 15px;
 
-    .message.success {
-      display: block;
-      background: #d1fae5;
-      color: #065f46;
-    }
+  position:sticky;
+  top:0;
 
-    .message.error {
-      display: block;
-      background: #fee2e2;
-      color: #991b1b;
-    }
+  z-index:1000;
 
-    .pending-box {
-      display: none;
-      margin-top: 18px;
-      padding: 16px;
-      border-radius: 9px;
-      background: #fff7ed;
-      border: 1px solid #fed7aa;
-      color: #9a3412;
-      text-align: center;
-    }
+  box-shadow:
+    0 2px 8px rgba(0,0,0,.15);
+}
 
-    .pending-box strong {
-      display: block;
-      margin-bottom: 6px;
-      font-size: 16px;
-    }
 
-    .login-link {
-      text-align: center;
-      margin-top: 20px;
-      color: #6b7280;
-    }
+.menu-toggle{
+  border:none;
+  background:rgba(0,0,0,.25);
+  color:white;
 
-    .login-link a {
-      color: #123b5d;
-      font-weight: bold;
-      text-decoration: none;
-    }
+  font-size:27px;
 
-    .status-note {
-      margin-top: 10px;
-      font-size: 13px;
-      color: #6b7280;
-      text-align: center;
-    }
-  </style>
+  width:45px;
+  height:45px;
+
+  border-radius:7px;
+
+  cursor:pointer;
+
+  margin-right:12px;
+}
+
+
+.topbar-title{
+  flex:1;
+
+  font-size:18px;
+  font-weight:bold;
+}
+
+
+.logout-top{
+  border:none;
+
+  background:#b91c1c;
+
+  color:white;
+
+  padding:9px 14px;
+
+  border-radius:7px;
+
+  cursor:pointer;
+
+  font-weight:bold;
+}
+
+
+/* =========================
+   SIDEBAR
+   ========================= */
+
+.sidebar{
+
+  position:fixed;
+
+  top:65px;
+  left:0;
+
+  width:250px;
+
+  height:calc(100vh - 65px);
+
+  background:white;
+
+  box-shadow:
+    2px 0 10px rgba(0,0,0,.08);
+
+  padding:15px;
+
+  overflow-y:auto;
+
+  z-index:900;
+
+  transition:.3s;
+}
+
+
+.menu button{
+
+  width:100%;
+
+  padding:13px;
+
+  margin-bottom:8px;
+
+  border:none;
+
+  border-radius:8px;
+
+  background:white;
+
+  text-align:left;
+
+  font-size:15px;
+
+  cursor:pointer;
+
+}
+
+
+.menu button:hover,
+.menu button.active{
+
+  background:#e8f5ee;
+
+  color:#006b3c;
+
+  font-weight:bold;
+}
+
+
+/* =========================
+   MAIN
+   ========================= */
+
+.main{
+
+  margin-left:250px;
+
+  padding:25px;
+
+  transition:.3s;
+}
+
+
+/* =========================
+   WELCOME
+   ========================= */
+
+.welcome{
+
+  background:white;
+
+  border-radius:13px;
+
+  padding:23px;
+
+  margin-bottom:20px;
+
+  box-shadow:
+    0 3px 12px rgba(0,0,0,.06);
+}
+
+
+.welcome h1{
+
+  margin:0 0 7px;
+
+  color:#123b5d;
+
+}
+
+
+.welcome p{
+
+  margin:0;
+
+  color:#6b7280;
+
+}
+
+
+/* =========================
+   STATISTICS
+   ========================= */
+
+.stats{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(4,1fr);
+
+  gap:15px;
+
+  margin-bottom:25px;
+}
+
+
+.stat-card{
+
+  background:white;
+
+  padding:20px;
+
+  border-radius:12px;
+
+  box-shadow:
+    0 3px 12px rgba(0,0,0,.06);
+
+  border-top:4px solid #006b3c;
+}
+
+
+.stat-card h3{
+
+  margin:0;
+
+  font-size:14px;
+
+  color:#6b7280;
+}
+
+
+.stat-number{
+
+  font-size:30px;
+
+  font-weight:bold;
+
+  color:#123b5d;
+
+  margin-top:8px;
+}
+
+
+/* =========================
+   SECTIONS
+   ========================= */
+
+.section{
+  display:none;
+}
+
+
+.section.active{
+  display:block;
+}
+
+
+.card{
+
+  background:white;
+
+  padding:20px;
+
+  border-radius:12px;
+
+  margin-bottom:20px;
+
+  box-shadow:
+    0 3px 12px rgba(0,0,0,.06);
+}
+
+
+.card h2{
+
+  margin-top:0;
+
+  color:#123b5d;
+}
+
+
+/* =========================
+   USER CARD
+   ========================= */
+
+.user-card{
+
+  border:1px solid #e5e7eb;
+
+  border-radius:10px;
+
+  padding:15px;
+
+  margin-bottom:12px;
+}
+
+
+.user-card h3{
+
+  margin:0 0 7px;
+
+  color:#123b5d;
+}
+
+
+.user-info{
+
+  color:#6b7280;
+
+  font-size:14px;
+
+  line-height:1.8;
+}
+
+
+.buttons{
+
+  display:flex;
+
+  gap:8px;
+
+  margin-top:12px;
+}
+
+
+.approve,
+.reject{
+
+  border:none;
+
+  padding:10px 15px;
+
+  border-radius:7px;
+
+  color:white;
+
+  cursor:pointer;
+
+  font-weight:bold;
+}
+
+
+.approve{
+
+  background:#16a34a;
+}
+
+
+.reject{
+
+  background:#dc2626;
+}
+
+
+.empty{
+
+  padding:20px;
+
+  text-align:center;
+
+  color:#6b7280;
+
+  background:#f9fafb;
+
+  border-radius:8px;
+}
+
+
+.loading{
+
+  padding:20px;
+
+  text-align:center;
+
+  color:#6b7280;
+}
+
+
+.error{
+
+  padding:15px;
+
+  background:#fee2e2;
+
+  color:#991b1b;
+
+  border-radius:7px;
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media(max-width:900px){
+
+  .stats{
+
+    grid-template-columns:
+      repeat(2,1fr);
+
+  }
+
+}
+
+
+@media(max-width:700px){
+
+  .sidebar{
+
+    left:-260px;
+
+  }
+
+
+  .sidebar.open{
+
+    left:0;
+
+  }
+
+
+  .main{
+
+    margin-left:0;
+
+    padding:15px;
+
+  }
+
+
+  .topbar-title{
+
+    font-size:15px;
+
+  }
+
+
+  .logout-top{
+
+    font-size:12px;
+
+    padding:8px 10px;
+
+  }
+
+}
+
+
+@media(max-width:450px){
+
+  .stats{
+
+    grid-template-columns:1fr;
+
+  }
+
+
+  .welcome h1{
+
+    font-size:21px;
+
+  }
+
+
+  .buttons{
+
+    flex-direction:column;
+
+  }
+
+
+  .approve,
+  .reject{
+
+    width:100%;
+
+  }
+
+}
+
+</style>
+
 </head>
+
 
 <body>
 
-  <div class="signup-box">
 
-    <div class="header">
-      <h1>Hope of the Word Ministry</h1>
-      <p>Create New Account</p>
+<!-- =========================
+     TOP BAR
+     ========================= -->
+
+<div class="topbar">
+
+  <button
+    class="menu-toggle"
+    onclick="toggleMenu()"
+  >
+    ☰
+  </button>
+
+
+  <div class="topbar-title">
+    Hope of the Word Ministry
+  </div>
+
+
+  <button
+    class="logout-top"
+    onclick="logout()"
+  >
+    Logout
+  </button>
+
+</div>
+
+
+<!-- =========================
+     SIDEBAR
+     ========================= -->
+
+<aside
+  class="sidebar"
+  id="sidebar"
+>
+
+  <div class="menu">
+
+
+    <button
+      class="active"
+      onclick="
+        showSection(
+          'dashboardSection',
+          this
+        )
+      "
+    >
+      🏠 Dashboard
+    </button>
+
+
+    <button
+      onclick="
+        showSection(
+          'pendingSection',
+          this
+        )
+      "
+    >
+      ⏳ Pending Approvals
+    </button>
+
+
+    <button
+      onclick="
+        showSection(
+          'usersSection',
+          this
+        )
+      "
+    >
+      👥 Users
+    </button>
+
+
+    <button
+      onclick="
+        showSection(
+          'activitiesSection',
+          this
+        )
+      "
+    >
+      ⛪ Church Activities
+    </button>
+
+
+  </div>
+
+</aside>
+
+
+<!-- =========================
+     MAIN
+     ========================= -->
+
+<main
+  class="main"
+>
+
+
+<!-- =========================
+     DASHBOARD
+     ========================= -->
+
+<section
+  id="dashboardSection"
+  class="section active"
+>
+
+
+  <div class="welcome">
+
+    <h1 id="welcomeName">
+      Welcome, Administrator
+    </h1>
+
+    <p>
+      Manage Hope of the Word Ministry from your administrator dashboard.
+    </p>
+
+  </div>
+
+
+  <!-- STATISTICS -->
+
+  <div class="stats">
+
+
+    <div class="stat-card">
+
+      <h3>
+        Total Users
+      </h3>
+
+      <div
+        class="stat-number"
+        id="totalUsers"
+      >
+        0
+      </div>
+
     </div>
 
 
-    <form id="signupForm">
+    <div class="stat-card">
 
-      <label for="fullName">
-        Full Name
-      </label>
-
-      <input
-        type="text"
-        id="fullName"
-        placeholder="Enter your full name"
-        required
-      >
-
-
-      <label for="email">
-        Email Address
-      </label>
-
-      <input
-        type="email"
-        id="email"
-        placeholder="Enter your email address"
-        required
-      >
-
-
-      <label for="phone">
-        Phone Number
-      </label>
-
-      <input
-        type="tel"
-        id="phone"
-        placeholder="Enter your phone number"
-      >
-
-
-      <label for="role">
-        User Role
-      </label>
-
-      <select
-        id="role"
-        required
-      >
-
-        <option value="">
-          Select your role
-        </option>
-
-        <option value="pastor">
-          Pastor
-        </option>
-
-        <option value="secretary">
-          Secretary
-        </option>
-
-        <option value="treasurer">
-          Treasurer
-        </option>
-
-      </select>
-
-
-      <label for="password">
-        Password
-      </label>
-
-      <input
-        type="password"
-        id="password"
-        placeholder="Create a password"
-        minlength="6"
-        required
-      >
-
-
-      <label for="confirmPassword">
-        Confirm Password
-      </label>
-
-      <input
-        type="password"
-        id="confirmPassword"
-        placeholder="Confirm your password"
-        minlength="6"
-        required
-      >
-
-
-      <button
-        type="submit"
-        class="signup-button"
-        id="signupButton"
-      >
-        Create Account
-      </button>
-
+      <h3>
+        Pending Approvals
+      </h3>
 
       <div
-        id="message"
-        class="message"
-      ></div>
+        class="stat-number"
+        id="pendingUsers"
+      >
+        0
+      </div>
+
+    </div>
 
 
-      <!-- PENDING STATUS -->
+    <div class="stat-card">
+
+      <h3>
+        Approved Users
+      </h3>
 
       <div
-        id="pendingBox"
-        class="pending-box"
+        class="stat-number"
+        id="approvedUsers"
       >
-
-        <strong>
-          🟠 Pending Administrator Approval
-        </strong>
-
-        Your account has been created successfully.
-
-        <br>
-
-        Please wait for the Administrator
-        to approve your account before signing in.
-
+        0
       </div>
 
+    </div>
 
-      <div class="status-note">
-        Your account remains pending until it is approved.
+
+    <div class="stat-card">
+
+      <h3>
+        Administrators
+      </h3>
+
+      <div
+        class="stat-number"
+        id="adminUsers"
+      >
+        0
       </div>
 
-    </form>
+    </div>
 
 
-    <div class="login-link">
+  </div>
 
-      Already have an account?
 
-      <a href="index.html">
-        Sign In
-      </a>
+  <!-- PENDING -->
 
+  <div class="card">
+
+    <h2>
+      Pending Account Requests
+    </h2>
+
+    <div
+      id="dashboardPending"
+      class="loading"
+    >
+      Loading pending approvals...
     </div>
 
   </div>
 
 
+</section>
+
+
+<!-- =========================
+     PENDING SECTION
+     ========================= -->
+
+<section
+  id="pendingSection"
+  class="section"
+>
+
+  <div class="card">
+
+    <h2>
+      Pending Approvals
+    </h2>
+
+    <div
+      id="pendingList"
+      class="loading"
+    >
+      Loading pending approvals...
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     USERS SECTION
+     ========================= -->
+
+<section
+  id="usersSection"
+  class="section"
+>
+
+  <div class="card">
+
+    <h2>
+      All Users
+    </h2>
+
+    <div
+      id="usersList"
+      class="loading"
+    >
+      Loading users...
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     ACTIVITIES
+     ========================= -->
+
+<section
+  id="activitiesSection"
+  class="section"
+>
+
+  <div class="card">
+
+    <h2>
+      Church Activities
+    </h2>
+
+    <p>
+      Church activities management will be added here.
+    </p>
+
+  </div>
+
+</section>
+
+
+</main>
+
+
 <script>
 
 
-/* =========================================
-   SUPABASE CONNECTION
-   ========================================= */
+/* =================================
+   SUPABASE
+   ================================= */
 
 const SUPABASE_URL =
-  "https://lcrhoossfgxpktrvwdtj.supabase.co";
+"YOUR_EXISTING_SUPABASE_URL";
+
 
 const SUPABASE_KEY =
-  "sb_publishable_KPNyDlm7lteOz0f1bivVAw_CbTAGbtH";
+"YOUR_EXISTING_SUPABASE_KEY";
 
 
 const supabaseClient =
-  supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
+supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
 
 
-/* =========================================
-   SIGNUP
-   ========================================= */
+/* =================================
+   START
+   ================================= */
 
-document
-  .getElementById("signupForm")
-  .addEventListener(
-    "submit",
-    async function(event) {
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
 
-      event.preventDefault();
+    checkAdministrator();
 
+  }
+);
 
-      const fullName =
-        document
-          .getElementById("fullName")
-          .value
-          .trim();
 
+/* =================================
+   CHECK ADMINISTRATOR
+   ================================= */
 
-      const email =
-        document
-          .getElementById("email")
-          .value
-          .trim()
-          .toLowerCase();
+async function checkAdministrator(){
 
+  try{
 
-      const phone =
-        document
-          .getElementById("phone")
-          .value
-          .trim();
+    const {
+      data:{
+        user
+      },
+      error:authError
+    } =
+    await supabaseClient
+      .auth
+      .getUser();
 
 
-      const role =
-        document
-          .getElementById("role")
-          .value;
+    if(
+      authError ||
+      !user
+    ){
 
+      window.location.href =
+        "index.html";
 
-      const password =
-        document
-          .getElementById("password")
-          .value;
-
-
-      const confirmPassword =
-        document
-          .getElementById("confirmPassword")
-          .value;
-
-
-      const button =
-        document
-          .getElementById("signupButton");
-
-
-      const message =
-        document
-          .getElementById("message");
-
-
-      const pendingBox =
-        document
-          .getElementById("pendingBox");
-
-
-      message.className =
-        "message";
-
-      message.textContent = "";
-
-      pendingBox.style.display =
-        "none";
-
-
-      if (
-        !fullName ||
-        !email ||
-        !role ||
-        !password
-      ) {
-
-        message.className =
-          "message error";
-
-        message.textContent =
-          "Please complete all required fields.";
-
-        return;
-      }
-
-
-      if (
-        password.length < 6
-      ) {
-
-        message.className =
-          "message error";
-
-        message.textContent =
-          "Password must be at least 6 characters.";
-
-        return;
-      }
-
-
-      if (
-        password !==
-        confirmPassword
-      ) {
-
-        message.className =
-          "message error";
-
-        message.textContent =
-          "Passwords do not match.";
-
-        return;
-      }
-
-
-      button.disabled =
-        true;
-
-      button.textContent =
-        "Creating Account...";
-
-
-      try {
-
-
-        /* CREATE AUTH USER */
-
-        const {
-          data: authData,
-          error: authError
-        } =
-          await supabaseClient.auth.signUp({
-
-            email:
-              email,
-
-            password:
-              password
-
-          });
-
-
-        if (authError) {
-
-          throw authError;
-
-        }
-
-
-        if (
-          !authData ||
-          !authData.user
-        ) {
-
-          throw new Error(
-            "The account could not be created."
-          );
-
-        }
-
-
-        const authUserId =
-          authData.user.id;
-
-
-        /* CREATE PROFILE */
-
-        const {
-          error: profileError
-        } =
-          await supabaseClient
-            .from("user_profiles")
-            .insert({
-
-              auth_user_id:
-                authUserId,
-
-              full_name:
-                fullName,
-
-              email:
-                email,
-
-              phone:
-                phone || null,
-
-              role:
-                role,
-
-              status:
-                "pending"
-
-            });
-
-
-        if (profileError) {
-
-          console.error(
-            "Profile error:",
-            profileError
-          );
-
-          throw new Error(
-            "Account was created, but the profile could not be saved: " +
-            profileError.message
-          );
-
-        }
-
-
-        /* SUCCESS */
-
-        message.className =
-          "message success";
-
-        message.textContent =
-          "Account created successfully.";
-
-
-        pendingBox.style.display =
-          "block";
-
-
-        /*
-          Sign the user out because
-          Administrator approval is
-          required before login.
-        */
-
-        await supabaseClient.auth.signOut();
-
-
-        document
-          .getElementById("signupForm")
-          .reset();
-
-
-        button.disabled =
-          false;
-
-        button.textContent =
-          "Create Account";
-
-      }
-
-
-      catch (error) {
-
-        console.error(
-          "Signup error:",
-          error
-        );
-
-
-        message.className =
-          "message error";
-
-        message.textContent =
-          error.message;
-
-
-        button.disabled =
-          false;
-
-        button.textContent =
-          "Create Account";
-
-      }
+      return;
 
     }
+
+
+    /*
+      IMPORTANT:
+      Find profile using
+      the Supabase Authentication UID.
+    */
+
+    const {
+      data:profile,
+      error:profileError
+    } =
+    await supabaseClient
+
+      .from("user_profiles")
+
+      .select("*")
+
+      .eq(
+        "auth_user_id",
+        user.id
+      )
+
+      .maybeSingle();
+
+
+    if(
+      profileError ||
+      !profile
+    ){
+
+      alert(
+        "Administrator profile was not found."
+      );
+
+      await logout();
+
+      return;
+
+    }
+
+
+    const role =
+      String(
+        profile.role || ""
+      )
+      .trim()
+      .toLowerCase();
+
+
+    const status =
+      String(
+        profile.status || ""
+      )
+      .trim()
+      .toLowerCase();
+
+
+    if(
+      role !==
+      "administrator"
+    ){
+
+      alert(
+        "Administrator access is required."
+      );
+
+      await logout();
+
+      return;
+
+    }
+
+
+    if(
+      status !==
+      "approved"
+    ){
+
+      alert(
+        "Your Administrator account is not approved."
+      );
+
+      await logout();
+
+      return;
+
+    }
+
+
+    document
+      .getElementById(
+        "welcomeName"
+      )
+      .textContent =
+      "Welcome, " +
+      (
+        profile.full_name ||
+        "Administrator"
+      );
+
+
+    await loadDashboard();
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+    alert(
+      "Unable to load administrator dashboard."
+    );
+
+  }
+
+}
+
+
+/* =================================
+   LOAD DASHBOARD
+   ================================= */
+
+async function loadDashboard(){
+
+  await loadStatistics();
+
+  await loadPendingUsers();
+
+  await loadAllUsers();
+
+}
+
+
+/* =================================
+   STATISTICS
+   ================================= */
+
+async function loadStatistics(){
+
+  const {
+    data:users,
+    error
+  } =
+  await supabaseClient
+
+    .from("user_profiles")
+
+    .select(
+      "role,status"
+    );
+
+
+  if(error){
+
+    console.error(error);
+
+    return;
+
+  }
+
+
+  const total =
+    users.length;
+
+
+  const pending =
+    users.filter(
+      user =>
+        String(
+          user.status || ""
+        )
+        .trim()
+        .toLowerCase()
+        ===
+        "pending"
+    ).length;
+
+
+  const approved =
+    users.filter(
+      user =>
+        String(
+          user.status || ""
+        )
+        .trim()
+        .toLowerCase()
+        ===
+        "approved"
+    ).length;
+
+
+  const admins =
+    users.filter(
+      user =>
+        String(
+          user.role || ""
+        )
+        .trim()
+        .toLowerCase()
+        ===
+        "administrator"
+    ).length;
+
+
+  document
+    .getElementById(
+      "totalUsers"
+    )
+    .textContent =
+    total;
+
+
+  document
+    .getElementById(
+      "pendingUsers"
+    )
+    .textContent =
+    pending;
+
+
+  document
+    .getElementById(
+      "approvedUsers"
+    )
+    .textContent =
+    approved;
+
+
+  document
+    .getElementById(
+      "adminUsers"
+    )
+    .textContent =
+    admins;
+
+}
+
+
+/* =================================
+   LOAD PENDING
+   ================================= */
+
+async function loadPendingUsers(){
+
+  const dashboardPending =
+    document.getElementById(
+      "dashboardPending"
+    );
+
+
+  const pendingList =
+    document.getElementById(
+      "pendingList"
+    );
+
+
+  dashboardPending.innerHTML =
+    "Loading pending approvals...";
+
+
+  pendingList.innerHTML =
+    "Loading pending approvals...";
+
+
+  const {
+    data:users,
+    error
+  } =
+  await supabaseClient
+
+    .from("user_profiles")
+
+    .select(
+      "id,auth_user_id,full_name,email,phone,role,status,created_at"
+    )
+
+    .eq(
+      "status",
+      "pending"
+    )
+
+    .order(
+      "created_at",
+      {
+        ascending:false
+      }
+    );
+
+
+  if(error){
+
+    console.error(error);
+
+
+    const message =
+      escapeHtml(
+        error.message
+      );
+
+
+    dashboardPending.innerHTML =
+      `
+      <div class="error">
+        Unable to load pending users:
+        ${message}
+      </div>
+      `;
+
+
+    pendingList.innerHTML =
+      `
+      <div class="error">
+        Unable to load pending users:
+        ${message}
+      </div>
+      `;
+
+    return;
+
+  }
+
+
+  if(
+    !users ||
+    users.length===0
+  ){
+
+    dashboardPending.innerHTML =
+      `
+      <div class="empty">
+        No pending account requests.
+      </div>
+      `;
+
+
+    pendingList.innerHTML =
+      `
+      <div class="empty">
+        No pending account requests.
+      </div>
+      `;
+
+    return;
+
+  }
+
+
+  const html =
+    users
+      .map(
+        user =>
+          createUserCard(user)
+      )
+      .join("");
+
+
+  dashboardPending.innerHTML =
+    html;
+
+
+  pendingList.innerHTML =
+    html;
+
+}
+
+
+/* =================================
+   USER CARD
+   ================================= */
+
+function createUserCard(user){
+
+  return `
+
+    <div class="user-card">
+
+      <h3>
+        ${escapeHtml(
+          user.full_name ||
+          "Unnamed User"
+        )}
+      </h3>
+
+
+      <div class="user-info">
+
+        <strong>Email:</strong>
+        ${escapeHtml(
+          user.email ||
+          "Not provided"
+        )}
+
+        <br>
+
+        <strong>Phone:</strong>
+        ${escapeHtml(
+          user.phone ||
+          "Not provided"
+        )}
+
+        <br>
+
+        <strong>Role:</strong>
+        ${escapeHtml(
+          user.role ||
+          "Not specified"
+        )}
+
+        <br>
+
+        <strong>Status:</strong>
+        Pending
+
+      </div>
+
+
+      <div class="buttons">
+
+        <button
+          class="approve"
+          onclick="approveUser('${user.id}')"
+        >
+          Approve
+        </button>
+
+
+        <button
+          class="reject"
+          onclick="rejectUser('${user.id}')"
+        >
+          Reject
+        </button>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =================================
+   APPROVE
+   ================================= */
+
+async function approveUser(
+  profileId
+){
+
+  const confirmed =
+    confirm(
+      "Approve this account?"
+    );
+
+
+  if(!confirmed){
+    return;
+  }
+
+
+  const {
+    error
+  } =
+  await supabaseClient
+
+    .from("user_profiles")
+
+    .update({
+      status:"approved"
+    })
+
+    .eq(
+      "id",
+      profileId
+    );
+
+
+  if(error){
+
+    alert(
+      "Approval failed: " +
+      error.message
+    );
+
+    return;
+
+  }
+
+
+  alert(
+    "Account approved successfully."
   );
+
+
+  await loadDashboard();
+
+}
+
+
+/* =================================
+   REJECT
+   ================================= */
+
+async function rejectUser(
+  profileId
+){
+
+  const confirmed =
+    confirm(
+      "Reject this account?"
+    );
+
+
+  if(!confirmed){
+    return;
+  }
+
+
+  const {
+    error
+  } =
+  await supabaseClient
+
+    .from("user_profiles")
+
+    .update({
+      status:"rejected"
+    })
+
+    .eq(
+      "id",
+      profileId
+    );
+
+
+  if(error){
+
+    alert(
+      "Rejection failed: " +
+      error.message
+    );
+
+    return;
+
+  }
+
+
+  alert(
+    "Account rejected."
+  );
+
+
+  await loadDashboard();
+
+}
+
+
+/* =================================
+   ALL USERS
+   ================================= */
+
+async function loadAllUsers(){
+
+  const container =
+    document.getElementById(
+      "usersList"
+    );
+
+
+  const {
+    data:users,
+    error
+  } =
+  await supabaseClient
+
+    .from("user_profiles")
+
+    .select(
+      "id,full_name,email,phone,role,status,created_at"
+    )
+
+    .order(
+      "created_at",
+      {
+        ascending:false
+      }
+    );
+
+
+  if(error){
+
+    container.innerHTML =
+      `
+      <div class="error">
+        Unable to load users:
+        ${escapeHtml(
+          error.message
+        )}
+      </div>
+      `;
+
+    return;
+
+  }
+
+
+  if(
+    !users ||
+    users.length===0
+  ){
+
+    container.innerHTML =
+      `
+      <div class="empty">
+        No users found.
+      </div>
+      `;
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    users
+      .map(
+        user => `
+
+          <div class="user-card">
+
+            <h3>
+              ${escapeHtml(
+                user.full_name ||
+                "Unnamed User"
+              )}
+            </h3>
+
+            <div class="user-info">
+
+              <strong>Email:</strong>
+              ${escapeHtml(
+                user.email ||
+                "Not provided"
+              )}
+
+              <br>
+
+              <strong>Phone:</strong>
+              ${escapeHtml(
+                user.phone ||
+                "Not provided"
+              )}
+
+              <br>
+
+              <strong>Role:</strong>
+              ${escapeHtml(
+                user.role ||
+                "Not specified"
+              )}
+
+              <br>
+
+              <strong>Status:</strong>
+              ${escapeHtml(
+                user.status ||
+                "Not specified"
+              )}
+
+            </div>
+
+          </div>
+
+        `
+      )
+      .join("");
+
+}
+
+
+/* =================================
+   MENU
+   ================================= */
+
+function toggleMenu(){
+
+  document
+    .getElementById("sidebar")
+    .classList.toggle("open");
+
+}
+
+
+/* =================================
+   SECTIONS
+   ================================= */
+
+function showSection(
+  sectionId,
+  button
+){
+
+  document
+    .querySelectorAll(".section")
+    .forEach(
+      section =>
+        section.classList.remove(
+          "active"
+        )
+    );
+
+
+  document
+    .getElementById(sectionId)
+    .classList.add("active");
+
+
+  document
+    .querySelectorAll(
+      ".menu button"
+    )
+    .forEach(
+      btn =>
+        btn.classList.remove(
+          "active"
+        )
+    );
+
+
+  button.classList.add("active");
+
+
+  document
+    .getElementById("sidebar")
+    .classList.remove("open");
+
+}
+
+
+/* =================================
+   LOGOUT
+   ================================= */
+
+async function logout(){
+
+  await supabaseClient
+    .auth
+    .signOut();
+
+
+  localStorage.removeItem(
+    "user_profile"
+  );
+
+
+  window.location.href =
+    "index.html";
+
+}
+
+
+/* =================================
+   ESCAPE HTML
+   ================================= */
+
+function escapeHtml(value){
+
+  return String(value)
+
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+
+    .replace(
+      /</g,
+      "&lt;"
+    )
+
+    .replace(
+      />/g,
+      "&gt;"
+    )
+
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+
+    .replace(
+      /'/g,
+      "&#039;"
+    );
+
+}
 
 </script>
 
 </body>
-</html>
+  </html>
