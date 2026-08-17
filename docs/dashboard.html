@@ -835,10 +835,25 @@ async function checkAdministrator() {
     }
 
 
-    if (
-      profile.role !==
-      "administrator"
-    ) {
+    const userRole =
+  String(profile.role || "")
+    .trim()
+    .toLowerCase();
+
+if (userRole !== "administrator") {
+
+  alert(
+    "Administrator access is required. Current role: " +
+    userRole
+  );
+
+  await supabaseClient.auth.signOut();
+
+  window.location.href =
+    "index.html";
+
+  return;
+}
 
       alert(
         "Administrator access is required."
