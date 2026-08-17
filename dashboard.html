@@ -1,527 +1,1632 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
+  <title>Administrator Dashboard | Hope of the Word Ministry</title>
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<title>Church Management Dashboard</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-<style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      color: #1f2937;
+    }
 
-*{
-box-sizing:border-box;
-margin:0;
-padding:0;
-font-family:Arial,sans-serif;
-}
+    .layout {
+      display: flex;
+      min-height: 100vh;
+    }
 
-body{
-background:#f4f6f9;
-color:#1f2937;
-}
+    /* SIDEBAR */
 
-header{
-background:#123b5d;
-color:white;
-padding:18px 20px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
+    .sidebar {
+      width: 250px;
+      background: #123b5d;
+      color: white;
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      padding: 22px 15px;
+      z-index: 1000;
+    }
 
-.church-name{
-font-size:20px;
-font-weight:bold;
-}
+    .brand {
+      text-align: center;
+      padding: 10px 5px 25px;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
 
-.branch{
-font-size:12px;
-margin-top:5px;
-opacity:.8;
-}
+    .brand h2 {
+      margin: 0;
+      font-size: 19px;
+    }
 
-.logout{
-background:white;
-color:#123b5d;
-border:none;
-padding:10px 15px;
-border-radius:7px;
-font-weight:bold;
-cursor:pointer;
-}
+    .brand p {
+      margin: 7px 0 0;
+      font-size: 12px;
+      opacity: 0.8;
+    }
 
-.container{
-max-width:1200px;
-margin:auto;
-padding:25px;
-}
+    .menu {
+      margin-top: 25px;
+    }
 
-.welcome{
-margin-bottom:25px;
-}
+    .menu button {
+      width: 100%;
+      border: none;
+      background: transparent;
+      color: white;
+      text-align: left;
+      padding: 13px 14px;
+      margin-bottom: 5px;
+      border-radius: 7px;
+      cursor: pointer;
+      font-size: 14px;
+    }
 
-.welcome h2{
-font-size:26px;
-color:#123b5d;
-margin-bottom:7px;
-}
+    .menu button:hover,
+    .menu button.active {
+      background: rgba(255,255,255,0.15);
+    }
 
-.welcome p{
-color:#6b7280;
-}
+    .logout {
+      position: absolute;
+      bottom: 25px;
+      left: 15px;
+      right: 15px;
+    }
 
-.role{
-display:inline-block;
-margin-top:10px;
-padding:6px 12px;
-background:#e6f0f6;
-color:#123b5d;
-border-radius:20px;
-font-size:12px;
-font-weight:bold;
-}
+    .logout button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 7px;
+      background: #b42318;
+      color: white;
+      cursor: pointer;
+    }
 
-.cards{
-display:grid;
-grid-template-columns:
-repeat(auto-fit,minmax(200px,1fr));
-gap:16px;
-}
+    /* MAIN */
 
-.card{
-background:white;
-padding:22px;
-border-radius:12px;
-box-shadow:0 2px 8px rgba(0,0,0,.07);
-}
+    .main {
+      margin-left: 250px;
+      width: calc(100% - 250px);
+      min-height: 100vh;
+    }
 
-.card-title{
-font-size:14px;
-color:#6b7280;
-}
+    .topbar {
+      background: white;
+      padding: 16px 25px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.08);
+    }
 
-.card-number{
-font-size:27px;
-font-weight:bold;
-color:#123b5d;
-margin-top:10px;
-}
+    .topbar h3 {
+      margin: 0;
+    }
 
-.section{
-background:white;
-padding:22px;
-border-radius:12px;
-margin-top:25px;
-box-shadow:0 2px 8px rgba(0,0,0,.06);
-}
+    .menu-btn {
+      display: none;
+      border: none;
+      background: #123b5d;
+      color: white;
+      padding: 9px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 20px;
+    }
 
-.section h3{
-color:#123b5d;
-margin-bottom:16px;
-}
+    .content {
+      padding: 25px;
+    }
 
-.menu{
-display:grid;
-grid-template-columns:
-repeat(auto-fit,minmax(180px,1fr));
-gap:12px;
-}
+    .welcome {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 22px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
 
-.menu button{
-border:none;
-background:#123b5d;
-color:white;
-padding:16px;
-border-radius:8px;
-font-size:14px;
-cursor:pointer;
-}
+    .welcome h1 {
+      margin: 0 0 7px;
+      font-size: 25px;
+    }
 
-.menu button:hover{
-background:#0d2d46;
-}
+    .welcome p {
+      margin: 0;
+      color: #6b7280;
+    }
 
-.notice{
-background:#eef6fa;
-padding:15px;
-border-radius:8px;
-color:#36566a;
-font-size:14px;
-}
+    /* STATISTICS */
 
-footer{
-text-align:center;
-padding:30px;
-color:#777;
-font-size:12px;
-}
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-bottom: 25px;
+    }
 
-@media(max-width:600px){
+    .stat-card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
 
-header{
-padding:15px;
-}
+    .stat-title {
+      color: #6b7280;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
 
-.church-name{
-font-size:16px;
-}
+    .stat-number {
+      font-size: 30px;
+      font-weight: bold;
+      color: #123b5d;
+    }
 
-.logout{
-padding:8px 10px;
-font-size:12px;
-}
+    /* SECTIONS */
 
-.container{
-padding:16px;
-}
+    .section {
+      background: white;
+      padding: 22px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
 
-.welcome h2{
-font-size:22px;
-}
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
 
-}
+    .section-header h2 {
+      margin: 0;
+      font-size: 19px;
+    }
 
-</style>
+    .refresh-btn {
+      border: none;
+      background: #123b5d;
+      color: white;
+      padding: 9px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
 
+    /* USER CARDS */
+
+    .user-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .user-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 9px;
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .user-info h3 {
+      margin: 0 0 5px;
+      font-size: 16px;
+    }
+
+    .user-info p {
+      margin: 3px 0;
+      color: #6b7280;
+      font-size: 13px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .approve-btn,
+    .reject-btn {
+      border: none;
+      color: white;
+      padding: 9px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .approve-btn {
+      background: #16803c;
+    }
+
+    .reject-btn {
+      background: #b42318;
+    }
+
+    .approve-btn:disabled,
+    .reject-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* BADGES */
+
+    .badge {
+      display: inline-block;
+      padding: 4px 9px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: bold;
+      margin-top: 4px;
+    }
+
+    .pending {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    .approved {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .rejected {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .role {
+      background: #e5eef5;
+      color: #123b5d;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 25px;
+      color: #6b7280;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 20px;
+      color: #6b7280;
+    }
+
+    .error {
+      background: #fee2e2;
+      color: #991b1b;
+      padding: 12px;
+      border-radius: 7px;
+      margin-bottom: 15px;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 900px) {
+
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+    }
+
+    @media (max-width: 700px) {
+
+      .sidebar {
+        transform: translateX(-100%);
+        transition: 0.3s;
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .main {
+        margin-left: 0;
+        width: 100%;
+      }
+
+      .menu-btn {
+        display: block;
+      }
+
+      .topbar {
+        padding: 13px 16px;
+      }
+
+      .content {
+        padding: 15px;
+      }
+
+      .stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .stat-card {
+        padding: 15px;
+      }
+
+      .stat-number {
+        font-size: 25px;
+      }
+
+      .user-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .actions {
+        width: 100%;
+      }
+
+      .approve-btn,
+      .reject-btn {
+        flex: 1;
+      }
+
+      .welcome h1 {
+        font-size: 21px;
+      }
+
+    }
+
+    @media (max-width: 420px) {
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
+  </style>
 </head>
-
 
 <body>
 
+<div class="layout">
 
-<header>
+  <!-- SIDEBAR -->
 
-<div>
+  <aside class="sidebar" id="sidebar">
 
-<div class="church-name">
-Hope of the Word Ministry
+    <div class="brand">
+      <h2>Hope of the Word</h2>
+      <p>Ministry Management System</p>
+    </div>
+
+    <div class="menu">
+
+      <button class="active" onclick="showSection('dashboardSection', this)">
+        🏠 Dashboard
+      </button>
+
+      <button onclick="showSection('pendingSection', this)">
+        ⏳ Pending Approvals
+      </button>
+
+      <button onclick="showSection('usersSection', this)">
+        👥 Users
+      </button>
+
+      <button onclick="showSection('activitiesSection', this)">
+        ⛪ Church Activities
+      </button>
+
+      <button onclick="showSection('eventsSection', this)">
+        📅 Events
+      </button>
+
+      <button onclick="showSection('financeSection', this)">
+        💰 Finance
+      </button>
+
+      <button onclick="showSection('announcementsSection', this)">
+        📢 Announcements
+      </button>
+
+      <button onclick="showSection('settingsSection', this)">
+        ⚙️ Settings
+      </button>
+
+    </div>
+
+    <div class="logout">
+      <button onclick="logout()">
+        🚪 Logout
+      </button>
+    </div>
+
+  </aside>
+
+
+  <!-- MAIN -->
+
+  <main class="main">
+
+    <header class="topbar">
+
+      <button
+        class="menu-btn"
+        onclick="toggleSidebar()"
+      >
+        ☰
+      </button>
+
+      <h3>Administrator Dashboard</h3>
+
+      <span id="topUserName">
+        Administrator
+      </span>
+
+    </header>
+
+
+    <div class="content">
+
+
+      <!-- DASHBOARD -->
+
+      <section
+        id="dashboardSection"
+        class="dashboard-section"
+      >
+
+        <div class="welcome">
+
+          <h1>
+            Welcome, <span id="welcomeName">
+              Administrator
+            </span>
+          </h1>
+
+          <p>
+            Manage Hope of the Word Ministry from your dashboard.
+          </p>
+
+        </div>
+
+
+        <!-- STATISTICS -->
+
+        <div class="stats">
+
+          <div class="stat-card">
+            <div class="stat-title">
+              Total Users
+            </div>
+
+            <div
+              class="stat-number"
+              id="totalUsers"
+            >
+              0
+            </div>
+          </div>
+
+
+          <div class="stat-card">
+            <div class="stat-title">
+              Pastors
+            </div>
+
+            <div
+              class="stat-number"
+              id="totalPastors"
+            >
+              0
+            </div>
+          </div>
+
+
+          <div class="stat-card">
+            <div class="stat-title">
+              Secretaries
+            </div>
+
+            <div
+              class="stat-number"
+              id="totalSecretaries"
+            >
+              0
+            </div>
+          </div>
+
+
+          <div class="stat-card">
+            <div class="stat-title">
+              Treasurers
+            </div>
+
+            <div
+              class="stat-number"
+              id="totalTreasurers"
+            >
+              0
+            </div>
+          </div>
+
+        </div>
+
+
+        <!-- PENDING PREVIEW -->
+
+        <div class="section">
+
+          <div class="section-header">
+
+            <h2>
+              Pending Account Requests
+            </h2>
+
+            <button
+              class="refresh-btn"
+              onclick="loadAllData()"
+            >
+              Refresh
+            </button>
+
+          </div>
+
+          <div
+            id="dashboardPendingUsers"
+            class="user-list"
+          >
+            <div class="loading">
+              Loading...
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- PENDING APPROVALS -->
+
+      <section
+        id="pendingSection"
+        class="section"
+        style="display:none;"
+      >
+
+        <div class="section-header">
+
+          <h2>
+            Pending Account Approvals
+          </h2>
+
+          <button
+            class="refresh-btn"
+            onclick="loadAllData()"
+          >
+            Refresh
+          </button>
+
+        </div>
+
+        <div
+          id="pendingUsers"
+          class="user-list"
+        >
+          <div class="loading">
+            Loading...
+          </div>
+        </div>
+
+      </section>
+
+
+      <!-- ALL USERS -->
+
+      <section
+        id="usersSection"
+        class="section"
+        style="display:none;"
+      >
+
+        <div class="section-header">
+
+          <h2>
+            All Users
+          </h2>
+
+          <button
+            class="refresh-btn"
+            onclick="loadAllData()"
+          >
+            Refresh
+          </button>
+
+        </div>
+
+        <div
+          id="allUsers"
+          class="user-list"
+        >
+          <div class="loading">
+            Loading...
+          </div>
+        </div>
+
+      </section>
+
+
+      <!-- PLACEHOLDER SECTIONS -->
+
+      <section
+        id="activitiesSection"
+        class="section"
+        style="display:none;"
+      >
+        <h2>Church Activities</h2>
+        <div class="empty">
+          Church activities management will be added here.
+        </div>
+      </section>
+
+
+      <section
+        id="eventsSection"
+        class="section"
+        style="display:none;"
+      >
+        <h2>Events</h2>
+        <div class="empty">
+          Events management will be added here.
+        </div>
+      </section>
+
+
+      <section
+        id="financeSection"
+        class="section"
+        style="display:none;"
+      >
+        <h2>Finance</h2>
+        <div class="empty">
+          Finance management will be added here.
+        </div>
+      </section>
+
+
+      <section
+        id="announcementsSection"
+        class="section"
+        style="display:none;"
+      >
+        <h2>Announcements</h2>
+        <div class="empty">
+          Announcements management will be added here.
+        </div>
+      </section>
+
+
+      <section
+        id="settingsSection"
+        class="section"
+        style="display:none;"
+      >
+        <h2>Settings</h2>
+        <div class="empty">
+          System settings will be added here.
+        </div>
+      </section>
+
+
+    </div>
+
+  </main>
+
 </div>
-
-<div class="branch">
-Buoho Framoase Branch
-</div>
-
-</div>
-
-
-<button
-class="logout"
-onclick="logout()">
-
-Logout
-
-</button>
-
-</header>
-
-
-<div class="container">
-
-
-<div class="welcome">
-
-<h2 id="welcomeText">
-Welcome
-</h2>
-
-<p>
-Church Management System
-</p>
-
-<div
-id="roleText"
-class="role">
-
-Loading...
-
-</div>
-
-</div>
-
-
-<div class="cards">
-
-
-<div class="card">
-
-<div class="card-title">
-Total Members
-</div>
-
-<div class="card-number">
-0
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-title">
-Today's Attendance
-</div>
-
-<div class="card-number">
-0
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-title">
-Tithes
-</div>
-
-<div class="card-number">
-GH₵0.00
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-title">
-Offerings
-</div>
-
-<div class="card-number">
-GH₵0.00
-</div>
-
-</div>
-
-</div>
-
-
-<div class="section">
-
-<h3>
-Available Activities
-</h3>
-
-<div
-id="menu"
-class="menu">
-</div>
-
-</div>
-
-
-<div class="section">
-
-<h3>
-Church Information
-</h3>
-
-<div class="notice">
-
-Your available activities depend on your
-church role.
-
-</div>
-
-</div>
-
-
-</div>
-
-
-<footer>
-
-© 2026 Hope of the Word Ministry
-
-</footer>
 
 
 <script>
 
-/* GET LOGIN */
+/* ==========================================
+   SUPABASE CONNECTION
+   ========================================== */
 
-const role =
-localStorage.getItem("churchRole");
+const SUPABASE_URL =
+  "YOUR_EXISTING_SUPABASE_URL";
 
-const username =
-localStorage.getItem("churchUser");
+const SUPABASE_KEY =
+  "YOUR_EXISTING_SUPABASE_KEY";
+
+const supabaseClient =
+  supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
 
 
-/* PROTECT DASHBOARD */
+/* ==========================================
+   PAGE START
+   ========================================== */
 
-if(!role || !username){
+document.addEventListener(
+  "DOMContentLoaded",
+  async function() {
 
-window.location.href =
-"index.html";
+    await checkAdministrator();
+
+  }
+);
+
+
+/* ==========================================
+   CHECK ADMINISTRATOR
+   ========================================== */
+
+async function checkAdministrator() {
+
+  try {
+
+    const {
+      data: {
+        user
+      },
+      error: authError
+    } =
+      await supabaseClient.auth.getUser();
+
+
+    if (
+      authError ||
+      !user
+    ) {
+
+      window.location.href =
+        "index.html";
+
+      return;
+
+    }
+
+
+    const {
+      data: profile,
+      error: profileError
+    } =
+      await supabaseClient
+        .from("user_profiles")
+        .select(
+          "id, full_name, email, role, status, auth_user_id, phone"
+        )
+        .eq(
+          "auth_user_id",
+          user.id
+        )
+        .single();
+
+
+    if (
+      profileError ||
+      !profile
+    ) {
+
+      alert(
+        "Your profile could not be found."
+      );
+
+      await supabaseClient.auth.signOut();
+
+      window.location.href =
+        "index.html";
+
+      return;
+
+    }
+
+
+    if (
+      profile.role !==
+      "administrator"
+    ) {
+
+      alert(
+        "Administrator access is required."
+      );
+
+      await supabaseClient.auth.signOut();
+
+      window.location.href =
+        "index.html";
+
+      return;
+
+    }
+
+
+    if (
+      profile.status !==
+      "approved"
+    ) {
+
+      alert(
+        "Your account is not approved."
+      );
+
+      await supabaseClient.auth.signOut();
+
+      window.location.href =
+        "index.html";
+
+      return;
+
+    }
+
+
+    const displayName =
+      profile.full_name ||
+      "Administrator";
+
+
+    document.getElementById(
+      "welcomeName"
+    ).textContent =
+      displayName;
+
+
+    document.getElementById(
+      "topUserName"
+    ).textContent =
+      displayName;
+
+
+    await loadAllData();
+
+  }
+
+  catch (error) {
+
+    console.error(error);
+
+    window.location.href =
+      "index.html";
+
+  }
 
 }
 
 
-/* ROLE NAMES */
+/* ==========================================
+   LOAD ALL DATA
+   ========================================== */
 
-const roleNames = {
+async function loadAllData() {
 
-pastor:"Pastor",
+  await loadUsers();
 
-secretary:"Secretary",
+}
 
-treasurer:"Treasurer",
 
-admin:"Administrator"
+/* ==========================================
+   LOAD USERS
+   ========================================== */
 
-};
+async function loadUsers() {
 
+  const {
+    data: users,
+    error
+  } =
+    await supabaseClient
+      .from("user_profiles")
+      .select(
+        "id, full_name, email, role, status, auth_user_id, phone"
+      )
+      .order(
+        "id",
+        {
+          ascending: false
+        }
+      );
 
-const displayRole =
-roleNames[role] || role;
 
+  if (error) {
 
-document.getElementById(
-"welcomeText"
-).textContent =
-"Welcome, " + displayRole;
+    console.error(error);
 
+    showError(
+      "dashboardPendingUsers",
+      error.message
+    );
 
-document.getElementById(
-"roleText"
-).textContent =
-"Logged in as: " + displayRole;
+    showError(
+      "pendingUsers",
+      error.message
+    );
 
+    showError(
+      "allUsers",
+      error.message
+    );
 
-/* ROLE-BASED ACTIVITIES */
+    return;
 
-const activities = {
+  }
 
 
-pastor:[
+  const safeUsers =
+    users || [];
 
-"👥 Members",
 
-"⛪ Attendance",
+  /* STATISTICS */
 
-"📅 Church Activities",
+  document.getElementById(
+    "totalUsers"
+  ).textContent =
+    safeUsers.length;
 
-"👨‍👩‍👧 Departments",
 
-"💰 Tithes & Offerings",
+  document.getElementById(
+    "totalPastors"
+  ).textContent =
+    safeUsers.filter(
+      user =>
+        user.role === "pastor"
+    ).length;
 
-"📢 Announcements",
 
-"📊 Reports",
+  document.getElementById(
+    "totalSecretaries"
+  ).textContent =
+    safeUsers.filter(
+      user =>
+        user.role === "secretary"
+    ).length;
 
-"⚙️ My Account"
 
-],
+  document.getElementById(
+    "totalTreasurers"
+  ).textContent =
+    safeUsers.filter(
+      user =>
+        user.role === "treasurer"
+    ).length;
 
 
-secretary:[
+  const pendingUsers =
+    safeUsers.filter(
+      user =>
+        user.status === "pending"
+    );
 
-"👥 Members",
 
-"⛪ Attendance",
+  renderUsers(
+    pendingUsers,
+    "pendingUsers",
+    true
+  );
 
-"📅 Church Activities",
 
-"👨‍👩‍👧 Departments",
+  renderUsers(
+    pendingUsers,
+    "dashboardPendingUsers",
+    true
+  );
 
-"📢 Announcements",
 
-"📊 Reports",
+  renderUsers(
+    safeUsers,
+    "allUsers",
+    false
+  );
 
-"⚙️ My Account"
+}
 
-],
 
+/* ==========================================
+   RENDER USERS
+   ========================================== */
 
-treasurer:[
+function renderUsers(
+  users,
+  containerId,
+  showActions
+) {
 
-"💰 Tithes & Offerings",
+  const container =
+    document.getElementById(
+      containerId
+    );
 
-"📊 Financial Reports",
 
-"⚙️ My Account"
+  if (!container) {
+    return;
+  }
 
-],
 
+  container.innerHTML = "";
 
-admin:[
 
-"👥 Members",
+  if (
+    !users ||
+    users.length === 0
+  ) {
 
-"⛪ Attendance",
+    const empty =
+      document.createElement("div");
 
-"📅 Church Activities",
+    empty.className =
+      "empty";
 
-"👨‍👩‍👧 Departments",
+    empty.textContent =
+      showActions
+        ? "No pending account requests."
+        : "No users found.";
 
-"💰 Tithes & Offerings",
+    container.appendChild(
+      empty
+    );
 
-"📢 Announcements",
+    return;
 
-"📊 Reports",
+  }
 
-"👤 User Management",
 
-"⚙️ System Settings"
+  users.forEach(
+    user => {
 
-]
+      const card =
+        document.createElement("div");
 
-};
+      card.className =
+        "user-card";
 
 
-/* DISPLAY ACTIVITIES */
+      const info =
+        document.createElement("div");
 
-const menu =
-document.getElementById("menu");
+      info.className =
+        "user-info";
 
-const allowedActivities =
-activities[role] || [];
 
+      const name =
+        document.createElement("h3");
 
-allowedActivities.forEach(function(activity){
+      name.textContent =
+        user.full_name ||
+        "Unnamed User";
 
-const button =
-document.createElement("button");
 
-button.textContent =
-activity;
+      const email =
+        document.createElement("p");
 
-button.onclick = function(){
+      email.textContent =
+        "Email: " +
+        (user.email || "N/A");
 
-alert(
-activity +
-" will be developed next."
-);
 
-};
+      const phone =
+        document.createElement("p");
 
-menu.appendChild(button);
+      phone.textContent =
+        "Phone: " +
+        (user.phone || "N/A");
 
-});
 
+      const roleBadge =
+        document.createElement("span");
 
-/* LOGOUT */
+      roleBadge.className =
+        "badge role";
 
-function logout(){
+      roleBadge.textContent =
+        formatRole(
+          user.role
+        );
 
-localStorage.removeItem(
-"churchRole"
-);
 
-localStorage.removeItem(
-"churchUser"
-);
+      const statusBadge =
+        document.createElement("span");
 
-window.location.href =
-"index.html";
+      statusBadge.className =
+        "badge " +
+        getStatusClass(
+          user.status
+        );
+
+      statusBadge.textContent =
+        formatStatus(
+          user.status
+        );
+
+
+      info.appendChild(
+        name
+      );
+
+      info.appendChild(
+        email
+      );
+
+      info.appendChild(
+        phone
+      );
+
+      info.appendChild(
+        roleBadge
+      );
+
+      info.appendChild(
+        statusBadge
+      );
+
+
+      card.appendChild(
+        info
+      );
+
+
+      if (showActions) {
+
+        const actions =
+          document.createElement("div");
+
+        actions.className =
+          "actions";
+
+
+        const approve =
+          document.createElement("button");
+
+        approve.className =
+          "approve-btn";
+
+        approve.textContent =
+          "Approve";
+
+        approve.onclick =
+          function() {
+
+            approveUser(
+              user.id,
+              approve,
+              reject
+            );
+
+          };
+
+
+        const reject =
+          document.createElement("button");
+
+        reject.className =
+          "reject-btn";
+
+        reject.textContent =
+          "Reject";
+
+        reject.onclick =
+          function() {
+
+            rejectUser(
+              user.id,
+              approve,
+              reject
+            );
+
+          };
+
+
+        actions.appendChild(
+          approve
+        );
+
+        actions.appendChild(
+          reject
+        );
+
+        card.appendChild(
+          actions
+        );
+
+      }
+
+
+      container.appendChild(
+        card
+      );
+
+    }
+  );
+
+}
+
+
+/* ==========================================
+   APPROVE USER
+   ========================================== */
+
+async function approveUser(
+  id,
+  approveButton,
+  rejectButton
+) {
+
+  if (
+    !confirm(
+      "Approve this account?"
+    )
+  ) {
+    return;
+  }
+
+
+  approveButton.disabled =
+    true;
+
+  rejectButton.disabled =
+    true;
+
+
+  const {
+    error
+  } =
+    await supabaseClient
+      .from("user_profiles")
+      .update({
+        status: "approved"
+      })
+      .eq(
+        "id",
+        id
+      );
+
+
+  if (error) {
+
+    alert(
+      "Could not approve account:\n" +
+      error.message
+    );
+
+    approveButton.disabled =
+      false;
+
+    rejectButton.disabled =
+      false;
+
+    return;
+
+  }
+
+
+  alert(
+    "Account approved successfully."
+  );
+
+
+  await loadAllData();
+
+}
+
+
+/* ==========================================
+   REJECT USER
+   ========================================== */
+
+async function rejectUser(
+  id,
+  approveButton,
+  rejectButton
+) {
+
+  if (
+    !confirm(
+      "Reject this account?"
+    )
+  ) {
+    return;
+  }
+
+
+  approveButton.disabled =
+    true;
+
+  rejectButton.disabled =
+    true;
+
+
+  const {
+    error
+  } =
+    await supabaseClient
+      .from("user_profiles")
+      .update({
+        status: "rejected"
+      })
+      .eq(
+        "id",
+        id
+      );
+
+
+  if (error) {
+
+    alert(
+      "Could not reject account:\n" +
+      error.message
+    );
+
+    approveButton.disabled =
+      false;
+
+    rejectButton.disabled =
+      false;
+
+    return;
+
+  }
+
+
+  alert(
+    "Account rejected."
+  );
+
+
+  await loadAllData();
+
+}
+
+
+/* ==========================================
+   FORMAT ROLE
+   ========================================== */
+
+function formatRole(
+  role
+) {
+
+  if (!role) {
+    return "Unknown";
+  }
+
+  return role
+    .charAt(0)
+    .toUpperCase() +
+    role.slice(1);
+
+}
+
+
+/* ==========================================
+   FORMAT STATUS
+   ========================================== */
+
+function formatStatus(
+  status
+) {
+
+  if (!status) {
+    return "Unknown";
+  }
+
+  return status
+    .charAt(0)
+    .toUpperCase() +
+    status.slice(1);
+
+}
+
+
+/* ==========================================
+   STATUS CSS CLASS
+   ========================================== */
+
+function getStatusClass(
+  status
+) {
+
+  if (
+    status ===
+    "approved"
+  ) {
+
+    return "approved";
+
+  }
+
+  if (
+    status ===
+    "rejected"
+  ) {
+
+    return "rejected";
+
+  }
+
+  return "pending";
+
+}
+
+
+/* ==========================================
+   SHOW ERROR
+   ========================================== */
+
+function showError(
+  containerId,
+  message
+) {
+
+  const container =
+    document.getElementById(
+      containerId
+    );
+
+  if (!container) {
+    return;
+  }
+
+  container.innerHTML = "";
+
+  const error =
+    document.createElement("div");
+
+  error.className =
+    "error";
+
+  error.textContent =
+    message;
+
+  container.appendChild(
+    error
+  );
+
+}
+
+
+/* ==========================================
+   SIDEBAR
+   ========================================== */
+
+function toggleSidebar() {
+
+  const sidebar =
+    document.getElementById(
+      "sidebar"
+    );
+
+  sidebar.classList.toggle(
+    "open"
+  );
+
+}
+
+
+/* ==========================================
+   SECTION NAVIGATION
+   ========================================== */
+
+function showSection(
+  sectionId,
+  button
+) {
+
+  const sections =
+    document.querySelectorAll(
+      ".content > section"
+    );
+
+
+  sections.forEach(
+    section => {
+
+      section.style.display =
+        "none";
+
+    }
+  );
+
+
+  const selected =
+    document.getElementById(
+      sectionId
+    );
+
+
+  if (selected) {
+
+    selected.style.display =
+      "block";
+
+  }
+
+
+  const buttons =
+    document.querySelectorAll(
+      ".menu button"
+    );
+
+
+  buttons.forEach(
+    item => {
+
+      item.classList.remove(
+        "active"
+      );
+
+    }
+  );
+
+
+  if (button) {
+
+    button.classList.add(
+      "active"
+    );
+
+  }
+
+
+  if (
+    window.innerWidth <=
+    700
+  ) {
+
+    document
+      .getElementById(
+        "sidebar"
+      )
+      .classList.remove(
+        "open"
+      );
+
+  }
+
+}
+
+
+/* ==========================================
+   LOGOUT
+   ========================================== */
+
+async function logout() {
+
+  const confirmed =
+    confirm(
+      "Are you sure you want to logout?"
+    );
+
+
+  if (!confirmed) {
+    return;
+  }
+
+
+  await supabaseClient.auth.signOut();
+
+
+  localStorage.removeItem(
+    "user_profile"
+  );
+
+
+  window.location.href =
+    "index.html";
 
 }
 
 </script>
 
-
 </body>
-</html>
+  </html>
