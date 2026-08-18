@@ -974,6 +974,142 @@ async function loadPendingUsers() {
   try {
 
     const {
+      data: allUsers,
+      error
+    } = await supabaseClient
+      .from("user_profiles")
+      .select(
+        "id, auth_user_id, full_name, email, phone, role, status, created_at"
+      )
+      .order(
+        "created_at",
+        {
+          ascending: false
+        }
+      );
+
+    if (error) {
+
+      console.error(
+        "Users loading error:",
+        error
+      );
+
+      const errorMessage =
+        `<div class="error">
+          Unable to load users:
+          ${escapeHtml(error.message)}
+        </div>`;
+
+      dashboardPending.innerHTML =
+        errorMessage;
+
+      pendingList.innerHTML =
+        errorMessage;
+
+      return;
+    }
+
+    /*
+      Filter pending users here.
+      This handles:
+      pending
+      Pending
+      PENDING
+      pending with spaces
+    */
+
+    const users =
+      (allUsers || []).filter(
+        user =>
+          String(
+            user.status || ""
+          )
+          .trim()
+          .toLowerCase() === "pending"
+      );
+
+
+    console.log(
+      "All users:",
+      allUsers
+    );
+
+    console.log(
+      "Pending users:",
+      users
+    );
+
+
+    if (users.length === 0) {
+
+      dashboardPending.innerHTML =
+        `<div class="empty">
+          No pending account requests.
+        </div>`;
+
+      pendingList.innerHTML =
+        `<div class="empty">
+          No pending account requests.
+        </div>`;
+
+      return;
+    }
+
+
+    const html =
+      users
+        .map(
+          user =>
+            createUserCard(user)
+        )
+        .join("");
+
+
+    dashboardPending.innerHTML =
+      html;
+
+    pendingList.innerHTML =
+      html;
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "Pending users error:",
+      error
+    );
+
+    const errorMessage =
+      `<div class="error">
+        Error loading pending users:
+        ${escapeHtml(error.message)}
+      </div>`;
+
+    dashboardPending.innerHTML =
+      errorMessage;
+
+    pendingList.innerHTML =
+      errorMessage;
+  }
+}
+
+  const dashboardPending =
+    document.getElementById("dashboardPending");
+
+  const pendingList =
+    document.getElementById("pendingList");
+
+  dashboardPending.innerHTML =
+    "Loading pending approvals...";
+
+  pendingList.innerHTML =
+    "Loading pending approvals...";
+
+  try {
+
+    const {
       data: users,
       error
     } = await supabaseClient
