@@ -1,600 +1,346 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
->
-
-<title>Administrator Dashboard | Hope of the Word Ministry</title>
+<title>Church Management | Hope of the Word Ministry</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-
   font-family: Arial, sans-serif;
-
-  background: #f5fff5;
-
+  background: #f4fff4;
   color: #1f2937;
 }
 
-
-/* =========================
-   TOP BAR
-   ========================= */
-
 .topbar {
-
   height: 65px;
-
-  background: linear-gradient(
-    90deg,
-    #F4C430,
-    #FFFFFF,
-    #90EE90
-  );
-
-  color: #14532D;
-
+  background: linear-gradient(90deg,#F4C430,#90EE90);
   display: flex;
-
   align-items: center;
-
   padding: 0 15px;
-
   position: sticky;
-
   top: 0;
-
   z-index: 1000;
-
-  box-shadow:
-    0 2px 8px rgba(0,0,0,.12);
+  box-shadow: 0 2px 8px rgba(0,0,0,.15);
 }
 
 .menu-toggle {
-
-  border: none;
-
-  background: #90EE90;
-
-  color: #14532D;
-
-  font-size: 27px;
-
-  width: 45px;
-
-  height: 45px;
-
-  border-radius: 7px;
-
+  border: 0;
+  background: transparent;
+  font-size: 30px;
   cursor: pointer;
-
-  margin-right: 12px;
+  color: #14532d;
+  margin-right: 15px;
 }
 
 .topbar-title {
-
   flex: 1;
-
   font-size: 18px;
-
   font-weight: bold;
+  color: #14532d;
 }
 
-.logout-top {
-
-  border: none;
-
-  background: #14532D;
-
+.logout {
+  border: 0;
+  background: #dc2626;
   color: white;
-
   padding: 9px 14px;
-
   border-radius: 7px;
-
   cursor: pointer;
-
-  font-weight: bold;
 }
-
-
-/* =========================
-   SIDEBAR
-   ========================= */
 
 .sidebar {
-
   position: fixed;
-
   top: 65px;
-
   left: 0;
-
   width: 250px;
-
   height: calc(100vh - 65px);
-
   background: white;
-
-  box-shadow:
-    2px 0 10px rgba(0,0,0,.08);
-
   padding: 15px;
-
+  box-shadow: 2px 0 10px rgba(0,0,0,.08);
   overflow-y: auto;
-
   z-index: 900;
-
   transition: .3s;
 }
 
 .menu button {
-
   width: 100%;
-
-  padding: 13px;
-
-  margin-bottom: 8px;
-
-  border: none;
-
-  border-radius: 8px;
-
-  background: white;
-
+  border: 0;
+  background: transparent;
   text-align: left;
-
-  font-size: 15px;
-
+  padding: 13px;
+  margin-bottom: 7px;
+  border-radius: 8px;
   cursor: pointer;
+  font-size: 15px;
 }
 
 .menu button:hover,
 .menu button.active {
-
-  background: #effff0;
-
-  color: #14532D;
-
+  background: #eaffea;
+  color: #14532d;
   font-weight: bold;
-
-  border-left: 4px solid #F4C430;
 }
-
-
-/* =========================
-   MAIN
-   ========================= */
 
 .main {
-
   margin-left: 250px;
-
-  padding: 25px;
-}
-
-
-/* =========================
-   WELCOME
-   ========================= */
-
-.welcome {
-
-  background: white;
-
-  border-radius: 13px;
-
-  padding: 23px;
-
-  margin-bottom: 20px;
-
-  box-shadow:
-    0 3px 12px rgba(0,0,0,.06);
-
-  border-top: 5px solid #F4C430;
-}
-
-.welcome h1 {
-
-  margin: 0 0 7px;
-
-  color: #14532D;
-}
-
-.welcome p {
-
-  margin: 0;
-
-  color: #6b7280;
-}
-
-
-/* =========================
-   STATISTICS
-   ========================= */
-
-.stats {
-
-  display: grid;
-
-  grid-template-columns:
-    repeat(4, 1fr);
-
-  gap: 15px;
-
-  margin-bottom: 25px;
-}
-
-.stat-card {
-
-  background: white;
-
   padding: 20px;
-
-  border-radius: 12px;
-
-  box-shadow:
-    0 3px 12px rgba(0,0,0,.06);
-
-  border-top: 4px solid #90EE90;
 }
-
-.stat-card h3 {
-
-  margin: 0;
-
-  font-size: 14px;
-
-  color: #6b7280;
-}
-
-.stat-number {
-
-  font-size: 30px;
-
-  font-weight: bold;
-
-  color: #14532D;
-
-  margin-top: 8px;
-}
-
-
-/* =========================
-   SECTIONS
-   ========================= */
 
 .section {
-
   display: none;
 }
 
 .section.active {
-
   display: block;
 }
 
+.welcome,
 .card {
-
   background: white;
-
   padding: 20px;
-
   border-radius: 12px;
-
   margin-bottom: 20px;
-
-  box-shadow:
-    0 3px 12px rgba(0,0,0,.06);
+  box-shadow: 0 3px 12px rgba(0,0,0,.06);
 }
 
-.card h2 {
-
-  margin-top: 0;
-
-  color: #14532D;
-
-  border-bottom: 2px solid #F4C430;
-
-  padding-bottom: 10px;
+.welcome {
+  border-left: 6px solid #F4C430;
 }
 
+h1,h2,h3 {
+  color: #14532d;
+}
 
-/* =========================
-   USER CARDS
-   ========================= */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 15px;
+  margin-bottom: 20px;
+}
 
-.user-card {
+.stat {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  border-top: 5px solid #90EE90;
+  box-shadow: 0 3px 12px rgba(0,0,0,.06);
+}
 
-  border: 1px solid #e5e7eb;
+.stat-number {
+  font-size: 28px;
+  font-weight: bold;
+  color: #14532d;
+  margin-top: 8px;
+}
 
-  border-radius: 10px;
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 11px;
+  margin: 6px 0 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 7px;
+}
 
+textarea {
+  min-height: 90px;
+}
+
+button.primary {
+  background: #16a34a;
+  color: white;
+  border: 0;
+  padding: 11px 16px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+button.secondary {
+  background: #F4C430;
+  color: #14532d;
+  border: 0;
+  padding: 11px 16px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+button.danger {
+  background: #dc2626;
+  color: white;
+  border: 0;
+  padding: 9px 13px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.record {
+  border: 1px solid #d9f5d9;
   padding: 15px;
-
-  margin-bottom: 12px;
-
-  background: #ffffff;
+  border-radius: 9px;
+  margin-bottom: 10px;
 }
 
-.user-card h3 {
-
-  margin: 0 0 7px;
-
-  color: #14532D;
-}
-
-.user-info {
-
-  color: #6b7280;
-
-  font-size: 14px;
-
-  line-height: 1.8;
+.record strong {
+  color: #14532d;
 }
 
 .buttons {
-
   display: flex;
-
   gap: 8px;
-
-  margin-top: 12px;
+  margin-top: 10px;
 }
-
-.approve,
-.reject {
-
-  border: none;
-
-  padding: 10px 15px;
-
-  border-radius: 7px;
-
-  color: white;
-
-  cursor: pointer;
-
-  font-weight: bold;
-}
-
-.approve {
-
-  background: #65b765;
-}
-
-.approve:hover {
-
-  background: #4d9e4d;
-}
-
-.reject {
-
-  background: #dc2626;
-}
-
-
-/* =========================
-   MESSAGES
-   ========================= */
 
 .empty {
-
   padding: 20px;
-
   text-align: center;
-
-  color: #6b7280;
-
   background: #f9fafb;
-
   border-radius: 8px;
+  color: #6b7280;
 }
 
 .loading {
-
   padding: 20px;
-
   text-align: center;
-
-  color: #6b7280;
 }
 
 .error {
-
   padding: 15px;
-
   background: #fee2e2;
-
   color: #991b1b;
-
   border-radius: 7px;
 }
 
-
-/* =========================
-   MOBILE
-   ========================= */
+.money {
+  font-size: 20px;
+  font-weight: bold;
+  color: #14532d;
+}
 
 @media(max-width:900px) {
-
   .stats {
-
-    grid-template-columns:
-      repeat(2,1fr);
+    grid-template-columns: repeat(2,1fr);
   }
-
 }
 
 @media(max-width:700px) {
-
   .sidebar {
-
     left: -260px;
   }
 
   .sidebar.open {
-
     left: 0;
   }
 
   .main {
-
     margin-left: 0;
-
     padding: 15px;
   }
 
-  .topbar-title {
-
-    font-size: 15px;
+  .stats {
+    grid-template-columns: repeat(2,1fr);
   }
-
-  .logout-top {
-
-    font-size: 12px;
-
-    padding: 8px 10px;
-  }
-
 }
 
 @media(max-width:450px) {
-
   .stats {
-
     grid-template-columns: 1fr;
   }
 
-  .welcome h1 {
-
-    font-size: 21px;
-  }
-
   .buttons {
-
     flex-direction: column;
   }
-
-  .approve,
-  .reject {
-
-    width: 100%;
-  }
-
 }
-
 </style>
-
 </head>
 
 <body>
-
-
-<!-- =========================
-     TOP BAR
-     ========================= -->
 
 <div class="topbar">
 
   <button
     class="menu-toggle"
-    onclick="toggleMenu()"
-  >
+    onclick="toggleMenu()">
     ☰
   </button>
 
   <div class="topbar-title">
-    Hope of the Word Ministry
+    ⛪ Hope of the Word Ministry
   </div>
 
   <button
-    class="logout-top"
-    onclick="logout()"
-  >
+    class="logout"
+    onclick="logout()">
     Logout
   </button>
 
 </div>
 
 
-<!-- =========================
-     SIDEBAR
-     ========================= -->
-
 <aside
   class="sidebar"
-  id="sidebar"
->
+  id="sidebar">
 
   <div class="menu">
 
     <button
       class="active"
-      onclick="
-        showSection(
-          'dashboardSection',
-          this
-        )
-      "
-    >
+      onclick="showSection('dashboardSection',this)">
       🏠 Dashboard
     </button>
 
     <button
-      onclick="
-        showSection(
-          'pendingSection',
-          this
-        )
-      "
-    >
+      onclick="showSection('membersSection',this)">
+      👥 Church Records
+    </button>
+
+    <button
+      onclick="showSection('activitiesSection',this)">
+      ⛪ Activities
+    </button>
+
+    <button
+      onclick="showSection('attendanceSection',this)">
+      ✅ Attendance
+    </button>
+
+    <button
+      onclick="showSection('incomeSection',this)">
+      💰 Income
+    </button>
+
+    <button
+      onclick="showSection('expensesSection',this)">
+      💸 Expenses
+    </button>
+
+    <button
+      onclick="showSection('financeSection',this)">
+      📊 Financial Summary
+    </button>
+
+    <button
+      onclick="showSection('pendingSection',this)">
       ⏳ Pending Approvals
     </button>
 
     <button
-      onclick="
-        showSection(
-          'usersSection',
-          this
-        )
-      "
-    >
-      👥 Users
-    </button>
-
-    <button
-      onclick="
-        showSection(
-          'activitiesSection',
-          this
-        )
-      "
-    >
-      ⛪ Church Activities
+      onclick="showSection('usersSection',this)">
+      👤 Users
     </button>
 
   </div>
-
 </aside>
 
-
-<!-- =========================
-     MAIN
-     ========================= -->
 
 <main class="main">
 
@@ -603,8 +349,7 @@ body {
 
 <section
   id="dashboardSection"
-  class="section active"
->
+  class="section active">
 
   <div class="welcome">
 
@@ -613,79 +358,50 @@ body {
     </h1>
 
     <p>
-      Manage Hope of the Word Ministry from your administrator dashboard.
+      Manage Hope of the Word Ministry.
     </p>
 
   </div>
 
-
   <div class="stats">
 
-    <div class="stat-card">
-
-      <h3>
-        Total Users
-      </h3>
-
+    <div class="stat">
+      <b>Total Users</b>
       <div
-        class="stat-number"
         id="totalUsers"
-      >
+        class="stat-number">
         0
       </div>
-
     </div>
 
-
-    <div class="stat-card">
-
-      <h3>
-        Pending Approvals
-      </h3>
-
+    <div class="stat">
+      <b>Pending Users</b>
       <div
-        class="stat-number"
         id="pendingUsers"
-      >
+        class="stat-number">
         0
       </div>
-
     </div>
 
-
-    <div class="stat-card">
-
-      <h3>
-        Approved Users
-      </h3>
-
+    <div class="stat">
+      <b>Church Members</b>
       <div
-        class="stat-number"
+        id="totalMembers"
+        class="stat-number">
+        0
+      </div>
+    </div>
+
+    <div class="stat">
+      <b>Approved Users</b>
+      <div
         id="approvedUsers"
-      >
+        class="stat-number">
         0
       </div>
-
-    </div>
-
-
-    <div class="stat-card">
-
-      <h3>
-        Administrators
-      </h3>
-
-      <div
-        class="stat-number"
-        id="adminUsers"
-      >
-        0
-      </div>
-
     </div>
 
   </div>
-
 
   <div class="card">
 
@@ -695,9 +411,8 @@ body {
 
     <div
       id="dashboardPending"
-      class="loading"
-    >
-      Loading pending approvals...
+      class="loading">
+      Loading...
     </div>
 
   </div>
@@ -705,49 +420,94 @@ body {
 </section>
 
 
-<!-- PENDING -->
+<!-- MEMBERS -->
 
 <section
-  id="pendingSection"
-  class="section"
->
+  id="membersSection"
+  class="section">
 
   <div class="card">
 
     <h2>
-      Pending Approvals
+      Church Records — Members
     </h2>
 
-    <div
-      id="pendingList"
-      class="loading"
-    >
-      Loading pending approvals...
-    </div>
+    <form id="memberForm">
+
+      <input
+        id="memberName"
+        placeholder="Full name"
+        required>
+
+      <input
+        id="memberPhone"
+        placeholder="Phone number">
+
+      <select id="memberGender">
+
+        <option value="">
+          Gender
+        </option>
+
+        <option value="Male">
+          Male
+        </option>
+
+        <option value="Female">
+          Female
+        </option>
+
+      </select>
+
+      <input
+        id="memberDOB"
+        type="date">
+
+      <input
+        id="memberAddress"
+        placeholder="Address">
+
+      <input
+        id="memberDepartment"
+        placeholder="Department / Ministry">
+
+      <select id="memberStatus">
+
+        <option value="active">
+          Active
+        </option>
+
+        <option value="inactive">
+          Inactive
+        </option>
+
+        <option value="visitor">
+          Visitor
+        </option>
+
+      </select>
+
+      <button
+        class="primary"
+        type="submit">
+        Add Member
+      </button>
+
+    </form>
 
   </div>
 
-</section>
-
-
-<!-- USERS -->
-
-<section
-  id="usersSection"
-  class="section"
->
 
   <div class="card">
 
     <h2>
-      All Users
+      Members
     </h2>
 
     <div
-      id="usersList"
-      class="loading"
-    >
-      Loading users...
+      id="membersList"
+      class="loading">
+      Loading members...
     </div>
 
   </div>
@@ -759,8 +519,7 @@ body {
 
 <section
   id="activitiesSection"
-  class="section"
->
+  class="section">
 
   <div class="card">
 
@@ -768,30 +527,408 @@ body {
       Church Activities
     </h2>
 
-    <p>
-      Church activities management will be added here.
-    </p>
+    <form id="activityForm">
+
+      <input
+        id="activityTitle"
+        placeholder="Activity title"
+        required>
+
+      <select id="activityType">
+
+        <option value="">
+          Activity type
+        </option>
+
+        <option>
+          Sunday Service
+        </option>
+
+        <option>
+          Bible Study
+        </option>
+
+        <option>
+          Prayer Meeting
+        </option>
+
+        <option>
+          Evangelism
+        </option>
+
+        <option>
+          Conference
+        </option>
+
+        <option>
+          Wedding
+        </option>
+
+        <option>
+          Funeral
+        </option>
+
+        <option>
+          Other
+        </option>
+
+      </select>
+
+      <input
+        id="activityDate"
+        type="date"
+        required>
+
+      <input
+        id="activityStart"
+        type="time">
+
+      <input
+        id="activityEnd"
+        type="time">
+
+      <input
+        id="activityLocation"
+        placeholder="Location">
+
+      <textarea
+        id="activityDescription"
+        placeholder="Description"></textarea>
+
+      <button
+        class="primary"
+        type="submit">
+        Add Activity
+      </button>
+
+    </form>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2>
+      Activities
+    </h2>
+
+    <div
+      id="activitiesList"
+      class="loading">
+      Loading activities...
+    </div>
 
   </div>
 
 </section>
 
 
+<!-- ATTENDANCE -->
+
+<section
+  id="attendanceSection"
+  class="section">
+
+  <div class="card">
+
+    <h2>
+      Attendance
+    </h2>
+
+    <p>
+      Select a member and activity to record attendance.
+    </p>
+
+    <select id="attendanceMember">
+
+      <option value="">
+        Select member
+      </option>
+
+    </select>
+
+    <select id="attendanceActivity">
+
+      <option value="">
+        Select activity
+      </option>
+
+    </select>
+
+    <button
+      class="primary"
+      onclick="recordAttendance()">
+      Mark Present
+    </button>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2>
+      Attendance Records
+    </h2>
+
+    <div
+      id="attendanceList">
+      Loading...
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- INCOME -->
+
+<section
+  id="incomeSection"
+  class="section">
+
+  <div class="card">
+
+    <h2>
+      Record Income
+    </h2>
+
+    <form id="incomeForm">
+
+      <select id="incomeType">
+
+        <option>
+          Tithe
+        </option>
+
+        <option>
+          Offering
+        </option>
+
+        <option>
+          Donation
+        </option>
+
+        <option>
+          Pledge
+        </option>
+
+        <option>
+          Fundraising
+        </option>
+
+        <option>
+          Other
+        </option>
+
+      </select>
+
+      <input
+        id="incomeAmount"
+        type="number"
+        step="0.01"
+        placeholder="Amount (GH₵)"
+        required>
+
+      <input
+        id="incomeDate"
+        type="date">
+
+      <textarea
+        id="incomeDescription"
+        placeholder="Description"></textarea>
+
+      <button
+        class="primary"
+        type="submit">
+        Save Income
+      </button>
+
+    </form>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2>
+      Income Records
+    </h2>
+
+    <div
+      id="incomeList">
+      Loading...
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- EXPENSES -->
+
+<section
+  id="expensesSection"
+  class="section">
+
+  <div class="card">
+
+    <h2>
+      Record Expense
+    </h2>
+
+    <form id="expenseForm">
+
+      <input
+        id="expenseType"
+        placeholder="Expense type"
+        required>
+
+      <input
+        id="expenseAmount"
+        type="number"
+        step="0.01"
+        placeholder="Amount (GH₵)"
+        required>
+
+      <input
+        id="expenseDate"
+        type="date">
+
+      <textarea
+        id="expenseDescription"
+        placeholder="Description"></textarea>
+
+      <button
+        class="primary"
+        type="submit">
+        Save Expense
+      </button>
+
+    </form>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2>
+      Expense Records
+    </h2>
+
+    <div
+      id="expensesList">
+      Loading...
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- FINANCE -->
+
+<section
+  id="financeSection"
+  class="section">
+
+  <div class="card">
+
+    <h2>
+      Financial Summary
+    </h2>
+
+    <p>
+      Total Income:
+    </p>
+
+    <div
+      id="totalIncome"
+      class="money">
+      GH₵ 0.00
+    </div>
+
+    <p>
+      Total Expenses:
+    </p>
+
+    <div
+      id="totalExpenses"
+      class="money">
+      GH₵ 0.00
+    </div>
+
+    <p>
+      Balance:
+    </p>
+
+    <div
+      id="balance"
+      class="money">
+      GH₵ 0.00
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- PENDING -->
+
+<section
+  id="pendingSection"
+  class="section">
+
+  <div class="card">
+
+    <h2>
+      Pending Approvals
+    </h2>
+
+    <div
+      id="pendingList">
+      Loading...
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- USERS -->
+
+<section
+  id="usersSection"
+  class="section">
+
+  <div class="card">
+
+    <h2>
+      All Users
+    </h2>
+
+    <div
+      id="usersList">
+      Loading...
+    </div>
+
+  </div>
+
+</section>
+
 </main>
 
 
 <script>
 
-/* =================================
+/* =====================================
    SUPABASE
-   ================================= */
+===================================== */
 
 const SUPABASE_URL =
-"https://lcrhoossfgxpktrvwdtj.supabase.co";
+"YOUR_EXISTING_SUPABASE_URL";
 
 const SUPABASE_KEY =
-"sb_publishable_KPNyDlm7lteOz0f1bivVAw_CbTAGbtH";
-
+"YOUR_EXISTING_SUPABASE_KEY";
 
 const supabaseClient =
 supabase.createClient(
@@ -800,387 +937,130 @@ supabase.createClient(
 );
 
 
-/* =================================
+/* =====================================
    START
-   ================================= */
+===================================== */
 
 document.addEventListener(
   "DOMContentLoaded",
-  function() {
-
-    checkAdministrator();
-
-  }
+  checkAdministrator
 );
 
 
-/* =================================
-   CHECK ADMIN
-   ================================= */
+/* =====================================
+   ADMIN CHECK
+===================================== */
 
 async function checkAdministrator() {
 
-  try {
-
-    const {
-      data: {
-        user
-      },
-      error: authError
-    } =
-    await supabaseClient
-      .auth
-      .getUser();
-
-
-    if (
-      authError ||
-      !user
-    ) {
-
-      window.location.href =
-        "index.html";
-
-      return;
+  const {
+    data: {
+      user
     }
+  } =
+  await supabaseClient
+  .auth
+  .getUser();
 
 
-    const {
-      data: profile,
-      error: profileError
-    } =
-    await supabaseClient
+  if (!user) {
 
-      .from("user_profiles")
+    window.location.href =
+      "index.html";
 
-      .select("*")
-
-      .eq(
-        "auth_user_id",
-        user.id
-      )
-
-      .maybeSingle();
-
-
-    if (
-      profileError ||
-      !profile
-    ) {
-
-      alert(
-        "Administrator profile was not found."
-      );
-
-      await logout();
-
-      return;
-    }
-
-
-    const role =
-      String(
-        profile.role || ""
-      )
-      .trim()
-      .toLowerCase();
-
-
-    const status =
-      String(
-        profile.status || ""
-      )
-      .trim()
-      .toLowerCase();
-
-
-    if (
-      role !==
-      "administrator"
-    ) {
-
-      alert(
-        "Administrator access is required."
-      );
-
-      await logout();
-
-      return;
-    }
-
-
-    if (
-      status !==
-      "approved"
-    ) {
-
-      alert(
-        "Your Administrator account is not approved."
-      );
-
-      await logout();
-
-      return;
-    }
-
-
-    document
-      .getElementById(
-        "welcomeName"
-      )
-      .textContent =
-      "Welcome, " +
-      (
-        profile.full_name ||
-        "Administrator"
-      );
-
-
-    await loadDashboard();
-
+    return;
   }
 
-  catch(error) {
 
-    console.error(error);
+  const {
+    data: profile,
+    error
+  } =
+  await supabaseClient
+  .from("user_profiles")
+  .select("*")
+  .eq(
+    "auth_user_id",
+    user.id
+  )
+  .maybeSingle();
+
+
+  if (
+    error ||
+    !profile
+  ) {
 
     alert(
-      "Unable to load administrator dashboard."
+      "Administrator profile not found."
     );
 
+    return;
   }
+
+
+  if (
+    String(
+      profile.role || ""
+    )
+    .trim()
+    .toLowerCase()
+    !==
+    "administrator"
+  ) {
+
+    alert(
+      "Administrator access required."
+    );
+
+    await logout();
+
+    return;
+  }
+
+
+  if (
+    String(
+      profile.status || ""
+    )
+    .trim()
+    .toLowerCase()
+    !==
+    "approved"
+  ) {
+
+    alert(
+      "Administrator account is not approved."
+    );
+
+    await logout();
+
+    return;
+  }
+
+
+  document
+  .getElementById(
+    "welcomeName"
+  )
+  .textContent =
+    "Welcome, " +
+    (
+      profile.full_name ||
+      "Administrator"
+    );
+
+
+  await loadEverything();
 
 }
 
 
-/* =================================
-   LOAD DASHBOARD
-   ================================= */
+/* =====================================
+   LOAD EVERYTHING
+===================================== */
 
-async function loadPendingUsers() {
-
-  const dashboardPending =
-    document.getElementById("dashboardPending");
-
-  const pendingList =
-    document.getElementById("pendingList");
-
-  dashboardPending.innerHTML =
-    "Loading pending approvals...";
-
-  pendingList.innerHTML =
-    "Loading pending approvals...";
-
-  try {
-
-    const {
-      data: allUsers,
-      error
-    } = await supabaseClient
-      .from("user_profiles")
-      .select(
-        "id, auth_user_id, full_name, email, phone, role, status, created_at"
-      )
-      .order(
-        "created_at",
-        {
-          ascending: false
-        }
-      );
-
-    if (error) {
-
-      console.error(
-        "Users loading error:",
-        error
-      );
-
-      const errorMessage =
-        `<div class="error">
-          Unable to load users:
-          ${escapeHtml(error.message)}
-        </div>`;
-
-      dashboardPending.innerHTML =
-        errorMessage;
-
-      pendingList.innerHTML =
-        errorMessage;
-
-      return;
-    }
-
-    /*
-      Filter pending users here.
-      This handles:
-      pending
-      Pending
-      PENDING
-      pending with spaces
-    */
-
-    const users =
-      (allUsers || []).filter(
-        user =>
-          String(
-            user.status || ""
-          )
-          .trim()
-          .toLowerCase() === "pending"
-      );
-
-
-    console.log(
-      "All users:",
-      allUsers
-    );
-
-    console.log(
-      "Pending users:",
-      users
-    );
-
-
-    if (users.length === 0) {
-
-      dashboardPending.innerHTML =
-        `<div class="empty">
-          No pending account requests.
-        </div>`;
-
-      pendingList.innerHTML =
-        `<div class="empty">
-          No pending account requests.
-        </div>`;
-
-      return;
-    }
-
-
-    const html =
-      users
-        .map(
-          user =>
-            createUserCard(user)
-        )
-        .join("");
-
-
-    dashboardPending.innerHTML =
-      html;
-
-    pendingList.innerHTML =
-      html;
-
-  }
-
-  catch (error) {
-
-    console.error(
-      "Pending users error:",
-      error
-    );
-
-    const errorMessage =
-      `<div class="error">
-        Error loading pending users:
-        ${escapeHtml(error.message)}
-      </div>`;
-
-    dashboardPending.innerHTML =
-      errorMessage;
-
-    pendingList.innerHTML =
-      errorMessage;
-  }
-}
-
-  const dashboardPending =
-    document.getElementById("dashboardPending");
-
-  const pendingList =
-    document.getElementById("pendingList");
-
-  dashboardPending.innerHTML =
-    "Loading pending approvals...";
-
-  pendingList.innerHTML =
-    "Loading pending approvals...";
-
-  try {
-
-    const {
-      data: users,
-      error
-    } = await supabaseClient
-      .from("user_profiles")
-      .select(
-        "id, auth_user_id, full_name, email, phone, role, status, created_at"
-      )
-      .ilike("status", "pending")
-      .order(
-        "created_at",
-        { ascending: false }
-      );
-
-    if (error) {
-      console.error(error);
-
-      dashboardPending.innerHTML =
-        `<div class="error">
-          Unable to load pending users:
-          ${escapeHtml(error.message)}
-        </div>`;
-
-      pendingList.innerHTML =
-        `<div class="error">
-          Unable to load pending users:
-          ${escapeHtml(error.message)}
-        </div>`;
-
-      return;
-    }
-
-    if (!users || users.length === 0) {
-
-      dashboardPending.innerHTML =
-        `<div class="empty">
-          No pending account requests.
-        </div>`;
-
-      pendingList.innerHTML =
-        `<div class="empty">
-          No pending account requests.
-        </div>`;
-
-      return;
-    }
-
-    const html = users
-      .map(user => createUserCard(user))
-      .join("");
-
-    dashboardPending.innerHTML = html;
-
-    pendingList.innerHTML = html;
-
-  } catch (error) {
-
-    console.error(error);
-
-    dashboardPending.innerHTML =
-      `<div class="error">
-        Error loading pending users:
-        ${escapeHtml(error.message)}
-      </div>`;
-
-    pendingList.innerHTML =
-      `<div class="error">
-        Error loading pending users:
-        ${escapeHtml(error.message)}
-      </div>`;
-  }
-}
+async function loadEverything() {
 
   await loadStatistics();
 
@@ -1188,45 +1068,60 @@ async function loadPendingUsers() {
 
   await loadAllUsers();
 
+  await loadMembers();
+
+  await loadActivities();
+
+  await loadIncome();
+
+  await loadExpenses();
+
+  await loadFinance();
+
+  await loadAttendanceOptions();
+
+  await loadAttendance();
+
 }
 
 
-/* =================================
+/* =====================================
    STATISTICS
-   ================================= */
+===================================== */
 
 async function loadStatistics() {
 
   const {
-    data: users,
-    error
+    data: users
   } =
   await supabaseClient
-
-    .from("user_profiles")
-
-    .select(
-      "role,status"
-    );
+  .from("user_profiles")
+  .select(
+    "role,status"
+  );
 
 
-  if (error) {
-
-    console.error(error);
-
-    return;
-  }
+  const allUsers =
+    users || [];
 
 
-  const total =
-    users.length;
+  document
+  .getElementById(
+    "totalUsers"
+  )
+  .textContent =
+    allUsers.length;
 
 
-  const pending =
-    users.filter(
-      user =>
+  document
+  .getElementById(
+    "pendingUsers"
+  )
+  .textContent =
+    allUsers.filter(
+      u =>
         String(
-          user.status || ""
+          u.status || ""
         )
         .trim()
         .toLowerCase()
@@ -1235,11 +1130,15 @@ async function loadStatistics() {
     ).length;
 
 
-  const approved =
-    users.filter(
-      user =>
+  document
+  .getElementById(
+    "approvedUsers"
+  )
+  .textContent =
+    allUsers.filter(
+      u =>
         String(
-          user.status || ""
+          u.status || ""
         )
         .trim()
         .toLowerCase()
@@ -1248,189 +1147,126 @@ async function loadStatistics() {
     ).length;
 
 
-  const admins =
-    users.filter(
-      user =>
-        String(
-          user.role || ""
-        )
-        .trim()
-        .toLowerCase()
-        ===
-        "administrator"
-    ).length;
+  const {
+    count
+  } =
+  await supabaseClient
+  .from("church_members")
+  .select(
+    "*",
+    {
+      count:
+        "exact",
+      head:
+        true
+    }
+  );
 
 
   document
-    .getElementById(
-      "totalUsers"
-    )
-    .textContent =
-    total;
-
-
-  document
-    .getElementById(
-      "pendingUsers"
-    )
-    .textContent =
-    pending;
-
-
-  document
-    .getElementById(
-      "approvedUsers"
-    )
-    .textContent =
-    approved;
-
-
-  document
-    .getElementById(
-      "adminUsers"
-    )
-    .textContent =
-    admins;
+  .getElementById(
+    "totalMembers"
+  )
+  .textContent =
+    count || 0;
 
 }
 
 
-/* =================================
+/* =====================================
    PENDING USERS
-   ================================= */
+===================================== */
 
 async function loadPendingUsers() {
-
-  const dashboardPending =
-    document
-      .getElementById(
-        "dashboardPending"
-      );
-
-
-  const pendingList =
-    document
-      .getElementById(
-        "pendingList"
-      );
-
-
-  dashboardPending.innerHTML =
-    "Loading pending approvals...";
-
-
-  pendingList.innerHTML =
-    "Loading pending approvals...";
-
 
   const {
     data: users,
     error
   } =
   await supabaseClient
-
-    .from("user_profiles")
-
-    .select(
-      "id,auth_user_id,full_name,email,phone,role,status,created_at"
-    )
-
-    .eq(
-      "status",
-      "pending"
-    )
-
-    .order(
-      "created_at",
-      {
-        ascending: false
-      }
-    );
+  .from("user_profiles")
+  .select(
+    "id,full_name,email,phone,role,status"
+  )
+  .order(
+    "created_at",
+    {
+      ascending:
+        false
+    }
+  );
 
 
   if (error) {
 
-    console.error(error);
-
-    const errorMessage =
-      escapeHtml(
-        error.message
-      );
-
-
-    dashboardPending.innerHTML =
-      `
-      <div class="error">
-        Unable to load pending users:
-        ${errorMessage}
-      </div>
-      `;
-
-
-    pendingList.innerHTML =
-      `
-      <div class="error">
-        Unable to load pending users:
-        ${errorMessage}
-      </div>
-      `;
+    document
+    .getElementById(
+      "dashboardPending"
+    )
+    .innerHTML =
+      `<div class="error">
+        ${escapeHtml(
+          error.message
+        )}
+      </div>`;
 
     return;
   }
 
 
-  if (
-    !users ||
-    users.length === 0
-  ) {
-
-    dashboardPending.innerHTML =
-      `
-      <div class="empty">
-        No pending account requests.
-      </div>
-      `;
-
-
-    pendingList.innerHTML =
-      `
-      <div class="empty">
-        No pending account requests.
-      </div>
-      `;
-
-    return;
-  }
+  const pending =
+    (users || [])
+    .filter(
+      u =>
+        String(
+          u.status || ""
+        )
+        .trim()
+        .toLowerCase()
+        ===
+        "pending"
+    );
 
 
   const html =
-    users
-      .map(
-        user =>
-          createUserCard(user)
-      )
-      .join("");
+    pending.length
+    ?
+    pending
+    .map(
+      createPendingCard
+    )
+    .join("")
+    :
+    `<div class="empty">
+      No pending account requests.
+    </div>`;
 
 
-  dashboardPending.innerHTML =
+  document
+  .getElementById(
+    "dashboardPending"
+  )
+  .innerHTML =
     html;
 
 
-  pendingList.innerHTML =
+  document
+  .getElementById(
+    "pendingList"
+  )
+  .innerHTML =
     html;
 
 }
 
 
-/* =================================
-   USER CARD
-   ================================= */
-
-function createUserCard(user) {
+function createPendingCard(
+  user
+) {
 
   return `
 
-    <div class="user-card">
+    <div class="record">
 
       <h3>
         ${escapeHtml(
@@ -1439,54 +1275,48 @@ function createUserCard(user) {
         )}
       </h3>
 
-      <div class="user-info">
+      <strong>
+        Role:
+      </strong>
 
-        <strong>Email:</strong>
-        ${escapeHtml(
-          user.email ||
-          "Not provided"
-        )}
+      ${escapeHtml(
+        user.role ||
+        "Not specified"
+      )}
 
-        <br>
+      <br>
 
-        <strong>Phone:</strong>
-        ${escapeHtml(
-          user.phone ||
-          "Not provided"
-        )}
+      <strong>
+        Email:
+      </strong>
 
-        <br>
+      ${escapeHtml(
+        user.email ||
+        "Not provided"
+      )}
 
-        <strong>Role:</strong>
-        ${escapeHtml(
-          user.role ||
-          "Not specified"
-        )}
+      <br>
 
-        <br>
+      <strong>
+        Phone:
+      </strong>
 
-        <strong>Status:</strong>
-        Pending
-
-      </div>
+      ${escapeHtml(
+        user.phone ||
+        "Not provided"
+      )}
 
       <div class="buttons">
 
         <button
-          class="approve"
-          onclick="
-            approveUser('${user.id}')
-          "
-        >
+          class="primary"
+          onclick="approveUser('${user.id}')">
           Approve
         </button>
 
         <button
-          class="reject"
-          onclick="
-            rejectUser('${user.id}')
-          "
-        >
+          class="danger"
+          onclick="rejectUser('${user.id}')">
           Reject
         </button>
 
@@ -1495,44 +1325,40 @@ function createUserCard(user) {
     </div>
 
   `;
+
 }
 
 
-/* =================================
+/* =====================================
    APPROVE
-   ================================= */
+===================================== */
 
 async function approveUser(
-  profileId
+  id
 ) {
 
-  const confirmed =
-    confirm(
+  if (
+    !confirm(
       "Approve this account?"
-    );
-
-
-  if (!confirmed) {
-
-    return;
-  }
+    )
+  ) return;
 
 
   const {
+    data,
     error
   } =
   await supabaseClient
-
-    .from("user_profiles")
-
-    .update({
-      status: "approved"
-    })
-
-    .eq(
-      "id",
-      profileId
-    );
+  .from("user_profiles")
+  .update({
+    status:
+      "approved"
+  })
+  .eq(
+    "id",
+    id
+  )
+  .select();
 
 
   if (error) {
@@ -1546,51 +1372,57 @@ async function approveUser(
   }
 
 
+  if (
+    !data ||
+    data.length === 0
+  ) {
+
+    alert(
+      "No account was updated. Check your RLS UPDATE policy."
+    );
+
+    return;
+  }
+
+
   alert(
-    "Account approved successfully."
+    "Account approved."
   );
 
 
-  await loadDashboard();
+  await loadEverything();
 
 }
 
 
-/* =================================
+/* =====================================
    REJECT
-   ================================= */
+===================================== */
 
 async function rejectUser(
-  profileId
+  id
 ) {
 
-  const confirmed =
-    confirm(
+  if (
+    !confirm(
       "Reject this account?"
-    );
-
-
-  if (!confirmed) {
-
-    return;
-  }
+    )
+  ) return;
 
 
   const {
     error
   } =
   await supabaseClient
-
-    .from("user_profiles")
-
-    .update({
-      status: "rejected"
-    })
-
-    .eq(
-      "id",
-      profileId
-    );
+  .from("user_profiles")
+  .update({
+    status:
+      "rejected"
+  })
+  .eq(
+    "id",
+    id
+  );
 
 
   if (error) {
@@ -1609,223 +1441,1351 @@ async function rejectUser(
   );
 
 
-  await loadDashboard();
+  await loadEverything();
 
 }
 
 
-/* =================================
+/* =====================================
    ALL USERS
-   ================================= */
+===================================== */
 
 async function loadAllUsers() {
-
-  const container =
-    document
-      .getElementById(
-        "usersList"
-      );
-
 
   const {
     data: users,
     error
   } =
   await supabaseClient
-
-    .from("user_profiles")
-
-    .select(
-      "id,full_name,email,phone,role,status,created_at"
-    )
-
-    .order(
-      "created_at",
-      {
-        ascending: false
-      }
-    );
+  .from("user_profiles")
+  .select(
+    "full_name,email,phone,role,status"
+  )
+  .order(
+    "created_at",
+    {
+      ascending:
+        false
+    }
+  );
 
 
   if (error) {
 
-    container.innerHTML =
-      `
-      <div class="error">
-        Unable to load users:
+    document
+    .getElementById(
+      "usersList"
+    )
+    .innerHTML =
+      `<div class="error">
         ${escapeHtml(
           error.message
         )}
-      </div>
-      `;
+      </div>`;
 
     return;
   }
 
 
-  if (
-    !users ||
-    users.length === 0
-  ) {
-
-    container.innerHTML =
-      `
-      <div class="empty">
-        No users found.
-      </div>
-      `;
-
-    return;
-  }
-
-
-  container.innerHTML =
+  document
+  .getElementById(
+    "usersList"
+  )
+  .innerHTML =
+    users.length
+    ?
     users
-      .map(
-        user => `
+    .map(
+      u => `
 
-          <div class="user-card">
+      <div class="record">
 
-            <h3>
-              ${escapeHtml(
-                user.full_name ||
-                "Unnamed User"
-              )}
-            </h3>
+        <h3>
+          ${escapeHtml(
+            u.full_name ||
+            "Unnamed"
+          )}
+        </h3>
 
-            <div class="user-info">
+        <strong>
+          Role:
+        </strong>
 
-              <strong>Email:</strong>
-              ${escapeHtml(
-                user.email ||
-                "Not provided"
-              )}
+        ${escapeHtml(
+          u.role ||
+          "Not specified"
+        )}
 
-              <br>
+        <br>
 
-              <strong>Phone:</strong>
-              ${escapeHtml(
-                user.phone ||
-                "Not provided"
-              )}
+        <strong>
+          Email:
+        </strong>
 
-              <br>
+        ${escapeHtml(
+          u.email ||
+          "Not provided"
+        )}
 
-              <strong>Role:</strong>
-              ${escapeHtml(
-                user.role ||
-                "Not specified"
-              )}
+        <br>
 
-              <br>
+        <strong>
+          Status:
+        </strong>
 
-              <strong>Status:</strong>
-              ${escapeHtml(
-                user.status ||
-                "Not specified"
-              )}
+        ${escapeHtml(
+          u.status ||
+          "Not specified"
+        )}
 
-            </div>
+      </div>
 
-          </div>
-
-        `
-      )
-      .join("");
+      `
+    )
+    .join("")
+    :
+    `<div class="empty">
+      No users found.
+    </div>`;
 
 }
 
 
-/* =================================
+/* =====================================
+   MEMBERS
+===================================== */
+
+document
+.getElementById(
+  "memberForm"
+)
+.addEventListener(
+  "submit",
+  async function(e) {
+
+    e.preventDefault();
+
+
+    const {
+      error
+    } =
+    await supabaseClient
+    .from("church_members")
+    .insert({
+      full_name:
+        document
+        .getElementById(
+          "memberName"
+        )
+        .value,
+
+      phone:
+        document
+        .getElementById(
+          "memberPhone"
+        )
+        .value,
+
+      gender:
+        document
+        .getElementById(
+          "memberGender"
+        )
+        .value,
+
+      date_of_birth:
+        document
+        .getElementById(
+          "memberDOB"
+        )
+        .value ||
+        null,
+
+      address:
+        document
+        .getElementById(
+          "memberAddress"
+        )
+        .value,
+
+      department:
+        document
+        .getElementById(
+          "memberDepartment"
+        )
+        .value,
+
+      membership_status:
+        document
+        .getElementById(
+          "memberStatus"
+        )
+        .value
+
+    });
+
+
+    if (error) {
+
+      alert(
+        "Could not add member: " +
+        error.message
+      );
+
+      return;
+    }
+
+
+    alert(
+      "Member added successfully."
+    );
+
+
+    this.reset();
+
+    await loadMembers();
+
+    await loadStatistics();
+
+  }
+);
+
+
+async function loadMembers() {
+
+  const {
+    data: members,
+    error
+  } =
+  await supabaseClient
+  .from("church_members")
+  .select("*")
+  .order(
+    "created_at",
+    {
+      ascending:
+        false
+    }
+  );
+
+
+  if (error) {
+
+    document
+    .getElementById(
+      "membersList"
+    )
+    .innerHTML =
+      `<div class="error">
+        ${escapeHtml(
+          error.message
+        )}
+      </div>`;
+
+    return;
+  }
+
+
+  document
+  .getElementById(
+    "membersList"
+  )
+  .innerHTML =
+    members.length
+    ?
+    members
+    .map(
+      m => `
+
+      <div class="record">
+
+        <h3>
+          ${escapeHtml(
+            m.full_name
+          )}
+        </h3>
+
+        <strong>
+          Phone:
+        </strong>
+
+        ${escapeHtml(
+          m.phone ||
+          "Not provided"
+        )}
+
+        <br>
+
+        <strong>
+          Gender:
+        </strong>
+
+        ${escapeHtml(
+          m.gender ||
+          "Not specified"
+        )}
+
+        <br>
+
+        <strong>
+          Department:
+        </strong>
+
+        ${escapeHtml(
+          m.department ||
+          "Not specified"
+        )}
+
+        <br>
+
+        <strong>
+          Status:
+        </strong>
+
+        ${escapeHtml(
+          m.membership_status ||
+          "Not specified"
+        )}
+
+      </div>
+
+      `
+    )
+    .join("")
+    :
+    `<div class="empty">
+      No church members found.
+    </div>`;
+
+}
+
+
+/* =====================================
+   ACTIVITIES
+===================================== */
+
+document
+.getElementById(
+  "activityForm"
+)
+.addEventListener(
+  "submit",
+  async function(e) {
+
+    e.preventDefault();
+
+
+    const {
+      error
+    } =
+    await supabaseClient
+    .from("church_activities")
+    .insert({
+
+      title:
+        document
+        .getElementById(
+          "activityTitle"
+        )
+        .value,
+
+      activity_type:
+        document
+        .getElementById(
+          "activityType"
+        )
+        .value,
+
+      activity_date:
+        document
+        .getElementById(
+          "activityDate"
+        )
+        .value,
+
+      start_time:
+        document
+        .getElementById(
+          "activityStart"
+        )
+        .value ||
+        null,
+
+      end_time:
+        document
+        .getElementById(
+          "activityEnd"
+        )
+        .value ||
+        null,
+
+      location:
+        document
+        .getElementById(
+          "activityLocation"
+        )
+        .value,
+
+      description:
+        document
+        .getElementById(
+          "activityDescription"
+        )
+        .value
+
+    });
+
+
+    if (error) {
+
+      alert(
+        "Could not add activity: " +
+        error.message
+      );
+
+      return;
+    }
+
+
+    alert(
+      "Activity added successfully."
+    );
+
+
+    this.reset();
+
+    await loadActivities();
+
+    await loadAttendanceOptions();
+
+  }
+);
+
+
+async function loadActivities() {
+
+  const {
+    data: activities,
+    error
+  } =
+  await supabaseClient
+  .from("church_activities")
+  .select("*")
+  .order(
+    "activity_date",
+    {
+      ascending:
+        false
+    }
+  );
+
+
+  if (error) {
+
+    document
+    .getElementById(
+      "activitiesList"
+    )
+    .innerHTML =
+      `<div class="error">
+        ${escapeHtml(
+          error.message
+        )}
+      </div>`;
+
+    return;
+  }
+
+
+  document
+  .getElementById(
+    "activitiesList"
+  )
+  .innerHTML =
+    activities.length
+    ?
+    activities
+    .map(
+      a => `
+
+      <div class="record">
+
+        <h3>
+          ${escapeHtml(
+            a.title
+          )}
+        </h3>
+
+        <strong>
+          Type:
+        </strong>
+
+        ${escapeHtml(
+          a.activity_type ||
+          ""
+        )}
+
+        <br>
+
+        <strong>
+          Date:
+        </strong>
+
+        ${escapeHtml(
+          a.activity_date ||
+          ""
+        )}
+
+        <br>
+
+        <strong>
+          Location:
+        </strong>
+
+        ${escapeHtml(
+          a.location ||
+          "Not specified"
+        )}
+
+        <br>
+
+        ${escapeHtml(
+          a.description ||
+          ""
+        )}
+
+      </div>
+
+      `
+    )
+    .join("")
+    :
+    `<div class="empty">
+      No activities found.
+    </div>`;
+
+}
+
+
+/* =====================================
+   ATTENDANCE OPTIONS
+===================================== */
+
+async function loadAttendanceOptions() {
+
+  const {
+    data: members
+  } =
+  await supabaseClient
+  .from("church_members")
+  .select(
+    "id,full_name"
+  )
+  .order(
+    "full_name"
+  );
+
+
+  const {
+    data: activities
+  } =
+  await supabaseClient
+  .from("church_activities")
+  .select(
+    "id,title,activity_date"
+  )
+  .order(
+    "activity_date",
+    {
+      ascending:
+        false
+    }
+  );
+
+
+  document
+  .getElementById(
+    "attendanceMember"
+  )
+  .innerHTML =
+    `<option value="">
+      Select member
+    </option>` +
+    (members || [])
+    .map(
+      m =>
+        `<option value="${m.id}">
+          ${escapeHtml(
+            m.full_name
+          )}
+        </option>`
+    )
+    .join("");
+
+
+  document
+  .getElementById(
+    "attendanceActivity"
+  )
+  .innerHTML =
+    `<option value="">
+      Select activity
+    </option>` +
+    (activities || [])
+    .map(
+      a =>
+        `<option value="${a.id}">
+          ${escapeHtml(
+            a.title
+          )} - ${escapeHtml(
+            a.activity_date ||
+            ""
+          )}
+        </option>`
+    )
+    .join("");
+
+}
+
+
+/* =====================================
+   RECORD ATTENDANCE
+===================================== */
+
+async function recordAttendance() {
+
+  const memberId =
+    document
+    .getElementById(
+      "attendanceMember"
+    )
+    .value;
+
+
+  const activityId =
+    document
+    .getElementById(
+      "attendanceActivity"
+    )
+    .value;
+
+
+  if (
+    !memberId ||
+    !activityId
+  ) {
+
+    alert(
+      "Select both member and activity."
+    );
+
+    return;
+  }
+
+
+  const {
+    error
+  } =
+  await supabaseClient
+  .from("church_attendance")
+  .insert({
+
+    member_id:
+      memberId,
+
+    activity_id:
+      activityId,
+
+    present:
+      true
+
+  });
+
+
+  if (error) {
+
+    alert(
+      "Attendance failed: " +
+      error.message
+    );
+
+    return;
+  }
+
+
+  alert(
+    "Attendance recorded."
+  );
+
+
+  await loadAttendance();
+
+}
+
+
+/* =====================================
+   ATTENDANCE LIST
+===================================== */
+
+async function loadAttendance() {
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+  .from("church_attendance")
+  .select(`
+    id,
+    attendance_date,
+    present,
+    church_members (
+      full_name
+    ),
+    church_activities (
+      title
+    )
+  `)
+  .order(
+    "attendance_date",
+    {
+      ascending:
+        false
+    }
+  );
+
+
+  if (error) {
+
+    document
+    .getElementById(
+      "attendanceList"
+    )
+    .innerHTML =
+      `<div class="error">
+        ${escapeHtml(
+          error.message
+        )}
+      </div>`;
+
+    return;
+  }
+
+
+  document
+  .getElementById(
+    "attendanceList"
+  )
+  .innerHTML =
+    data.length
+    ?
+    data
+    .map(
+      a => `
+
+      <div class="record">
+
+        <strong>
+          Member:
+        </strong>
+
+        ${escapeHtml(
+          a.church_members
+          ?.full_name ||
+          "Unknown"
+        )}
+
+        <br>
+
+        <strong>
+          Activity:
+        </strong>
+
+        ${escapeHtml(
+          a.church_activities
+          ?.title ||
+          "Unknown"
+        )}
+
+        <br>
+
+        <strong>
+          Date:
+        </strong>
+
+        ${escapeHtml(
+          a.attendance_date
+        )}
+
+      </div>
+
+      `
+    )
+    .join("")
+    :
+    `<div class="empty">
+      No attendance records.
+    </div>`;
+
+}
+
+
+/* =====================================
+   INCOME
+===================================== */
+
+document
+.getElementById(
+  "incomeForm"
+)
+.addEventListener(
+  "submit",
+  async function(e) {
+
+    e.preventDefault();
+
+
+    const {
+      data: {
+        user
+      }
+    } =
+    await supabaseClient
+    .auth
+    .getUser();
+
+
+    const {
+      error
+    } =
+    await supabaseClient
+    .from("church_income")
+    .insert({
+
+      income_type:
+        document
+        .getElementById(
+          "incomeType"
+        )
+        .value,
+
+      amount:
+        Number(
+          document
+          .getElementById(
+            "incomeAmount"
+          )
+          .value
+        ),
+
+      transaction_date:
+        document
+        .getElementById(
+          "incomeDate"
+        )
+        .value ||
+        null,
+
+      description:
+        document
+        .getElementById(
+          "incomeDescription"
+        )
+        .value,
+
+      recorded_by:
+        user?.id ||
+        null
+
+    });
+
+
+    if (error) {
+
+      alert(
+        "Could not save income: " +
+        error.message
+      );
+
+      return;
+    }
+
+
+    alert(
+      "Income recorded successfully."
+    );
+
+
+    this.reset();
+
+    await loadIncome();
+
+    await loadFinance();
+
+  }
+);
+
+
+/* =====================================
+   LOAD INCOME
+===================================== */
+
+async function loadIncome() {
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+  .from("church_income")
+  .select("*")
+  .order(
+    "transaction_date",
+    {
+      ascending:
+        false
+    }
+  );
+
+
+  if (error) {
+
+    document
+    .getElementById(
+      "incomeList"
+    )
+    .innerHTML =
+      `<div class="error">
+        ${escapeHtml(
+          error.message
+        )}
+      </div>`;
+
+    return;
+  }
+
+
+  document
+  .getElementById(
+    "incomeList"
+  )
+  .innerHTML =
+    data.length
+    ?
+    data
+    .map(
+      i => `
+
+      <div class="record">
+
+        <strong>
+          ${escapeHtml(
+            i.income_type
+          )}
+        </strong>
+
+        <div class="money">
+          GH₵ ${Number(
+            i.amount
+          ).toFixed(2)}
+        </div>
+
+        <small>
+          ${escapeHtml(
+            i.transaction_date ||
+            ""
+          )}
+        </small>
+
+        <p>
+          ${escapeHtml(
+            i.description ||
+            ""
+          )}
+        </p>
+
+      </div>
+
+      `
+    )
+    .join("")
+    :
+    `<div class="empty">
+      No income records.
+    </div>`;
+
+}
+
+
+/* =====================================
+   EXPENSES
+===================================== */
+
+document
+.getElementById(
+  "expenseForm"
+)
+.addEventListener(
+  "submit",
+  async function(e) {
+
+    e.preventDefault();
+
+
+    const {
+      data: {
+        user
+      }
+    } =
+    await supabaseClient
+    .auth
+    .getUser();
+
+
+    const {
+      error
+    } =
+    await supabaseClient
+    .from("church_expenses")
+    .insert({
+
+      expense_type:
+        document
+        .getElementById(
+          "expenseType"
+        )
+        .value,
+
+      amount:
+        Number(
+          document
+          .getElementById(
+            "expenseAmount"
+          )
+          .value
+        ),
+
+      transaction_date:
+        document
+        .getElementById(
+          "expenseDate"
+        )
+        .value ||
+        null,
+
+      description:
+        document
+        .getElementById(
+          "expenseDescription"
+        )
+        .value,
+
+      recorded_by:
+        user?.id ||
+        null
+
+    });
+
+
+    if (error) {
+
+      alert(
+        "Could not save expense: " +
+        error.message
+      );
+
+      return;
+    }
+
+
+    alert(
+      "Expense recorded successfully."
+    );
+
+
+    this.reset();
+
+    await loadExpenses();
+
+    await loadFinance();
+
+  }
+);
+
+
+/* =====================================
+   LOAD EXPENSES
+===================================== */
+
+async function loadExpenses() {
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+  .from("church_expenses")
+  .select("*")
+  .order(
+    "transaction_date",
+    {
+      ascending:
+        false
+    }
+  );
+
+
+  if (error) {
+
+    document
+    .getElementById(
+      "expensesList"
+    )
+    .innerHTML =
+      `<div class="error">
+        ${escapeHtml(
+          error.message
+        )}
+      </div>`;
+
+    return;
+  }
+
+
+  document
+  .getElementById(
+    "expensesList"
+  )
+  .innerHTML =
+    data.length
+    ?
+    data
+    .map(
+      e => `
+
+      <div class="record">
+
+        <strong>
+          ${escapeHtml(
+            e.expense_type
+          )}
+        </strong>
+
+        <div class="money">
+          GH₵ ${Number(
+            e.amount
+          ).toFixed(2)}
+        </div>
+
+        <small>
+          ${escapeHtml(
+            e.transaction_date ||
+            ""
+          )}
+        </small>
+
+        <p>
+          ${escapeHtml(
+            e.description ||
+            ""
+          )}
+        </p>
+
+      </div>
+
+      `
+    )
+    .join("")
+    :
+    `<div class="empty">
+      No expense records.
+    </div>`;
+
+}
+
+
+/* =====================================
+   FINANCE SUMMARY
+===================================== */
+
+async function loadFinance() {
+
+  const {
+    data: income
+  } =
+  await supabaseClient
+  .from("church_income")
+  .select(
+    "amount"
+  );
+
+
+  const {
+    data: expenses
+  } =
+  await supabaseClient
+  .from("church_expenses")
+  .select(
+    "amount"
+  );
+
+
+  const totalIncome =
+    (income || [])
+    .reduce(
+      (
+        sum,
+        item
+      ) =>
+        sum +
+        Number(
+          item.amount ||
+          0
+        ),
+      0
+    );
+
+
+  const totalExpenses =
+    (expenses || [])
+    .reduce(
+      (
+        sum,
+        item
+      ) =>
+        sum +
+        Number(
+          item.amount ||
+          0
+        ),
+      0
+    );
+
+
+  const balance =
+    totalIncome -
+    totalExpenses;
+
+
+  document
+  .getElementById(
+    "totalIncome"
+  )
+  .textContent =
+    "GH₵ " +
+    totalIncome.toFixed(2);
+
+
+  document
+  .getElementById(
+    "totalExpenses"
+  )
+  .textContent =
+    "GH₵ " +
+    totalExpenses.toFixed(2);
+
+
+  document
+  .getElementById(
+    "balance"
+  )
+  .textContent =
+    "GH₵ " +
+    balance.toFixed(2);
+
+}
+
+
+/* =====================================
    MENU
-   ================================= */
+===================================== */
 
 function toggleMenu() {
 
   document
-    .getElementById(
-      "sidebar"
-    )
-    .classList.toggle(
-      "open"
-    );
+  .getElementById(
+    "sidebar"
+  )
+  .classList
+  .toggle(
+    "open"
+  );
 
 }
 
 
-/* =================================
-   SECTIONS
-   ================================= */
-
 function showSection(
-  sectionId,
+  id,
   button
 ) {
 
   document
-    .querySelectorAll(
-      ".section"
-    )
-    .forEach(
-      section =>
-        section.classList.remove(
-          "active"
-        )
-    );
+  .querySelectorAll(
+    ".section"
+  )
+  .forEach(
+    section =>
+      section.classList
+      .remove(
+        "active"
+      )
+  );
 
 
   document
-    .getElementById(
-      sectionId
-    )
-    .classList.add(
-      "active"
-    );
-
-
-  document
-    .querySelectorAll(
-      ".menu button"
-    )
-    .forEach(
-      btn =>
-        btn.classList.remove(
-          "active"
-        )
-    );
-
-
-  button.classList.add(
+  .getElementById(
+    id
+  )
+  .classList
+  .add(
     "active"
   );
 
 
   document
-    .getElementById(
-      "sidebar"
-    )
-    .classList.remove(
-      "open"
-    );
+  .querySelectorAll(
+    ".menu button"
+  )
+  .forEach(
+    btn =>
+      btn.classList
+      .remove(
+        "active"
+      )
+  );
+
+
+  button.classList
+  .add(
+    "active"
+  );
+
+
+  document
+  .getElementById(
+    "sidebar"
+  )
+  .classList
+  .remove(
+    "open"
+  );
 
 }
 
 
-/* =================================
+/* =====================================
    LOGOUT
-   ================================= */
+===================================== */
 
 async function logout() {
 
   await supabaseClient
-    .auth
-    .signOut();
-
+  .auth
+  .signOut();
 
   localStorage.removeItem(
     "user_profile"
   );
-
 
   window.location.href =
     "index.html";
@@ -1833,38 +2793,37 @@ async function logout() {
 }
 
 
-/* =================================
-   HTML SECURITY
-   ================================= */
+/* =====================================
+   SECURITY
+===================================== */
 
-function escapeHtml(value) {
+function escapeHtml(
+  value
+) {
 
-  return String(value)
-
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-
-    .replace(
-      /</g,
-      "&lt;"
-    )
-
-    .replace(
-      />/g,
-      "&gt;"
-    )
-
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-
-    .replace(
-      /'/g,
-      "&#039;"
-    );
+  return String(
+    value
+  )
+  .replace(
+    /&/g,
+    "&amp;"
+  )
+  .replace(
+    /</g,
+    "&lt;"
+  )
+  .replace(
+    />/g,
+    "&gt;"
+  )
+  .replace(
+    /"/g,
+    "&quot;"
+  )
+  .replace(
+    /'/g,
+    "&#039;"
+  );
 
 }
 
