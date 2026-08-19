@@ -1459,74 +1459,73 @@ document
 
 
       const phoneNumber =
-        document
-          .getElementById("phone")
-          .value
-          .trim();
+  document
+    .getElementById("phone")
+    .value
+    .trim();
 
+if (!phoneNumber) {
+  showMessage(
+    "memberMessage",
+    "Please enter the member's phone number.",
+    "error"
+  );
 
-      /* =========================
-         MEMBER DATA
-         ========================= */
+  resetSaveButton();
+  return;
+}
 
-      const memberData = {
+const memberData = {
 
-        full_name:
-          document
-            .getElementById("fullName")
-            .value
-            .trim(),
+  full_name:
+    document
+      .getElementById("fullName")
+      .value
+      .trim(),
 
-        phone_number:
-          phoneNumber,
+  phone_number:
+    phoneNumber,
 
-        gender:
-          document
-            .getElementById("gender")
-            .value ||
-          null,
+  gender:
+    document
+      .getElementById("gender")
+      .value || null,
 
-        date_of_birth:
-          document
-            .getElementById("dateOfBirth")
-            .value ||
-          null,
+  date_of_birth:
+    document
+      .getElementById("dateOfBirth")
+      .value || null,
 
-        registration_date:
-          document
-            .getElementById("registrationDate")
-            .value ||
-          new Date()
-            .toISOString()
-            .split("T")[0],
+  registration_date:
+    document
+      .getElementById("registrationDate")
+      .value ||
+    new Date()
+      .toISOString()
+      .split("T")[0],
 
-        location:
-          document
-            .getElementById("location")
-            .value
-            .trim() ||
-          null,
+  location:
+    document
+      .getElementById("location")
+      .value
+      .trim() || null,
 
-        department:
-          document
-            .getElementById("department")
-            .value ||
-          null,
+  department:
+    document
+      .getElementById("department")
+      .value || null,
 
-        baptism_status:
-          document
-            .getElementById("baptismStatus")
-            .value ||
-          null,
+  baptism_status:
+    document
+      .getElementById("baptismStatus")
+      .value || null,
 
-        membership_status:
-          document
-            .getElementById("membershipStatus")
-            .value ||
-          "active"
-
-      };
-
+  membership_status:
+    document
+      .getElementById("membershipStatus")
+      .value ||
+    "active"
+};
 
       /* =========================
          FULL NAME CHECK
