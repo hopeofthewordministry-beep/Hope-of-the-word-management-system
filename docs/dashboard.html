@@ -72,7 +72,7 @@ body {
   background: #8f1c13 !important;
 }
 
-/* ================= SIDEBAR OVERLAY ================= */
+/* ================= OVERLAY ================= */
 
 .sidebar-overlay {
   display: none;
@@ -105,7 +105,7 @@ body {
   font-size: 15px;
 }
 
-/* ================= TOP BAR ================= */
+/* ================= TOPBAR ================= */
 
 .topbar {
   background: white;
@@ -194,10 +194,6 @@ body {
   flex-direction: column;
 }
 
-.form-group.full {
-  grid-column: 1 / -1;
-}
-
 label {
   font-weight: bold;
   margin-bottom: 6px;
@@ -239,20 +235,6 @@ select:focus {
 
 .btn-primary {
   background: #17365d;
-  color: white;
-}
-
-.btn-primary:hover {
-  background: #0d2847;
-}
-
-.btn-success {
-  background: #198754;
-  color: white;
-}
-
-.btn-danger {
-  background: #b42318;
   color: white;
 }
 
@@ -373,12 +355,6 @@ tr:hover {
   color: #842029;
 }
 
-.message.info {
-  display: block;
-  background: #e8f1fa;
-  color: #17365d;
-}
-
 /* ================= OTHER ================= */
 
 .loading {
@@ -396,7 +372,6 @@ tr:hover {
 /* ================= TABLET ================= */
 
 @media (max-width: 900px) {
-
   .sidebar {
     width: 220px;
   }
@@ -417,7 +392,6 @@ tr:hover {
   .sidebar {
     transform: translateX(-100%);
     width: 250px;
-    box-shadow: 5px 0 20px rgba(0,0,0,.25);
   }
 
   .sidebar.show {
@@ -451,10 +425,6 @@ tr:hover {
     grid-template-columns: 1fr;
   }
 
-  .form-group.full {
-    grid-column: auto;
-  }
-
   .buttons {
     flex-direction: column;
   }
@@ -464,10 +434,7 @@ tr:hover {
   }
 }
 
-/* ================= VERY SMALL PHONES ================= */
-
 @media (max-width: 400px) {
-
   .cards {
     grid-template-columns: 1fr;
   }
@@ -517,15 +484,13 @@ tr:hover {
 
 </aside>
 
-
 <!-- ================= MOBILE OVERLAY ================= -->
 
 <div
-  class="sidebar-overlay"
   id="sidebarOverlay"
+  class="sidebar-overlay"
   onclick="closeSidebar()">
 </div>
-
 
 <!-- ================= MAIN ================= -->
 
@@ -534,78 +499,51 @@ tr:hover {
   <button
     class="mobile-menu"
     onclick="toggleSidebar()">
-
     ☰ Menu
-
   </button>
-
 
   <div class="topbar">
 
-    <div>
-      <h1 id="pageTitle">
-        Dashboard
-      </h1>
-    </div>
+    <h1 id="pageTitle">
+      Dashboard
+    </h1>
 
     <div class="user-info">
-
       Logged in as:
       <strong id="currentUser">
         Loading...
       </strong>
-
     </div>
 
   </div>
 
-
   <!-- ================= DASHBOARD ================= -->
 
-  <section
-    id="home"
-    class="section active">
+  <section id="home" class="section active">
 
     <div class="cards">
 
       <div class="card">
         <h3>Total Members</h3>
-        <div
-          class="number"
-          id="totalMembers">
-          0
-        </div>
+        <div class="number" id="totalMembers">0</div>
       </div>
 
       <div class="card">
         <h3>Men</h3>
-        <div
-          class="number"
-          id="totalMen">
-          0
-        </div>
+        <div class="number" id="totalMen">0</div>
       </div>
 
       <div class="card">
         <h3>Women</h3>
-        <div
-          class="number"
-          id="totalWomen">
-          0
-        </div>
+        <div class="number" id="totalWomen">0</div>
       </div>
 
       <div class="card">
         <h3>Children</h3>
-        <div
-          class="number"
-          id="totalChildren">
-          0
-        </div>
+        <div class="number" id="totalChildren">0</div>
       </div>
 
     </div>
-
 
     <div class="panel">
 
@@ -620,29 +558,21 @@ tr:hover {
 
   </section>
 
-
   <!-- ================= MEMBERS ================= -->
 
-  <section
-    id="members"
-    class="section">
+  <section id="members" class="section">
 
     <div class="panel">
 
       <h2>Membership Registration</h2>
 
-      <div
-        id="memberMessage"
-        class="message">
-      </div>
-
+      <div id="memberMessage" class="message"></div>
 
       <form id="memberForm">
 
         <input
           type="hidden"
           id="memberId">
-
 
         <div class="form-grid">
 
@@ -662,22 +592,21 @@ tr:hover {
 
           </div>
 
-
-          <!-- PHONE -->
+          <!-- PHONE NUMBER -->
 
           <div class="form-group">
 
             <label for="phone">
-              Phone Number
+              Phone Number *
             </label>
 
             <input
               type="tel"
               id="phone"
-              placeholder="Enter phone number">
+              placeholder="Enter phone number"
+              required>
 
           </div>
-
 
           <!-- GENDER -->
 
@@ -709,7 +638,6 @@ tr:hover {
 
           </div>
 
-
           <!-- DATE OF BIRTH -->
 
           <div class="form-group">
@@ -723,7 +651,6 @@ tr:hover {
               id="dateOfBirth">
 
           </div>
-
 
           <!-- REGISTRATION DATE -->
 
@@ -739,7 +666,6 @@ tr:hover {
 
           </div>
 
-
           <!-- LOCATION -->
 
           <div class="form-group">
@@ -754,7 +680,6 @@ tr:hover {
               placeholder="Enter location">
 
           </div>
-
 
           <!-- DEPARTMENT -->
 
@@ -818,7 +743,6 @@ tr:hover {
 
           </div>
 
-
           <!-- BAPTISM -->
 
           <div class="form-group">
@@ -844,7 +768,6 @@ tr:hover {
             </select>
 
           </div>
-
 
           <!-- MEMBERSHIP STATUS -->
 
@@ -874,7 +797,6 @@ tr:hover {
 
         </div>
 
-
         <div class="buttons">
 
           <button
@@ -885,7 +807,6 @@ tr:hover {
             Save Member
 
           </button>
-
 
           <button
             type="button"
@@ -902,15 +823,11 @@ tr:hover {
 
     </div>
 
-
     <!-- ================= MEMBERS TABLE ================= -->
 
     <div class="panel">
 
-      <h2>
-        Members Record
-      </h2>
-
+      <h2>Members Record</h2>
 
       <div class="search-box">
 
@@ -922,7 +839,6 @@ tr:hover {
 
       </div>
 
-
       <div class="table-container">
 
         <table>
@@ -930,7 +846,6 @@ tr:hover {
           <thead>
 
             <tr>
-
               <th>#</th>
               <th>Full Name</th>
               <th>Phone</th>
@@ -942,25 +857,16 @@ tr:hover {
               <th>Baptism</th>
               <th>Status</th>
               <th>Actions</th>
-
             </tr>
 
           </thead>
 
-
-          <tbody
-            id="membersTableBody">
+          <tbody id="membersTableBody">
 
             <tr>
-
-              <td
-                colspan="11"
-                class="loading">
-
+              <td colspan="11" class="loading">
                 Loading members...
-
               </td>
-
             </tr>
 
           </tbody>
@@ -973,12 +879,9 @@ tr:hover {
 
   </section>
 
-
   <!-- ================= ATTENDANCE ================= -->
 
-  <section
-    id="attendance"
-    class="section">
+  <section id="attendance" class="section">
 
     <div class="panel">
 
@@ -993,12 +896,9 @@ tr:hover {
 
   </section>
 
-
   <!-- ================= ACTIVITIES ================= -->
 
-  <section
-    id="activities"
-    class="section">
+  <section id="activities" class="section">
 
     <div class="panel">
 
@@ -1013,49 +913,28 @@ tr:hover {
 
   </section>
 
-
   <!-- ================= FINANCES ================= -->
 
-  <section
-    id="finances"
-    class="section">
+  <section id="finances" class="section">
 
     <div class="cards">
 
       <div class="card">
-
         <h3>Total Income</h3>
-
-        <div class="number">
-          GH₵ 0.00
-        </div>
-
+        <div class="number">GH₵ 0.00</div>
       </div>
 
-
       <div class="card">
-
         <h3>Total Expenses</h3>
-
-        <div class="number">
-          GH₵ 0.00
-        </div>
-
+        <div class="number">GH₵ 0.00</div>
       </div>
 
-
       <div class="card">
-
         <h3>Balance</h3>
-
-        <div class="number">
-          GH₵ 0.00
-        </div>
-
+        <div class="number">GH₵ 0.00</div>
       </div>
 
     </div>
-
 
     <div class="panel">
 
@@ -1070,12 +949,9 @@ tr:hover {
 
   </section>
 
-
   <!-- ================= USERS ================= -->
 
-  <section
-    id="users"
-    class="section">
+  <section id="users" class="section">
 
     <div class="panel">
 
@@ -1089,17 +965,11 @@ tr:hover {
       <br>
 
       <p>
-
         Account Types:
-
         <strong>Pastor</strong>,
-
         <strong>Secretary</strong>,
-
         <strong>Treasurer</strong>,
-
         <strong>Administrator</strong>
-
       </p>
 
     </div>
@@ -1107,7 +977,6 @@ tr:hover {
   </section>
 
 </main>
-
 
 <script>
 
@@ -1138,7 +1007,6 @@ const supabaseClient =
    ========================================================= */
 
 let members = [];
-
 let editingMemberId = null;
 
 
@@ -1148,11 +1016,16 @@ let editingMemberId = null;
 
 document.addEventListener(
   "DOMContentLoaded",
-  async function () {
+  async function() {
 
     setRegistrationDate();
 
-    await checkUser();
+    const loggedIn =
+      await checkUser();
+
+    if (!loggedIn) {
+      return;
+    }
 
     await loadMembers();
 
@@ -1186,8 +1059,9 @@ async function checkUser() {
     data,
     error
   } =
-    await supabaseClient.auth.getUser();
-
+    await supabaseClient
+      .auth
+      .getUser();
 
   if (error || !data.user) {
 
@@ -1198,14 +1072,11 @@ async function checkUser() {
 
   }
 
-
   const user =
     data.user;
 
-
   let displayName =
     user.email || "User";
-
 
   try {
 
@@ -1224,14 +1095,12 @@ async function checkUser() {
         )
         .maybeSingle();
 
-
     if (!profileError && profile) {
 
       displayName =
         profile.full_name ||
         user.email ||
         "User";
-
 
       if (
         profile.status &&
@@ -1244,15 +1113,12 @@ async function checkUser() {
           "Your account is still pending administrator approval."
         );
 
-
         await supabaseClient
           .auth
           .signOut();
 
-
         window.location.href =
           "index.html";
-
 
         return false;
 
@@ -1260,9 +1126,7 @@ async function checkUser() {
 
     }
 
-  }
-
-  catch (error) {
+  } catch (error) {
 
     console.log(
       "Profile check:",
@@ -1271,12 +1135,10 @@ async function checkUser() {
 
   }
 
-
   document
     .getElementById("currentUser")
     .textContent =
     displayName;
-
 
   return true;
 
@@ -1294,7 +1156,6 @@ async function loadMembers() {
       "membersTableBody"
     );
 
-
   tbody.innerHTML = `
     <tr>
       <td colspan="11" class="loading">
@@ -1302,7 +1163,6 @@ async function loadMembers() {
       </td>
     </tr>
   `;
-
 
   const {
     data,
@@ -1318,14 +1178,12 @@ async function loadMembers() {
         }
       );
 
-
   if (error) {
 
     console.error(
       "Load members error:",
       error
     );
-
 
     tbody.innerHTML = `
       <tr>
@@ -1335,7 +1193,6 @@ async function loadMembers() {
       </tr>
     `;
 
-
     showMessage(
       "memberMessage",
       "Unable to load members: " +
@@ -1343,20 +1200,16 @@ async function loadMembers() {
       "error"
     );
 
-
     return;
 
   }
 
-
   members =
     data || [];
-
 
   displayMembers(
     members
   );
-
 
   updateStatistics(
     members
@@ -1367,6 +1220,8 @@ async function loadMembers() {
 
 /* =========================================================
    DISPLAY MEMBERS
+   IMPORTANT:
+   Uses phone_number
    ========================================================= */
 
 function displayMembers(list) {
@@ -1375,7 +1230,6 @@ function displayMembers(list) {
     document.getElementById(
       "membersTableBody"
     );
-
 
   if (!list.length) {
 
@@ -1391,10 +1245,9 @@ function displayMembers(list) {
 
   }
 
-
   tbody.innerHTML =
     list.map(
-      function (member, index) {
+      function(member, index) {
 
         const status =
           String(
@@ -1402,10 +1255,8 @@ function displayMembers(list) {
             "active"
           ).toLowerCase();
 
-
         let statusClass =
           "status-active";
-
 
         if (
           status === "inactive"
@@ -1416,7 +1267,6 @@ function displayMembers(list) {
 
         }
 
-
         if (
           status === "stopped"
         ) {
@@ -1425,7 +1275,6 @@ function displayMembers(list) {
             "status-stopped";
 
         }
-
 
         return `
           <tr>
@@ -1442,7 +1291,7 @@ function displayMembers(list) {
 
             <td>
               ${escapeHtml(
-                member.phone || ""
+                member.phone_number || ""
               )}
             </td>
 
@@ -1503,7 +1352,6 @@ function displayMembers(list) {
 
               </button>
 
-
               <button
                 class="small-btn delete-btn"
                 onclick="deleteMember('${member.id}')">
@@ -1531,7 +1379,7 @@ function updateStatistics(list) {
 
   const men =
     list.filter(
-      function (member) {
+      function(member) {
 
         return String(
           member.gender || ""
@@ -1541,10 +1389,9 @@ function updateStatistics(list) {
       }
     ).length;
 
-
   const women =
     list.filter(
-      function (member) {
+      function(member) {
 
         return String(
           member.gender || ""
@@ -1554,10 +1401,9 @@ function updateStatistics(list) {
       }
     ).length;
 
-
   const children =
     list.filter(
-      function (member) {
+      function(member) {
 
         return String(
           member.gender || ""
@@ -1567,24 +1413,20 @@ function updateStatistics(list) {
       }
     ).length;
 
-
   document
     .getElementById("totalMembers")
     .textContent =
     list.length;
-
 
   document
     .getElementById("totalMen")
     .textContent =
     men;
 
-
   document
     .getElementById("totalWomen")
     .textContent =
     women;
-
 
   document
     .getElementById("totalChildren")
@@ -1596,22 +1438,22 @@ function updateStatistics(list) {
 
 /* =========================================================
    SAVE MEMBER
+   IMPORTANT:
+   Saves phone_number
    ========================================================= */
 
 document
   .getElementById("memberForm")
   .addEventListener(
     "submit",
-    async function (event) {
+    async function(event) {
 
       event.preventDefault();
-
 
       const button =
         document.getElementById(
           "saveMemberBtn"
         );
-
 
       button.disabled = true;
 
@@ -1621,6 +1463,17 @@ document
           : "Saving...";
 
 
+      const phoneNumber =
+        document
+          .getElementById("phone")
+          .value
+          .trim();
+
+
+      /* =========================
+         MEMBER DATA
+         ========================= */
+
       const memberData = {
 
         full_name:
@@ -1629,14 +1482,8 @@ document
             .value
             .trim(),
 
-
-        phone:
-          document
-            .getElementById("phone")
-            .value
-            .trim() ||
-          null,
-
+        phone_number:
+          phoneNumber,
 
         gender:
           document
@@ -1644,13 +1491,11 @@ document
             .value ||
           null,
 
-
         date_of_birth:
           document
             .getElementById("dateOfBirth")
             .value ||
           null,
-
 
         registration_date:
           document
@@ -1660,7 +1505,6 @@ document
             .toISOString()
             .split("T")[0],
 
-
         location:
           document
             .getElementById("location")
@@ -1668,20 +1512,17 @@ document
             .trim() ||
           null,
 
-
         department:
           document
             .getElementById("department")
             .value ||
           null,
 
-
         baptism_status:
           document
             .getElementById("baptismStatus")
             .value ||
           null,
-
 
         membership_status:
           document
@@ -1692,9 +1533,13 @@ document
       };
 
 
-      /* FULL NAME CHECK */
+      /* =========================
+         FULL NAME CHECK
+         ========================= */
 
-      if (!memberData.full_name) {
+      if (
+        !memberData.full_name
+      ) {
 
         showMessage(
           "memberMessage",
@@ -1702,9 +1547,28 @@ document
           "error"
         );
 
-
         resetSaveButton();
 
+        return;
+
+      }
+
+
+      /* =========================
+         PHONE CHECK
+         ========================= */
+
+      if (
+        !memberData.phone_number
+      ) {
+
+        showMessage(
+          "memberMessage",
+          "Please enter the member's phone number.",
+          "error"
+        );
+
+        resetSaveButton();
 
         return;
 
@@ -1714,7 +1578,9 @@ document
       let result;
 
 
-      /* UPDATE */
+      /* =========================
+         UPDATE MEMBER
+         ========================= */
 
       if (editingMemberId) {
 
@@ -1731,7 +1597,9 @@ document
 
       }
 
-      /* INSERT */
+      /* =========================
+         INSERT MEMBER
+         ========================= */
 
       else {
 
@@ -1745,7 +1613,9 @@ document
       }
 
 
-      /* ERROR */
+      /* =========================
+         ERROR
+         ========================= */
 
       if (result.error) {
 
@@ -1754,9 +1624,20 @@ document
           result.error
         );
 
-
         let errorMessage =
           result.error.message;
+
+
+        if (
+          errorMessage.includes(
+            "phone_number"
+          )
+        ) {
+
+          errorMessage =
+            "Phone number is required. Please enter a phone number.";
+
+        }
 
 
         if (
@@ -1766,7 +1647,7 @@ document
         ) {
 
           errorMessage =
-            "The 'department' column is missing from church_members. Please add the department column in Supabase.";
+            "The department column does not match the Supabase table.";
 
         }
 
@@ -1778,7 +1659,7 @@ document
         ) {
 
           errorMessage =
-            "The 'location' column is missing from church_members. Please add the location column in Supabase.";
+            "The location column does not match the Supabase table.";
 
         }
 
@@ -1790,16 +1671,16 @@ document
           "error"
         );
 
-
         resetSaveButton();
-
 
         return;
 
       }
 
 
-      /* SUCCESS */
+      /* =========================
+         SUCCESS
+         ========================= */
 
       showMessage(
         "memberMessage",
@@ -1812,9 +1693,7 @@ document
 
       clearMemberForm();
 
-
       await loadMembers();
-
 
       resetSaveButton();
 
@@ -1833,7 +1712,6 @@ function resetSaveButton() {
       "saveMemberBtn"
     );
 
-
   button.disabled = false;
 
   button.textContent =
@@ -1846,13 +1724,15 @@ function resetSaveButton() {
 
 /* =========================================================
    EDIT MEMBER
+   IMPORTANT:
+   Reads phone_number
    ========================================================= */
 
 function editMember(id) {
 
   const member =
     members.find(
-      function (item) {
+      function(item) {
 
         return String(item.id) ===
           String(id);
@@ -1860,71 +1740,57 @@ function editMember(id) {
       }
     );
 
-
   if (!member) {
-
     return;
-
   }
-
 
   editingMemberId =
     member.id;
-
 
   document
     .getElementById("memberId")
     .value =
     member.id || "";
 
-
   document
     .getElementById("fullName")
     .value =
     member.full_name || "";
 
-
   document
     .getElementById("phone")
     .value =
-    member.phone || "";
-
+    member.phone_number || "";
 
   document
     .getElementById("gender")
     .value =
     member.gender || "";
 
-
   document
     .getElementById("dateOfBirth")
     .value =
     member.date_of_birth || "";
-
 
   document
     .getElementById("registrationDate")
     .value =
     member.registration_date || "";
 
-
   document
     .getElementById("location")
     .value =
     member.location || "";
-
 
   document
     .getElementById("department")
     .value =
     member.department || "";
 
-
   document
     .getElementById("baptismStatus")
     .value =
     member.baptism_status || "";
-
 
   document
     .getElementById("membershipStatus")
@@ -1932,18 +1798,20 @@ function editMember(id) {
     member.membership_status ||
     "active";
 
-
   document
     .getElementById("saveMemberBtn")
     .textContent =
     "Update Member";
 
 
+  const membersButton =
+    document.querySelector(
+      ".sidebar button:nth-of-type(2)"
+    );
+
   showSection(
     "members",
-    document.querySelector(
-      ".sidebar button:nth-child(3)"
-    )
+    membersButton
   );
 
 }
@@ -1960,13 +1828,9 @@ async function deleteMember(id) {
       "Are you sure you want to delete this member?"
     );
 
-
   if (!confirmed) {
-
     return;
-
   }
-
 
   const {
     error
@@ -1979,14 +1843,12 @@ async function deleteMember(id) {
         id
       );
 
-
   if (error) {
 
     console.error(
       "Delete error:",
       error
     );
-
 
     showMessage(
       "memberMessage",
@@ -1995,18 +1857,15 @@ async function deleteMember(id) {
       "error"
     );
 
-
     return;
 
   }
-
 
   showMessage(
     "memberMessage",
     "Member deleted successfully.",
     "success"
   );
-
 
   await loadMembers();
 
@@ -2022,26 +1881,21 @@ function clearMemberForm() {
   editingMemberId =
     null;
 
-
   document
     .getElementById("memberForm")
     .reset();
-
 
   document
     .getElementById("memberId")
     .value =
     "";
 
-
   setRegistrationDate();
-
 
   document
     .getElementById("membershipStatus")
     .value =
     "active";
-
 
   document
     .getElementById("saveMemberBtn")
@@ -2053,6 +1907,8 @@ function clearMemberForm() {
 
 /* =========================================================
    SEARCH MEMBERS
+   IMPORTANT:
+   Searches phone_number
    ========================================================= */
 
 function filterMembers() {
@@ -2064,7 +1920,6 @@ function filterMembers() {
       .toLowerCase()
       .trim();
 
-
   if (!search) {
 
     displayMembers(
@@ -2075,15 +1930,14 @@ function filterMembers() {
 
   }
 
-
   const filtered =
     members.filter(
-      function (member) {
+      function(member) {
 
         const text = [
 
           member.full_name,
-          member.phone,
+          member.phone_number,
           member.gender,
           member.date_of_birth,
           member.registration_date,
@@ -2096,14 +1950,12 @@ function filterMembers() {
         .join(" ")
         .toLowerCase();
 
-
         return text.includes(
           search
         );
 
       }
     );
-
 
   displayMembers(
     filtered
@@ -2124,7 +1976,7 @@ function showSection(
   document
     .querySelectorAll(".section")
     .forEach(
-      function (section) {
+      function(section) {
 
         section.classList.remove(
           "active"
@@ -2138,7 +1990,6 @@ function showSection(
     document.getElementById(
       sectionId
     );
-
 
   if (selectedSection) {
 
@@ -2154,7 +2005,7 @@ function showSection(
       ".sidebar button"
     )
     .forEach(
-      function (btn) {
+      function(btn) {
 
         btn.classList.remove(
           "active"
@@ -2203,8 +2054,6 @@ function showSection(
     "Dashboard";
 
 
-  /* CLOSE MOBILE SIDEBAR */
-
   closeSidebar();
 
 
@@ -2220,7 +2069,7 @@ function showSection(
 
 
 /* =========================================================
-   TOGGLE MOBILE SIDEBAR
+   TOGGLE SIDEBAR
    ========================================================= */
 
 function toggleSidebar() {
@@ -2235,20 +2084,16 @@ function toggleSidebar() {
       "sidebarOverlay"
     );
 
-
   const isOpen =
     sidebar.classList.contains(
       "show"
     );
 
-
   if (isOpen) {
 
     closeSidebar();
 
-  }
-
-  else {
+  } else {
 
     sidebar.classList.add(
       "show"
@@ -2264,7 +2109,7 @@ function toggleSidebar() {
 
 
 /* =========================================================
-   CLOSE MOBILE SIDEBAR
+   CLOSE SIDEBAR
    ========================================================= */
 
 function closeSidebar() {
@@ -2274,7 +2119,6 @@ function closeSidebar() {
     .classList.remove(
       "show"
     );
-
 
   document
     .getElementById("sidebarOverlay")
@@ -2286,12 +2130,12 @@ function closeSidebar() {
 
 
 /* =========================================================
-   CLOSE SIDEBAR WHEN SCREEN IS RESIZED
+   RESIZE
    ========================================================= */
 
 window.addEventListener(
   "resize",
-  function () {
+  function() {
 
     if (
       window.innerWidth > 700
@@ -2316,13 +2160,9 @@ async function logout() {
       "Do you want to logout?"
     );
 
-
   if (!confirmed) {
-
     return;
-
   }
-
 
   try {
 
@@ -2330,9 +2170,7 @@ async function logout() {
       .auth
       .signOut();
 
-  }
-
-  catch (error) {
+  } catch (error) {
 
     console.error(
       "Logout error:",
@@ -2340,7 +2178,6 @@ async function logout() {
     );
 
   }
-
 
   window.location.href =
     "index.html";
@@ -2363,24 +2200,18 @@ function showMessage(
       elementId
     );
 
-
   if (!element) {
-
     return;
-
   }
-
 
   element.textContent =
     text;
 
-
   element.className =
     "message " + type;
 
-
   setTimeout(
-    function () {
+    function() {
 
       element.className =
         "message";
@@ -2425,4 +2256,4 @@ function escapeHtml(value) {
 </script>
 
 </body>
-  </html>
+          </html>
