@@ -419,59 +419,89 @@ button.danger {
 
 </section>
 
+<!-- =========================================
+     CHURCH RECORDS / MEMBERSHIP REGISTRATION
+========================================= -->
 
-<!-- MEMBERS -->
-
-<section
-  id="membersSection"
-  class="section">
+<section id="membersSection" class="section">
 
   <div class="card">
 
-    <h2>
-      Church Records — Members
-    </h2>
+    <h2>Membership Registration</h2>
+
+    <p>
+      Register and manage church members.
+    </p>
 
     <form id="memberForm">
 
+      <label>Full Name</label>
       <input
         id="memberName"
-        placeholder="Full name"
-        required>
+        type="text"
+        placeholder="Enter full name"
+        required
+      >
 
+      <label>Phone Number</label>
       <input
         id="memberPhone"
-        placeholder="Phone number">
+        type="tel"
+        placeholder="Enter phone number"
+      >
 
-      <select id="memberGender">
+      <label>Date of Birth</label>
+      <input
+        id="memberDOB"
+        type="date"
+      >
+
+      <label>Date of Registration</label>
+      <input
+        id="memberRegistrationDate"
+        type="date"
+        required
+      >
+
+      <label>Location</label>
+      <input
+        id="memberLocation"
+        type="text"
+        placeholder="Enter location"
+      >
+
+      <label>Department / Ministry</label>
+
+      <select
+        id="memberDepartment"
+        required
+      >
 
         <option value="">
-          Gender
+          Select Department / Ministry
         </option>
 
-        <option value="Male">
-          Male
+        <option value="Men's Fellowship">
+          Men's Fellowship
         </option>
 
-        <option value="Female">
-          Female
+        <option value="Women's Fellowship">
+          Women's Fellowship
+        </option>
+
+        <option value="Children's Fellowship">
+          Children's Fellowship
         </option>
 
       </select>
 
-      <input
-        id="memberDOB"
-        type="date">
 
-      <input
-        id="memberAddress"
-        placeholder="Address">
+      <label>Membership Status</label>
 
-      <input
-        id="memberDepartment"
-        placeholder="Department / Ministry">
-
-      <select id="memberStatus">
+      <select
+        id="memberStatus"
+        required
+      >
 
         <option value="active">
           Active
@@ -481,11 +511,428 @@ button.danger {
           Inactive
         </option>
 
-        <option value="visitor">
-          Visitor
+        <option value="stopped">
+          Stopped
         </option>
 
       </select>
+
+
+      <button
+        type="submit"
+        class="primary"
+      >
+        Register Member
+      </button>
+
+    </form>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2>Registered Members</h2>
+
+    <input
+      type="search"
+      id="memberSearch"
+      placeholder="Search member by name or phone..."
+      oninput="filterMembers()"
+    >
+
+    <div id="membersList">
+      Loading members...
+    </div>
+
+  </div>
+
+</section>
+
+Then replace your current member-loading JavaScript with this:
+
+/* =========================================
+   MEMBERSHIP REGISTRATION
+========================================= */
+
+let allMembers = [];
+
+
+document
+.getElementById("memberForm")
+.addEventListener(
+  "submit",
+  async function(e) {
+
+    e.preventDefault();
+
+
+    const fullName =
+      document
+      .getElementById("memberName")
+      .value
+      .trim();
+
+
+    const phone =
+      document
+      .getElementById("memberPhone")
+      .value
+      .trim();
+
+
+    const dob =
+      document
+      .getElementById("memberDOB")
+      .value ||
+      null;
+
+
+    const registrationDate =
+      document
+      .getElementById(
+        "memberRegistrationDate"
+      )
+      .value;
+
+
+    const location =
+      document
+      .getElementById("memberLocation")
+      .value
+      .trim();
+
+
+    const department =
+      document
+      .getElementById("memberDepartment")
+      .value;
+
+
+    const status =
+      document
+      .getElementById("memberStatus")
+      .value;
+
+
+    const {
+      error
+    } =
+    await supabaseClient
+    .from("church_members")
+    .insert({
+
+      full_name:
+        fullName,
+
+      phone:
+        phone,
+
+      date_of_birth:
+        dob,
+
+      registration_date:
+        registrationDate,
+
+      location:
+        location,
+
+      department:
+        department,
+
+      membership_status:
+        status
+
+    });
+
+
+    if (error) {
+
+      alert(
+        "Member registration failed:\n\n" +
+        error.message
+      );
+
+      return;
+    }
+
+
+    alert(
+      "Member registered successfully."
+    );
+
+
+    this.reset();
+
+
+    /* Automatically put today's date
+       back into registration date */
+
+    document
+    .getElementById(
+      "memberRegistrationDate"
+    )
+    .value =
+      new Date()
+      .toISOString()
+      .split("T")[0];
+
+
+    await loadMembers();
+
+    await loadStatistics();
+
+  }
+);
+
+
+/* =========================================
+   LOAD MEMBERS
+========================================= */
+
+async function loadMembers() {
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+  .from("church_members")
+  .select("*")
+  .order(
+    "created_at",
+    {
+      ascending: false
+    }
+  );
+
+
+  if (error) {
+
+    document
+    .getElementById(
+      "membersList"
+    )
+    .innerHTML =
+      `<div class="error">
+        ${escapeHtml(error.message)}
+      </div>`;
+
+    return;
+  }
+
+
+  allMembers =
+    data || [];
+
+
+  displayMembers(
+    allMembers
+  );
+
+}
+
+
+/* =========================================
+   DISPLAY MEMBERS
+========================================= */
+
+function displayMembers(
+  members
+) {
+
+  const container =
+    document.getElementById(
+      "membersList"
+    );
+
+
+  if (!members.length) {
+
+    container.innerHTML =
+      `<div class="empty">
+        No registered members found.
+      </div>`;
+
+    return;
+  }
+
+
+  container.innerHTML =
+    members
+    .map(
+      member => `
+
+      <div class="record">
+
+        <h3>
+          ${escapeHtml(
+            member.full_name
+          )}
+        </h3>
+
+        <strong>
+          Phone:
+        </strong>
+
+        ${escapeHtml(
+          member.phone ||
+          "Not provided"
+        )}
+
+        <br>
+
+        <strong>
+          Date of Birth:
+        </strong>
+
+        ${escapeHtml(
+          member.date_of_birth ||
+          "Not provided"
+        )}
+
+        <br>
+
+        <strong>
+          Date Registered:
+        </strong>
+
+        ${escapeHtml(
+          member.registration_date ||
+          "Not provided"
+        )}
+
+        <br>
+
+        <strong>
+          Location:
+        </strong>
+
+        ${escapeHtml(
+          member.location ||
+          "Not provided"
+        )}
+
+        <br>
+
+        <strong>
+          Department / Ministry:
+        </strong>
+
+        ${escapeHtml(
+          member.department ||
+          "Not selected"
+        )}
+
+        <br>
+
+        <strong>
+          Status:
+        </strong>
+
+        ${escapeHtml(
+          member.membership_status ||
+          "Not specified"
+        )}
+
+      </div>
+
+      `
+    )
+    .join("");
+
+}
+
+
+/* =========================================
+   SEARCH MEMBERS
+========================================= */
+
+function filterMembers() {
+
+  const search =
+    document
+    .getElementById(
+      "memberSearch"
+    )
+    .value
+    .toLowerCase()
+    .trim();
+
+
+  const filtered =
+    allMembers.filter(
+      member =>
+
+        String(
+          member.full_name ||
+          ""
+        )
+        .toLowerCase()
+        .includes(search)
+
+        ||
+
+        String(
+          member.phone ||
+          ""
+        )
+        .toLowerCase()
+        .includes(search)
+
+        ||
+
+        String(
+          member.location ||
+          ""
+        )
+        .toLowerCase()
+        .includes(search)
+
+        ||
+
+        String(
+          member.department ||
+          ""
+        )
+        .toLowerCase()
+        .includes(search)
+    );
+
+
+  displayMembers(
+    filtered
+  );
+
+}
+
+
+/* =========================================
+   DEFAULT REGISTRATION DATE
+========================================= */
+
+document
+.addEventListener(
+  "DOMContentLoaded",
+  function() {
+
+    const field =
+      document.getElementById(
+        "memberRegistrationDate"
+      );
+
+
+    if (field) {
+
+      field.value =
+        new Date()
+        .toISOString()
+        .split("T")[0];
+
+    }
+
+  }
+);
 
       <button
         class="primary"
