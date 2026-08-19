@@ -162,7 +162,7 @@ body {
   color: #17365d;
 }
 
-/* ================= FORMS ================= */
+/* ================= FORM ================= */
 
 .form-grid {
   display: grid;
@@ -195,6 +195,7 @@ input:focus,
 select:focus {
   outline: none;
   border-color: #245a91;
+  box-shadow: 0 0 0 2px rgba(36,90,145,.1);
 }
 
 /* ================= BUTTONS ================= */
@@ -216,6 +217,10 @@ select:focus {
 .btn-primary {
   background: #17365d;
   color: white;
+}
+
+.btn-primary:hover {
+  background: #0b1f3a;
 }
 
 .btn-success {
@@ -257,7 +262,7 @@ select:focus {
 table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 850px;
+  min-width: 1100px;
 }
 
 th,
@@ -333,16 +338,23 @@ tr:hover {
   font-size: 14px;
 }
 
-.message.success {
+.message.show {
   display: block;
+}
+
+.message.success {
   background: #d1e7dd;
   color: #0f5132;
 }
 
 .message.error {
-  display: block;
   background: #f8d7da;
   color: #842029;
+}
+
+.message.info {
+  background: #e8f1fa;
+  color: #17365d;
 }
 
 /* ================= OTHER ================= */
@@ -359,7 +371,7 @@ tr:hover {
   color: #777;
 }
 
-/* ================= TABLET ================= */
+/* ================= MOBILE ================= */
 
 @media (max-width: 900px) {
 
@@ -375,8 +387,6 @@ tr:hover {
     grid-template-columns: repeat(2, 1fr);
   }
 }
-
-/* ================= MOBILE ================= */
 
 @media (max-width: 700px) {
 
@@ -426,8 +436,6 @@ tr:hover {
   }
 }
 
-/* ================= SMALL PHONES ================= */
-
 @media (max-width: 400px) {
 
   .cards {
@@ -448,7 +456,8 @@ tr:hover {
     BUOHO FRAMOASE BRANCH
   </div>
 
-  <button class="active" onclick="showSection('home', this)">
+  <button class="active"
+          onclick="showSection('home', this)">
     Dashboard
   </button>
 
@@ -472,7 +481,8 @@ tr:hover {
     Users
   </button>
 
-  <button class="logout" onclick="logout()">
+  <button class="logout"
+          onclick="logout()">
     Logout
   </button>
 
@@ -483,19 +493,22 @@ tr:hover {
 
 <main class="main">
 
-  <button class="mobile-menu" onclick="toggleSidebar()">
+  <button class="mobile-menu"
+          onclick="toggleSidebar()">
     ☰ Menu
   </button>
 
   <div class="topbar">
 
-    <div>
-      <h1 id="pageTitle">Dashboard</h1>
-    </div>
+    <h1 id="pageTitle">
+      Dashboard
+    </h1>
 
     <div class="user-info">
       Logged in as:
-      <strong id="currentUser">Loading...</strong>
+      <strong id="currentUser">
+        Loading...
+      </strong>
     </div>
 
   </div>
@@ -503,28 +516,41 @@ tr:hover {
 
   <!-- ================= DASHBOARD ================= -->
 
-  <section id="home" class="section active">
+  <section id="home"
+           class="section active">
 
     <div class="cards">
 
       <div class="card">
         <h3>Total Members</h3>
-        <div class="number" id="totalMembers">0</div>
+        <div class="number"
+             id="totalMembers">
+          0
+        </div>
       </div>
 
       <div class="card">
         <h3>Men</h3>
-        <div class="number" id="totalMen">0</div>
+        <div class="number"
+             id="totalMen">
+          0
+        </div>
       </div>
 
       <div class="card">
         <h3>Women</h3>
-        <div class="number" id="totalWomen">0</div>
+        <div class="number"
+             id="totalWomen">
+          0
+        </div>
       </div>
 
       <div class="card">
         <h3>Children</h3>
-        <div class="number" id="totalChildren">0</div>
+        <div class="number"
+             id="totalChildren">
+          0
+        </div>
       </div>
 
     </div>
@@ -545,43 +571,68 @@ tr:hover {
 
   <!-- ================= MEMBERS ================= -->
 
-  <section id="members" class="section">
+  <section id="members"
+           class="section">
+
+    <!-- REGISTRATION -->
 
     <div class="panel">
 
-      <h2>Membership Registration</h2>
+      <h2>
+        Membership Registration
+      </h2>
 
-      <div id="memberMessage" class="message"></div>
+      <div id="memberMessage"
+           class="message">
+      </div>
 
       <form id="memberForm">
 
-        <input type="hidden" id="memberId">
+        <input type="hidden"
+               id="memberId">
 
         <div class="form-grid">
 
+          <!-- FULL NAME -->
+
           <div class="form-group">
-            <label>Full Name *</label>
+
+            <label>
+              Full Name *
+            </label>
 
             <input
               type="text"
               id="fullName"
               placeholder="Enter full name"
               required>
+
           </div>
 
 
+          <!-- PHONE -->
+
           <div class="form-group">
-            <label>Phone Number</label>
+
+            <label>
+              Phone Number
+            </label>
 
             <input
               type="tel"
               id="phone"
               placeholder="Enter phone number">
+
           </div>
 
 
+          <!-- GENDER -->
+
           <div class="form-group">
-            <label>Gender</label>
+
+            <label>
+              Gender
+            </label>
 
             <select id="gender">
 
@@ -602,33 +653,145 @@ tr:hover {
               </option>
 
             </select>
+
           </div>
 
 
+          <!-- DATE OF BIRTH -->
+
           <div class="form-group">
-            <label>Date of Birth</label>
+
+            <label>
+              Date of Birth
+            </label>
 
             <input
               type="date"
               id="dateOfBirth">
+
+          </div>
+
+
+          <!-- REGISTRATION DATE -->
+
+          <div class="form-group">
+
+            <label>
+              Date of Registration
+            </label>
+
+            <input
+              type="date"
+              id="registrationDate">
+
           </div>
 
 
           <!-- LOCATION -->
-          <!-- This is saved to Supabase as ADDRESS -->
 
           <div class="form-group">
-            <label>Location</label>
+
+            <label>
+              Location
+            </label>
 
             <input
               type="text"
               id="location"
               placeholder="Enter location">
+
           </div>
 
 
+          <!-- DEPARTMENT -->
+
           <div class="form-group">
-            <label>Membership Status</label>
+
+            <label>
+              Department / Ministry
+            </label>
+
+            <select id="department">
+
+              <option value="">
+                Select Department
+              </option>
+
+              <option value="Men's Fellowship">
+                Men's Fellowship
+              </option>
+
+              <option value="Women's Fellowship">
+                Women's Fellowship
+              </option>
+
+              <option value="Children's Fellowship">
+                Children's Fellowship
+              </option>
+
+              <option value="Choir">
+                Choir
+              </option>
+
+              <option value="Youth">
+                Youth
+              </option>
+
+              <option value="Evangelism">
+                Evangelism
+              </option>
+
+              <option value="Ushering">
+                Ushering
+              </option>
+
+              <option value="Media">
+                Media
+              </option>
+
+              <option value="Other">
+                Other
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <!-- BAPTISM -->
+
+          <div class="form-group">
+
+            <label>
+              Baptism Status
+            </label>
+
+            <select id="baptismStatus">
+
+              <option value="">
+                Select
+              </option>
+
+              <option value="yes">
+                Yes
+              </option>
+
+              <option value="no">
+                No
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <!-- MEMBERSHIP STATUS -->
+
+          <div class="form-group">
+
+            <label>
+              Membership Status
+            </label>
 
             <select id="membershipStatus">
 
@@ -645,6 +808,7 @@ tr:hover {
               </option>
 
             </select>
+
           </div>
 
         </div>
@@ -678,18 +842,20 @@ tr:hover {
     </div>
 
 
-    <!-- ================= MEMBERS TABLE ================= -->
+    <!-- MEMBERS LIST -->
 
     <div class="panel">
 
-      <h2>Members Record</h2>
+      <h2>
+        Members Record
+      </h2>
 
       <div class="search-box">
 
         <input
           type="text"
           id="memberSearch"
-          placeholder="Search member..."
+          placeholder="Search by name, phone, gender, location..."
           oninput="filterMembers()">
 
       </div>
@@ -702,25 +868,34 @@ tr:hover {
           <thead>
 
             <tr>
+
               <th>#</th>
               <th>Full Name</th>
               <th>Phone</th>
               <th>Gender</th>
               <th>Date of Birth</th>
+              <th>Registration</th>
               <th>Location</th>
+              <th>Department</th>
+              <th>Baptism</th>
               <th>Status</th>
               <th>Actions</th>
+
             </tr>
 
           </thead>
 
-
           <tbody id="membersTableBody">
 
             <tr>
-              <td colspan="8" class="loading">
+
+              <td colspan="11"
+                  class="loading">
+
                 Loading members...
+
               </td>
+
             </tr>
 
           </tbody>
@@ -736,11 +911,14 @@ tr:hover {
 
   <!-- ================= ATTENDANCE ================= -->
 
-  <section id="attendance" class="section">
+  <section id="attendance"
+           class="section">
 
     <div class="panel">
 
-      <h2>Attendance</h2>
+      <h2>
+        Attendance
+      </h2>
 
       <p>
         Attendance management will be connected
@@ -754,15 +932,18 @@ tr:hover {
 
   <!-- ================= ACTIVITIES ================= -->
 
-  <section id="activities" class="section">
+  <section id="activities"
+           class="section">
 
     <div class="panel">
 
-      <h2>Church Activities</h2>
+      <h2>
+        Church Activities
+      </h2>
 
       <p>
-        Church programmes and activities can
-        be managed here.
+        Church programmes and activities
+        can be managed here.
       </p>
 
     </div>
@@ -772,34 +953,52 @@ tr:hover {
 
   <!-- ================= FINANCES ================= -->
 
-  <section id="finances" class="section">
+  <section id="finances"
+           class="section">
 
     <div class="cards">
 
       <div class="card">
+
         <h3>Total Income</h3>
-        <div class="number">GH₵ 0.00</div>
+
+        <div class="number">
+          GH₵ 0.00
+        </div>
+
       </div>
 
       <div class="card">
+
         <h3>Total Expenses</h3>
-        <div class="number">GH₵ 0.00</div>
+
+        <div class="number">
+          GH₵ 0.00
+        </div>
+
       </div>
 
       <div class="card">
+
         <h3>Balance</h3>
-        <div class="number">GH₵ 0.00</div>
+
+        <div class="number">
+          GH₵ 0.00
+        </div>
+
       </div>
 
     </div>
 
     <div class="panel">
 
-      <h2>Finances</h2>
+      <h2>
+        Finances
+      </h2>
 
       <p>
-        Income and expenses management will be
-        connected here.
+        Income and expenses management
+        will be connected here.
       </p>
 
     </div>
@@ -809,24 +1008,18 @@ tr:hover {
 
   <!-- ================= USERS ================= -->
 
-  <section id="users" class="section">
+  <section id="users"
+           class="section">
 
     <div class="panel">
 
-      <h2>Users</h2>
+      <h2>
+        Users
+      </h2>
 
       <p>
-        User accounts and administrator approval
-        will be managed here.
-      </p>
-
-      <br>
-
-      <p>
-        Account Types:
-        <strong>Pastor</strong>,
-        <strong>Secretary</strong>,
-        <strong>Treasurer</strong>
+        User accounts and administrator
+        approval will be managed here.
       </p>
 
     </div>
@@ -861,7 +1054,7 @@ const supabaseClient =
 
 
 /* =========================================================
-   VARIABLES
+   GLOBAL VARIABLES
    ========================================================= */
 
 let members = [];
@@ -869,12 +1062,26 @@ let editingMemberId = null;
 
 
 /* =========================================================
-   START
+   PAGE START
    ========================================================= */
 
 document.addEventListener(
   "DOMContentLoaded",
   async function () {
+
+    const registrationDate =
+      document.getElementById(
+        "registrationDate"
+      );
+
+    if (registrationDate) {
+
+      registrationDate.value =
+        new Date()
+          .toISOString()
+          .split("T")[0];
+
+    }
 
     await checkUser();
 
@@ -885,7 +1092,7 @@ document.addEventListener(
 
 
 /* =========================================================
-   CHECK LOGGED-IN USER
+   CHECK USER
    ========================================================= */
 
 async function checkUser() {
@@ -896,7 +1103,9 @@ async function checkUser() {
       data,
       error
     } =
-      await supabaseClient.auth.getUser();
+      await supabaseClient
+        .auth
+        .getUser();
 
 
     if (error || !data.user) {
@@ -913,11 +1122,74 @@ async function checkUser() {
       data.user;
 
 
+    let displayName =
+      user.email || "User";
+
+
+    try {
+
+      const {
+        data: profile
+      } =
+        await supabaseClient
+          .from("user_profiles")
+          .select(
+            "full_name, role, status"
+          )
+          .eq(
+            "auth_user_id",
+            user.id
+          )
+          .maybeSingle();
+
+
+      if (profile) {
+
+        displayName =
+          profile.full_name ||
+          user.email ||
+          "User";
+
+
+        if (
+          profile.status &&
+          String(profile.status)
+            .toLowerCase() === "pending"
+        ) {
+
+          alert(
+            "Your account is still pending administrator approval."
+          );
+
+          await supabaseClient
+            .auth
+            .signOut();
+
+          window.location.href =
+            "index.html";
+
+          return;
+
+        }
+
+      }
+
+    }
+
+    catch (profileError) {
+
+      console.log(
+        "Profile check:",
+        profileError.message
+      );
+
+    }
+
+
     document
       .getElementById("currentUser")
       .textContent =
-      user.email || "User";
-
+      displayName;
 
   }
 
@@ -950,7 +1222,7 @@ async function loadMembers() {
 
   tbody.innerHTML = `
     <tr>
-      <td colspan="8" class="loading">
+      <td colspan="11" class="loading">
         Loading members...
       </td>
     </tr>
@@ -963,9 +1235,7 @@ async function loadMembers() {
   } =
     await supabaseClient
       .from("church_members")
-      .select(
-        "id, full_name, phone, gender, date_of_birth, address, membership_status, created_at"
-      )
+      .select("*")
       .order(
         "created_at",
         {
@@ -981,34 +1251,69 @@ async function loadMembers() {
       error
     );
 
-    tbody.innerHTML = `
-      <tr>
-        <td colspan="8" class="empty">
-          Unable to load members.
-        </td>
-      </tr>
-    `;
 
-    showMessage(
-      "memberMessage",
-      "Unable to load members: " +
-      error.message,
-      "error"
-    );
+    /*
+       If created_at does not exist,
+       try loading without ordering.
+    */
 
-    return;
+    if (
+      String(error.message)
+        .toLowerCase()
+        .includes("created_at")
+    ) {
+
+      const retry =
+        await supabaseClient
+          .from("church_members")
+          .select("*");
+
+
+      if (retry.error) {
+
+        showMessage(
+          "memberMessage",
+          "Unable to load members: " +
+          retry.error.message,
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      members =
+        retry.data || [];
+
+    }
+
+    else {
+
+      showMessage(
+        "memberMessage",
+        "Unable to load members: " +
+        error.message,
+        "error"
+      );
+
+      return;
+
+    }
 
   }
 
+  else {
 
-  members =
-    data || [];
+    members =
+      data || [];
+
+  }
 
 
   displayMembers(
     members
   );
-
 
   updateStatistics(
     members
@@ -1033,7 +1338,8 @@ function displayMembers(list) {
 
     tbody.innerHTML = `
       <tr>
-        <td colspan="8" class="empty">
+        <td colspan="11"
+            class="empty">
           No members found.
         </td>
       </tr>
@@ -1046,7 +1352,7 @@ function displayMembers(list) {
 
   tbody.innerHTML =
     list.map(
-      function (member, index) {
+      (member, index) => {
 
         const status =
           String(
@@ -1112,15 +1418,37 @@ function displayMembers(list) {
 
             <td>
               ${escapeHtml(
-                member.address || ""
+                member.registration_date || ""
               )}
             </td>
 
             <td>
+              ${escapeHtml(
+                member.location || ""
+              )}
+            </td>
+
+            <td>
+              ${escapeHtml(
+                member.department || ""
+              )}
+            </td>
+
+            <td>
+              ${escapeHtml(
+                member.baptism_status || ""
+              )}
+            </td>
+
+            <td>
+
               <span
                 class="status ${statusClass}">
+
                 ${escapeHtml(status)}
+
               </span>
+
             </td>
 
             <td>
@@ -1128,13 +1456,17 @@ function displayMembers(list) {
               <button
                 class="small-btn edit-btn"
                 onclick="editMember('${member.id}')">
+
                 Edit
+
               </button>
 
               <button
                 class="small-btn delete-btn"
                 onclick="deleteMember('${member.id}')">
+
                 Delete
+
               </button>
 
             </td>
@@ -1156,37 +1488,28 @@ function updateStatistics(list) {
 
   const men =
     list.filter(
-      function (member) {
-
-        return String(
+      member =>
+        String(
           member.gender || ""
-        ).toLowerCase() === "male";
-
-      }
+        ).toLowerCase() === "male"
     ).length;
 
 
   const women =
     list.filter(
-      function (member) {
-
-        return String(
+      member =>
+        String(
           member.gender || ""
-        ).toLowerCase() === "female";
-
-      }
+        ).toLowerCase() === "female"
     ).length;
 
 
   const children =
     list.filter(
-      function (member) {
-
-        return String(
+      member =>
+        String(
           member.gender || ""
-        ).toLowerCase() === "child";
-
-      }
+        ).toLowerCase() === "child"
     ).length;
 
 
@@ -1217,6 +1540,71 @@ function updateStatistics(list) {
 
 
 /* =========================================================
+   GET FORM DATA
+   ========================================================= */
+
+function getMemberFormData() {
+
+  return {
+
+    full_name:
+      document
+        .getElementById("fullName")
+        .value
+        .trim(),
+
+    phone:
+      document
+        .getElementById("phone")
+        .value
+        .trim() || null,
+
+    gender:
+      document
+        .getElementById("gender")
+        .value || null,
+
+    date_of_birth:
+      document
+        .getElementById("dateOfBirth")
+        .value || null,
+
+    registration_date:
+      document
+        .getElementById("registrationDate")
+        .value ||
+      new Date()
+        .toISOString()
+        .split("T")[0],
+
+    location:
+      document
+        .getElementById("location")
+        .value
+        .trim() || null,
+
+    department:
+      document
+        .getElementById("department")
+        .value || null,
+
+    baptism_status:
+      document
+        .getElementById("baptismStatus")
+        .value || null,
+
+    membership_status:
+      document
+        .getElementById("membershipStatus")
+        .value ||
+      "active"
+
+  };
+
+}
+
+
+/* =========================================================
    SAVE MEMBER
    ========================================================= */
 
@@ -1224,7 +1612,7 @@ document
   .getElementById("memberForm")
   .addEventListener(
     "submit",
-    async function (event) {
+    async function(event) {
 
       event.preventDefault();
 
@@ -1235,62 +1623,8 @@ document
         );
 
 
-      button.disabled = true;
-
-      button.textContent =
-        editingMemberId
-          ? "Updating..."
-          : "Saving...";
-
-
-      /*
-       * IMPORTANT:
-       *
-       * The website calls this field "Location".
-       *
-       * Supabase column is "address".
-       *
-       * There is NO "location" column
-       * being sent to Supabase.
-       */
-
-      const memberData = {
-
-        full_name:
-          document
-            .getElementById("fullName")
-            .value
-            .trim(),
-
-        phone:
-          document
-            .getElementById("phone")
-            .value
-            .trim() || null,
-
-        gender:
-          document
-            .getElementById("gender")
-            .value || null,
-
-        date_of_birth:
-          document
-            .getElementById("dateOfBirth")
-            .value || null,
-
-        address:
-          document
-            .getElementById("location")
-            .value
-            .trim() || null,
-
-        membership_status:
-          document
-            .getElementById("membershipStatus")
-            .value ||
-          "active"
-
-      };
+      const memberData =
+        getMemberFormData();
 
 
       if (!memberData.full_name) {
@@ -1301,91 +1635,247 @@ document
           "error"
         );
 
-        button.disabled = false;
-
-        button.textContent =
-          "Save Member";
-
         return;
 
       }
 
 
-      let result;
+      button.disabled =
+        true;
+
+      button.textContent =
+        editingMemberId
+          ? "Updating..."
+          : "Saving...";
 
 
-      /* UPDATE */
+      try {
 
-      if (editingMemberId) {
+        let result;
 
-        result =
-          await supabaseClient
-            .from("church_members")
-            .update(memberData)
-            .eq(
-              "id",
+
+        /* ================= UPDATE ================= */
+
+        if (editingMemberId) {
+
+          result =
+            await supabaseClient
+              .from("church_members")
+              .update(memberData)
+              .eq(
+                "id",
+                editingMemberId
+              );
+
+
+          /*
+             If location does not exist,
+             retry without location.
+          */
+
+          if (
+            result.error &&
+            isMissingLocationError(
+              result.error
+            )
+          ) {
+
+            const dataWithoutLocation =
+              { ...memberData };
+
+            delete dataWithoutLocation.location;
+
+
+            result =
+              await supabaseClient
+                .from("church_members")
+                .update(
+                  dataWithoutLocation
+                )
+                .eq(
+                  "id",
+                  editingMemberId
+                );
+
+
+            if (!result.error) {
+
+              showMessage(
+                "memberMessage",
+                "Member updated. Location was not saved because the location column is missing in Supabase.",
+                "error"
+              );
+
+            }
+
+          }
+
+        }
+
+
+        /* ================= INSERT ================= */
+
+        else {
+
+          result =
+            await supabaseClient
+              .from("church_members")
+              .insert([
+                memberData
+              ]);
+
+
+          /*
+             If location does not exist,
+             retry without location.
+          */
+
+          if (
+            result.error &&
+            isMissingLocationError(
+              result.error
+            )
+          ) {
+
+            const dataWithoutLocation =
+              { ...memberData };
+
+            delete dataWithoutLocation.location;
+
+
+            result =
+              await supabaseClient
+                .from("church_members")
+                .insert([
+                  dataWithoutLocation
+                ]);
+
+
+            if (!result.error) {
+
+              showMessage(
+                "memberMessage",
+                "Member saved successfully, but Location was not saved because the location column is missing in Supabase.",
+                "error"
+              );
+
+            }
+
+          }
+
+        }
+
+
+        /* ================= RESULT ================= */
+
+        if (result.error) {
+
+          console.error(
+            "Member save error:",
+            result.error
+          );
+
+
+          showMessage(
+            "memberMessage",
+            "Member could not be saved: " +
+            result.error.message,
+            "error"
+          );
+
+        }
+
+        else {
+
+          /*
+             Only show normal success if
+             no special location warning
+             has already been shown.
+          */
+
+          if (
+            !(
+              result.locationWarning
+            )
+          ) {
+
+            showMessage(
+              "memberMessage",
               editingMemberId
+                ? "Member updated successfully."
+                : "Member registered successfully.",
+              "success"
             );
 
-      }
+          }
 
 
-      /* INSERT */
+          clearMemberForm();
 
-      else {
+          await loadMembers();
 
-        result =
-          await supabaseClient
-            .from("church_members")
-            .insert([
-              memberData
-            ]);
+        }
 
       }
 
-
-      if (result.error) {
+      catch (error) {
 
         console.error(
-          "Save member error:",
-          result.error
+          "Unexpected save error:",
+          error
         );
+
 
         showMessage(
           "memberMessage",
           "Member could not be saved: " +
-          result.error.message,
+          error.message,
           "error"
         );
 
       }
 
-      else {
 
-        showMessage(
-          "memberMessage",
-          editingMemberId
-            ? "Member updated successfully."
-            : "Member registered successfully.",
-          "success"
-        );
-
-
-        clearMemberForm();
-
-
-        await loadMembers();
-
-      }
-
-
-      button.disabled = false;
+      button.disabled =
+        false;
 
       button.textContent =
         "Save Member";
 
     }
   );
+
+
+/* =========================================================
+   CHECK LOCATION ERROR
+   ========================================================= */
+
+function isMissingLocationError(error) {
+
+  const message =
+    String(
+      error?.message || ""
+    ).toLowerCase();
+
+
+  return (
+    message.includes(
+      "location"
+    ) &&
+    (
+      message.includes(
+        "could not find"
+      ) ||
+      message.includes(
+        "schema cache"
+      ) ||
+      message.includes(
+        "column"
+      )
+    )
+  );
+
+}
 
 
 /* =========================================================
@@ -1396,16 +1886,19 @@ function editMember(id) {
 
   const member =
     members.find(
-      function (item) {
-
-        return String(item.id) ===
-          String(id);
-
-      }
+      item =>
+        String(item.id) ===
+        String(id)
     );
 
 
   if (!member) {
+
+    showMessage(
+      "memberMessage",
+      "Member could not be found.",
+      "error"
+    );
 
     return;
 
@@ -1446,15 +1939,28 @@ function editMember(id) {
     member.date_of_birth || "";
 
 
-  /*
-   * Database address
-   * appears as Location on screen.
-   */
+  document
+    .getElementById("registrationDate")
+    .value =
+    member.registration_date || "";
+
 
   document
     .getElementById("location")
     .value =
-    member.address || "";
+    member.location || "";
+
+
+  document
+    .getElementById("department")
+    .value =
+    member.department || "";
+
+
+  document
+    .getElementById("baptismStatus")
+    .value =
+    member.baptism_status || "";
 
 
   document
@@ -1476,6 +1982,12 @@ function editMember(id) {
       ".sidebar button:nth-of-type(2)"
     )
   );
+
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 
 }
 
@@ -1499,45 +2011,55 @@ async function deleteMember(id) {
   }
 
 
-  const {
-    error
-  } =
-    await supabaseClient
-      .from("church_members")
-      .delete()
-      .eq(
-        "id",
-        id
+  try {
+
+    const {
+      error
+    } =
+      await supabaseClient
+        .from("church_members")
+        .delete()
+        .eq(
+          "id",
+          id
+        );
+
+
+    if (error) {
+
+      showMessage(
+        "memberMessage",
+        "Member could not be deleted: " +
+        error.message,
+        "error"
       );
 
+      return;
 
-  if (error) {
+    }
 
-    console.error(
-      "Delete error:",
-      error
-    );
 
     showMessage(
       "memberMessage",
-      "Member could not be deleted: " +
+      "Member deleted successfully.",
+      "success"
+    );
+
+
+    await loadMembers();
+
+  }
+
+  catch (error) {
+
+    showMessage(
+      "memberMessage",
+      "Delete error: " +
       error.message,
       "error"
     );
 
-    return;
-
   }
-
-
-  showMessage(
-    "memberMessage",
-    "Member deleted successfully.",
-    "success"
-  );
-
-
-  await loadMembers();
 
 }
 
@@ -1561,6 +2083,14 @@ function clearMemberForm() {
     .getElementById("memberId")
     .value =
     "";
+
+
+  document
+    .getElementById("registrationDate")
+    .value =
+    new Date()
+      .toISOString()
+      .split("T")[0];
 
 
   document
@@ -1604,7 +2134,7 @@ function filterMembers() {
 
   const filtered =
     members.filter(
-      function (member) {
+      member => {
 
         const text = [
 
@@ -1612,7 +2142,10 @@ function filterMembers() {
           member.phone,
           member.gender,
           member.date_of_birth,
-          member.address,
+          member.registration_date,
+          member.location,
+          member.department,
+          member.baptism_status,
           member.membership_status
 
         ]
@@ -1644,26 +2177,17 @@ function showSection(
   button
 ) {
 
-  /*
-   * Hide every section
-   */
-
   document
-    .querySelectorAll(".section")
+    .querySelectorAll(
+      ".section"
+    )
     .forEach(
-      function (section) {
-
+      section =>
         section.classList.remove(
           "active"
-        );
-
-      }
+        )
     );
 
-
-  /*
-   * Show selected section
-   */
 
   const selectedSection =
     document.getElementById(
@@ -1680,28 +2204,17 @@ function showSection(
   }
 
 
-  /*
-   * Remove active menu
-   */
-
   document
     .querySelectorAll(
       ".sidebar button"
     )
     .forEach(
-      function (btn) {
-
+      btn =>
         btn.classList.remove(
           "active"
-        );
-
-      }
+        )
     );
 
-
-  /*
-   * Add active menu
-   */
 
   if (button) {
 
@@ -1711,10 +2224,6 @@ function showSection(
 
   }
 
-
-  /*
-   * Page title
-   */
 
   const titles = {
 
@@ -1740,32 +2249,33 @@ function showSection(
 
 
   document
-    .getElementById("pageTitle")
+    .getElementById(
+      "pageTitle"
+    )
     .textContent =
     titles[sectionId] ||
     "Dashboard";
 
 
   /*
-   * Close mobile menu
-   */
+     Close mobile sidebar
+     after selecting a menu item.
+  */
 
   if (
     window.innerWidth <= 700
   ) {
 
     document
-      .getElementById("sidebar")
+      .getElementById(
+        "sidebar"
+      )
       .classList.remove(
         "show"
       );
 
   }
 
-
-  /*
-   * Reload members
-   */
 
   if (
     sectionId === "members"
@@ -1784,15 +2294,13 @@ function showSection(
 
 function toggleSidebar() {
 
-  const sidebar =
-    document.getElementById(
+  document
+    .getElementById(
       "sidebar"
+    )
+    .classList.toggle(
+      "show"
     );
-
-
-  sidebar.classList.toggle(
-    "show"
-  );
 
 }
 
@@ -1818,22 +2326,9 @@ async function logout() {
 
   try {
 
-    const {
-      error
-    } =
-      await supabaseClient
-        .auth
-        .signOut();
-
-
-    if (error) {
-
-      console.error(
-        "Logout error:",
-        error
-      );
-
-    }
+    await supabaseClient
+      .auth
+      .signOut();
 
   }
 
@@ -1881,17 +2376,17 @@ function showMessage(
 
 
   element.className =
-    "message " + type;
+    "message show " + type;
 
 
   setTimeout(
-    function () {
+    function() {
 
       element.className =
         "message";
 
     },
-    5000
+    6000
   );
 
 }
@@ -1901,38 +2396,37 @@ function showMessage(
    HTML ESCAPE
    ========================================================= */
 
-function escapeHtml(value) {
+function escapeHtml(
+  value
+) {
 
-  return String(value)
-
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-
-    .replace(
-      /</g,
-      "&lt;"
-    )
-
-    .replace(
-      />/g,
-      "&gt;"
-    )
-
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-
-    .replace(
-      /'/g,
-      "&#039;"
-    );
+  return String(
+    value ?? ""
+  )
+  .replace(
+    /&/g,
+    "&amp;"
+  )
+  .replace(
+    /</g,
+    "&lt;"
+  )
+  .replace(
+    />/g,
+    "&gt;"
+  )
+  .replace(
+    /"/g,
+    "&quot;"
+  )
+  .replace(
+    /'/g,
+    "&#039;"
+  );
 
 }
 
 </script>
 
 </body>
-  </html>
+</html>
