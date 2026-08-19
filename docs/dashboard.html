@@ -33,7 +33,7 @@ body {
   color: white;
   padding: 20px 15px;
   overflow-y: auto;
-  z-index: 1000;
+  z-index: 1001;
   transition: transform 0.3s ease;
 }
 
@@ -68,14 +68,18 @@ body {
   background: #b42318 !important;
 }
 
-/* ================= OVERLAY ================= */
+.logout:hover {
+  background: #8f1c13 !important;
+}
+
+/* ================= SIDEBAR OVERLAY ================= */
 
 .sidebar-overlay {
   display: none;
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.45);
-  z-index: 999;
+  z-index: 1000;
 }
 
 .sidebar-overlay.show {
@@ -101,7 +105,7 @@ body {
   font-size: 15px;
 }
 
-/* ================= TOPBAR ================= */
+/* ================= TOP BAR ================= */
 
 .topbar {
   background: white;
@@ -214,7 +218,7 @@ input:focus,
 select:focus {
   outline: none;
   border-color: #245a91;
-  box-shadow: 0 0 0 2px rgba(36,90,145,.1);
+  box-shadow: 0 0 0 2px rgba(36,90,145,.12);
 }
 
 /* ================= BUTTONS ================= */
@@ -238,6 +242,10 @@ select:focus {
   color: white;
 }
 
+.btn-primary:hover {
+  background: #0d2847;
+}
+
 .btn-success {
   background: #198754;
   color: white;
@@ -251,10 +259,6 @@ select:focus {
 .btn-secondary {
   background: #6c757d;
   color: white;
-}
-
-.btn:hover {
-  opacity: .9;
 }
 
 .btn:disabled {
@@ -281,7 +285,7 @@ select:focus {
 table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 1000px;
+  min-width: 1150px;
 }
 
 th,
@@ -411,9 +415,9 @@ tr:hover {
 @media (max-width: 700px) {
 
   .sidebar {
-    display: block;
     transform: translateX(-100%);
     width: 250px;
+    box-shadow: 5px 0 20px rgba(0,0,0,.25);
   }
 
   .sidebar.show {
@@ -473,15 +477,6 @@ tr:hover {
 
 <body>
 
-<!-- ================= SIDEBAR OVERLAY ================= -->
-
-<div
-  class="sidebar-overlay"
-  id="sidebarOverlay"
-  onclick="closeSidebar()">
-</div>
-
-
 <!-- ================= SIDEBAR ================= -->
 
 <aside class="sidebar" id="sidebar">
@@ -491,44 +486,45 @@ tr:hover {
     BUOHO FRAMOASE BRANCH
   </div>
 
-  <button
-    class="active"
-    onclick="showSection('home', this)">
+  <button class="active"
+          onclick="showSection('home', this)">
     Dashboard
   </button>
 
-  <button
-    onclick="showSection('members', this)">
+  <button onclick="showSection('members', this)">
     Members Record
   </button>
 
-  <button
-    onclick="showSection('attendance', this)">
+  <button onclick="showSection('attendance', this)">
     Attendance
   </button>
 
-  <button
-    onclick="showSection('activities', this)">
+  <button onclick="showSection('activities', this)">
     Church Activities
   </button>
 
-  <button
-    onclick="showSection('finances', this)">
+  <button onclick="showSection('finances', this)">
     Finances
   </button>
 
-  <button
-    onclick="showSection('users', this)">
+  <button onclick="showSection('users', this)">
     Users
   </button>
 
-  <button
-    class="logout"
-    onclick="logout()">
+  <button class="logout" onclick="logout()">
     Logout
   </button>
 
 </aside>
+
+
+<!-- ================= MOBILE OVERLAY ================= -->
+
+<div
+  class="sidebar-overlay"
+  id="sidebarOverlay"
+  onclick="closeSidebar()">
+</div>
 
 
 <!-- ================= MAIN ================= -->
@@ -538,11 +534,11 @@ tr:hover {
   <button
     class="mobile-menu"
     onclick="toggleSidebar()">
+
     ☰ Menu
+
   </button>
 
-
-  <!-- ================= TOPBAR ================= -->
 
   <div class="topbar">
 
@@ -553,10 +549,12 @@ tr:hover {
     </div>
 
     <div class="user-info">
+
       Logged in as:
       <strong id="currentUser">
         Loading...
       </strong>
+
     </div>
 
   </div>
@@ -652,7 +650,7 @@ tr:hover {
 
           <div class="form-group">
 
-            <label>
+            <label for="fullName">
               Full Name *
             </label>
 
@@ -669,7 +667,7 @@ tr:hover {
 
           <div class="form-group">
 
-            <label>
+            <label for="phone">
               Phone Number
             </label>
 
@@ -685,7 +683,7 @@ tr:hover {
 
           <div class="form-group">
 
-            <label>
+            <label for="gender">
               Gender
             </label>
 
@@ -716,7 +714,7 @@ tr:hover {
 
           <div class="form-group">
 
-            <label>
+            <label for="dateOfBirth">
               Date of Birth
             </label>
 
@@ -731,7 +729,7 @@ tr:hover {
 
           <div class="form-group">
 
-            <label>
+            <label for="registrationDate">
               Date of Registration
             </label>
 
@@ -742,11 +740,27 @@ tr:hover {
           </div>
 
 
+          <!-- LOCATION -->
+
+          <div class="form-group">
+
+            <label for="location">
+              Location
+            </label>
+
+            <input
+              type="text"
+              id="location"
+              placeholder="Enter location">
+
+          </div>
+
+
           <!-- DEPARTMENT -->
 
           <div class="form-group">
 
-            <label>
+            <label for="department">
               Department / Ministry
             </label>
 
@@ -768,6 +782,38 @@ tr:hover {
                 Children's Fellowship
               </option>
 
+              <option value="Youth Ministry">
+                Youth Ministry
+              </option>
+
+              <option value="Music Ministry">
+                Music Ministry
+              </option>
+
+              <option value="Media Ministry">
+                Media Ministry
+              </option>
+
+              <option value="Evangelism">
+                Evangelism
+              </option>
+
+              <option value="Prayer Ministry">
+                Prayer Ministry
+              </option>
+
+              <option value="Ushering">
+                Ushering
+              </option>
+
+              <option value="Sunday School">
+                Sunday School
+              </option>
+
+              <option value="Other">
+                Other
+              </option>
+
             </select>
 
           </div>
@@ -777,7 +823,7 @@ tr:hover {
 
           <div class="form-group">
 
-            <label>
+            <label for="baptismStatus">
               Baptism Status
             </label>
 
@@ -804,7 +850,7 @@ tr:hover {
 
           <div class="form-group">
 
-            <label>
+            <label for="membershipStatus">
               Membership Status
             </label>
 
@@ -865,6 +911,7 @@ tr:hover {
         Members Record
       </h2>
 
+
       <div class="search-box">
 
         <input
@@ -890,6 +937,7 @@ tr:hover {
               <th>Gender</th>
               <th>Date of Birth</th>
               <th>Registration</th>
+              <th>Location</th>
               <th>Department</th>
               <th>Baptism</th>
               <th>Status</th>
@@ -906,7 +954,7 @@ tr:hover {
             <tr>
 
               <td
-                colspan="10"
+                colspan="11"
                 class="loading">
 
                 Loading members...
@@ -934,9 +982,7 @@ tr:hover {
 
     <div class="panel">
 
-      <h2>
-        Attendance
-      </h2>
+      <h2>Attendance</h2>
 
       <p>
         Attendance management will be connected
@@ -956,9 +1002,7 @@ tr:hover {
 
     <div class="panel">
 
-      <h2>
-        Church Activities
-      </h2>
+      <h2>Church Activities</h2>
 
       <p>
         Church programmes and activities can
@@ -980,9 +1024,7 @@ tr:hover {
 
       <div class="card">
 
-        <h3>
-          Total Income
-        </h3>
+        <h3>Total Income</h3>
 
         <div class="number">
           GH₵ 0.00
@@ -993,9 +1035,7 @@ tr:hover {
 
       <div class="card">
 
-        <h3>
-          Total Expenses
-        </h3>
+        <h3>Total Expenses</h3>
 
         <div class="number">
           GH₵ 0.00
@@ -1006,9 +1046,7 @@ tr:hover {
 
       <div class="card">
 
-        <h3>
-          Balance
-        </h3>
+        <h3>Balance</h3>
 
         <div class="number">
           GH₵ 0.00
@@ -1021,9 +1059,7 @@ tr:hover {
 
     <div class="panel">
 
-      <h2>
-        Finances
-      </h2>
+      <h2>Finances</h2>
 
       <p>
         Income and expenses management will be
@@ -1043,9 +1079,7 @@ tr:hover {
 
     <div class="panel">
 
-      <h2>
-        Users
-      </h2>
+      <h2>Users</h2>
 
       <p>
         User accounts and administrator approval
@@ -1055,10 +1089,17 @@ tr:hover {
       <br>
 
       <p>
+
         Account Types:
+
         <strong>Pastor</strong>,
+
         <strong>Secretary</strong>,
-        <strong>Treasurer</strong>
+
+        <strong>Treasurer</strong>,
+
+        <strong>Administrator</strong>
+
       </p>
 
     </div>
@@ -1097,6 +1138,7 @@ const supabaseClient =
    ========================================================= */
 
 let members = [];
+
 let editingMemberId = null;
 
 
@@ -1108,20 +1150,7 @@ document.addEventListener(
   "DOMContentLoaded",
   async function () {
 
-    const registrationDate =
-      document.getElementById(
-        "registrationDate"
-      );
-
-    if (registrationDate) {
-
-      registrationDate.value =
-        new Date()
-          .toISOString()
-          .split("T")[0];
-
-    }
-
+    setRegistrationDate();
 
     await checkUser();
 
@@ -1129,6 +1158,22 @@ document.addEventListener(
 
   }
 );
+
+
+/* =========================================================
+   REGISTRATION DATE
+   ========================================================= */
+
+function setRegistrationDate() {
+
+  document
+    .getElementById("registrationDate")
+    .value =
+    new Date()
+      .toISOString()
+      .split("T")[0];
+
+}
 
 
 /* =========================================================
@@ -1149,7 +1194,7 @@ async function checkUser() {
     window.location.href =
       "index.html";
 
-    return;
+    return false;
 
   }
 
@@ -1180,10 +1225,7 @@ async function checkUser() {
         .maybeSingle();
 
 
-    if (
-      !profileError &&
-      profile
-    ) {
+    if (!profileError && profile) {
 
       displayName =
         profile.full_name ||
@@ -1194,7 +1236,8 @@ async function checkUser() {
       if (
         profile.status &&
         String(profile.status)
-          .toLowerCase() === "pending"
+          .toLowerCase() ===
+        "pending"
       ) {
 
         alert(
@@ -1211,7 +1254,7 @@ async function checkUser() {
           "index.html";
 
 
-        return;
+        return false;
 
       }
 
@@ -1234,6 +1277,9 @@ async function checkUser() {
     .textContent =
     displayName;
 
+
+  return true;
+
 }
 
 
@@ -1249,17 +1295,13 @@ async function loadMembers() {
     );
 
 
-  if (tbody) {
-
-    tbody.innerHTML = `
-      <tr>
-        <td colspan="10" class="loading">
-          Loading members...
-        </td>
-      </tr>
-    `;
-
-  }
+  tbody.innerHTML = `
+    <tr>
+      <td colspan="11" class="loading">
+        Loading members...
+      </td>
+    </tr>
+  `;
 
 
   const {
@@ -1283,6 +1325,15 @@ async function loadMembers() {
       "Load members error:",
       error
     );
+
+
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="11" class="empty">
+          Unable to load members.
+        </td>
+      </tr>
+    `;
 
 
     showMessage(
@@ -1318,9 +1369,7 @@ async function loadMembers() {
    DISPLAY MEMBERS
    ========================================================= */
 
-function displayMembers(
-  list
-) {
+function displayMembers(list) {
 
   const tbody =
     document.getElementById(
@@ -1328,16 +1377,11 @@ function displayMembers(
     );
 
 
-  if (!tbody) return;
-
-
   if (!list.length) {
 
     tbody.innerHTML = `
       <tr>
-        <td
-          colspan="10"
-          class="empty">
+        <td colspan="11" class="empty">
           No members found.
         </td>
       </tr>
@@ -1350,10 +1394,7 @@ function displayMembers(
 
   tbody.innerHTML =
     list.map(
-      function (
-        member,
-        index
-      ) {
+      function (member, index) {
 
         const status =
           String(
@@ -1425,6 +1466,12 @@ function displayMembers(
 
             <td>
               ${escapeHtml(
+                member.location || ""
+              )}
+            </td>
+
+            <td>
+              ${escapeHtml(
                 member.department || ""
               )}
             </td>
@@ -1440,9 +1487,7 @@ function displayMembers(
               <span
                 class="status ${statusClass}">
 
-                ${escapeHtml(
-                  status
-                )}
+                ${escapeHtml(status)}
 
               </span>
 
@@ -1482,9 +1527,7 @@ function displayMembers(
    STATISTICS
    ========================================================= */
 
-function updateStatistics(
-  list
-) {
+function updateStatistics(list) {
 
   const men =
     list.filter(
@@ -1526,33 +1569,25 @@ function updateStatistics(
 
 
   document
-    .getElementById(
-      "totalMembers"
-    )
+    .getElementById("totalMembers")
     .textContent =
     list.length;
 
 
   document
-    .getElementById(
-      "totalMen"
-    )
+    .getElementById("totalMen")
     .textContent =
     men;
 
 
   document
-    .getElementById(
-      "totalWomen"
-    )
+    .getElementById("totalWomen")
     .textContent =
     women;
 
 
   document
-    .getElementById(
-      "totalChildren"
-    )
+    .getElementById("totalChildren")
     .textContent =
     children;
 
@@ -1564,9 +1599,7 @@ function updateStatistics(
    ========================================================= */
 
 document
-  .getElementById(
-    "memberForm"
-  )
+  .getElementById("memberForm")
   .addEventListener(
     "submit",
     async function (event) {
@@ -1580,9 +1613,7 @@ document
         );
 
 
-      button.disabled =
-        true;
-
+      button.disabled = true;
 
       button.textContent =
         editingMemberId
@@ -1594,77 +1625,76 @@ document
 
         full_name:
           document
-            .getElementById(
-              "fullName"
-            )
+            .getElementById("fullName")
             .value
             .trim(),
 
+
         phone:
           document
-            .getElementById(
-              "phone"
-            )
+            .getElementById("phone")
             .value
             .trim() ||
           null,
 
+
         gender:
           document
-            .getElementById(
-              "gender"
-            )
+            .getElementById("gender")
             .value ||
           null,
+
 
         date_of_birth:
           document
-            .getElementById(
-              "dateOfBirth"
-            )
+            .getElementById("dateOfBirth")
             .value ||
           null,
 
+
         registration_date:
           document
-            .getElementById(
-              "registrationDate"
-            )
+            .getElementById("registrationDate")
             .value ||
           new Date()
             .toISOString()
             .split("T")[0],
 
+
+        location:
+          document
+            .getElementById("location")
+            .value
+            .trim() ||
+          null,
+
+
         department:
           document
-            .getElementById(
-              "department"
-            )
+            .getElementById("department")
             .value ||
           null,
+
 
         baptism_status:
           document
-            .getElementById(
-              "baptismStatus"
-            )
+            .getElementById("baptismStatus")
             .value ||
           null,
 
+
         membership_status:
           document
-            .getElementById(
-              "membershipStatus"
-            )
+            .getElementById("membershipStatus")
             .value ||
           "active"
 
       };
 
 
-      if (
-        !memberData.full_name
-      ) {
+      /* FULL NAME CHECK */
+
+      if (!memberData.full_name) {
 
         showMessage(
           "memberMessage",
@@ -1673,12 +1703,7 @@ document
         );
 
 
-        button.disabled =
-          false;
-
-
-        button.textContent =
-          "Save Member";
+        resetSaveButton();
 
 
         return;
@@ -1689,15 +1714,13 @@ document
       let result;
 
 
-      if (
-        editingMemberId
-      ) {
+      /* UPDATE */
+
+      if (editingMemberId) {
 
         result =
           await supabaseClient
-            .from(
-              "church_members"
-            )
+            .from("church_members")
             .update(
               memberData
             )
@@ -1708,13 +1731,13 @@ document
 
       }
 
+      /* INSERT */
+
       else {
 
         result =
           await supabaseClient
-            .from(
-              "church_members"
-            )
+            .from("church_members")
             .insert([
               memberData
             ]);
@@ -1722,9 +1745,9 @@ document
       }
 
 
-      if (
-        result.error
-      ) {
+      /* ERROR */
+
+      if (result.error) {
 
         console.error(
           "Save member error:",
@@ -1732,61 +1755,107 @@ document
         );
 
 
+        let errorMessage =
+          result.error.message;
+
+
+        if (
+          errorMessage.includes(
+            "department"
+          )
+        ) {
+
+          errorMessage =
+            "The 'department' column is missing from church_members. Please add the department column in Supabase.";
+
+        }
+
+
+        if (
+          errorMessage.includes(
+            "location"
+          )
+        ) {
+
+          errorMessage =
+            "The 'location' column is missing from church_members. Please add the location column in Supabase.";
+
+        }
+
+
         showMessage(
           "memberMessage",
           "Member could not be saved: " +
-          result.error.message,
+          errorMessage,
           "error"
         );
 
-      }
 
-      else {
-
-        showMessage(
-          "memberMessage",
-          editingMemberId
-            ? "Member updated successfully."
-            : "Member registered successfully.",
-          "success"
-        );
+        resetSaveButton();
 
 
-        clearMemberForm();
-
-
-        await loadMembers();
+        return;
 
       }
 
 
-      button.disabled =
-        false;
+      /* SUCCESS */
+
+      showMessage(
+        "memberMessage",
+        editingMemberId
+          ? "Member updated successfully."
+          : "Member registered successfully.",
+        "success"
+      );
 
 
-      button.textContent =
-        "Save Member";
+      clearMemberForm();
+
+
+      await loadMembers();
+
+
+      resetSaveButton();
 
     }
   );
 
 
 /* =========================================================
+   RESET SAVE BUTTON
+   ========================================================= */
+
+function resetSaveButton() {
+
+  const button =
+    document.getElementById(
+      "saveMemberBtn"
+    );
+
+
+  button.disabled = false;
+
+  button.textContent =
+    editingMemberId
+      ? "Update Member"
+      : "Save Member";
+
+}
+
+
+/* =========================================================
    EDIT MEMBER
    ========================================================= */
 
-function editMember(
-  id
-) {
+function editMember(id) {
 
   const member =
     members.find(
       function (item) {
 
-        return String(
-          item.id
-        ) ===
-        String(id);
+        return String(item.id) ===
+          String(id);
 
       }
     );
@@ -1804,82 +1873,68 @@ function editMember(
 
 
   document
-    .getElementById(
-      "memberId"
-    )
+    .getElementById("memberId")
     .value =
     member.id || "";
 
 
   document
-    .getElementById(
-      "fullName"
-    )
+    .getElementById("fullName")
     .value =
     member.full_name || "";
 
 
   document
-    .getElementById(
-      "phone"
-    )
+    .getElementById("phone")
     .value =
     member.phone || "";
 
 
   document
-    .getElementById(
-      "gender"
-    )
+    .getElementById("gender")
     .value =
     member.gender || "";
 
 
   document
-    .getElementById(
-      "dateOfBirth"
-    )
+    .getElementById("dateOfBirth")
     .value =
     member.date_of_birth || "";
 
 
   document
-    .getElementById(
-      "registrationDate"
-    )
+    .getElementById("registrationDate")
     .value =
     member.registration_date || "";
 
 
   document
-    .getElementById(
-      "department"
-    )
+    .getElementById("location")
+    .value =
+    member.location || "";
+
+
+  document
+    .getElementById("department")
     .value =
     member.department || "";
 
 
   document
-    .getElementById(
-      "baptismStatus"
-    )
+    .getElementById("baptismStatus")
     .value =
     member.baptism_status || "";
 
 
   document
-    .getElementById(
-      "membershipStatus"
-    )
+    .getElementById("membershipStatus")
     .value =
     member.membership_status ||
     "active";
 
 
   document
-    .getElementById(
-      "saveMemberBtn"
-    )
+    .getElementById("saveMemberBtn")
     .textContent =
     "Update Member";
 
@@ -1887,15 +1942,9 @@ function editMember(
   showSection(
     "members",
     document.querySelector(
-      ".sidebar button:nth-of-type(2)"
+      ".sidebar button:nth-child(3)"
     )
   );
-
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
 
 }
 
@@ -1904,9 +1953,7 @@ function editMember(
    DELETE MEMBER
    ========================================================= */
 
-async function deleteMember(
-  id
-) {
+async function deleteMember(id) {
 
   const confirmed =
     confirm(
@@ -1925,9 +1972,7 @@ async function deleteMember(
     error
   } =
     await supabaseClient
-      .from(
-        "church_members"
-      )
+      .from("church_members")
       .delete()
       .eq(
         "id",
@@ -1938,7 +1983,7 @@ async function deleteMember(
   if (error) {
 
     console.error(
-      "Delete member error:",
+      "Delete error:",
       error
     );
 
@@ -1969,7 +2014,7 @@ async function deleteMember(
 
 
 /* =========================================================
-   CLEAR MEMBER FORM
+   CLEAR FORM
    ========================================================= */
 
 function clearMemberForm() {
@@ -1979,42 +2024,27 @@ function clearMemberForm() {
 
 
   document
-    .getElementById(
-      "memberForm"
-    )
+    .getElementById("memberForm")
     .reset();
 
 
   document
-    .getElementById(
-      "memberId"
-    )
+    .getElementById("memberId")
     .value =
     "";
 
 
-  document
-    .getElementById(
-      "registrationDate"
-    )
-    .value =
-    new Date()
-      .toISOString()
-      .split("T")[0];
+  setRegistrationDate();
 
 
   document
-    .getElementById(
-      "membershipStatus"
-    )
+    .getElementById("membershipStatus")
     .value =
     "active";
 
 
   document
-    .getElementById(
-      "saveMemberBtn"
-    )
+    .getElementById("saveMemberBtn")
     .textContent =
     "Save Member";
 
@@ -2029,9 +2059,7 @@ function filterMembers() {
 
   const search =
     document
-      .getElementById(
-        "memberSearch"
-      )
+      .getElementById("memberSearch")
       .value
       .toLowerCase()
       .trim();
@@ -2059,6 +2087,7 @@ function filterMembers() {
           member.gender,
           member.date_of_birth,
           member.registration_date,
+          member.location,
           member.department,
           member.baptism_status,
           member.membership_status
@@ -2093,9 +2122,7 @@ function showSection(
 ) {
 
   document
-    .querySelectorAll(
-      ".section"
-    )
+    .querySelectorAll(".section")
     .forEach(
       function (section) {
 
@@ -2113,9 +2140,7 @@ function showSection(
     );
 
 
-  if (
-    selectedSection
-  ) {
+  if (selectedSection) {
 
     selectedSection.classList.add(
       "active"
@@ -2172,22 +2197,19 @@ function showSection(
 
 
   document
-    .getElementById(
-      "pageTitle"
-    )
+    .getElementById("pageTitle")
     .textContent =
     titles[sectionId] ||
     "Dashboard";
 
 
-  /* Close mobile sidebar */
+  /* CLOSE MOBILE SIDEBAR */
 
   closeSidebar();
 
 
   if (
-    sectionId ===
-    "members"
+    sectionId === "members"
   ) {
 
     loadMembers();
@@ -2198,7 +2220,7 @@ function showSection(
 
 
 /* =========================================================
-   OPEN / CLOSE SIDEBAR
+   TOGGLE MOBILE SIDEBAR
    ========================================================= */
 
 function toggleSidebar() {
@@ -2214,41 +2236,73 @@ function toggleSidebar() {
     );
 
 
-  sidebar.classList.toggle(
-    "show"
-  );
+  const isOpen =
+    sidebar.classList.contains(
+      "show"
+    );
 
 
-  overlay.classList.toggle(
-    "show"
-  );
+  if (isOpen) {
+
+    closeSidebar();
+
+  }
+
+  else {
+
+    sidebar.classList.add(
+      "show"
+    );
+
+    overlay.classList.add(
+      "show"
+    );
+
+  }
 
 }
 
+
+/* =========================================================
+   CLOSE MOBILE SIDEBAR
+   ========================================================= */
 
 function closeSidebar() {
 
-  const sidebar =
-    document.getElementById(
-      "sidebar"
-    );
-
-  const overlay =
-    document.getElementById(
-      "sidebarOverlay"
+  document
+    .getElementById("sidebar")
+    .classList.remove(
+      "show"
     );
 
 
-  sidebar.classList.remove(
-    "show"
-  );
-
-
-  overlay.classList.remove(
-    "show"
-  );
+  document
+    .getElementById("sidebarOverlay")
+    .classList.remove(
+      "show"
+    );
 
 }
+
+
+/* =========================================================
+   CLOSE SIDEBAR WHEN SCREEN IS RESIZED
+   ========================================================= */
+
+window.addEventListener(
+  "resize",
+  function () {
+
+    if (
+      window.innerWidth > 700
+    ) {
+
+      closeSidebar();
+
+    }
+
+  }
+);
 
 
 /* =========================================================
@@ -2342,9 +2396,7 @@ function showMessage(
    HTML ESCAPE
    ========================================================= */
 
-function escapeHtml(
-  value
-) {
+function escapeHtml(value) {
 
   return String(value)
     .replace(
@@ -2370,28 +2422,7 @@ function escapeHtml(
 
 }
 
-
-/* =========================================================
-   CLOSE SIDEBAR WITH ESCAPE KEY
-   ========================================================= */
-
-document.addEventListener(
-  "keydown",
-  function (event) {
-
-    if (
-      event.key ===
-      "Escape"
-    ) {
-
-      closeSidebar();
-
-    }
-
-  }
-);
-
 </script>
 
 </body>
-                </html>
+  </html>
