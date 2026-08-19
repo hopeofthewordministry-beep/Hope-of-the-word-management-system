@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Church Management | Hope of the Word Ministry</title>
+<title>Hope of the Word Ministry - Dashboard</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -20,9 +20,10 @@ body {
   color: #1f2937;
 }
 
+/* TOP BAR */
 .topbar {
   height: 65px;
-  background: linear-gradient(90deg,#F4C430,#90EE90);
+  background: linear-gradient(90deg, #f4c430, #90ee90);
   display: flex;
   align-items: center;
   padding: 0 15px;
@@ -57,6 +58,7 @@ body {
   cursor: pointer;
 }
 
+/* SIDEBAR */
 .sidebar {
   position: fixed;
   top: 65px;
@@ -90,6 +92,7 @@ body {
   font-weight: bold;
 }
 
+/* MAIN */
 .main {
   margin-left: 250px;
   padding: 20px;
@@ -103,8 +106,8 @@ body {
   display: block;
 }
 
-.welcome,
-.card {
+.card,
+.welcome {
   background: white;
   padding: 20px;
   border-radius: 12px;
@@ -113,16 +116,19 @@ body {
 }
 
 .welcome {
-  border-left: 6px solid #F4C430;
+  border-left: 6px solid #f4c430;
 }
 
-h1,h2,h3 {
+h1,
+h2,
+h3 {
   color: #14532d;
 }
 
+/* STATISTICS */
 .stats {
   display: grid;
-  grid-template-columns: repeat(4,1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 15px;
   margin-bottom: 20px;
 }
@@ -131,15 +137,23 @@ h1,h2,h3 {
   background: white;
   padding: 20px;
   border-radius: 12px;
-  border-top: 5px solid #90EE90;
+  border-top: 5px solid #90ee90;
   box-shadow: 0 3px 12px rgba(0,0,0,.06);
 }
 
 .stat-number {
-  font-size: 28px;
+  font-size: 30px;
   font-weight: bold;
   color: #14532d;
   margin-top: 8px;
+}
+
+/* FORMS */
+label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+  color: #14532d;
 }
 
 input,
@@ -150,6 +164,7 @@ textarea {
   margin: 6px 0 12px;
   border: 1px solid #d1d5db;
   border-radius: 7px;
+  font-size: 15px;
 }
 
 textarea {
@@ -165,13 +180,8 @@ button.primary {
   cursor: pointer;
 }
 
-button.secondary {
-  background: #F4C430;
-  color: #14532d;
-  border: 0;
-  padding: 11px 16px;
-  border-radius: 7px;
-  cursor: pointer;
+button.primary:hover {
+  background: #15803d;
 }
 
 button.danger {
@@ -183,11 +193,13 @@ button.danger {
   cursor: pointer;
 }
 
+/* RECORDS */
 .record {
   border: 1px solid #d9f5d9;
   padding: 15px;
   border-radius: 9px;
   margin-bottom: 10px;
+  background: #fff;
 }
 
 .record strong {
@@ -218,6 +230,15 @@ button.danger {
   background: #fee2e2;
   color: #991b1b;
   border-radius: 7px;
+  margin-bottom: 15px;
+}
+
+.success {
+  padding: 15px;
+  background: #dcfce7;
+  color: #166534;
+  border-radius: 7px;
+  margin-bottom: 15px;
 }
 
 .money {
@@ -226,6 +247,7 @@ button.danger {
   color: #14532d;
 }
 
+/* MOBILE */
 @media(max-width:900px) {
   .stats {
     grid-template-columns: repeat(2,1fr);
@@ -233,6 +255,7 @@ button.danger {
 }
 
 @media(max-width:700px) {
+
   .sidebar {
     left: -260px;
   }
@@ -252,18 +275,21 @@ button.danger {
 }
 
 @media(max-width:450px) {
+
   .stats {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 
-  .buttons {
-    flex-direction: column;
+  .topbar-title {
+    font-size: 14px;
   }
 }
 </style>
 </head>
 
 <body>
+
+<!-- TOP BAR -->
 
 <div class="topbar">
 
@@ -286,6 +312,8 @@ button.danger {
 </div>
 
 
+<!-- SIDEBAR -->
+
 <aside
   class="sidebar"
   id="sidebar">
@@ -294,58 +322,59 @@ button.danger {
 
     <button
       class="active"
-      onclick="showSection('dashboardSection',this)">
+      onclick="showSection('dashboardSection', this)">
       🏠 Dashboard
     </button>
 
     <button
-      onclick="showSection('membersSection',this)">
-      👥 Church Records
+      onclick="showSection('membersSection', this)">
+      👥 Members Record
     </button>
 
     <button
-      onclick="showSection('activitiesSection',this)">
+      onclick="showSection('activitiesSection', this)">
       ⛪ Activities
     </button>
 
     <button
-      onclick="showSection('attendanceSection',this)">
+      onclick="showSection('attendanceSection', this)">
       ✅ Attendance
     </button>
 
     <button
-      onclick="showSection('incomeSection',this)">
+      onclick="showSection('incomeSection', this)">
       💰 Income
     </button>
 
     <button
-      onclick="showSection('expensesSection',this)">
+      onclick="showSection('expensesSection', this)">
       💸 Expenses
     </button>
 
     <button
-      onclick="showSection('financeSection',this)">
+      onclick="showSection('financeSection', this)">
       📊 Financial Summary
     </button>
 
     <button
-      onclick="showSection('pendingSection',this)">
+      onclick="showSection('pendingSection', this)">
       ⏳ Pending Approvals
     </button>
 
     <button
-      onclick="showSection('usersSection',this)">
+      onclick="showSection('usersSection', this)">
       👤 Users
     </button>
 
   </div>
+
 </aside>
 
 
 <main class="main">
 
 
-<!-- DASHBOARD -->
+<!-- ================= DASHBOARD ================= -->
 
 <section
   id="dashboardSection"
@@ -363,45 +392,64 @@ button.danger {
 
   </div>
 
+
+  <!-- MEMBER STATISTICS -->
+
   <div class="stats">
 
     <div class="stat">
-      <b>Total Users</b>
-      <div
-        id="totalUsers"
-        class="stat-number">
-        0
-      </div>
-    </div>
 
-    <div class="stat">
-      <b>Pending Users</b>
-      <div
-        id="pendingUsers"
-        class="stat-number">
-        0
-      </div>
-    </div>
+      <b>Total Members</b>
 
-    <div class="stat">
-      <b>Church Members</b>
       <div
         id="totalMembers"
         class="stat-number">
         0
       </div>
+
     </div>
 
+
     <div class="stat">
-      <b>Approved Users</b>
+
+      <b>Men</b>
+
       <div
-        id="approvedUsers"
+        id="menMembers"
         class="stat-number">
         0
       </div>
+
+    </div>
+
+
+    <div class="stat">
+
+      <b>Women</b>
+
+      <div
+        id="womenMembers"
+        class="stat-number">
+        0
+      </div>
+
+    </div>
+
+
+    <div class="stat">
+
+      <b>Children</b>
+
+      <div
+        id="childrenMembers"
+        class="stat-number">
+        0
+      </div>
+
     </div>
 
   </div>
+
 
   <div class="card">
 
@@ -412,70 +460,109 @@ button.danger {
     <div
       id="dashboardPending"
       class="loading">
+
       Loading...
+
     </div>
 
   </div>
 
 </section>
 
-<!-- =========================================
-     CHURCH RECORDS / MEMBERSHIP REGISTRATION
-========================================= -->
 
-<section id="membersSection" class="section">
+<!-- ================= MEMBERS RECORD ================= -->
+
+<section
+  id="membersSection"
+  class="section">
 
   <div class="card">
 
-    <h2>Membership Registration</h2>
+    <h2>
+      Membership Registration
+    </h2>
 
     <p>
       Register and manage church members.
     </p>
 
-    <form id="memberForm">
 
-      <label>Full Name</label>
+    <div id="memberMessage"></div>
+
+
+    <form
+      id="memberForm">
+
+
+      <!-- FULL NAME -->
+
+      <label>
+        Full Name
+      </label>
+
       <input
         id="memberName"
         type="text"
         placeholder="Enter full name"
-        required
-      >
+        required>
 
-      <label>Phone Number</label>
+
+      <!-- PHONE -->
+
+      <label>
+        Phone Number
+      </label>
+
       <input
         id="memberPhone"
         type="tel"
-        placeholder="Enter phone number"
-      >
+        placeholder="Enter phone number">
 
-      <label>Date of Birth</label>
+
+      <!-- DATE OF BIRTH -->
+
+      <label>
+        Date of Birth
+      </label>
+
       <input
         id="memberDOB"
-        type="date"
-      >
+        type="date">
 
-      <label>Date of Registration</label>
+
+      <!-- DATE OF REGISTRATION -->
+
+      <label>
+        Date of Registration
+      </label>
+
       <input
         id="memberRegistrationDate"
         type="date"
-        required
-      >
+        required>
 
-      <label>Location</label>
+
+      <!-- LOCATION -->
+
+      <label>
+        Location
+      </label>
+
       <input
         id="memberLocation"
         type="text"
-        placeholder="Enter location"
-      >
+        placeholder="Enter location">
 
-      <label>Department / Ministry</label>
+
+      <!-- DEPARTMENT -->
+
+      <label>
+        Department / Ministry
+      </label>
 
       <select
         id="memberDepartment"
-        required
-      >
+        required>
 
         <option value="">
           Select Department / Ministry
@@ -496,12 +583,40 @@ button.danger {
       </select>
 
 
-      <label>Membership Status</label>
+      <!-- BAPTISM STATUS -->
+
+      <label>
+        Baptism Status
+      </label>
+
+      <select
+        id="memberBaptismStatus"
+        required>
+
+        <option value="">
+          Select baptism status
+        </option>
+
+        <option value="yes">
+          Yes
+        </option>
+
+        <option value="no">
+          No
+        </option>
+
+      </select>
+
+
+      <!-- MEMBERSHIP STATUS -->
+
+      <label>
+        Membership Status
+      </label>
 
       <select
         id="memberStatus"
-        required
-      >
+        required>
 
         <option value="active">
           Active
@@ -520,9 +635,10 @@ button.danger {
 
       <button
         type="submit"
-        class="primary"
-      >
+        class="primary">
+
         Register Member
+
       </button>
 
     </form>
@@ -530,431 +646,27 @@ button.danger {
   </div>
 
 
-  <div class="card">
-
-    <h2>Registered Members</h2>
-
-    <input
-      type="search"
-      id="memberSearch"
-      placeholder="Search member by name or phone..."
-      oninput="filterMembers()"
-    >
-
-    <div id="membersList">
-      Loading members...
-    </div>
-
-  </div>
-
-</section>
-
-Then replace your current member-loading JavaScript with this:
-
-/* =========================================
-   MEMBERSHIP REGISTRATION
-========================================= */
-
-let allMembers = [];
-
-
-document
-.getElementById("memberForm")
-.addEventListener(
-  "submit",
-  async function(e) {
-
-    e.preventDefault();
-
-
-    const fullName =
-      document
-      .getElementById("memberName")
-      .value
-      .trim();
-
-
-    const phone =
-      document
-      .getElementById("memberPhone")
-      .value
-      .trim();
-
-
-    const dob =
-      document
-      .getElementById("memberDOB")
-      .value ||
-      null;
-
-
-    const registrationDate =
-      document
-      .getElementById(
-        "memberRegistrationDate"
-      )
-      .value;
-
-
-    const location =
-      document
-      .getElementById("memberLocation")
-      .value
-      .trim();
-
-
-    const department =
-      document
-      .getElementById("memberDepartment")
-      .value;
-
-
-    const status =
-      document
-      .getElementById("memberStatus")
-      .value;
-
-
-    const {
-      error
-    } =
-    await supabaseClient
-    .from("church_members")
-    .insert({
-
-      full_name:
-        fullName,
-
-      phone:
-        phone,
-
-      date_of_birth:
-        dob,
-
-      registration_date:
-        registrationDate,
-
-      location:
-        location,
-
-      department:
-        department,
-
-      membership_status:
-        status
-
-    });
-
-
-    if (error) {
-
-      alert(
-        "Member registration failed:\n\n" +
-        error.message
-      );
-
-      return;
-    }
-
-
-    alert(
-      "Member registered successfully."
-    );
-
-
-    this.reset();
-
-
-    /* Automatically put today's date
-       back into registration date */
-
-    document
-    .getElementById(
-      "memberRegistrationDate"
-    )
-    .value =
-      new Date()
-      .toISOString()
-      .split("T")[0];
-
-
-    await loadMembers();
-
-    await loadStatistics();
-
-  }
-);
-
-
-/* =========================================
-   LOAD MEMBERS
-========================================= */
-
-async function loadMembers() {
-
-  const {
-    data,
-    error
-  } =
-  await supabaseClient
-  .from("church_members")
-  .select("*")
-  .order(
-    "created_at",
-    {
-      ascending: false
-    }
-  );
-
-
-  if (error) {
-
-    document
-    .getElementById(
-      "membersList"
-    )
-    .innerHTML =
-      `<div class="error">
-        ${escapeHtml(error.message)}
-      </div>`;
-
-    return;
-  }
-
-
-  allMembers =
-    data || [];
-
-
-  displayMembers(
-    allMembers
-  );
-
-}
-
-
-/* =========================================
-   DISPLAY MEMBERS
-========================================= */
-
-function displayMembers(
-  members
-) {
-
-  const container =
-    document.getElementById(
-      "membersList"
-    );
-
-
-  if (!members.length) {
-
-    container.innerHTML =
-      `<div class="empty">
-        No registered members found.
-      </div>`;
-
-    return;
-  }
-
-
-  container.innerHTML =
-    members
-    .map(
-      member => `
-
-      <div class="record">
-
-        <h3>
-          ${escapeHtml(
-            member.full_name
-          )}
-        </h3>
-
-        <strong>
-          Phone:
-        </strong>
-
-        ${escapeHtml(
-          member.phone ||
-          "Not provided"
-        )}
-
-        <br>
-
-        <strong>
-          Date of Birth:
-        </strong>
-
-        ${escapeHtml(
-          member.date_of_birth ||
-          "Not provided"
-        )}
-
-        <br>
-
-        <strong>
-          Date Registered:
-        </strong>
-
-        ${escapeHtml(
-          member.registration_date ||
-          "Not provided"
-        )}
-
-        <br>
-
-        <strong>
-          Location:
-        </strong>
-
-        ${escapeHtml(
-          member.location ||
-          "Not provided"
-        )}
-
-        <br>
-
-        <strong>
-          Department / Ministry:
-        </strong>
-
-        ${escapeHtml(
-          member.department ||
-          "Not selected"
-        )}
-
-        <br>
-
-        <strong>
-          Status:
-        </strong>
-
-        ${escapeHtml(
-          member.membership_status ||
-          "Not specified"
-        )}
-
-      </div>
-
-      `
-    )
-    .join("");
-
-}
-
-
-/* =========================================
-   SEARCH MEMBERS
-========================================= */
-
-function filterMembers() {
-
-  const search =
-    document
-    .getElementById(
-      "memberSearch"
-    )
-    .value
-    .toLowerCase()
-    .trim();
-
-
-  const filtered =
-    allMembers.filter(
-      member =>
-
-        String(
-          member.full_name ||
-          ""
-        )
-        .toLowerCase()
-        .includes(search)
-
-        ||
-
-        String(
-          member.phone ||
-          ""
-        )
-        .toLowerCase()
-        .includes(search)
-
-        ||
-
-        String(
-          member.location ||
-          ""
-        )
-        .toLowerCase()
-        .includes(search)
-
-        ||
-
-        String(
-          member.department ||
-          ""
-        )
-        .toLowerCase()
-        .includes(search)
-    );
-
-
-  displayMembers(
-    filtered
-  );
-
-}
-
-
-/* =========================================
-   DEFAULT REGISTRATION DATE
-========================================= */
-
-document
-.addEventListener(
-  "DOMContentLoaded",
-  function() {
-
-    const field =
-      document.getElementById(
-        "memberRegistrationDate"
-      );
-
-
-    if (field) {
-
-      field.value =
-        new Date()
-        .toISOString()
-        .split("T")[0];
-
-    }
-
-  }
-);
-
-      <button
-        class="primary"
-        type="submit">
-        Add Member
-      </button>
-
-    </form>
-
-  </div>
-
+  <!-- MEMBERS LIST -->
 
   <div class="card">
 
     <h2>
-      Members
+      Registered Members
     </h2>
+
+    <input
+      type="search"
+      id="memberSearch"
+      placeholder="Search members..."
+      oninput="filterMembers()">
+
 
     <div
       id="membersList"
       class="loading">
+
       Loading members...
+
     </div>
 
   </div>
@@ -962,7 +674,7 @@ document
 </section>
 
 
-<!-- ACTIVITIES -->
+<!-- ================= ACTIVITIES ================= -->
 
 <section
   id="activitiesSection"
@@ -974,18 +686,25 @@ document
       Church Activities
     </h2>
 
-    <form id="activityForm">
+    <form
+      id="activityForm">
+
+      <label>
+        Activity Title
+      </label>
 
       <input
         id="activityTitle"
-        placeholder="Activity title"
+        type="text"
         required>
 
-      <select id="activityType">
 
-        <option value="">
-          Activity type
-        </option>
+      <label>
+        Activity Type
+      </label>
+
+      <select
+        id="activityType">
 
         <option>
           Sunday Service
@@ -1021,31 +740,40 @@ document
 
       </select>
 
+
+      <label>
+        Date
+      </label>
+
       <input
         id="activityDate"
         type="date"
         required>
 
-      <input
-        id="activityStart"
-        type="time">
 
-      <input
-        id="activityEnd"
-        type="time">
+      <label>
+        Location
+      </label>
 
       <input
         id="activityLocation"
-        placeholder="Location">
+        type="text">
+
+
+      <label>
+        Description
+      </label>
 
       <textarea
-        id="activityDescription"
-        placeholder="Description"></textarea>
+        id="activityDescription"></textarea>
+
 
       <button
-        class="primary"
-        type="submit">
+        type="submit"
+        class="primary">
+
         Add Activity
+
       </button>
 
     </form>
@@ -1060,9 +788,10 @@ document
     </h2>
 
     <div
-      id="activitiesList"
-      class="loading">
-      Loading activities...
+      id="activitiesList">
+
+      Loading...
+
     </div>
 
   </div>
@@ -1070,7 +799,7 @@ document
 </section>
 
 
-<!-- ATTENDANCE -->
+<!-- ================= ATTENDANCE ================= -->
 
 <section
   id="attendanceSection"
@@ -1082,11 +811,13 @@ document
       Attendance
     </h2>
 
-    <p>
-      Select a member and activity to record attendance.
-    </p>
 
-    <select id="attendanceMember">
+    <label>
+      Church Member
+    </label>
+
+    <select
+      id="attendanceMember">
 
       <option value="">
         Select member
@@ -1094,7 +825,13 @@ document
 
     </select>
 
-    <select id="attendanceActivity">
+
+    <label>
+      Church Activity
+    </label>
+
+    <select
+      id="attendanceActivity">
 
       <option value="">
         Select activity
@@ -1102,10 +839,13 @@ document
 
     </select>
 
+
     <button
       class="primary"
       onclick="recordAttendance()">
+
       Mark Present
+
     </button>
 
   </div>
@@ -1119,7 +859,9 @@ document
 
     <div
       id="attendanceList">
+
       Loading...
+
     </div>
 
   </div>
@@ -1127,7 +869,7 @@ document
 </section>
 
 
-<!-- INCOME -->
+<!-- ================= INCOME ================= -->
 
 <section
   id="incomeSection"
@@ -1136,58 +878,64 @@ document
   <div class="card">
 
     <h2>
-      Record Income
+      Church Income
     </h2>
 
-    <form id="incomeForm">
 
-      <select id="incomeType">
+    <form
+      id="incomeForm">
 
-        <option>
-          Tithe
-        </option>
+      <label>
+        Income Type
+      </label>
 
-        <option>
-          Offering
-        </option>
+      <select
+        id="incomeType">
 
-        <option>
-          Donation
-        </option>
-
-        <option>
-          Pledge
-        </option>
-
-        <option>
-          Fundraising
-        </option>
-
-        <option>
-          Other
-        </option>
+        <option>Tithe</option>
+        <option>Offering</option>
+        <option>Donation</option>
+        <option>Pledge</option>
+        <option>Fundraising</option>
+        <option>Other</option>
 
       </select>
+
+
+      <label>
+        Amount (GH₵)
+      </label>
 
       <input
         id="incomeAmount"
         type="number"
         step="0.01"
-        placeholder="Amount (GH₵)"
         required>
+
+
+      <label>
+        Date
+      </label>
 
       <input
         id="incomeDate"
         type="date">
 
+
+      <label>
+        Description
+      </label>
+
       <textarea
-        id="incomeDescription"
-        placeholder="Description"></textarea>
+        id="incomeDescription"></textarea>
+
 
       <button
         class="primary"
         type="submit">
+
         Save Income
+
       </button>
 
     </form>
@@ -1203,7 +951,9 @@ document
 
     <div
       id="incomeList">
+
       Loading...
+
     </div>
 
   </div>
@@ -1211,7 +961,7 @@ document
 </section>
 
 
-<!-- EXPENSES -->
+<!-- ================= EXPENSES ================= -->
 
 <section
   id="expensesSection"
@@ -1220,35 +970,57 @@ document
   <div class="card">
 
     <h2>
-      Record Expense
+      Church Expenses
     </h2>
 
-    <form id="expenseForm">
+
+    <form
+      id="expenseForm">
+
+      <label>
+        Expense Type
+      </label>
 
       <input
         id="expenseType"
-        placeholder="Expense type"
+        type="text"
         required>
+
+
+      <label>
+        Amount (GH₵)
+      </label>
 
       <input
         id="expenseAmount"
         type="number"
         step="0.01"
-        placeholder="Amount (GH₵)"
         required>
+
+
+      <label>
+        Date
+      </label>
 
       <input
         id="expenseDate"
         type="date">
 
+
+      <label>
+        Description
+      </label>
+
       <textarea
-        id="expenseDescription"
-        placeholder="Description"></textarea>
+        id="expenseDescription"></textarea>
+
 
       <button
         class="primary"
         type="submit">
+
         Save Expense
+
       </button>
 
     </form>
@@ -1264,7 +1036,9 @@ document
 
     <div
       id="expensesList">
+
       Loading...
+
     </div>
 
   </div>
@@ -1272,7 +1046,7 @@ document
 </section>
 
 
-<!-- FINANCE -->
+<!-- ================= FINANCIAL SUMMARY ================= -->
 
 <section
   id="financeSection"
@@ -1284,8 +1058,9 @@ document
       Financial Summary
     </h2>
 
+
     <p>
-      Total Income:
+      Total Income
     </p>
 
     <div
@@ -1294,8 +1069,9 @@ document
       GH₵ 0.00
     </div>
 
+
     <p>
-      Total Expenses:
+      Total Expenses
     </p>
 
     <div
@@ -1304,8 +1080,9 @@ document
       GH₵ 0.00
     </div>
 
+
     <p>
-      Balance:
+      Current Balance
     </p>
 
     <div
@@ -1319,7 +1096,7 @@ document
 </section>
 
 
-<!-- PENDING -->
+<!-- ================= PENDING ================= -->
 
 <section
   id="pendingSection"
@@ -1328,12 +1105,14 @@ document
   <div class="card">
 
     <h2>
-      Pending Approvals
+      Pending Account Approvals
     </h2>
 
     <div
       id="pendingList">
+
       Loading...
+
     </div>
 
   </div>
@@ -1341,7 +1120,7 @@ document
 </section>
 
 
-<!-- USERS -->
+<!-- ================= USERS ================= -->
 
 <section
   id="usersSection"
@@ -1350,12 +1129,14 @@ document
   <div class="card">
 
     <h2>
-      All Users
+      System Users
     </h2>
 
     <div
       id="usersList">
+
       Loading...
+
     </div>
 
   </div>
@@ -1367,15 +1148,15 @@ document
 
 <script>
 
-/* =====================================
-   SUPABASE
-===================================== */
+/* ==================================================
+   SUPABASE CONNECTION
+   ================================================== */
 
 const SUPABASE_URL =
-"https://lcrhoossfgxpktrvwdtj.supabase.co";
+"YOUR_EXISTING_SUPABASE_URL";
 
 const SUPABASE_KEY =
-"sb_publishable_KPNyDlm7lteOz0f1bivVAw_CbTAGbtH";
+"YOUR_EXISTING_SUPABASE_KEY";
 
 const supabaseClient =
 supabase.createClient(
@@ -1384,19 +1165,60 @@ supabase.createClient(
 );
 
 
-/* =====================================
+/* ==================================================
    START
-===================================== */
+   ================================================== */
 
 document.addEventListener(
   "DOMContentLoaded",
-  checkAdministrator
+  async () => {
+
+    setDefaultDates();
+
+    await checkAdministrator();
+
+  }
 );
 
 
-/* =====================================
-   ADMIN CHECK
-===================================== */
+/* ==================================================
+   DEFAULT DATES
+   ================================================== */
+
+function setDefaultDates() {
+
+  const today =
+    new Date()
+      .toISOString()
+      .split("T")[0];
+
+
+  document
+    .getElementById(
+      "memberRegistrationDate"
+    )
+    .value = today;
+
+
+  document
+    .getElementById(
+      "incomeDate"
+    )
+    .value = today;
+
+
+  document
+    .getElementById(
+      "expenseDate"
+    )
+    .value = today;
+
+}
+
+
+/* ==================================================
+   CHECK ADMINISTRATOR
+   ================================================== */
 
 async function checkAdministrator() {
 
@@ -1406,8 +1228,8 @@ async function checkAdministrator() {
     }
   } =
   await supabaseClient
-  .auth
-  .getUser();
+    .auth
+    .getUser();
 
 
   if (!user) {
@@ -1416,6 +1238,7 @@ async function checkAdministrator() {
       "index.html";
 
     return;
+
   }
 
 
@@ -1424,36 +1247,56 @@ async function checkAdministrator() {
     error
   } =
   await supabaseClient
-  .from("user_profiles")
-  .select("*")
-  .eq(
-    "auth_user_id",
-    user.id
-  )
-  .maybeSingle();
+    .from("user_profiles")
+    .select("*")
+    .eq(
+      "auth_user_id",
+      user.id
+    )
+    .maybeSingle();
 
 
-  if (
-    error ||
-    !profile
-  ) {
+  if (error) {
 
     alert(
-      "Administrator profile not found."
+      "Could not load profile:\n" +
+      error.message
     );
 
     return;
+
   }
 
 
-  if (
+  if (!profile) {
+
+    alert(
+      "User profile not found."
+    );
+
+    return;
+
+  }
+
+
+  const role =
     String(
       profile.role || ""
     )
     .trim()
-    .toLowerCase()
-    !==
-    "administrator"
+    .toLowerCase();
+
+
+  const status =
+    String(
+      profile.status || ""
+    )
+    .trim()
+    .toLowerCase();
+
+
+  if (
+    role !== "administrator"
   ) {
 
     alert(
@@ -1463,17 +1306,12 @@ async function checkAdministrator() {
     await logout();
 
     return;
+
   }
 
 
   if (
-    String(
-      profile.status || ""
-    )
-    .trim()
-    .toLowerCase()
-    !==
-    "approved"
+    status !== "approved"
   ) {
 
     alert(
@@ -1483,19 +1321,20 @@ async function checkAdministrator() {
     await logout();
 
     return;
+
   }
 
 
   document
-  .getElementById(
-    "welcomeName"
-  )
-  .textContent =
-    "Welcome, " +
-    (
-      profile.full_name ||
-      "Administrator"
-    );
+    .getElementById(
+      "welcomeName"
+    )
+    .textContent =
+      "Welcome, " +
+      (
+        profile.full_name ||
+        "Administrator"
+      );
 
 
   await loadEverything();
@@ -1503,9 +1342,9 @@ async function checkAdministrator() {
 }
 
 
-/* =====================================
+/* ==================================================
    LOAD EVERYTHING
-===================================== */
+   ================================================== */
 
 async function loadEverything() {
 
@@ -1519,110 +1358,1472 @@ async function loadEverything() {
 
   await loadActivities();
 
+  await loadAttendanceOptions();
+
+  await loadAttendance();
+
   await loadIncome();
 
   await loadExpenses();
 
   await loadFinance();
 
-  await loadAttendanceOptions();
+}
+
+
+/* ==================================================
+   MEMBER STATISTICS
+   ================================================== */
+
+async function loadStatistics() {
+
+  const {
+    data: members,
+    error
+  } =
+  await supabaseClient
+    .from("church_members")
+    .select(
+      "department"
+    );
+
+
+  if (error) {
+
+    console.error(
+      "Statistics error:",
+      error
+    );
+
+    return;
+
+  }
+
+
+  const list =
+    members || [];
+
+
+  const total =
+    list.length;
+
+
+  const men =
+    list.filter(
+      member =>
+        member.department ===
+        "Men's Fellowship"
+    ).length;
+
+
+  const women =
+    list.filter(
+      member =>
+        member.department ===
+        "Women's Fellowship"
+    ).length;
+
+
+  const children =
+    list.filter(
+      member =>
+        member.department ===
+        "Children's Fellowship"
+    ).length;
+
+
+  document
+    .getElementById(
+      "totalMembers"
+    )
+    .textContent =
+      total;
+
+
+  document
+    .getElementById(
+      "menMembers"
+    )
+    .textContent =
+      men;
+
+
+  document
+    .getElementById(
+      "womenMembers"
+    )
+    .textContent =
+      women;
+
+
+  document
+    .getElementById(
+      "childrenMembers"
+    )
+    .textContent =
+      children;
+
+}
+
+
+/* ==================================================
+   REGISTER MEMBER
+   ================================================== */
+
+document
+  .getElementById(
+    "memberForm"
+  )
+  .addEventListener(
+    "submit",
+    async function(e) {
+
+      e.preventDefault();
+
+
+      const message =
+        document
+          .getElementById(
+            "memberMessage"
+          );
+
+
+      message.innerHTML =
+        `<div class="loading">
+          Saving member...
+        </div>`;
+
+
+      const member = {
+
+        full_name:
+          document
+            .getElementById(
+              "memberName"
+            )
+            .value
+            .trim(),
+
+        phone:
+          document
+            .getElementById(
+              "memberPhone"
+            )
+            .value
+            .trim() ||
+          null,
+
+        date_of_birth:
+          document
+            .getElementById(
+              "memberDOB"
+            )
+            .value ||
+          null,
+
+        registration_date:
+          document
+            .getElementById(
+              "memberRegistrationDate"
+            )
+            .value,
+
+        location:
+          document
+            .getElementById(
+              "memberLocation"
+            )
+            .value
+            .trim() ||
+          null,
+
+        department:
+          document
+            .getElementById(
+              "memberDepartment"
+            )
+            .value,
+
+        baptism_status:
+          document
+            .getElementById(
+              "memberBaptismStatus"
+            )
+            .value,
+
+        membership_status:
+          document
+            .getElementById(
+              "memberStatus"
+            )
+            .value
+
+      };
+
+
+      const {
+        data,
+        error
+      } =
+      await supabaseClient
+        .from(
+          "church_members"
+        )
+        .insert(
+          member
+        )
+        .select();
+
+
+      if (error) {
+
+        message.innerHTML =
+          `<div class="error">
+
+            Member could not be saved.
+
+            <br><br>
+
+            ${escapeHtml(
+              error.message
+            )}
+
+          </div>`;
+
+        return;
+
+      }
+
+
+      if (
+        !data ||
+        data.length === 0
+      ) {
+
+        message.innerHTML =
+          `<div class="error">
+            No member was saved.
+          </div>`;
+
+        return;
+
+      }
+
+
+      message.innerHTML =
+        `<div class="success">
+          Member registered successfully.
+        </div>`;
+
+
+      this.reset();
+
+      setDefaultDates();
+
+      await loadMembers();
+
+      await loadStatistics();
+
+    }
+  );
+
+
+/* ==================================================
+   LOAD MEMBERS
+   ================================================== */
+
+let allMembers = [];
+
+
+async function loadMembers() {
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+    .from("church_members")
+    .select("*")
+    .order(
+      "created_at",
+      {
+        ascending: false
+      }
+    );
+
+
+  if (error) {
+
+    document
+      .getElementById(
+        "membersList"
+      )
+      .innerHTML =
+        `<div class="error">
+
+          ${escapeHtml(
+            error.message
+          )}
+
+        </div>`;
+
+    return;
+
+  }
+
+
+  allMembers =
+    data || [];
+
+
+  displayMembers(
+    allMembers
+  );
+
+}
+
+
+/* ==================================================
+   DISPLAY MEMBERS
+   ================================================== */
+
+function displayMembers(
+  members
+) {
+
+  const container =
+    document
+      .getElementById(
+        "membersList"
+      );
+
+
+  if (
+    !members.length
+  ) {
+
+    container.innerHTML =
+      `<div class="empty">
+        No registered members found.
+      </div>`;
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    members
+      .map(
+        member => `
+
+        <div class="record">
+
+          <h3>
+            ${escapeHtml(
+              member.full_name
+            )}
+          </h3>
+
+          <strong>
+            Phone:
+          </strong>
+
+          ${escapeHtml(
+            member.phone ||
+            "Not provided"
+          )}
+
+          <br>
+
+          <strong>
+            Date of Birth:
+          </strong>
+
+          ${escapeHtml(
+            member.date_of_birth ||
+            "Not provided"
+          )}
+
+          <br>
+
+          <strong>
+            Date of Registration:
+          </strong>
+
+          ${escapeHtml(
+            member.registration_date ||
+            "Not provided"
+          )}
+
+          <br>
+
+          <strong>
+            Location:
+          </strong>
+
+          ${escapeHtml(
+            member.location ||
+            "Not provided"
+          )}
+
+          <br>
+
+          <strong>
+            Department / Ministry:
+          </strong>
+
+          ${escapeHtml(
+            member.department ||
+            "Not selected"
+          )}
+
+          <br>
+
+          <strong>
+            Baptism Status:
+          </strong>
+
+          ${escapeHtml(
+            member.baptism_status === "yes"
+              ? "Yes"
+              : member.baptism_status === "no"
+                ? "No"
+                : "Not recorded"
+          )}
+
+          <br>
+
+          <strong>
+            Membership Status:
+          </strong>
+
+          ${escapeHtml(
+            member.membership_status ||
+            "Not specified"
+          )}
+
+        </div>
+
+        `
+      )
+      .join("");
+
+}
+
+
+/* ==================================================
+   SEARCH MEMBERS
+   ================================================== */
+
+function filterMembers() {
+
+  const search =
+    document
+      .getElementById(
+        "memberSearch"
+      )
+      .value
+      .toLowerCase()
+      .trim();
+
+
+  const filtered =
+    allMembers.filter(
+      member => {
+
+        const text =
+          (
+            member.full_name ||
+            ""
+          ) +
+          " " +
+          (
+            member.phone ||
+            ""
+          ) +
+          " " +
+          (
+            member.location ||
+            ""
+          ) +
+          " " +
+          (
+            member.department ||
+            ""
+          ) +
+          " " +
+          (
+            member.baptism_status ||
+            ""
+          );
+
+
+        return text
+          .toLowerCase()
+          .includes(
+            search
+          );
+
+      }
+    );
+
+
+  displayMembers(
+    filtered
+  );
+
+}
+
+
+/* ==================================================
+   ACTIVITIES
+   ================================================== */
+
+document
+  .getElementById(
+    "activityForm"
+  )
+  .addEventListener(
+    "submit",
+    async function(e) {
+
+      e.preventDefault();
+
+
+      const {
+        error
+      } =
+      await supabaseClient
+        .from(
+          "church_activities"
+        )
+        .insert({
+
+          title:
+            document
+              .getElementById(
+                "activityTitle"
+              )
+              .value,
+
+          activity_type:
+            document
+              .getElementById(
+                "activityType"
+              )
+              .value,
+
+          activity_date:
+            document
+              .getElementById(
+                "activityDate"
+              )
+              .value,
+
+          location:
+            document
+              .getElementById(
+                "activityLocation"
+              )
+              .value,
+
+          description:
+            document
+              .getElementById(
+                "activityDescription"
+              )
+              .value
+
+        });
+
+
+      if (error) {
+
+        alert(
+          "Activity could not be saved:\n" +
+          error.message
+        );
+
+        return;
+
+      }
+
+
+      alert(
+        "Activity saved successfully."
+      );
+
+
+      this.reset();
+
+      await loadActivities();
+
+      await loadAttendanceOptions();
+
+    }
+  );
+
+
+async function loadActivities() {
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+    .from(
+      "church_activities"
+    )
+    .select("*")
+    .order(
+      "activity_date",
+      {
+        ascending: false
+      }
+    );
+
+
+  if (error) {
+
+    document
+      .getElementById(
+        "activitiesList"
+      )
+      .innerHTML =
+        `<div class="error">
+          ${escapeHtml(
+            error.message
+          )}
+        </div>`;
+
+    return;
+
+  }
+
+
+  document
+    .getElementById(
+      "activitiesList"
+    )
+    .innerHTML =
+      data.length
+      ?
+      data
+        .map(
+          activity => `
+
+          <div class="record">
+
+            <h3>
+              ${escapeHtml(
+                activity.title
+              )}
+            </h3>
+
+            <strong>
+              Type:
+            </strong>
+
+            ${escapeHtml(
+              activity.activity_type ||
+              ""
+            )}
+
+            <br>
+
+            <strong>
+              Date:
+            </strong>
+
+            ${escapeHtml(
+              activity.activity_date ||
+              ""
+            )}
+
+            <br>
+
+            <strong>
+              Location:
+            </strong>
+
+            ${escapeHtml(
+              activity.location ||
+              "Not provided"
+            )}
+
+            <p>
+              ${escapeHtml(
+                activity.description ||
+                ""
+              )}
+            </p>
+
+          </div>
+
+          `
+        )
+        .join("")
+      :
+      `<div class="empty">
+        No activities found.
+      </div>`;
+
+}
+
+
+/* ==================================================
+   ATTENDANCE
+   ================================================== */
+
+async function loadAttendanceOptions() {
+
+  const {
+    data: members
+  } =
+  await supabaseClient
+    .from(
+      "church_members"
+    )
+    .select(
+      "id,full_name"
+    )
+    .order(
+      "full_name"
+    );
+
+
+  const {
+    data: activities
+  } =
+  await supabaseClient
+    .from(
+      "church_activities"
+    )
+    .select(
+      "id,title,activity_date"
+    )
+    .order(
+      "activity_date",
+      {
+        ascending: false
+      }
+    );
+
+
+  document
+    .getElementById(
+      "attendanceMember"
+    )
+    .innerHTML =
+      `<option value="">
+        Select member
+      </option>` +
+      (
+        members || []
+      )
+        .map(
+          member =>
+            `<option value="${member.id}">
+              ${escapeHtml(
+                member.full_name
+              )}
+            </option>`
+        )
+        .join("");
+
+
+  document
+    .getElementById(
+      "attendanceActivity"
+    )
+    .innerHTML =
+      `<option value="">
+        Select activity
+      </option>` +
+      (
+        activities || []
+      )
+        .map(
+          activity =>
+            `<option value="${activity.id}">
+              ${escapeHtml(
+                activity.title
+              )}
+              -
+              ${escapeHtml(
+                activity.activity_date ||
+                ""
+              )}
+            </option>`
+        )
+        .join("");
+
+}
+
+
+async function recordAttendance() {
+
+  const memberId =
+    document
+      .getElementById(
+        "attendanceMember"
+      )
+      .value;
+
+
+  const activityId =
+    document
+      .getElementById(
+        "attendanceActivity"
+      )
+      .value;
+
+
+  if (
+    !memberId ||
+    !activityId
+  ) {
+
+    alert(
+      "Select a member and activity."
+    );
+
+    return;
+
+  }
+
+
+  const {
+    error
+  } =
+  await supabaseClient
+    .from(
+      "church_attendance"
+    )
+    .insert({
+
+      member_id:
+        memberId,
+
+      activity_id:
+        activityId,
+
+      present:
+        true
+
+    });
+
+
+  if (error) {
+
+    alert(
+      "Attendance could not be saved:\n" +
+      error.message
+    );
+
+    return;
+
+  }
+
+
+  alert(
+    "Attendance recorded."
+  );
+
 
   await loadAttendance();
 
 }
 
 
-/* =====================================
-   STATISTICS
-===================================== */
-
-async function loadStatistics() {
+async function loadAttendance() {
 
   const {
-    data: users
+    data,
+    error
   } =
   await supabaseClient
-  .from("user_profiles")
-  .select(
-    "role,status"
-  );
+    .from(
+      "church_attendance"
+    )
+    .select(`
+      id,
+      attendance_date,
+      present,
+      church_members (
+        full_name
+      ),
+      church_activities (
+        title
+      )
+    `)
+    .order(
+      "attendance_date",
+      {
+        ascending: false
+      }
+    );
 
 
-  const allUsers =
-    users || [];
+  if (error) {
+
+    document
+      .getElementById(
+        "attendanceList"
+      )
+      .innerHTML =
+        `<div class="error">
+          ${escapeHtml(
+            error.message
+          )}
+        </div>`;
+
+    return;
+
+  }
 
 
   document
-  .getElementById(
-    "totalUsers"
-  )
-  .textContent =
-    allUsers.length;
+    .getElementById(
+      "attendanceList"
+    )
+    .innerHTML =
+      data.length
+      ?
+      data
+        .map(
+          item => `
 
+          <div class="record">
 
-  document
-  .getElementById(
-    "pendingUsers"
-  )
-  .textContent =
-    allUsers.filter(
-      u =>
-        String(
-          u.status || ""
+            <strong>
+              Member:
+            </strong>
+
+            ${escapeHtml(
+              item.church_members
+                ?.full_name ||
+              "Unknown"
+            )}
+
+            <br>
+
+            <strong>
+              Activity:
+            </strong>
+
+            ${escapeHtml(
+              item.church_activities
+                ?.title ||
+              "Unknown"
+            )}
+
+            <br>
+
+            <strong>
+              Date:
+            </strong>
+
+            ${escapeHtml(
+              item.attendance_date ||
+              ""
+            )}
+
+          </div>
+
+          `
         )
-        .trim()
-        .toLowerCase()
-        ===
-        "pending"
-    ).length;
-
-
-  document
-  .getElementById(
-    "approvedUsers"
-  )
-  .textContent =
-    allUsers.filter(
-      u =>
-        String(
-          u.status || ""
-        )
-        .trim()
-        .toLowerCase()
-        ===
-        "approved"
-    ).length;
-
-
-  const {
-    count
-  } =
-  await supabaseClient
-  .from("church_members")
-  .select(
-    "*",
-    {
-      count:
-        "exact",
-      head:
-        true
-    }
-  );
-
-
-  document
-  .getElementById(
-    "totalMembers"
-  )
-  .textContent =
-    count || 0;
+        .join("")
+      :
+      `<div class="empty">
+        No attendance records.
+      </div>`;
 
 }
 
 
-/* =====================================
+/* ==================================================
+   INCOME
+   ================================================== */
+
+document
+  .getElementById(
+    "incomeForm"
+  )
+  .addEventListener(
+    "submit",
+    async function(e) {
+
+      e.preventDefault();
+
+
+      const {
+        data: {
+          user
+        }
+      } =
+      await supabaseClient
+        .auth
+        .getUser();
+
+
+      const {
+        error
+      } =
+      await supabaseClient
+        .from(
+          "church_income"
+        )
+        .insert({
+
+          income_type:
+            document
+              .getElementById(
+                "incomeType"
+              )
+              .value,
+
+          amount:
+            Number(
+              document
+                .getElementById(
+                  "incomeAmount"
+                )
+                .value
+            ),
+
+          transaction_date:
+            document
+              .getElementById(
+                "incomeDate"
+              )
+              .value ||
+            null,
+
+          description:
+            document
+              .getElementById(
+                "incomeDescription"
+              )
+              .value,
+
+          recorded_by:
+            user?.id ||
+            null
+
+        });
+
+
+      if (error) {
+
+        alert(
+          "Income could not be saved:\n" +
+          error.message
+        );
+
+        return;
+
+      }
+
+
+      alert(
+        "Income recorded."
+      );
+
+
+      this.reset();
+
+      setDefaultDates();
+
+      await loadIncome();
+
+      await loadFinance();
+
+    }
+  );
+
+
+async function loadIncome() {
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+    .from(
+      "church_income"
+    )
+    .select("*")
+    .order(
+      "transaction_date",
+      {
+        ascending: false
+      }
+    );
+
+
+  if (error) {
+
+    document
+      .getElementById(
+        "incomeList"
+      )
+      .innerHTML =
+        `<div class="error">
+          ${escapeHtml(
+            error.message
+          )}
+        </div>`;
+
+    return;
+
+  }
+
+
+  document
+    .getElementById(
+      "incomeList"
+    )
+    .innerHTML =
+      data.length
+      ?
+      data
+        .map(
+          income => `
+
+          <div class="record">
+
+            <strong>
+              ${escapeHtml(
+                income.income_type
+              )}
+            </strong>
+
+            <div class="money">
+              GH₵ ${Number(
+                income.amount
+              ).toFixed(2)}
+            </div>
+
+            <small>
+              ${escapeHtml(
+                income.transaction_date ||
+                ""
+              )}
+            </small>
+
+            <p>
+              ${escapeHtml(
+                income.description ||
+                ""
+              )}
+            </p>
+
+          </div>
+
+          `
+        )
+        .join("")
+      :
+      `<div class="empty">
+        No income records.
+      </div>`;
+
+}
+
+
+/* ==================================================
+   EXPENSES
+   ================================================== */
+
+document
+  .getElementById(
+    "expenseForm"
+  )
+  .addEventListener(
+    "submit",
+    async function(e) {
+
+      e.preventDefault();
+
+
+      const {
+        data: {
+          user
+        }
+      } =
+      await supabaseClient
+        .auth
+        .getUser();
+
+
+      const {
+        error
+      } =
+      await supabaseClient
+        .from(
+          "church_expenses"
+        )
+        .insert({
+
+          expense_type:
+            document
+              .getElementById(
+                "expenseType"
+              )
+              .value,
+
+          amount:
+            Number(
+              document
+                .getElementById(
+                  "expenseAmount"
+                )
+                .value
+            ),
+
+          transaction_date:
+            document
+              .getElementById(
+                "expenseDate"
+              )
+              .value ||
+            null,
+
+          description:
+            document
+              .getElementById(
+                "expenseDescription"
+              )
+              .value,
+
+          recorded_by:
+            user?.id ||
+            null
+
+        });
+
+
+      if (error) {
+
+        alert(
+          "Expense could not be saved:\n" +
+          error.message
+        );
+
+        return;
+
+      }
+
+
+      alert(
+        "Expense recorded."
+      );
+
+
+      this.reset();
+
+      setDefaultDates();
+
+      await loadExpenses();
+
+      await loadFinance();
+
+    }
+  );
+
+
+async function loadExpenses() {
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+    .from(
+      "church_expenses"
+    )
+    .select("*")
+    .order(
+      "transaction_date",
+      {
+        ascending: false
+      }
+    );
+
+
+  if (error) {
+
+    document
+      .getElementById(
+        "expensesList"
+      )
+      .innerHTML =
+        `<div class="error">
+          ${escapeHtml(
+            error.message
+          )}
+        </div>`;
+
+    return;
+
+  }
+
+
+  document
+    .getElementById(
+      "expensesList"
+    )
+    .innerHTML =
+      data.length
+      ?
+      data
+        .map(
+          expense => `
+
+          <div class="record">
+
+            <strong>
+              ${escapeHtml(
+                expense.expense_type
+              )}
+            </strong>
+
+            <div class="money">
+              GH₵ ${Number(
+                expense.amount
+              ).toFixed(2)}
+            </div>
+
+            <small>
+              ${escapeHtml(
+                expense.transaction_date ||
+                ""
+              )}
+            </small>
+
+            <p>
+              ${escapeHtml(
+                expense.description ||
+                ""
+              )}
+            </p>
+
+          </div>
+
+          `
+        )
+        .join("")
+      :
+      `<div class="empty">
+        No expense records.
+      </div>`;
+
+}
+
+
+/* ==================================================
+   FINANCIAL SUMMARY
+   ================================================== */
+
+async function loadFinance() {
+
+  const {
+    data: income
+  } =
+  await supabaseClient
+    .from(
+      "church_income"
+    )
+    .select(
+      "amount"
+    );
+
+
+  const {
+    data: expenses
+  } =
+  await supabaseClient
+    .from(
+      "church_expenses"
+    )
+    .select(
+      "amount"
+    );
+
+
+  const totalIncome =
+    (
+      income || []
+    )
+      .reduce(
+        (
+          total,
+          item
+        ) =>
+          total +
+          Number(
+            item.amount || 0
+          ),
+        0
+      );
+
+
+  const totalExpenses =
+    (
+      expenses || []
+    )
+      .reduce(
+        (
+          total,
+          item
+        ) =>
+          total +
+          Number(
+            item.amount || 0
+          ),
+        0
+      );
+
+
+  const balance =
+    totalIncome -
+    totalExpenses;
+
+
+  document
+    .getElementById(
+      "totalIncome"
+    )
+    .textContent =
+      "GH₵ " +
+      totalIncome.toFixed(2);
+
+
+  document
+    .getElementById(
+      "totalExpenses"
+    )
+    .textContent =
+      "GH₵ " +
+      totalExpenses.toFixed(2);
+
+
+  document
+    .getElementById(
+      "balance"
+    )
+    .textContent =
+      "GH₵ " +
+      balance.toFixed(2);
+
+}
+
+
+/* ==================================================
    PENDING USERS
-===================================== */
+   ================================================== */
 
 async function loadPendingUsers() {
 
@@ -1631,58 +2832,73 @@ async function loadPendingUsers() {
     error
   } =
   await supabaseClient
-  .from("user_profiles")
-  .select(
-    "id,full_name,email,phone,role,status"
-  )
-  .order(
-    "created_at",
-    {
-      ascending:
-        false
-    }
-  );
+    .from(
+      "user_profiles"
+    )
+    .select(
+      "id,full_name,email,phone,role,status"
+    )
+    .order(
+      "created_at",
+      {
+        ascending: false
+      }
+    );
 
 
   if (error) {
 
-    document
-    .getElementById(
-      "dashboardPending"
-    )
-    .innerHTML =
+    const html =
       `<div class="error">
         ${escapeHtml(
           error.message
         )}
       </div>`;
 
+
+    document
+      .getElementById(
+        "pendingList"
+      )
+      .innerHTML =
+        html;
+
+
+    document
+      .getElementById(
+        "dashboardPending"
+      )
+      .innerHTML =
+        html;
+
     return;
+
   }
 
 
   const pending =
-    (users || [])
-    .filter(
-      u =>
-        String(
-          u.status || ""
-        )
-        .trim()
-        .toLowerCase()
-        ===
-        "pending"
-    );
+    (
+      users || []
+    )
+      .filter(
+        user =>
+          String(
+            user.status || ""
+          )
+          .trim()
+          .toLowerCase() ===
+          "pending"
+      );
 
 
   const html =
     pending.length
     ?
     pending
-    .map(
-      createPendingCard
-    )
-    .join("")
+      .map(
+        createPendingCard
+      )
+      .join("")
     :
     `<div class="empty">
       No pending account requests.
@@ -1690,19 +2906,19 @@ async function loadPendingUsers() {
 
 
   document
-  .getElementById(
-    "dashboardPending"
-  )
-  .innerHTML =
-    html;
+    .getElementById(
+      "pendingList"
+    )
+    .innerHTML =
+      html;
 
 
   document
-  .getElementById(
-    "pendingList"
-  )
-  .innerHTML =
-    html;
+    .getElementById(
+      "dashboardPending"
+    )
+    .innerHTML =
+      html;
 
 }
 
@@ -1758,13 +2974,18 @@ function createPendingCard(
         <button
           class="primary"
           onclick="approveUser('${user.id}')">
+
           Approve
+
         </button>
+
 
         <button
           class="danger"
           onclick="rejectUser('${user.id}')">
+
           Reject
+
         </button>
 
       </div>
@@ -1776,9 +2997,9 @@ function createPendingCard(
 }
 
 
-/* =====================================
-   APPROVE
-===================================== */
+/* ==================================================
+   APPROVE USER
+   ================================================== */
 
 async function approveUser(
   id
@@ -1788,7 +3009,9 @@ async function approveUser(
     !confirm(
       "Approve this account?"
     )
-  ) return;
+  ) {
+    return;
+  }
 
 
   const {
@@ -1796,26 +3019,29 @@ async function approveUser(
     error
   } =
   await supabaseClient
-  .from("user_profiles")
-  .update({
-    status:
-      "approved"
-  })
-  .eq(
-    "id",
-    id
-  )
-  .select();
+    .from(
+      "user_profiles"
+    )
+    .update({
+      status:
+        "approved"
+    })
+    .eq(
+      "id",
+      id
+    )
+    .select();
 
 
   if (error) {
 
     alert(
-      "Approval failed: " +
+      "Approval failed:\n" +
       error.message
     );
 
     return;
+
   }
 
 
@@ -1825,10 +3051,11 @@ async function approveUser(
   ) {
 
     alert(
-      "No account was updated. Check your RLS UPDATE policy."
+      "No account was updated. Check the UPDATE RLS policy."
     );
 
     return;
+
   }
 
 
@@ -1842,9 +3069,9 @@ async function approveUser(
 }
 
 
-/* =====================================
-   REJECT
-===================================== */
+/* ==================================================
+   REJECT USER
+   ================================================== */
 
 async function rejectUser(
   id
@@ -1854,32 +3081,37 @@ async function rejectUser(
     !confirm(
       "Reject this account?"
     )
-  ) return;
+  ) {
+    return;
+  }
 
 
   const {
     error
   } =
   await supabaseClient
-  .from("user_profiles")
-  .update({
-    status:
-      "rejected"
-  })
-  .eq(
-    "id",
-    id
-  );
+    .from(
+      "user_profiles"
+    )
+    .update({
+      status:
+        "rejected"
+    })
+    .eq(
+      "id",
+      id
+    );
 
 
   if (error) {
 
     alert(
-      "Rejection failed: " +
+      "Rejection failed:\n" +
       error.message
     );
 
     return;
+
   }
 
 
@@ -1893,1270 +3125,127 @@ async function rejectUser(
 }
 
 
-/* =====================================
+/* ==================================================
    ALL USERS
-===================================== */
+   ================================================== */
 
 async function loadAllUsers() {
 
   const {
-    data: users,
+    data,
     error
   } =
   await supabaseClient
-  .from("user_profiles")
-  .select(
-    "full_name,email,phone,role,status"
-  )
-  .order(
-    "created_at",
-    {
-      ascending:
-        false
-    }
-  );
+    .from(
+      "user_profiles"
+    )
+    .select(
+      "full_name,email,phone,role,status"
+    )
+    .order(
+      "created_at",
+      {
+        ascending: false
+      }
+    );
 
 
   if (error) {
 
     document
+      .getElementById(
+        "usersList"
+      )
+      .innerHTML =
+        `<div class="error">
+          ${escapeHtml(
+            error.message
+          )}
+        </div>`;
+
+    return;
+
+  }
+
+
+  document
     .getElementById(
       "usersList"
     )
     .innerHTML =
-      `<div class="error">
-        ${escapeHtml(
-          error.message
-        )}
+      data.length
+      ?
+      data
+        .map(
+          user => `
+
+          <div class="record">
+
+            <h3>
+              ${escapeHtml(
+                user.full_name ||
+                "Unnamed"
+              )}
+            </h3>
+
+            <strong>
+              Role:
+            </strong>
+
+            ${escapeHtml(
+              user.role ||
+              "Not specified"
+            )}
+
+            <br>
+
+            <strong>
+              Email:
+            </strong>
+
+            ${escapeHtml(
+              user.email ||
+              "Not provided"
+            )}
+
+            <br>
+
+            <strong>
+              Status:
+            </strong>
+
+            ${escapeHtml(
+              user.status ||
+              "Not specified"
+            )}
+
+          </div>
+
+          `
+        )
+        .join("")
+      :
+      `<div class="empty">
+        No users found.
       </div>`;
 
-    return;
-  }
-
-
-  document
-  .getElementById(
-    "usersList"
-  )
-  .innerHTML =
-    users.length
-    ?
-    users
-    .map(
-      u => `
-
-      <div class="record">
-
-        <h3>
-          ${escapeHtml(
-            u.full_name ||
-            "Unnamed"
-          )}
-        </h3>
-
-        <strong>
-          Role:
-        </strong>
-
-        ${escapeHtml(
-          u.role ||
-          "Not specified"
-        )}
-
-        <br>
-
-        <strong>
-          Email:
-        </strong>
-
-        ${escapeHtml(
-          u.email ||
-          "Not provided"
-        )}
-
-        <br>
-
-        <strong>
-          Status:
-        </strong>
-
-        ${escapeHtml(
-          u.status ||
-          "Not specified"
-        )}
-
-      </div>
-
-      `
-    )
-    .join("")
-    :
-    `<div class="empty">
-      No users found.
-    </div>`;
-
 }
 
 
-/* =====================================
-   MEMBERS
-===================================== */
-
-document
-.getElementById(
-  "memberForm"
-)
-.addEventListener(
-  "submit",
-  async function(e) {
-
-    e.preventDefault();
-
-
-    const {
-      error
-    } =
-    await supabaseClient
-    .from("church_members")
-    .insert({
-      full_name:
-        document
-        .getElementById(
-          "memberName"
-        )
-        .value,
-
-      phone:
-        document
-        .getElementById(
-          "memberPhone"
-        )
-        .value,
-
-      gender:
-        document
-        .getElementById(
-          "memberGender"
-        )
-        .value,
-
-      date_of_birth:
-        document
-        .getElementById(
-          "memberDOB"
-        )
-        .value ||
-        null,
-
-      address:
-        document
-        .getElementById(
-          "memberAddress"
-        )
-        .value,
-
-      department:
-        document
-        .getElementById(
-          "memberDepartment"
-        )
-        .value,
-
-      membership_status:
-        document
-        .getElementById(
-          "memberStatus"
-        )
-        .value
-
-    });
-
-
-    if (error) {
-
-      alert(
-        "Could not add member: " +
-        error.message
-      );
-
-      return;
-    }
-
-
-    alert(
-      "Member added successfully."
-    );
-
-
-    this.reset();
-
-    await loadMembers();
-
-    await loadStatistics();
-
-  }
-);
-
-
-async function loadMembers() {
-
-  const {
-    data: members,
-    error
-  } =
-  await supabaseClient
-  .from("church_members")
-  .select("*")
-  .order(
-    "created_at",
-    {
-      ascending:
-        false
-    }
-  );
-
-
-  if (error) {
-
-    document
-    .getElementById(
-      "membersList"
-    )
-    .innerHTML =
-      `<div class="error">
-        ${escapeHtml(
-          error.message
-        )}
-      </div>`;
-
-    return;
-  }
-
-
-  document
-  .getElementById(
-    "membersList"
-  )
-  .innerHTML =
-    members.length
-    ?
-    members
-    .map(
-      m => `
-
-      <div class="record">
-
-        <h3>
-          ${escapeHtml(
-            m.full_name
-          )}
-        </h3>
-
-        <strong>
-          Phone:
-        </strong>
-
-        ${escapeHtml(
-          m.phone ||
-          "Not provided"
-        )}
-
-        <br>
-
-        <strong>
-          Gender:
-        </strong>
-
-        ${escapeHtml(
-          m.gender ||
-          "Not specified"
-        )}
-
-        <br>
-
-        <strong>
-          Department:
-        </strong>
-
-        ${escapeHtml(
-          m.department ||
-          "Not specified"
-        )}
-
-        <br>
-
-        <strong>
-          Status:
-        </strong>
-
-        ${escapeHtml(
-          m.membership_status ||
-          "Not specified"
-        )}
-
-      </div>
-
-      `
-    )
-    .join("")
-    :
-    `<div class="empty">
-      No church members found.
-    </div>`;
-
-}
-
-
-/* =====================================
-   ACTIVITIES
-===================================== */
-
-document
-.getElementById(
-  "activityForm"
-)
-.addEventListener(
-  "submit",
-  async function(e) {
-
-    e.preventDefault();
-
-
-    const {
-      error
-    } =
-    await supabaseClient
-    .from("church_activities")
-    .insert({
-
-      title:
-        document
-        .getElementById(
-          "activityTitle"
-        )
-        .value,
-
-      activity_type:
-        document
-        .getElementById(
-          "activityType"
-        )
-        .value,
-
-      activity_date:
-        document
-        .getElementById(
-          "activityDate"
-        )
-        .value,
-
-      start_time:
-        document
-        .getElementById(
-          "activityStart"
-        )
-        .value ||
-        null,
-
-      end_time:
-        document
-        .getElementById(
-          "activityEnd"
-        )
-        .value ||
-        null,
-
-      location:
-        document
-        .getElementById(
-          "activityLocation"
-        )
-        .value,
-
-      description:
-        document
-        .getElementById(
-          "activityDescription"
-        )
-        .value
-
-    });
-
-
-    if (error) {
-
-      alert(
-        "Could not add activity: " +
-        error.message
-      );
-
-      return;
-    }
-
-
-    alert(
-      "Activity added successfully."
-    );
-
-
-    this.reset();
-
-    await loadActivities();
-
-    await loadAttendanceOptions();
-
-  }
-);
-
-
-async function loadActivities() {
-
-  const {
-    data: activities,
-    error
-  } =
-  await supabaseClient
-  .from("church_activities")
-  .select("*")
-  .order(
-    "activity_date",
-    {
-      ascending:
-        false
-    }
-  );
-
-
-  if (error) {
-
-    document
-    .getElementById(
-      "activitiesList"
-    )
-    .innerHTML =
-      `<div class="error">
-        ${escapeHtml(
-          error.message
-        )}
-      </div>`;
-
-    return;
-  }
-
-
-  document
-  .getElementById(
-    "activitiesList"
-  )
-  .innerHTML =
-    activities.length
-    ?
-    activities
-    .map(
-      a => `
-
-      <div class="record">
-
-        <h3>
-          ${escapeHtml(
-            a.title
-          )}
-        </h3>
-
-        <strong>
-          Type:
-        </strong>
-
-        ${escapeHtml(
-          a.activity_type ||
-          ""
-        )}
-
-        <br>
-
-        <strong>
-          Date:
-        </strong>
-
-        ${escapeHtml(
-          a.activity_date ||
-          ""
-        )}
-
-        <br>
-
-        <strong>
-          Location:
-        </strong>
-
-        ${escapeHtml(
-          a.location ||
-          "Not specified"
-        )}
-
-        <br>
-
-        ${escapeHtml(
-          a.description ||
-          ""
-        )}
-
-      </div>
-
-      `
-    )
-    .join("")
-    :
-    `<div class="empty">
-      No activities found.
-    </div>`;
-
-}
-
-
-/* =====================================
-   ATTENDANCE OPTIONS
-===================================== */
-
-async function loadAttendanceOptions() {
-
-  const {
-    data: members
-  } =
-  await supabaseClient
-  .from("church_members")
-  .select(
-    "id,full_name"
-  )
-  .order(
-    "full_name"
-  );
-
-
-  const {
-    data: activities
-  } =
-  await supabaseClient
-  .from("church_activities")
-  .select(
-    "id,title,activity_date"
-  )
-  .order(
-    "activity_date",
-    {
-      ascending:
-        false
-    }
-  );
-
-
-  document
-  .getElementById(
-    "attendanceMember"
-  )
-  .innerHTML =
-    `<option value="">
-      Select member
-    </option>` +
-    (members || [])
-    .map(
-      m =>
-        `<option value="${m.id}">
-          ${escapeHtml(
-            m.full_name
-          )}
-        </option>`
-    )
-    .join("");
-
-
-  document
-  .getElementById(
-    "attendanceActivity"
-  )
-  .innerHTML =
-    `<option value="">
-      Select activity
-    </option>` +
-    (activities || [])
-    .map(
-      a =>
-        `<option value="${a.id}">
-          ${escapeHtml(
-            a.title
-          )} - ${escapeHtml(
-            a.activity_date ||
-            ""
-          )}
-        </option>`
-    )
-    .join("");
-
-}
-
-
-/* =====================================
-   RECORD ATTENDANCE
-===================================== */
-
-async function recordAttendance() {
-
-  const memberId =
-    document
-    .getElementById(
-      "attendanceMember"
-    )
-    .value;
-
-
-  const activityId =
-    document
-    .getElementById(
-      "attendanceActivity"
-    )
-    .value;
-
-
-  if (
-    !memberId ||
-    !activityId
-  ) {
-
-    alert(
-      "Select both member and activity."
-    );
-
-    return;
-  }
-
-
-  const {
-    error
-  } =
-  await supabaseClient
-  .from("church_attendance")
-  .insert({
-
-    member_id:
-      memberId,
-
-    activity_id:
-      activityId,
-
-    present:
-      true
-
-  });
-
-
-  if (error) {
-
-    alert(
-      "Attendance failed: " +
-      error.message
-    );
-
-    return;
-  }
-
-
-  alert(
-    "Attendance recorded."
-  );
-
-
-  await loadAttendance();
-
-}
-
-
-/* =====================================
-   ATTENDANCE LIST
-===================================== */
-
-async function loadAttendance() {
-
-  const {
-    data,
-    error
-  } =
-  await supabaseClient
-  .from("church_attendance")
-  .select(`
-    id,
-    attendance_date,
-    present,
-    church_members (
-      full_name
-    ),
-    church_activities (
-      title
-    )
-  `)
-  .order(
-    "attendance_date",
-    {
-      ascending:
-        false
-    }
-  );
-
-
-  if (error) {
-
-    document
-    .getElementById(
-      "attendanceList"
-    )
-    .innerHTML =
-      `<div class="error">
-        ${escapeHtml(
-          error.message
-        )}
-      </div>`;
-
-    return;
-  }
-
-
-  document
-  .getElementById(
-    "attendanceList"
-  )
-  .innerHTML =
-    data.length
-    ?
-    data
-    .map(
-      a => `
-
-      <div class="record">
-
-        <strong>
-          Member:
-        </strong>
-
-        ${escapeHtml(
-          a.church_members
-          ?.full_name ||
-          "Unknown"
-        )}
-
-        <br>
-
-        <strong>
-          Activity:
-        </strong>
-
-        ${escapeHtml(
-          a.church_activities
-          ?.title ||
-          "Unknown"
-        )}
-
-        <br>
-
-        <strong>
-          Date:
-        </strong>
-
-        ${escapeHtml(
-          a.attendance_date
-        )}
-
-      </div>
-
-      `
-    )
-    .join("")
-    :
-    `<div class="empty">
-      No attendance records.
-    </div>`;
-
-}
-
-
-/* =====================================
-   INCOME
-===================================== */
-
-document
-.getElementById(
-  "incomeForm"
-)
-.addEventListener(
-  "submit",
-  async function(e) {
-
-    e.preventDefault();
-
-
-    const {
-      data: {
-        user
-      }
-    } =
-    await supabaseClient
-    .auth
-    .getUser();
-
-
-    const {
-      error
-    } =
-    await supabaseClient
-    .from("church_income")
-    .insert({
-
-      income_type:
-        document
-        .getElementById(
-          "incomeType"
-        )
-        .value,
-
-      amount:
-        Number(
-          document
-          .getElementById(
-            "incomeAmount"
-          )
-          .value
-        ),
-
-      transaction_date:
-        document
-        .getElementById(
-          "incomeDate"
-        )
-        .value ||
-        null,
-
-      description:
-        document
-        .getElementById(
-          "incomeDescription"
-        )
-        .value,
-
-      recorded_by:
-        user?.id ||
-        null
-
-    });
-
-
-    if (error) {
-
-      alert(
-        "Could not save income: " +
-        error.message
-      );
-
-      return;
-    }
-
-
-    alert(
-      "Income recorded successfully."
-    );
-
-
-    this.reset();
-
-    await loadIncome();
-
-    await loadFinance();
-
-  }
-);
-
-
-/* =====================================
-   LOAD INCOME
-===================================== */
-
-async function loadIncome() {
-
-  const {
-    data,
-    error
-  } =
-  await supabaseClient
-  .from("church_income")
-  .select("*")
-  .order(
-    "transaction_date",
-    {
-      ascending:
-        false
-    }
-  );
-
-
-  if (error) {
-
-    document
-    .getElementById(
-      "incomeList"
-    )
-    .innerHTML =
-      `<div class="error">
-        ${escapeHtml(
-          error.message
-        )}
-      </div>`;
-
-    return;
-  }
-
-
-  document
-  .getElementById(
-    "incomeList"
-  )
-  .innerHTML =
-    data.length
-    ?
-    data
-    .map(
-      i => `
-
-      <div class="record">
-
-        <strong>
-          ${escapeHtml(
-            i.income_type
-          )}
-        </strong>
-
-        <div class="money">
-          GH₵ ${Number(
-            i.amount
-          ).toFixed(2)}
-        </div>
-
-        <small>
-          ${escapeHtml(
-            i.transaction_date ||
-            ""
-          )}
-        </small>
-
-        <p>
-          ${escapeHtml(
-            i.description ||
-            ""
-          )}
-        </p>
-
-      </div>
-
-      `
-    )
-    .join("")
-    :
-    `<div class="empty">
-      No income records.
-    </div>`;
-
-}
-
-
-/* =====================================
-   EXPENSES
-===================================== */
-
-document
-.getElementById(
-  "expenseForm"
-)
-.addEventListener(
-  "submit",
-  async function(e) {
-
-    e.preventDefault();
-
-
-    const {
-      data: {
-        user
-      }
-    } =
-    await supabaseClient
-    .auth
-    .getUser();
-
-
-    const {
-      error
-    } =
-    await supabaseClient
-    .from("church_expenses")
-    .insert({
-
-      expense_type:
-        document
-        .getElementById(
-          "expenseType"
-        )
-        .value,
-
-      amount:
-        Number(
-          document
-          .getElementById(
-            "expenseAmount"
-          )
-          .value
-        ),
-
-      transaction_date:
-        document
-        .getElementById(
-          "expenseDate"
-        )
-        .value ||
-        null,
-
-      description:
-        document
-        .getElementById(
-          "expenseDescription"
-        )
-        .value,
-
-      recorded_by:
-        user?.id ||
-        null
-
-    });
-
-
-    if (error) {
-
-      alert(
-        "Could not save expense: " +
-        error.message
-      );
-
-      return;
-    }
-
-
-    alert(
-      "Expense recorded successfully."
-    );
-
-
-    this.reset();
-
-    await loadExpenses();
-
-    await loadFinance();
-
-  }
-);
-
-
-/* =====================================
-   LOAD EXPENSES
-===================================== */
-
-async function loadExpenses() {
-
-  const {
-    data,
-    error
-  } =
-  await supabaseClient
-  .from("church_expenses")
-  .select("*")
-  .order(
-    "transaction_date",
-    {
-      ascending:
-        false
-    }
-  );
-
-
-  if (error) {
-
-    document
-    .getElementById(
-      "expensesList"
-    )
-    .innerHTML =
-      `<div class="error">
-        ${escapeHtml(
-          error.message
-        )}
-      </div>`;
-
-    return;
-  }
-
-
-  document
-  .getElementById(
-    "expensesList"
-  )
-  .innerHTML =
-    data.length
-    ?
-    data
-    .map(
-      e => `
-
-      <div class="record">
-
-        <strong>
-          ${escapeHtml(
-            e.expense_type
-          )}
-        </strong>
-
-        <div class="money">
-          GH₵ ${Number(
-            e.amount
-          ).toFixed(2)}
-        </div>
-
-        <small>
-          ${escapeHtml(
-            e.transaction_date ||
-            ""
-          )}
-        </small>
-
-        <p>
-          ${escapeHtml(
-            e.description ||
-            ""
-          )}
-        </p>
-
-      </div>
-
-      `
-    )
-    .join("")
-    :
-    `<div class="empty">
-      No expense records.
-    </div>`;
-
-}
-
-
-/* =====================================
-   FINANCE SUMMARY
-===================================== */
-
-async function loadFinance() {
-
-  const {
-    data: income
-  } =
-  await supabaseClient
-  .from("church_income")
-  .select(
-    "amount"
-  );
-
-
-  const {
-    data: expenses
-  } =
-  await supabaseClient
-  .from("church_expenses")
-  .select(
-    "amount"
-  );
-
-
-  const totalIncome =
-    (income || [])
-    .reduce(
-      (
-        sum,
-        item
-      ) =>
-        sum +
-        Number(
-          item.amount ||
-          0
-        ),
-      0
-    );
-
-
-  const totalExpenses =
-    (expenses || [])
-    .reduce(
-      (
-        sum,
-        item
-      ) =>
-        sum +
-        Number(
-          item.amount ||
-          0
-        ),
-      0
-    );
-
-
-  const balance =
-    totalIncome -
-    totalExpenses;
-
-
-  document
-  .getElementById(
-    "totalIncome"
-  )
-  .textContent =
-    "GH₵ " +
-    totalIncome.toFixed(2);
-
-
-  document
-  .getElementById(
-    "totalExpenses"
-  )
-  .textContent =
-    "GH₵ " +
-    totalExpenses.toFixed(2);
-
-
-  document
-  .getElementById(
-    "balance"
-  )
-  .textContent =
-    "GH₵ " +
-    balance.toFixed(2);
-
-}
-
-
-/* =====================================
+/* ==================================================
    MENU
-===================================== */
+   ================================================== */
 
 function toggleMenu() {
 
   document
-  .getElementById(
-    "sidebar"
-  )
-  .classList
-  .toggle(
-    "open"
-  );
+    .getElementById(
+      "sidebar"
+    )
+    .classList
+    .toggle(
+      "open"
+    );
 
 }
 
@@ -3167,72 +3256,69 @@ function showSection(
 ) {
 
   document
-  .querySelectorAll(
-    ".section"
-  )
-  .forEach(
-    section =>
-      section.classList
-      .remove(
-        "active"
-      )
-  );
+    .querySelectorAll(
+      ".section"
+    )
+    .forEach(
+      section =>
+        section.classList
+          .remove(
+            "active"
+          )
+    );
 
 
   document
-  .getElementById(
-    id
-  )
-  .classList
-  .add(
-    "active"
-  );
+    .getElementById(
+      id
+    )
+    .classList
+    .add(
+      "active"
+    );
 
 
   document
-  .querySelectorAll(
-    ".menu button"
-  )
-  .forEach(
-    btn =>
-      btn.classList
-      .remove(
-        "active"
-      )
-  );
+    .querySelectorAll(
+      ".menu button"
+    )
+    .forEach(
+      btn =>
+        btn.classList
+          .remove(
+            "active"
+          )
+    );
 
 
   button.classList
-  .add(
-    "active"
-  );
+    .add(
+      "active"
+    );
 
 
   document
-  .getElementById(
-    "sidebar"
-  )
-  .classList
-  .remove(
-    "open"
-  );
+    .getElementById(
+      "sidebar"
+    )
+    .classList
+    .remove(
+      "open"
+    );
 
 }
 
 
-/* =====================================
+/* ==================================================
    LOGOUT
-===================================== */
+   ================================================== */
 
 async function logout() {
 
   await supabaseClient
-  .auth
-  .signOut();
+    .auth
+    .signOut();
 
-  localStorage.removeItem(
-    "user_profile"
-  );
 
   window.location.href =
     "index.html";
@@ -3240,9 +3326,9 @@ async function logout() {
 }
 
 
-/* =====================================
-   SECURITY
-===================================== */
+/* ==================================================
+   ESCAPE HTML
+   ================================================== */
 
 function escapeHtml(
   value
@@ -3277,4 +3363,4 @@ function escapeHtml(
 </script>
 
 </body>
-  </html>
+</html>
