@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+   <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -6,7 +6,7 @@
 
   <title>Hope of the Word Ministry - Login</title>
 
-  <!-- SUPABASE -->
+  <!-- Supabase JavaScript Library -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
@@ -19,140 +19,105 @@
 
     body {
       min-height: 100vh;
-
       display: flex;
       justify-content: center;
       align-items: center;
-
-      padding: 20px;
+      padding: 15px;
 
       background:
         linear-gradient(
-          rgba(0, 0, 0, 0.45),
-          rgba(0, 0, 0, 0.55)
+          rgba(0, 0, 0, 0.5),
+          rgba(0, 0, 0, 0.5)
         ),
         linear-gradient(
           135deg,
-          #ce1126,
-          #fcd116,
-          #006b3f
+          #ce1126 0%,
+          #fcd116 50%,
+          #006b3f 100%
         );
     }
 
-    .login-container {
+    .container {
       width: 100%;
       max-width: 430px;
     }
 
-    .login-card {
-      background: white;
+    .card {
+      background: #ffffff;
       border-radius: 18px;
-
-      padding: 30px;
-
-      box-shadow:
-        0 12px 35px rgba(0,0,0,0.3);
+      padding: 30px 25px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
     }
 
-    /* ================= CHURCH ICON ================= */
-
+    /* Church icon */
     .church-icon {
       width: 90px;
       height: 90px;
-
       margin: 0 auto 15px;
 
-      border-radius: 50%;
-
-      background: #17365d;
-
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
 
+      border-radius: 50%;
+      background: #17365d;
       color: white;
 
-      font-size: 50px;
+      font-size: 48px;
 
-      box-shadow:
-        0 5px 15px rgba(0,0,0,0.2);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
 
     .church-name {
       text-align: center;
-
       color: #17365d;
-
       font-size: 20px;
-
       font-weight: bold;
-
       line-height: 1.4;
     }
 
     .branch {
       text-align: center;
-
       color: #666;
-
       font-size: 14px;
-
       margin-top: 5px;
-
       margin-bottom: 25px;
     }
 
     h2 {
       text-align: center;
-
       color: #17365d;
-
-      margin-bottom: 20px;
-
       font-size: 20px;
+      margin-bottom: 20px;
     }
-
-    /* ================= MESSAGE ================= */
 
     .message {
       display: none;
-
       padding: 12px;
-
       border-radius: 7px;
-
       margin-bottom: 15px;
-
       font-size: 14px;
-
       line-height: 1.5;
     }
 
-    .message.error {
+    .message.show {
       display: block;
+    }
 
+    .error {
       background: #f8d7da;
-
       color: #842029;
     }
 
-    .message.success {
-      display: block;
-
+    .success {
       background: #d1e7dd;
-
       color: #0f5132;
     }
 
-    .message.info {
-      display: block;
-
+    .info {
       background: #cff4fc;
-
       color: #055160;
     }
-
-    /* ================= FORM ================= */
 
     .form-group {
       margin-bottom: 17px;
@@ -160,84 +125,59 @@
 
     label {
       display: block;
-
-      font-weight: bold;
-
-      font-size: 14px;
-
       margin-bottom: 7px;
-
+      font-size: 14px;
+      font-weight: bold;
       color: #333;
     }
 
     input {
       width: 100%;
-
       padding: 13px;
-
       border: 1px solid #ccc;
-
       border-radius: 7px;
-
       font-size: 15px;
     }
 
     input:focus {
       outline: none;
-
       border-color: #17365d;
-
-      box-shadow:
-        0 0 0 2px rgba(23,54,93,0.1);
     }
 
-    .password-box {
+    .password-wrapper {
       position: relative;
     }
 
-    .password-box input {
+    .password-wrapper input {
       padding-right: 70px;
     }
 
-    .show-password {
+    .show-btn {
       position: absolute;
-
-      right: 10px;
-
+      right: 8px;
       top: 50%;
-
       transform: translateY(-50%);
 
       border: none;
-
       background: transparent;
-
       color: #17365d;
 
-      font-size: 12px;
-
       font-weight: bold;
-
+      font-size: 12px;
       cursor: pointer;
     }
 
-    /* ================= LOGIN BUTTON ================= */
-
     .login-btn {
       width: 100%;
-
       padding: 14px;
 
       border: none;
-
       border-radius: 7px;
 
       background: #17365d;
-
       color: white;
 
       font-size: 16px;
-
       font-weight: bold;
 
       cursor: pointer;
@@ -249,76 +189,52 @@
 
     .login-btn:disabled {
       opacity: 0.6;
-
       cursor: not-allowed;
     }
 
-    /* ================= LINKS ================= */
-
-    .links {
+    .signup {
       text-align: center;
-
       margin-top: 20px;
     }
 
-    .links a {
+    .signup a {
       color: #17365d;
-
-      text-decoration: none;
-
-      font-weight: bold;
-
       font-size: 14px;
+      font-weight: bold;
+      text-decoration: none;
     }
 
-    .links a:hover {
+    .signup a:hover {
       text-decoration: underline;
     }
 
-    .footer {
-      text-align: center;
-
-      margin-top: 20px;
-
-      color: #777;
-
-      font-size: 12px;
-
-      line-height: 1.5;
-    }
-
-    /* ================= CONNECTION STATUS ================= */
-
     .connection {
       text-align: center;
-
+      margin-top: 17px;
       font-size: 12px;
-
-      margin-top: 15px;
-
-      color: #666;
     }
 
     .connected {
       color: #198754;
-
       font-weight: bold;
     }
 
-    .not-connected {
+    .disconnected {
       color: #dc3545;
-
       font-weight: bold;
     }
 
-    @media(max-width:500px) {
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      color: #777;
+      font-size: 12px;
+      line-height: 1.5;
+    }
 
-      body {
-        padding: 12px;
-      }
-
-      .login-card {
-        padding: 24px 18px;
+    @media (max-width: 500px) {
+      .card {
+        padding: 25px 18px;
       }
 
       .church-icon {
@@ -330,19 +246,17 @@
       .church-name {
         font-size: 18px;
       }
-
     }
   </style>
 </head>
 
 <body>
 
-<div class="login-container">
+<div class="container">
 
-  <div class="login-card">
+  <div class="card">
 
-    <!-- ================= CHURCH BUILDING ICON ================= -->
-
+    <!-- CHURCH BUILDING ICON -->
     <div class="church-icon">
       ⛪
     </div>
@@ -355,22 +269,14 @@
       BUOHO FRAMOASE BRANCH
     </div>
 
-
     <h2>
       Church Management System
     </h2>
 
+    <!-- MESSAGE -->
+    <div id="message" class="message"></div>
 
-    <!-- ================= MESSAGE ================= -->
-
-    <div
-      id="message"
-      class="message">
-    </div>
-
-
-    <!-- ================= LOGIN FORM ================= -->
-
+    <!-- LOGIN FORM -->
     <form id="loginForm">
 
       <div class="form-group">
@@ -388,14 +294,13 @@
 
       </div>
 
-
       <div class="form-group">
 
         <label for="password">
           Password
         </label>
 
-        <div class="password-box">
+        <div class="password-wrapper">
 
           <input
             type="password"
@@ -406,8 +311,8 @@
 
           <button
             type="button"
-            class="show-password"
-            id="showPasswordBtn">
+            class="show-btn"
+            id="showPassword">
 
             Show
 
@@ -416,7 +321,6 @@
         </div>
 
       </div>
-
 
       <button
         type="submit"
@@ -429,10 +333,8 @@
 
     </form>
 
-
-    <!-- ================= SIGN UP ================= -->
-
-    <div class="links">
+    <!-- SIGN UP -->
+    <div class="signup">
 
       <a href="signup.html">
         Create an Account
@@ -440,24 +342,18 @@
 
     </div>
 
-
-    <!-- ================= CONNECTION ================= -->
-
+    <!-- CONNECTION STATUS -->
     <div
       id="connectionStatus"
       class="connection">
 
-      Checking connection...
+      Checking Supabase connection...
 
     </div>
 
-
     <div class="footer">
-
       Hope of the Word Ministry<br>
-
       Church Management System
-
     </div>
 
   </div>
@@ -467,48 +363,121 @@
 
 <script>
 
-/* ==========================================================
-   SUPABASE CONFIGURATION
-   ========================================================== */
+/* =========================================================
+   SUPABASE SETTINGS
+   ========================================================= */
+
+/*
+   IMPORTANT:
+   Replace the two values below with your actual values.
+
+   Get them from:
+   Supabase
+   → Project
+   → Settings
+   → API
+*/
 
 const SUPABASE_URL =
-"https://lcrhoossfgxpktrvwdtj.supabase.co";
+  "YOUR_SUPABASE_URL";
 
 const SUPABASE_ANON_KEY =
-"sb_publishable_KPNyDlm7lteOz0f1bivVAw_CbTAGbtH";
+  "YOUR_SUPABASE_ANON_KEY";
 
 
-/* ==========================================================
-   CHECK SUPABASE LIBRARY
-   ========================================================== */
-
-if (!window.supabase) {
-
-  showMessage(
-    "Supabase could not load. Check your internet connection.",
-    "error"
-  );
-
-  document.getElementById(
-    "connectionStatus"
-  ).innerHTML =
-    '<span class="not-connected">● Supabase library not loaded</span>';
-
-} else {
-
-  initializeSupabase();
-
-}
-
-
-/* ==========================================================
-   INITIALIZE SUPABASE
-   ========================================================== */
+/* =========================================================
+   GLOBAL SUPABASE CLIENT
+   ========================================================= */
 
 let supabaseClient = null;
 
 
+/* =========================================================
+   START APPLICATION
+   ========================================================= */
+
+window.addEventListener("load", function() {
+
+  initializeSupabase();
+
+});
+
+
+/* =========================================================
+   INITIALIZE SUPABASE
+   ========================================================= */
+
 function initializeSupabase() {
+
+  const status =
+    document.getElementById(
+      "connectionStatus"
+    );
+
+
+  /* Check Supabase library */
+
+  if (!window.supabase) {
+
+    status.innerHTML =
+      '<span class="disconnected">' +
+      '● Supabase library did not load' +
+      '</span>';
+
+    showMessage(
+      "Supabase library could not load. Check your internet connection.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  /* Check URL */
+
+  if (
+    !SUPABASE_URL ||
+    SUPABASE_URL ===
+      "YOUR_SUPABASE_URL"
+  ) {
+
+    status.innerHTML =
+      '<span class="disconnected">' +
+      '● Supabase URL is missing' +
+      '</span>';
+
+    showMessage(
+      "Please enter your Supabase Project URL in index.html.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  /* Check key */
+
+  if (
+    !SUPABASE_ANON_KEY ||
+    SUPABASE_ANON_KEY ===
+      "YOUR_SUPABASE_ANON_KEY"
+  ) {
+
+    status.innerHTML =
+      '<span class="disconnected">' +
+      '● Supabase key is missing' +
+      '</span>';
+
+    showMessage(
+      "Please enter your Supabase public/publishable key in index.html.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  /* Create Supabase client */
 
   try {
 
@@ -519,250 +488,307 @@ function initializeSupabase() {
       );
 
 
-    document.getElementById(
-      "connectionStatus"
-    ).innerHTML =
-      '<span class="connected">● Login system ready</span>';
+    status.innerHTML =
+      '<span class="connected">' +
+      '● Supabase connection ready' +
+      '</span>';
+
+
+    console.log(
+      "Supabase client created successfully."
+    );
 
 
   } catch(error) {
 
-    console.error(error);
+    console.error(
+      "Supabase initialization error:",
+      error
+    );
 
-    document.getElementById(
-      "connectionStatus"
-    ).innerHTML =
-      '<span class="not-connected">● Supabase configuration error</span>';
+
+    status.innerHTML =
+      '<span class="disconnected">' +
+      '● Supabase configuration error' +
+      '</span>';
+
+
+    showMessage(
+      "Supabase configuration error: " +
+      error.message,
+      "error"
+    );
 
   }
 
 }
 
 
-/* ==========================================================
+/* =========================================================
    LOGIN
-   ========================================================== */
+   ========================================================= */
 
 document
-.getElementById("loginForm")
-.addEventListener(
-  "submit",
-  async function(event) {
+  .getElementById("loginForm")
+  .addEventListener(
+    "submit",
+    async function(event) {
 
-    event.preventDefault();
+      event.preventDefault();
 
 
-    if (!supabaseClient) {
+      /* Make sure Supabase is ready */
+
+      if (!supabaseClient) {
+
+        showMessage(
+          "Supabase is not connected. Check the Project URL and public key in this file.",
+          "error"
+        );
+
+        return;
+      }
+
+
+      const email =
+        document
+          .getElementById("email")
+          .value
+          .trim();
+
+
+      const password =
+        document
+          .getElementById("password")
+          .value;
+
+
+      if (!email) {
+
+        showMessage(
+          "Please enter your email address.",
+          "error"
+        );
+
+        return;
+      }
+
+
+      if (!password) {
+
+        showMessage(
+          "Please enter your password.",
+          "error"
+        );
+
+        return;
+      }
+
+
+      const button =
+        document.getElementById(
+          "loginBtn"
+        );
+
+
+      button.disabled = true;
+
+      button.textContent =
+        "Signing in...";
+
 
       showMessage(
-        "Supabase is not connected. Please check your Supabase URL and key.",
-        "error"
-      );
-
-      return;
-    }
-
-
-    const email =
-      document
-      .getElementById("email")
-      .value
-      .trim();
-
-
-    const password =
-      document
-      .getElementById("password")
-      .value;
-
-
-    if (!email || !password) {
-
-      showMessage(
-        "Please enter your email and password.",
-        "error"
-      );
-
-      return;
-    }
-
-
-    const loginButton =
-      document.getElementById(
-        "loginBtn"
+        "Signing in...",
+        "info"
       );
 
 
-    loginButton.disabled = true;
+      try {
 
-    loginButton.textContent =
-      "Signing in...";
-
-
-    showMessage(
-      "Signing in...",
-      "info"
-    );
+        console.log(
+          "Attempting Supabase login..."
+        );
 
 
-    try {
+        const result =
+          await supabaseClient.auth
+            .signInWithPassword({
 
-      const {
-        data,
-        error
-      } =
-      await supabaseClient.auth
-      .signInWithPassword({
+              email: email,
 
-        email: email,
+              password: password
 
-        password: password
-
-      });
+            });
 
 
-      if (error) {
+        const data =
+          result.data;
+
+        const error =
+          result.error;
+
+
+        console.log(
+          "Login response:",
+          result
+        );
+
+
+        /* Login error */
+
+        if (error) {
+
+          console.error(
+            "Supabase login error:",
+            error
+          );
+
+
+          showMessage(
+            getLoginErrorMessage(error),
+            "error"
+          );
+
+
+          button.disabled =
+            false;
+
+          button.textContent =
+            "Login";
+
+          return;
+        }
+
+
+        /* No user */
+
+        if (
+          !data ||
+          !data.user
+        ) {
+
+          showMessage(
+            "Login failed because Supabase did not return a user.",
+            "error"
+          );
+
+
+          button.disabled =
+            false;
+
+          button.textContent =
+            "Login";
+
+          return;
+        }
+
+
+        /* ==========================================
+           SUCCESS
+           ========================================== */
+
+        console.log(
+          "User logged in:",
+          data.user.id
+        );
+
+
+        showMessage(
+          "Login successful. Opening dashboard...",
+          "success"
+        );
+
+
+        button.textContent =
+          "Opening...";
+
+
+        setTimeout(
+          function() {
+
+            window.location.href =
+              "dashboard.html";
+
+          },
+          700
+        );
+
+      }
+
+
+      catch(error) {
 
         console.error(
-          "SUPABASE LOGIN ERROR:",
+          "Unexpected login error:",
           error
         );
 
 
         showMessage(
-          getLoginError(error),
+          "Login error: " +
+          error.message,
           "error"
         );
 
 
-        loginButton.disabled =
+        button.disabled =
           false;
 
-        loginButton.textContent =
+        button.textContent =
           "Login";
 
-        return;
       }
-
-
-      if (!data || !data.user) {
-
-        showMessage(
-          "Login failed. No user account was returned.",
-          "error"
-        );
-
-
-        loginButton.disabled =
-          false;
-
-        loginButton.textContent =
-          "Login";
-
-        return;
-      }
-
-
-      /* ==============================================
-         LOGIN SUCCESS
-         ============================================== */
-
-      showMessage(
-        "Login successful. Opening dashboard...",
-        "success"
-      );
-
-
-      /*
-        We deliberately do NOT require
-        church profile information here.
-      */
-
-
-      setTimeout(
-        function() {
-
-          window.location.href =
-            "dashboard.html";
-
-        },
-        700
-      );
-
-
-    } catch(error) {
-
-      console.error(
-        "LOGIN ERROR:",
-        error
-      );
-
-
-      showMessage(
-        "Unable to connect to the login system: " +
-        error.message,
-        "error"
-      );
-
-
-      loginButton.disabled =
-        false;
-
-      loginButton.textContent =
-        "Login";
 
     }
-
-  }
-);
+  );
 
 
-/* ==========================================================
-   SHOW PASSWORD
-   ========================================================== */
+/* =========================================================
+   SHOW / HIDE PASSWORD
+   ========================================================= */
 
 document
-.getElementById("showPasswordBtn")
-.addEventListener(
-  "click",
-  function() {
+  .getElementById("showPassword")
+  .addEventListener(
+    "click",
+    function() {
 
-    const password =
-      document.getElementById(
+      const password =
+        document.getElementById(
+          "password"
+        );
+
+
+      if (
+        password.type ===
         "password"
-      );
+      ) {
 
+        password.type =
+          "text";
 
-    if (
-      password.type ===
-      "password"
-    ) {
+        this.textContent =
+          "Hide";
 
-      password.type =
-        "text";
+      } else {
 
-      this.textContent =
-        "Hide";
+        password.type =
+          "password";
 
-    } else {
+        this.textContent =
+          "Show";
 
-      password.type =
-        "password";
-
-      this.textContent =
-        "Show";
+      }
 
     }
-
-  }
-);
+  );
 
 
-/* ==========================================================
-   ERROR HANDLING
-   ========================================================== */
+/* =========================================================
+   LOGIN ERROR MESSAGE
+   ========================================================= */
 
-function getLoginError(error) {
+function getLoginErrorMessage(error) {
 
   const message =
     String(
@@ -776,7 +802,9 @@ function getLoginError(error) {
     )
   ) {
 
-    return "Incorrect email or password.";
+    return (
+      "Incorrect email or password."
+    );
 
   }
 
@@ -787,7 +815,9 @@ function getLoginError(error) {
     )
   ) {
 
-    return "Your email has not been confirmed in Supabase.";
+    return (
+      "Your email has not been confirmed in Supabase."
+    );
 
   }
 
@@ -798,7 +828,9 @@ function getLoginError(error) {
     )
   ) {
 
-    return "Cannot connect to Supabase. Check your Supabase URL and internet connection.";
+    return (
+      "Cannot connect to Supabase. Check your internet connection and Project URL."
+    );
 
   }
 
@@ -809,7 +841,22 @@ function getLoginError(error) {
     )
   ) {
 
-    return "Network connection problem. Check your internet connection.";
+    return (
+      "Network error. Please check your internet connection."
+    );
+
+  }
+
+
+  if (
+    message.includes(
+      "invalid api key"
+    )
+  ) {
+
+    return (
+      "The Supabase public/publishable key is incorrect."
+    );
 
   }
 
@@ -822,9 +869,9 @@ function getLoginError(error) {
 }
 
 
-/* ==========================================================
-   MESSAGE
-   ========================================================== */
+/* =========================================================
+   SHOW MESSAGE
+   ========================================================= */
 
 function showMessage(
   text,
@@ -842,11 +889,12 @@ function showMessage(
 
 
   message.className =
-    "message " + type;
+    "message show " +
+    type;
 
 }
 
 </script>
 
 </body>
-  </html>
+</html>
