@@ -1,4 +1,4 @@
-   <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -6,7 +6,7 @@
 
   <title>Hope of the Word Ministry - Login</title>
 
-  <!-- Supabase JavaScript Library -->
+  <!-- SUPABASE -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
@@ -19,21 +19,19 @@
 
     body {
       min-height: 100vh;
+
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 15px;
+
+      padding: 20px;
 
       background:
         linear-gradient(
-          rgba(0, 0, 0, 0.5),
-          rgba(0, 0, 0, 0.5)
-        ),
-        linear-gradient(
           135deg,
-          #ce1126 0%,
-          #fcd116 50%,
-          #006b3f 100%
+          #0b1f3a 0%,
+          #17365d 55%,
+          #1f4e79 100%
         );
     }
 
@@ -44,59 +42,98 @@
 
     .card {
       background: #ffffff;
+
       border-radius: 18px;
-      padding: 30px 25px;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+
+      padding: 35px 30px;
+
+      border-top: 5px solid #c9a227;
+
+      box-shadow:
+        0 15px 40px rgba(0,0,0,0.25);
     }
 
-    /* Church icon */
+    /* ================= CHURCH ICON ================= */
+
     .church-icon {
       width: 90px;
       height: 90px;
-      margin: 0 auto 15px;
+
+      margin: 0 auto 18px;
 
       display: flex;
       align-items: center;
       justify-content: center;
 
       border-radius: 50%;
+
       background: #17365d;
-      color: white;
+
+      color: #d4af37;
 
       font-size: 48px;
 
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      border: 4px solid #d4af37;
+
+      box-shadow:
+        0 5px 18px rgba(0,0,0,0.18);
     }
 
     .church-name {
       text-align: center;
+
       color: #17365d;
-      font-size: 20px;
-      font-weight: bold;
+
+      font-size: 21px;
+
+      font-weight: 700;
+
+      letter-spacing: 0.3px;
+
       line-height: 1.4;
     }
 
     .branch {
       text-align: center;
-      color: #666;
-      font-size: 14px;
-      margin-top: 5px;
-      margin-bottom: 25px;
+
+      color: #8a6d1d;
+
+      font-size: 13px;
+
+      font-weight: 600;
+
+      letter-spacing: 0.5px;
+
+      margin-top: 6px;
+
+      margin-bottom: 28px;
     }
 
-    h2 {
+    .system-title {
       text-align: center;
+
       color: #17365d;
+
       font-size: 20px;
-      margin-bottom: 20px;
+
+      font-weight: 700;
+
+      margin-bottom: 22px;
     }
+
+    /* ================= MESSAGE ================= */
 
     .message {
       display: none;
+
       padding: 12px;
-      border-radius: 7px;
+
+      border-radius: 8px;
+
       margin-bottom: 15px;
+
       font-size: 14px;
+
       line-height: 1.5;
     }
 
@@ -104,44 +141,73 @@
       display: block;
     }
 
-    .error {
+    .message.error {
       background: #f8d7da;
+
       color: #842029;
+
+      border-left: 4px solid #b42318;
     }
 
-    .success {
+    .message.success {
       background: #d1e7dd;
+
       color: #0f5132;
+
+      border-left: 4px solid #198754;
     }
 
-    .info {
-      background: #cff4fc;
-      color: #055160;
+    .message.info {
+      background: #e8f1fa;
+
+      color: #17365d;
+
+      border-left: 4px solid #17365d;
     }
+
+    /* ================= FORM ================= */
 
     .form-group {
-      margin-bottom: 17px;
+      margin-bottom: 18px;
     }
 
     label {
       display: block;
+
       margin-bottom: 7px;
+
       font-size: 14px;
-      font-weight: bold;
-      color: #333;
+
+      font-weight: 600;
+
+      color: #263238;
     }
 
     input {
       width: 100%;
+
       padding: 13px;
-      border: 1px solid #ccc;
-      border-radius: 7px;
+
+      border: 1px solid #d5d9df;
+
+      border-radius: 8px;
+
+      background: #fafbfc;
+
       font-size: 15px;
+
+      color: #222;
     }
 
     input:focus {
       outline: none;
-      border-color: #17365d;
+
+      border-color: #c9a227;
+
+      background: #ffffff;
+
+      box-shadow:
+        0 0 0 3px rgba(201,162,39,0.12);
     }
 
     .password-wrapper {
@@ -154,98 +220,153 @@
 
     .show-btn {
       position: absolute;
-      right: 8px;
+
+      right: 9px;
+
       top: 50%;
+
       transform: translateY(-50%);
 
       border: none;
+
       background: transparent;
+
       color: #17365d;
 
-      font-weight: bold;
       font-size: 12px;
+
+      font-weight: bold;
+
       cursor: pointer;
     }
+
+    .show-btn:hover {
+      color: #c9a227;
+    }
+
+    /* ================= LOGIN BUTTON ================= */
 
     .login-btn {
       width: 100%;
+
       padding: 14px;
 
       border: none;
-      border-radius: 7px;
+
+      border-radius: 8px;
 
       background: #17365d;
-      color: white;
+
+      color: #ffffff;
 
       font-size: 16px;
-      font-weight: bold;
+
+      font-weight: 700;
 
       cursor: pointer;
+
+      transition: 0.2s;
     }
 
     .login-btn:hover {
-      background: #245a91;
+      background: #0b1f3a;
     }
 
     .login-btn:disabled {
-      opacity: 0.6;
+      background: #7b8794;
+
       cursor: not-allowed;
     }
 
+    /* ================= SIGN UP ================= */
+
     .signup {
       text-align: center;
+
       margin-top: 20px;
     }
 
     .signup a {
       color: #17365d;
+
       font-size: 14px;
-      font-weight: bold;
+
+      font-weight: 700;
+
       text-decoration: none;
     }
 
     .signup a:hover {
+      color: #c9a227;
+
       text-decoration: underline;
     }
 
+    /* ================= CONNECTION ================= */
+
     .connection {
       text-align: center;
-      margin-top: 17px;
+
+      margin-top: 18px;
+
       font-size: 12px;
+
+      color: #667085;
     }
 
     .connected {
       color: #198754;
-      font-weight: bold;
+
+      font-weight: 600;
     }
 
     .disconnected {
-      color: #dc3545;
-      font-weight: bold;
+      color: #b42318;
+
+      font-weight: 600;
     }
+
+    /* ================= FOOTER ================= */
 
     .footer {
       text-align: center;
-      margin-top: 20px;
-      color: #777;
+
+      margin-top: 22px;
+
+      color: #98a2b3;
+
       font-size: 12px;
-      line-height: 1.5;
+
+      line-height: 1.6;
     }
 
+    /* ================= MOBILE ================= */
+
     @media (max-width: 500px) {
+
+      body {
+        padding: 12px;
+      }
+
       .card {
-        padding: 25px 18px;
+        padding: 30px 20px;
       }
 
       .church-icon {
-        width: 80px;
-        height: 80px;
-        font-size: 42px;
+        width: 82px;
+        height: 82px;
+
+        font-size: 43px;
       }
 
       .church-name {
         font-size: 18px;
       }
+
+      .system-title {
+        font-size: 18px;
+      }
+
     }
   </style>
 </head>
@@ -257,9 +378,13 @@
   <div class="card">
 
     <!-- CHURCH BUILDING ICON -->
+
     <div class="church-icon">
       ⛪
     </div>
+
+
+    <!-- CHURCH NAME -->
 
     <div class="church-name">
       HOPE OF THE WORD MINISTRY
@@ -269,14 +394,24 @@
       BUOHO FRAMOASE BRANCH
     </div>
 
-    <h2>
+
+    <!-- SYSTEM TITLE -->
+
+    <div class="system-title">
       Church Management System
-    </h2>
+    </div>
+
 
     <!-- MESSAGE -->
-    <div id="message" class="message"></div>
+
+    <div
+      id="message"
+      class="message">
+    </div>
+
 
     <!-- LOGIN FORM -->
+
     <form id="loginForm">
 
       <div class="form-group">
@@ -293,6 +428,7 @@
           required>
 
       </div>
+
 
       <div class="form-group">
 
@@ -322,6 +458,7 @@
 
       </div>
 
+
       <button
         type="submit"
         class="login-btn"
@@ -333,7 +470,9 @@
 
     </form>
 
-    <!-- SIGN UP -->
+
+    <!-- CREATE ACCOUNT -->
+
     <div class="signup">
 
       <a href="signup.html">
@@ -342,7 +481,9 @@
 
     </div>
 
-    <!-- CONNECTION STATUS -->
+
+    <!-- SUPABASE CONNECTION STATUS -->
+
     <div
       id="connectionStatus"
       class="connection">
@@ -351,9 +492,15 @@
 
     </div>
 
+
+    <!-- FOOTER -->
+
     <div class="footer">
+
       Hope of the Word Ministry<br>
+
       Church Management System
+
     </div>
 
   </div>
@@ -364,43 +511,43 @@
 <script>
 
 /* =========================================================
-   SUPABASE SETTINGS
+   SUPABASE CONFIGURATION
    ========================================================= */
 
 /*
    IMPORTANT:
-   Replace the two values below with your actual values.
+   Put your existing Supabase Project URL and
+   public/publishable/anon key here.
 
-   Get them from:
-   Supabase
-   → Project
-   → Settings
-   → API
+   DO NOT use the service_role or secret key.
 */
 
 const SUPABASE_URL =
-  "https://lcrhoossfgxpktrvwdtj.supabase.co";
+  "YOUR_SUPABASE_URL";
 
 const SUPABASE_ANON_KEY =
-  "sb_publishable_KPNyDlm7lteOz0f1bivVAw_CbTAGbtH";
+  "YOUR_SUPABASE_ANON_KEY";
 
 
 /* =========================================================
-   GLOBAL SUPABASE CLIENT
+   SUPABASE CLIENT
    ========================================================= */
 
 let supabaseClient = null;
 
 
 /* =========================================================
-   START APPLICATION
+   START
    ========================================================= */
 
-window.addEventListener("load", function() {
+window.addEventListener(
+  "load",
+  function() {
 
-  initializeSupabase();
+    initializeSupabase();
 
-});
+  }
+);
 
 
 /* =========================================================
@@ -415,17 +562,17 @@ function initializeSupabase() {
     );
 
 
-  /* Check Supabase library */
+  /* Check library */
 
   if (!window.supabase) {
 
     status.innerHTML =
       '<span class="disconnected">' +
-      '● Supabase library did not load' +
+      '● Supabase library not loaded' +
       '</span>';
 
     showMessage(
-      "Supabase library could not load. Check your internet connection.",
+      "Supabase could not load. Please check your internet connection.",
       "error"
     );
 
@@ -438,7 +585,7 @@ function initializeSupabase() {
   if (
     !SUPABASE_URL ||
     SUPABASE_URL ===
-      "https://lcrhoossfgxpktrvwdtj.supabase.co"
+      "YOUR_SUPABASE_URL"
   ) {
 
     status.innerHTML =
@@ -447,7 +594,7 @@ function initializeSupabase() {
       '</span>';
 
     showMessage(
-      "Please enter your Supabase Project URL in index.html.",
+      "Your Supabase Project URL has not been entered.",
       "error"
     );
 
@@ -460,7 +607,7 @@ function initializeSupabase() {
   if (
     !SUPABASE_ANON_KEY ||
     SUPABASE_ANON_KEY ===
-      "sb_publishable_KPNyDlm7lteOz0f1bivVAw_CbTAGbtH"
+      "YOUR_SUPABASE_ANON_KEY"
   ) {
 
     status.innerHTML =
@@ -469,15 +616,13 @@ function initializeSupabase() {
       '</span>';
 
     showMessage(
-      "Please enter your Supabase public/publishable key in index.html.",
+      "Your Supabase public/publishable key has not been entered.",
       "error"
     );
 
     return;
   }
 
-
-  /* Create Supabase client */
 
   try {
 
@@ -495,11 +640,12 @@ function initializeSupabase() {
 
 
     console.log(
-      "Supabase client created successfully."
+      "Supabase client initialized successfully."
     );
 
+  }
 
-  } catch(error) {
+  catch(error) {
 
     console.error(
       "Supabase initialization error:",
@@ -537,12 +683,10 @@ document
       event.preventDefault();
 
 
-      /* Make sure Supabase is ready */
-
       if (!supabaseClient) {
 
         showMessage(
-          "Supabase is not connected. Check the Project URL and public key in this file.",
+          "Supabase is not connected. Please check your Project URL and public key.",
           "error"
         );
 
@@ -585,15 +729,15 @@ document
       }
 
 
-      const button =
+      const loginButton =
         document.getElementById(
           "loginBtn"
         );
 
 
-      button.disabled = true;
+      loginButton.disabled = true;
 
-      button.textContent =
+      loginButton.textContent =
         "Signing in...";
 
 
@@ -605,12 +749,10 @@ document
 
       try {
 
-        console.log(
-          "Attempting Supabase login..."
-        );
-
-
-        const result =
+        const {
+          data,
+          error
+        } =
           await supabaseClient.auth
             .signInWithPassword({
 
@@ -621,46 +763,29 @@ document
             });
 
 
-        const data =
-          result.data;
-
-        const error =
-          result.error;
-
-
-        console.log(
-          "Login response:",
-          result
-        );
-
-
-        /* Login error */
-
         if (error) {
 
           console.error(
-            "Supabase login error:",
+            "Login error:",
             error
           );
 
 
           showMessage(
-            getLoginErrorMessage(error),
+            getLoginError(error),
             "error"
           );
 
 
-          button.disabled =
+          loginButton.disabled =
             false;
 
-          button.textContent =
+          loginButton.textContent =
             "Login";
 
           return;
         }
 
-
-        /* No user */
 
         if (
           !data ||
@@ -668,30 +793,22 @@ document
         ) {
 
           showMessage(
-            "Login failed because Supabase did not return a user.",
+            "Login failed. No user account was returned.",
             "error"
           );
 
 
-          button.disabled =
+          loginButton.disabled =
             false;
 
-          button.textContent =
+          loginButton.textContent =
             "Login";
 
           return;
         }
 
 
-        /* ==========================================
-           SUCCESS
-           ========================================== */
-
-        console.log(
-          "User logged in:",
-          data.user.id
-        );
-
+        /* LOGIN SUCCESS */
 
         showMessage(
           "Login successful. Opening dashboard...",
@@ -699,7 +816,7 @@ document
         );
 
 
-        button.textContent =
+        loginButton.textContent =
           "Opening...";
 
 
@@ -714,7 +831,6 @@ document
         );
 
       }
-
 
       catch(error) {
 
@@ -731,10 +847,10 @@ document
         );
 
 
-        button.disabled =
+        loginButton.disabled =
           false;
 
-        button.textContent =
+        loginButton.textContent =
           "Login";
 
       }
@@ -770,7 +886,9 @@ document
         this.textContent =
           "Hide";
 
-      } else {
+      }
+
+      else {
 
         password.type =
           "password";
@@ -785,10 +903,10 @@ document
 
 
 /* =========================================================
-   LOGIN ERROR MESSAGE
+   LOGIN ERROR
    ========================================================= */
 
-function getLoginErrorMessage(error) {
+function getLoginError(error) {
 
   const message =
     String(
@@ -837,19 +955,6 @@ function getLoginErrorMessage(error) {
 
   if (
     message.includes(
-      "network"
-    )
-  ) {
-
-    return (
-      "Network error. Please check your internet connection."
-    );
-
-  }
-
-
-  if (
-    message.includes(
       "invalid api key"
     )
   ) {
@@ -870,7 +975,7 @@ function getLoginErrorMessage(error) {
 
 
 /* =========================================================
-   SHOW MESSAGE
+   MESSAGE
    ========================================================= */
 
 function showMessage(
@@ -897,4 +1002,4 @@ function showMessage(
 </script>
 
 </body>
-</html>
+   </html>
