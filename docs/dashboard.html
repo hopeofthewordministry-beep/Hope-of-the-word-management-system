@@ -21,7 +21,8 @@ body {
   color: #222;
 }
 
-/* SIDEBAR */
+/* ================= SIDEBAR ================= */
+
 .sidebar {
   position: fixed;
   left: 0;
@@ -66,7 +67,8 @@ body {
   background: #b42318 !important;
 }
 
-/* MAIN */
+/* ================= MAIN ================= */
+
 .main {
   margin-left: 250px;
   padding: 25px;
@@ -84,7 +86,8 @@ body {
   font-size: 15px;
 }
 
-/* TOP BAR */
+/* ================= TOP BAR ================= */
+
 .topbar {
   background: white;
   padding: 18px 20px;
@@ -106,7 +109,8 @@ body {
   color: #555;
 }
 
-/* SECTIONS */
+/* ================= SECTIONS ================= */
+
 .section {
   display: none;
 }
@@ -115,7 +119,8 @@ body {
   display: block;
 }
 
-/* CARDS */
+/* ================= CARDS ================= */
+
 .cards {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -142,7 +147,8 @@ body {
   color: #17365d;
 }
 
-/* PANELS */
+/* ================= PANELS ================= */
+
 .panel {
   background: white;
   border-radius: 10px;
@@ -156,7 +162,8 @@ body {
   color: #17365d;
 }
 
-/* FORM */
+/* ================= FORMS ================= */
+
 .form-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -166,10 +173,6 @@ body {
 .form-group {
   display: flex;
   flex-direction: column;
-}
-
-.form-group.full {
-  grid-column: 1 / -1;
 }
 
 label {
@@ -194,7 +197,8 @@ select:focus {
   border-color: #245a91;
 }
 
-/* BUTTONS */
+/* ================= BUTTONS ================= */
+
 .buttons {
   display: flex;
   gap: 10px;
@@ -234,7 +238,8 @@ select:focus {
   cursor: not-allowed;
 }
 
-/* SEARCH */
+/* ================= SEARCH ================= */
+
 .search-box {
   margin-bottom: 15px;
 }
@@ -243,7 +248,8 @@ select:focus {
   max-width: 450px;
 }
 
-/* TABLE */
+/* ================= TABLE ================= */
+
 .table-container {
   overflow-x: auto;
 }
@@ -251,7 +257,7 @@ select:focus {
 table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 1100px;
+  min-width: 850px;
 }
 
 th,
@@ -271,7 +277,8 @@ tr:hover {
   background: #f8f9fa;
 }
 
-/* STATUS */
+/* ================= STATUS ================= */
+
 .status {
   display: inline-block;
   padding: 4px 8px;
@@ -295,7 +302,8 @@ tr:hover {
   color: #842029;
 }
 
-/* TABLE BUTTONS */
+/* ================= TABLE BUTTONS ================= */
+
 .small-btn {
   padding: 6px 9px;
   border: none;
@@ -315,7 +323,8 @@ tr:hover {
   color: white;
 }
 
-/* MESSAGES */
+/* ================= MESSAGES ================= */
+
 .message {
   display: none;
   padding: 12px;
@@ -336,7 +345,8 @@ tr:hover {
   color: #842029;
 }
 
-/* OTHER */
+/* ================= OTHER ================= */
+
 .loading {
   text-align: center;
   padding: 20px;
@@ -349,7 +359,8 @@ tr:hover {
   color: #777;
 }
 
-/* TABLET */
+/* ================= TABLET ================= */
+
 @media (max-width: 900px) {
 
   .sidebar {
@@ -365,7 +376,8 @@ tr:hover {
   }
 }
 
-/* MOBILE */
+/* ================= MOBILE ================= */
+
 @media (max-width: 700px) {
 
   .sidebar {
@@ -405,10 +417,6 @@ tr:hover {
     grid-template-columns: 1fr;
   }
 
-  .form-group.full {
-    grid-column: auto;
-  }
-
   .buttons {
     flex-direction: column;
   }
@@ -418,7 +426,8 @@ tr:hover {
   }
 }
 
-/* VERY SMALL PHONES */
+/* ================= SMALL PHONES ================= */
+
 @media (max-width: 400px) {
 
   .cards {
@@ -605,16 +614,8 @@ tr:hover {
           </div>
 
 
-          <div class="form-group">
-            <label>Date of Registration</label>
-
-            <input
-              type="date"
-              id="registrationDate">
-          </div>
-
-
-          <!-- LOCATION ONLY ONCE -->
+          <!-- LOCATION -->
+          <!-- This is saved to Supabase as ADDRESS -->
 
           <div class="form-group">
             <label>Location</label>
@@ -623,52 +624,6 @@ tr:hover {
               type="text"
               id="location"
               placeholder="Enter location">
-          </div>
-
-
-          <div class="form-group">
-            <label>Department / Ministry</label>
-
-            <select id="department">
-
-              <option value="">
-                Select Department
-              </option>
-
-              <option value="Men's Fellowship">
-                Men's Fellowship
-              </option>
-
-              <option value="Women's Fellowship">
-                Women's Fellowship
-              </option>
-
-              <option value="Children's Fellowship">
-                Children's Fellowship
-              </option>
-
-            </select>
-          </div>
-
-
-          <div class="form-group">
-            <label>Baptism Status</label>
-
-            <select id="baptismStatus">
-
-              <option value="">
-                Select
-              </option>
-
-              <option value="yes">
-                Yes
-              </option>
-
-              <option value="no">
-                No
-              </option>
-
-            </select>
           </div>
 
 
@@ -723,7 +678,7 @@ tr:hover {
     </div>
 
 
-    <!-- MEMBERS TABLE -->
+    <!-- ================= MEMBERS TABLE ================= -->
 
     <div class="panel">
 
@@ -747,19 +702,14 @@ tr:hover {
           <thead>
 
             <tr>
-
               <th>#</th>
               <th>Full Name</th>
               <th>Phone</th>
               <th>Gender</th>
               <th>Date of Birth</th>
-              <th>Registration</th>
               <th>Location</th>
-              <th>Department</th>
-              <th>Baptism</th>
               <th>Status</th>
               <th>Actions</th>
-
             </tr>
 
           </thead>
@@ -768,15 +718,9 @@ tr:hover {
           <tbody id="membersTableBody">
 
             <tr>
-
-              <td
-                colspan="11"
-                class="loading">
-
+              <td colspan="8" class="loading">
                 Loading members...
-
               </td>
-
             </tr>
 
           </tbody>
@@ -849,7 +793,6 @@ tr:hover {
 
     </div>
 
-
     <div class="panel">
 
       <h2>Finances</h2>
@@ -918,7 +861,7 @@ const supabaseClient =
 
 
 /* =========================================================
-   GLOBAL VARIABLES
+   VARIABLES
    ========================================================= */
 
 let members = [];
@@ -926,19 +869,12 @@ let editingMemberId = null;
 
 
 /* =========================================================
-   PAGE START
+   START
    ========================================================= */
 
 document.addEventListener(
   "DOMContentLoaded",
   async function () {
-
-    document
-      .getElementById("registrationDate")
-      .value =
-      new Date()
-        .toISOString()
-        .split("T")[0];
 
     await checkUser();
 
@@ -949,100 +885,53 @@ document.addEventListener(
 
 
 /* =========================================================
-   CHECK USER
+   CHECK LOGGED-IN USER
    ========================================================= */
 
 async function checkUser() {
 
-  const {
-    data,
-    error
-  } =
-    await supabaseClient.auth.getUser();
-
-
-  if (error || !data.user) {
-
-    window.location.href =
-      "index.html";
-
-    return;
-
-  }
-
-
-  const user =
-    data.user;
-
-
-  let displayName =
-    user.email || "User";
-
-
   try {
 
     const {
-      data: profile
+      data,
+      error
     } =
-      await supabaseClient
-        .from("user_profiles")
-        .select(
-          "full_name, role, status"
-        )
-        .eq(
-          "auth_user_id",
-          user.id
-        )
-        .maybeSingle();
+      await supabaseClient.auth.getUser();
 
 
-    if (profile) {
+    if (error || !data.user) {
 
-      displayName =
-        profile.full_name ||
-        user.email ||
-        "User";
+      window.location.href =
+        "index.html";
 
-
-      if (
-        profile.status &&
-        String(profile.status)
-          .toLowerCase() === "pending"
-      ) {
-
-        alert(
-          "Your account is still pending administrator approval."
-        );
-
-        await supabaseClient
-          .auth
-          .signOut();
-
-        window.location.href =
-          "index.html";
-
-        return;
-
-      }
+      return;
 
     }
+
+
+    const user =
+      data.user;
+
+
+    document
+      .getElementById("currentUser")
+      .textContent =
+      user.email || "User";
+
 
   }
 
   catch (error) {
 
-    console.log(
-      "Profile check:",
-      error.message
+    console.error(
+      "User check error:",
+      error
     );
 
+    window.location.href =
+      "index.html";
+
   }
-
-
-  document
-    .getElementById("currentUser")
-    .textContent =
-    displayName;
 
 }
 
@@ -1053,22 +942,52 @@ async function checkUser() {
 
 async function loadMembers() {
 
+  const tbody =
+    document.getElementById(
+      "membersTableBody"
+    );
+
+
+  tbody.innerHTML = `
+    <tr>
+      <td colspan="8" class="loading">
+        Loading members...
+      </td>
+    </tr>
+  `;
+
+
   const {
     data,
     error
   } =
     await supabaseClient
       .from("church_members")
-      .select("*")
+      .select(
+        "id, full_name, phone, gender, date_of_birth, address, membership_status, created_at"
+      )
       .order(
         "created_at",
-        { ascending: false }
+        {
+          ascending: false
+        }
       );
 
 
   if (error) {
 
-    console.error(error);
+    console.error(
+      "Load members error:",
+      error
+    );
+
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="8" class="empty">
+          Unable to load members.
+        </td>
+      </tr>
+    `;
 
     showMessage(
       "memberMessage",
@@ -1086,9 +1005,14 @@ async function loadMembers() {
     data || [];
 
 
-  displayMembers(members);
+  displayMembers(
+    members
+  );
 
-  updateStatistics(members);
+
+  updateStatistics(
+    members
+  );
 
 }
 
@@ -1109,7 +1033,7 @@ function displayMembers(list) {
 
     tbody.innerHTML = `
       <tr>
-        <td colspan="11" class="empty">
+        <td colspan="8" class="empty">
           No members found.
         </td>
       </tr>
@@ -1122,7 +1046,7 @@ function displayMembers(list) {
 
   tbody.innerHTML =
     list.map(
-      (member, index) => {
+      function (member, index) {
 
         const status =
           String(
@@ -1135,7 +1059,9 @@ function displayMembers(list) {
           "status-active";
 
 
-        if (status === "inactive") {
+        if (
+          status === "inactive"
+        ) {
 
           statusClass =
             "status-inactive";
@@ -1143,7 +1069,9 @@ function displayMembers(list) {
         }
 
 
-        if (status === "stopped") {
+        if (
+          status === "stopped"
+        ) {
 
           statusClass =
             "status-stopped";
@@ -1154,7 +1082,9 @@ function displayMembers(list) {
         return `
           <tr>
 
-            <td>${index + 1}</td>
+            <td>
+              ${index + 1}
+            </td>
 
             <td>
               ${escapeHtml(
@@ -1182,25 +1112,7 @@ function displayMembers(list) {
 
             <td>
               ${escapeHtml(
-                member.registration_date || ""
-              )}
-            </td>
-
-            <td>
-              ${escapeHtml(
-                member.location || ""
-              )}
-            </td>
-
-            <td>
-              ${escapeHtml(
-                member.department || ""
-              )}
-            </td>
-
-            <td>
-              ${escapeHtml(
-                member.baptism_status || ""
+                member.address || ""
               )}
             </td>
 
@@ -1216,17 +1128,13 @@ function displayMembers(list) {
               <button
                 class="small-btn edit-btn"
                 onclick="editMember('${member.id}')">
-
                 Edit
-
               </button>
 
               <button
                 class="small-btn delete-btn"
                 onclick="deleteMember('${member.id}')">
-
                 Delete
-
               </button>
 
             </td>
@@ -1248,25 +1156,37 @@ function updateStatistics(list) {
 
   const men =
     list.filter(
-      member =>
-        String(member.gender || "")
-          .toLowerCase() === "male"
+      function (member) {
+
+        return String(
+          member.gender || ""
+        ).toLowerCase() === "male";
+
+      }
     ).length;
 
 
   const women =
     list.filter(
-      member =>
-        String(member.gender || "")
-          .toLowerCase() === "female"
+      function (member) {
+
+        return String(
+          member.gender || ""
+        ).toLowerCase() === "female";
+
+      }
     ).length;
 
 
   const children =
     list.filter(
-      member =>
-        String(member.gender || "")
-          .toLowerCase() === "child"
+      function (member) {
+
+        return String(
+          member.gender || ""
+        ).toLowerCase() === "child";
+
+      }
     ).length;
 
 
@@ -1318,8 +1238,21 @@ document
       button.disabled = true;
 
       button.textContent =
-        "Saving...";
+        editingMemberId
+          ? "Updating..."
+          : "Saving...";
 
+
+      /*
+       * IMPORTANT:
+       *
+       * The website calls this field "Location".
+       *
+       * Supabase column is "address".
+       *
+       * There is NO "location" column
+       * being sent to Supabase.
+       */
 
       const memberData = {
 
@@ -1345,29 +1278,11 @@ document
             .getElementById("dateOfBirth")
             .value || null,
 
-        registration_date:
-          document
-            .getElementById("registrationDate")
-            .value ||
-          new Date()
-            .toISOString()
-            .split("T")[0],
-
-        location:
+        address:
           document
             .getElementById("location")
             .value
             .trim() || null,
-
-        department:
-          document
-            .getElementById("department")
-            .value || null,
-
-        baptism_status:
-          document
-            .getElementById("baptismStatus")
-            .value || null,
 
         membership_status:
           document
@@ -1399,6 +1314,8 @@ document
       let result;
 
 
+      /* UPDATE */
+
       if (editingMemberId) {
 
         result =
@@ -1411,6 +1328,9 @@ document
             );
 
       }
+
+
+      /* INSERT */
 
       else {
 
@@ -1427,6 +1347,7 @@ document
       if (result.error) {
 
         console.error(
+          "Save member error:",
           result.error
         );
 
@@ -1452,6 +1373,7 @@ document
 
         clearMemberForm();
 
+
         await loadMembers();
 
       }
@@ -1474,13 +1396,20 @@ function editMember(id) {
 
   const member =
     members.find(
-      item =>
-        String(item.id) ===
-        String(id)
+      function (item) {
+
+        return String(item.id) ===
+          String(id);
+
+      }
     );
 
 
-  if (!member) return;
+  if (!member) {
+
+    return;
+
+  }
 
 
   editingMemberId =
@@ -1517,28 +1446,15 @@ function editMember(id) {
     member.date_of_birth || "";
 
 
-  document
-    .getElementById("registrationDate")
-    .value =
-    member.registration_date || "";
-
+  /*
+   * Database address
+   * appears as Location on screen.
+   */
 
   document
     .getElementById("location")
     .value =
-    member.location || "";
-
-
-  document
-    .getElementById("department")
-    .value =
-    member.department || "";
-
-
-  document
-    .getElementById("baptismStatus")
-    .value =
-    member.baptism_status || "";
+    member.address || "";
 
 
   document
@@ -1557,7 +1473,7 @@ function editMember(id) {
   showSection(
     "members",
     document.querySelector(
-      ".sidebar button:nth-child(3)"
+      ".sidebar button:nth-of-type(2)"
     )
   );
 
@@ -1576,7 +1492,11 @@ async function deleteMember(id) {
     );
 
 
-  if (!confirmed) return;
+  if (!confirmed) {
+
+    return;
+
+  }
 
 
   const {
@@ -1585,10 +1505,18 @@ async function deleteMember(id) {
     await supabaseClient
       .from("church_members")
       .delete()
-      .eq("id", id);
+      .eq(
+        "id",
+        id
+      );
 
 
   if (error) {
+
+    console.error(
+      "Delete error:",
+      error
+    );
 
     showMessage(
       "memberMessage",
@@ -1615,7 +1543,7 @@ async function deleteMember(id) {
 
 
 /* =========================================================
-   CLEAR FORM
+   CLEAR MEMBER FORM
    ========================================================= */
 
 function clearMemberForm() {
@@ -1636,14 +1564,6 @@ function clearMemberForm() {
 
 
   document
-    .getElementById("registrationDate")
-    .value =
-    new Date()
-      .toISOString()
-      .split("T")[0];
-
-
-  document
     .getElementById("membershipStatus")
     .value =
     "active";
@@ -1658,7 +1578,7 @@ function clearMemberForm() {
 
 
 /* =========================================================
-   SEARCH
+   SEARCH MEMBERS
    ========================================================= */
 
 function filterMembers() {
@@ -1673,7 +1593,9 @@ function filterMembers() {
 
   if (!search) {
 
-    displayMembers(members);
+    displayMembers(
+      members
+    );
 
     return;
 
@@ -1682,7 +1604,7 @@ function filterMembers() {
 
   const filtered =
     members.filter(
-      member => {
+      function (member) {
 
         const text = [
 
@@ -1690,10 +1612,7 @@ function filterMembers() {
           member.phone,
           member.gender,
           member.date_of_birth,
-          member.registration_date,
-          member.location,
-          member.department,
-          member.baptism_status,
+          member.address,
           member.membership_status
 
         ]
@@ -1701,13 +1620,17 @@ function filterMembers() {
         .toLowerCase();
 
 
-        return text.includes(search);
+        return text.includes(
+          search
+        );
 
       }
     );
 
 
-  displayMembers(filtered);
+  displayMembers(
+    filtered
+  );
 
 }
 
@@ -1721,19 +1644,26 @@ function showSection(
   button
 ) {
 
-  /* Hide all sections */
+  /*
+   * Hide every section
+   */
 
   document
     .querySelectorAll(".section")
     .forEach(
-      section =>
+      function (section) {
+
         section.classList.remove(
           "active"
-        )
+        );
+
+      }
     );
 
 
-  /* Show selected section */
+  /*
+   * Show selected section
+   */
 
   const selectedSection =
     document.getElementById(
@@ -1750,21 +1680,28 @@ function showSection(
   }
 
 
-  /* Remove active button */
+  /*
+   * Remove active menu
+   */
 
   document
     .querySelectorAll(
       ".sidebar button"
     )
     .forEach(
-      btn =>
+      function (btn) {
+
         btn.classList.remove(
           "active"
-        )
+        );
+
+      }
     );
 
 
-  /* Activate selected button */
+  /*
+   * Add active menu
+   */
 
   if (button) {
 
@@ -1775,7 +1712,9 @@ function showSection(
   }
 
 
-  /* Page titles */
+  /*
+   * Page title
+   */
 
   const titles = {
 
@@ -1808,11 +1747,8 @@ function showSection(
 
 
   /*
-     IMPORTANT:
-     Close sidebar automatically
-     when a menu item is selected
-     on a mobile phone.
-  */
+   * Close mobile menu
+   */
 
   if (
     window.innerWidth <= 700
@@ -1826,6 +1762,10 @@ function showSection(
 
   }
 
+
+  /*
+   * Reload members
+   */
 
   if (
     sectionId === "members"
@@ -1844,11 +1784,15 @@ function showSection(
 
 function toggleSidebar() {
 
-  document
-    .getElementById("sidebar")
-    .classList.toggle(
-      "show"
+  const sidebar =
+    document.getElementById(
+      "sidebar"
     );
+
+
+  sidebar.classList.toggle(
+    "show"
+  );
 
 }
 
@@ -1865,14 +1809,31 @@ async function logout() {
     );
 
 
-  if (!confirmed) return;
+  if (!confirmed) {
+
+    return;
+
+  }
 
 
   try {
 
-    await supabaseClient
-      .auth
-      .signOut();
+    const {
+      error
+    } =
+      await supabaseClient
+        .auth
+        .signOut();
+
+
+    if (error) {
+
+      console.error(
+        "Logout error:",
+        error
+      );
+
+    }
 
   }
 
@@ -1908,7 +1869,11 @@ function showMessage(
     );
 
 
-  if (!element) return;
+  if (!element) {
+
+    return;
+
+  }
 
 
   element.textContent =
@@ -1939,22 +1904,27 @@ function showMessage(
 function escapeHtml(value) {
 
   return String(value)
+
     .replace(
       /&/g,
       "&amp;"
     )
+
     .replace(
       /</g,
       "&lt;"
     )
+
     .replace(
       />/g,
       "&gt;"
     )
+
     .replace(
       /"/g,
       "&quot;"
     )
+
     .replace(
       /'/g,
       "&#039;"
@@ -1965,4 +1935,4 @@ function escapeHtml(value) {
 </script>
 
 </body>
-</html>
+  </html>
