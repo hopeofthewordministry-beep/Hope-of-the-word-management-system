@@ -21,7 +21,9 @@ body {
   color: #222;
 }
 
-/* ================= SIDEBAR ================= */
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
 
 .sidebar {
   position: fixed;
@@ -72,7 +74,9 @@ body {
   background: #8f1c13 !important;
 }
 
-/* ================= OVERLAY ================= */
+/* =========================================================
+   MOBILE SIDEBAR OVERLAY
+   ========================================================= */
 
 .sidebar-overlay {
   display: none;
@@ -86,7 +90,9 @@ body {
   display: block;
 }
 
-/* ================= MAIN ================= */
+/* =========================================================
+   MAIN
+   ========================================================= */
 
 .main {
   margin-left: 250px;
@@ -105,7 +111,9 @@ body {
   font-size: 15px;
 }
 
-/* ================= TOPBAR ================= */
+/* =========================================================
+   TOP BAR
+   ========================================================= */
 
 .topbar {
   background: white;
@@ -128,7 +136,9 @@ body {
   color: #555;
 }
 
-/* ================= SECTIONS ================= */
+/* =========================================================
+   SECTIONS
+   ========================================================= */
 
 .section {
   display: none;
@@ -138,7 +148,9 @@ body {
   display: block;
 }
 
-/* ================= CARDS ================= */
+/* =========================================================
+   CARDS
+   ========================================================= */
 
 .cards {
   display: grid;
@@ -166,7 +178,9 @@ body {
   color: #17365d;
 }
 
-/* ================= PANELS ================= */
+/* =========================================================
+   PANELS
+   ========================================================= */
 
 .panel {
   background: white;
@@ -181,7 +195,9 @@ body {
   color: #17365d;
 }
 
-/* ================= FORM ================= */
+/* =========================================================
+   FORM
+   ========================================================= */
 
 .form-grid {
   display: grid;
@@ -217,7 +233,9 @@ select:focus {
   box-shadow: 0 0 0 2px rgba(36,90,145,.12);
 }
 
-/* ================= BUTTONS ================= */
+/* =========================================================
+   BUTTONS
+   ========================================================= */
 
 .buttons {
   display: flex;
@@ -238,8 +256,22 @@ select:focus {
   color: white;
 }
 
+.btn-primary:hover {
+  background: #0d2847;
+}
+
 .btn-secondary {
   background: #6c757d;
+  color: white;
+}
+
+.btn-success {
+  background: #198754;
+  color: white;
+}
+
+.btn-danger {
+  background: #b42318;
   color: white;
 }
 
@@ -248,7 +280,9 @@ select:focus {
   cursor: not-allowed;
 }
 
-/* ================= SEARCH ================= */
+/* =========================================================
+   SEARCH
+   ========================================================= */
 
 .search-box {
   margin-bottom: 15px;
@@ -258,7 +292,9 @@ select:focus {
   max-width: 450px;
 }
 
-/* ================= TABLE ================= */
+/* =========================================================
+   TABLE
+   ========================================================= */
 
 .table-container {
   overflow-x: auto;
@@ -267,7 +303,7 @@ select:focus {
 table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 1150px;
+  min-width: 1000px;
 }
 
 th,
@@ -287,7 +323,9 @@ tr:hover {
   background: #f8f9fa;
 }
 
-/* ================= STATUS ================= */
+/* =========================================================
+   STATUS
+   ========================================================= */
 
 .status {
   display: inline-block;
@@ -312,7 +350,24 @@ tr:hover {
   color: #842029;
 }
 
-/* ================= TABLE BUTTONS ================= */
+.status-pending {
+  background: #fff3cd;
+  color: #664d03;
+}
+
+.status-approved {
+  background: #d1e7dd;
+  color: #0f5132;
+}
+
+.status-rejected {
+  background: #f8d7da;
+  color: #842029;
+}
+
+/* =========================================================
+   SMALL TABLE BUTTONS
+   ========================================================= */
 
 .small-btn {
   padding: 6px 9px;
@@ -333,7 +388,19 @@ tr:hover {
   color: white;
 }
 
-/* ================= MESSAGES ================= */
+.approve-btn {
+  background: #198754;
+  color: white;
+}
+
+.reject-btn {
+  background: #dc3545;
+  color: white;
+}
+
+/* =========================================================
+   MESSAGES
+   ========================================================= */
 
 .message {
   display: none;
@@ -355,7 +422,15 @@ tr:hover {
   color: #842029;
 }
 
-/* ================= OTHER ================= */
+.message.info {
+  display: block;
+  background: #e8f1fa;
+  color: #17365d;
+}
+
+/* =========================================================
+   OTHER
+   ========================================================= */
 
 .loading {
   text-align: center;
@@ -369,9 +444,12 @@ tr:hover {
   color: #777;
 }
 
-/* ================= TABLET ================= */
+/* =========================================================
+   TABLET
+   ========================================================= */
 
 @media (max-width: 900px) {
+
   .sidebar {
     width: 220px;
   }
@@ -385,13 +463,16 @@ tr:hover {
   }
 }
 
-/* ================= MOBILE ================= */
+/* =========================================================
+   MOBILE
+   ========================================================= */
 
 @media (max-width: 700px) {
 
   .sidebar {
     transform: translateX(-100%);
     width: 250px;
+    box-shadow: 5px 0 20px rgba(0,0,0,.25);
   }
 
   .sidebar.show {
@@ -434,7 +515,12 @@ tr:hover {
   }
 }
 
+/* =========================================================
+   VERY SMALL PHONES
+   ========================================================= */
+
 @media (max-width: 400px) {
+
   .cards {
     grid-template-columns: 1fr;
   }
@@ -444,7 +530,9 @@ tr:hover {
 
 <body>
 
-<!-- ================= SIDEBAR ================= -->
+<!-- =======================================================
+     SIDEBAR
+     ======================================================= -->
 
 <aside class="sidebar" id="sidebar">
 
@@ -453,38 +541,50 @@ tr:hover {
     BUOHO FRAMOASE BRANCH
   </div>
 
-  <button class="active"
-          onclick="showSection('home', this)">
+  <button
+    class="active"
+    onclick="showSection('home', this)">
     Dashboard
   </button>
 
-  <button onclick="showSection('members', this)">
+  <button
+    onclick="showSection('members', this)">
     Members Record
   </button>
 
-  <button onclick="showSection('attendance', this)">
+  <button
+    onclick="showSection('attendance', this)">
     Attendance
   </button>
 
-  <button onclick="showSection('activities', this)">
+  <button
+    onclick="showSection('activities', this)">
     Church Activities
   </button>
 
-  <button onclick="showSection('finances', this)">
+  <button
+    onclick="showSection('finances', this)">
     Finances
   </button>
 
-  <button onclick="showSection('users', this)">
+  <button
+    onclick="showSection('users', this)">
     Users
   </button>
 
-  <button class="logout" onclick="logout()">
+  <button
+    class="logout"
+    onclick="logout()">
     Logout
   </button>
 
 </aside>
 
-<!-- ================= MOBILE OVERLAY ================= -->
+
+<!-- =======================================================
+     MOBILE OVERLAY
+     TAPPING OUTSIDE SIDEBAR CLOSES IT
+     ======================================================= -->
 
 <div
   id="sidebarOverlay"
@@ -492,7 +592,10 @@ tr:hover {
   onclick="closeSidebar()">
 </div>
 
-<!-- ================= MAIN ================= -->
+
+<!-- =======================================================
+     MAIN
+     ======================================================= -->
 
 <main class="main">
 
@@ -502,48 +605,92 @@ tr:hover {
     ☰ Menu
   </button>
 
+
+  <!-- TOP BAR -->
+
   <div class="topbar">
 
-    <h1 id="pageTitle">
-      Dashboard
-    </h1>
+    <div>
+      <h1 id="pageTitle">
+        Dashboard
+      </h1>
+    </div>
 
     <div class="user-info">
+
       Logged in as:
       <strong id="currentUser">
         Loading...
       </strong>
+
     </div>
 
   </div>
 
-  <!-- ================= DASHBOARD ================= -->
 
-  <section id="home" class="section active">
+  <!-- =====================================================
+       DASHBOARD
+       ===================================================== -->
+
+  <section
+    id="home"
+    class="section active">
 
     <div class="cards">
 
       <div class="card">
+
         <h3>Total Members</h3>
-        <div class="number" id="totalMembers">0</div>
+
+        <div
+          class="number"
+          id="totalMembers">
+          0
+        </div>
+
       </div>
 
+
       <div class="card">
+
         <h3>Men</h3>
-        <div class="number" id="totalMen">0</div>
+
+        <div
+          class="number"
+          id="totalMen">
+          0
+        </div>
+
       </div>
 
+
       <div class="card">
+
         <h3>Women</h3>
-        <div class="number" id="totalWomen">0</div>
+
+        <div
+          class="number"
+          id="totalWomen">
+          0
+        </div>
+
       </div>
 
+
       <div class="card">
+
         <h3>Children</h3>
-        <div class="number" id="totalChildren">0</div>
+
+        <div
+          class="number"
+          id="totalChildren">
+          0
+        </div>
+
       </div>
 
     </div>
+
 
     <div class="panel">
 
@@ -558,21 +705,31 @@ tr:hover {
 
   </section>
 
-  <!-- ================= MEMBERS ================= -->
 
-  <section id="members" class="section">
+  <!-- =====================================================
+       MEMBERS
+       ===================================================== -->
+
+  <section
+    id="members"
+    class="section">
 
     <div class="panel">
 
       <h2>Membership Registration</h2>
 
-      <div id="memberMessage" class="message"></div>
+      <div
+        id="memberMessage"
+        class="message">
+      </div>
+
 
       <form id="memberForm">
 
         <input
           type="hidden"
           id="memberId">
+
 
         <div class="form-grid">
 
@@ -592,16 +749,22 @@ tr:hover {
 
           </div>
 
-          <!-- PHONE NUMBER -->
-<div class="form-group">
-  <label for="phone">Phone Number *</label>
 
-  <input
-    type="tel"
-    id="phone"
-    placeholder="Enter phone number"
-    required>
-</div>
+          <!-- PHONE NUMBER -->
+
+          <div class="form-group">
+
+            <label for="phoneNumber">
+              Phone Number
+            </label>
+
+            <input
+              type="tel"
+              id="phoneNumber"
+              placeholder="Enter phone number">
+
+          </div>
+
 
           <!-- GENDER -->
 
@@ -633,6 +796,7 @@ tr:hover {
 
           </div>
 
+
           <!-- DATE OF BIRTH -->
 
           <div class="form-group">
@@ -646,6 +810,7 @@ tr:hover {
               id="dateOfBirth">
 
           </div>
+
 
           <!-- REGISTRATION DATE -->
 
@@ -661,6 +826,7 @@ tr:hover {
 
           </div>
 
+
           <!-- LOCATION -->
 
           <div class="form-group">
@@ -675,6 +841,7 @@ tr:hover {
               placeholder="Enter location">
 
           </div>
+
 
           <!-- DEPARTMENT -->
 
@@ -738,6 +905,7 @@ tr:hover {
 
           </div>
 
+
           <!-- BAPTISM -->
 
           <div class="form-group">
@@ -763,6 +931,7 @@ tr:hover {
             </select>
 
           </div>
+
 
           <!-- MEMBERSHIP STATUS -->
 
@@ -792,6 +961,7 @@ tr:hover {
 
         </div>
 
+
         <div class="buttons">
 
           <button
@@ -802,6 +972,7 @@ tr:hover {
             Save Member
 
           </button>
+
 
           <button
             type="button"
@@ -818,11 +989,15 @@ tr:hover {
 
     </div>
 
-    <!-- ================= MEMBERS TABLE ================= -->
+
+    <!-- MEMBERS TABLE -->
 
     <div class="panel">
 
-      <h2>Members Record</h2>
+      <h2>
+        Members Record
+      </h2>
+
 
       <div class="search-box">
 
@@ -834,6 +1009,7 @@ tr:hover {
 
       </div>
 
+
       <div class="table-container">
 
         <table>
@@ -841,6 +1017,7 @@ tr:hover {
           <thead>
 
             <tr>
+
               <th>#</th>
               <th>Full Name</th>
               <th>Phone</th>
@@ -852,16 +1029,24 @@ tr:hover {
               <th>Baptism</th>
               <th>Status</th>
               <th>Actions</th>
+
             </tr>
 
           </thead>
 
+
           <tbody id="membersTableBody">
 
             <tr>
-              <td colspan="11" class="loading">
+
+              <td
+                colspan="11"
+                class="loading">
+
                 Loading members...
+
               </td>
+
             </tr>
 
           </tbody>
@@ -874,9 +1059,14 @@ tr:hover {
 
   </section>
 
-  <!-- ================= ATTENDANCE ================= -->
 
-  <section id="attendance" class="section">
+  <!-- =====================================================
+       ATTENDANCE
+       ===================================================== -->
+
+  <section
+    id="attendance"
+    class="section">
 
     <div class="panel">
 
@@ -891,9 +1081,14 @@ tr:hover {
 
   </section>
 
-  <!-- ================= ACTIVITIES ================= -->
 
-  <section id="activities" class="section">
+  <!-- =====================================================
+       ACTIVITIES
+       ===================================================== -->
+
+  <section
+    id="activities"
+    class="section">
 
     <div class="panel">
 
@@ -908,28 +1103,51 @@ tr:hover {
 
   </section>
 
-  <!-- ================= FINANCES ================= -->
 
-  <section id="finances" class="section">
+  <!-- =====================================================
+       FINANCES
+       ===================================================== -->
+
+  <section
+    id="finances"
+    class="section">
 
     <div class="cards">
 
       <div class="card">
+
         <h3>Total Income</h3>
-        <div class="number">GH₵ 0.00</div>
+
+        <div class="number">
+          GH₵ 0.00
+        </div>
+
       </div>
 
+
       <div class="card">
+
         <h3>Total Expenses</h3>
-        <div class="number">GH₵ 0.00</div>
+
+        <div class="number">
+          GH₵ 0.00
+        </div>
+
       </div>
 
+
       <div class="card">
+
         <h3>Balance</h3>
-        <div class="number">GH₵ 0.00</div>
+
+        <div class="number">
+          GH₵ 0.00
+        </div>
+
       </div>
 
     </div>
+
 
     <div class="panel">
 
@@ -944,34 +1162,83 @@ tr:hover {
 
   </section>
 
-  <!-- ================= USERS ================= -->
 
-  <section id="users" class="section">
+  <!-- =====================================================
+       USERS
+       ===================================================== -->
+
+  <section
+    id="users"
+    class="section">
 
     <div class="panel">
 
-      <h2>Users</h2>
+      <h2>Users Management</h2>
 
-      <p>
-        User accounts and administrator approval
-        will be managed here.
-      </p>
+      <div
+        id="usersMessage"
+        class="message">
+      </div>
 
-      <br>
 
-      <p>
-        Account Types:
-        <strong>Pastor</strong>,
-        <strong>Secretary</strong>,
-        <strong>Treasurer</strong>,
-        <strong>Administrator</strong>
-      </p>
+      <div class="search-box">
+
+        <input
+          type="text"
+          id="userSearch"
+          placeholder="Search user..."
+          oninput="filterUsers()">
+
+      </div>
+
+
+      <div class="table-container">
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>#</th>
+              <th>Full Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Role</th>
+              <th>Status</th>
+              <th>Actions</th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody id="usersTableBody">
+
+            <tr>
+
+              <td
+                colspan="7"
+                class="loading">
+
+                Loading users...
+
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
 
     </div>
 
   </section>
 
 </main>
+
 
 <script>
 
@@ -1002,7 +1269,12 @@ const supabaseClient =
    ========================================================= */
 
 let members = [];
+
+let users = [];
+
 let editingMemberId = null;
+
+let currentUserRole = "";
 
 
 /* =========================================================
@@ -1011,7 +1283,7 @@ let editingMemberId = null;
 
 document.addEventListener(
   "DOMContentLoaded",
-  async function() {
+  async function () {
 
     setRegistrationDate();
 
@@ -1034,9 +1306,14 @@ document.addEventListener(
 
 function setRegistrationDate() {
 
-  document
-    .getElementById("registrationDate")
-    .value =
+  const field =
+    document.getElementById(
+      "registrationDate"
+    );
+
+  if (!field) return;
+
+  field.value =
     new Date()
       .toISOString()
       .split("T")[0];
@@ -1045,7 +1322,7 @@ function setRegistrationDate() {
 
 
 /* =========================================================
-   CHECK USER
+   CHECK LOGIN USER
    ========================================================= */
 
 async function checkUser() {
@@ -1054,9 +1331,8 @@ async function checkUser() {
     data,
     error
   } =
-    await supabaseClient
-      .auth
-      .getUser();
+    await supabaseClient.auth.getUser();
+
 
   if (error || !data.user) {
 
@@ -1067,11 +1343,14 @@ async function checkUser() {
 
   }
 
+
   const user =
     data.user;
 
+
   let displayName =
     user.email || "User";
+
 
   try {
 
@@ -1090,17 +1369,38 @@ async function checkUser() {
         )
         .maybeSingle();
 
-    if (!profileError && profile) {
+
+    if (
+      !profileError &&
+      profile
+    ) {
 
       displayName =
         profile.full_name ||
         user.email ||
         "User";
 
+
+      currentUserRole =
+        String(
+          profile.role || ""
+        )
+        .toLowerCase()
+        .trim();
+
+
+      const accountStatus =
+        String(
+          profile.status || ""
+        )
+        .toLowerCase()
+        .trim();
+
+
+      /* PENDING */
+
       if (
-        profile.status &&
-        String(profile.status)
-          .toLowerCase() ===
+        accountStatus ===
         "pending"
       ) {
 
@@ -1119,21 +1419,48 @@ async function checkUser() {
 
       }
 
+
+      /* REJECTED */
+
+      if (
+        accountStatus ===
+        "rejected"
+      ) {
+
+        alert(
+          "Your account has been rejected by the administrator."
+        );
+
+        await supabaseClient
+          .auth
+          .signOut();
+
+        window.location.href =
+          "index.html";
+
+        return false;
+
+      }
+
     }
 
-  } catch (error) {
+  }
 
-    console.log(
-      "Profile check:",
-      error.message
+  catch (profileError) {
+
+    console.error(
+      "Profile check error:",
+      profileError
     );
 
   }
+
 
   document
     .getElementById("currentUser")
     .textContent =
     displayName;
+
 
   return true;
 
@@ -1151,6 +1478,10 @@ async function loadMembers() {
       "membersTableBody"
     );
 
+
+  if (!tbody) return;
+
+
   tbody.innerHTML = `
     <tr>
       <td colspan="11" class="loading">
@@ -1158,6 +1489,7 @@ async function loadMembers() {
       </td>
     </tr>
   `;
+
 
   const {
     data,
@@ -1173,12 +1505,14 @@ async function loadMembers() {
         }
       );
 
+
   if (error) {
 
     console.error(
       "Load members error:",
       error
     );
+
 
     tbody.innerHTML = `
       <tr>
@@ -1188,6 +1522,7 @@ async function loadMembers() {
       </tr>
     `;
 
+
     showMessage(
       "memberMessage",
       "Unable to load members: " +
@@ -1195,16 +1530,20 @@ async function loadMembers() {
       "error"
     );
 
+
     return;
 
   }
 
+
   members =
     data || [];
+
 
   displayMembers(
     members
   );
+
 
   updateStatistics(
     members
@@ -1215,8 +1554,6 @@ async function loadMembers() {
 
 /* =========================================================
    DISPLAY MEMBERS
-   IMPORTANT:
-   Uses phone_number
    ========================================================= */
 
 function displayMembers(list) {
@@ -1225,6 +1562,7 @@ function displayMembers(list) {
     document.getElementById(
       "membersTableBody"
     );
+
 
   if (!list.length) {
 
@@ -1240,6 +1578,7 @@ function displayMembers(list) {
 
   }
 
+
   tbody.innerHTML =
     list.map(
       function(member, index) {
@@ -1248,13 +1587,17 @@ function displayMembers(list) {
           String(
             member.membership_status ||
             "active"
-          ).toLowerCase();
+          )
+          .toLowerCase();
+
 
         let statusClass =
           "status-active";
 
+
         if (
-          status === "inactive"
+          status ===
+          "inactive"
         ) {
 
           statusClass =
@@ -1262,8 +1605,10 @@ function displayMembers(list) {
 
         }
 
+
         if (
-          status === "stopped"
+          status ===
+          "stopped"
         ) {
 
           statusClass =
@@ -1271,12 +1616,25 @@ function displayMembers(list) {
 
         }
 
+
+        /*
+          IMPORTANT:
+          Database column is phone_number.
+        */
+
+        const phone =
+          member.phone_number ||
+          "";
+
+
         return `
+
           <tr>
 
             <td>
               ${index + 1}
             </td>
+
 
             <td>
               ${escapeHtml(
@@ -1284,11 +1642,13 @@ function displayMembers(list) {
               )}
             </td>
 
+
             <td>
               ${escapeHtml(
-                member.phone_number || ""
+                phone
               )}
             </td>
+
 
             <td>
               ${escapeHtml(
@@ -1296,11 +1656,13 @@ function displayMembers(list) {
               )}
             </td>
 
+
             <td>
               ${escapeHtml(
                 member.date_of_birth || ""
               )}
             </td>
+
 
             <td>
               ${escapeHtml(
@@ -1308,11 +1670,13 @@ function displayMembers(list) {
               )}
             </td>
 
+
             <td>
               ${escapeHtml(
                 member.location || ""
               )}
             </td>
+
 
             <td>
               ${escapeHtml(
@@ -1320,22 +1684,27 @@ function displayMembers(list) {
               )}
             </td>
 
+
             <td>
               ${escapeHtml(
                 member.baptism_status || ""
               )}
             </td>
 
+
             <td>
 
               <span
                 class="status ${statusClass}">
 
-                ${escapeHtml(status)}
+                ${escapeHtml(
+                  status
+                )}
 
               </span>
 
             </td>
+
 
             <td>
 
@@ -1346,6 +1715,7 @@ function displayMembers(list) {
                 Edit
 
               </button>
+
 
               <button
                 class="small-btn delete-btn"
@@ -1358,16 +1728,18 @@ function displayMembers(list) {
             </td>
 
           </tr>
+
         `;
 
       }
-    ).join("");
+    )
+    .join("");
 
 }
 
 
 /* =========================================================
-   STATISTICS
+   MEMBER STATISTICS
    ========================================================= */
 
 function updateStatistics(list) {
@@ -1378,11 +1750,13 @@ function updateStatistics(list) {
 
         return String(
           member.gender || ""
-        ).toLowerCase() ===
+        )
+        .toLowerCase() ===
         "male";
 
       }
     ).length;
+
 
   const women =
     list.filter(
@@ -1390,11 +1764,13 @@ function updateStatistics(list) {
 
         return String(
           member.gender || ""
-        ).toLowerCase() ===
+        )
+        .toLowerCase() ===
         "female";
 
       }
     ).length;
+
 
   const children =
     list.filter(
@@ -1402,26 +1778,31 @@ function updateStatistics(list) {
 
         return String(
           member.gender || ""
-        ).toLowerCase() ===
+        )
+        .toLowerCase() ===
         "child";
 
       }
     ).length;
+
 
   document
     .getElementById("totalMembers")
     .textContent =
     list.length;
 
+
   document
     .getElementById("totalMen")
     .textContent =
     men;
 
+
   document
     .getElementById("totalWomen")
     .textContent =
     women;
+
 
   document
     .getElementById("totalChildren")
@@ -1433,8 +1814,6 @@ function updateStatistics(list) {
 
 /* =========================================================
    SAVE MEMBER
-   IMPORTANT:
-   Saves phone_number
    ========================================================= */
 
 document
@@ -1445,10 +1824,12 @@ document
 
       event.preventDefault();
 
+
       const button =
         document.getElementById(
           "saveMemberBtn"
         );
+
 
       button.disabled = true;
 
@@ -1458,78 +1839,118 @@ document
           : "Saving...";
 
 
-      const phoneNumber =
-  document
-    .getElementById("phone")
-    .value
-    .trim();
+      /*
+        IMPORTANT DATABASE FIX:
 
-if (!phoneNumber) {
-  showMessage(
-    "memberMessage",
-    "Please enter the member's phone number.",
-    "error"
-  );
+        Your database column is:
+        phone_number
 
-  resetSaveButton();
-  return;
-}
+        NOT:
+        phone
 
-const memberData = {
+        We also DO NOT send created_at.
+        Supabase should create created_at
+        automatically using its default.
+      */
 
-  full_name:
-    document
-      .getElementById("fullName")
-      .value
-      .trim(),
+      const phone =
+        document
+          .getElementById(
+            "phoneNumber"
+          )
+          .value
+          .trim();
 
-  phone_number:
-    phoneNumber,
 
-  gender:
-    document
-      .getElementById("gender")
-      .value || null,
+      const memberData = {
 
-  date_of_birth:
-    document
-      .getElementById("dateOfBirth")
-      .value || null,
+        full_name:
+          document
+            .getElementById(
+              "fullName"
+            )
+            .value
+            .trim(),
 
-  registration_date:
-    document
-      .getElementById("registrationDate")
-      .value ||
-    new Date()
-      .toISOString()
-      .split("T")[0],
 
-  location:
-    document
-      .getElementById("location")
-      .value
-      .trim() || null,
+        /*
+          If empty, use an empty string
+          instead of NULL because your
+          database previously required
+          phone_number to be NOT NULL.
+        */
 
-  department:
-    document
-      .getElementById("department")
-      .value || null,
+        phone_number:
+          phone || "",
 
-  baptism_status:
-    document
-      .getElementById("baptismStatus")
-      .value || null,
 
-  membership_status:
-    document
-      .getElementById("membershipStatus")
-      .value ||
-    "active"
-};
+        gender:
+          document
+            .getElementById(
+              "gender"
+            )
+            .value ||
+          null,
 
-      /* =========================
-         FULL NAME CHECK
-         ========================= */
+
+        date_of_birth:
+          document
+            .getElementById(
+              "dateOfBirth"
+            )
+            .value ||
+          null,
+
+
+        registration_date:
+          document
+            .getElementById(
+              "registrationDate"
+            )
+            .value ||
+          new Date()
+            .toISOString()
+            .split("T")[0],
+
+
+        location:
+          document
+            .getElementById(
+              "location"
+            )
+            .value
+            .trim() ||
+          null,
+
+
+        department:
+          document
+            .getElementById(
+              "department"
+            )
+            .value ||
+          null,
+
+
+        baptism_status:
+          document
+            .getElementById(
+              "baptismStatus"
+            )
+            .value ||
+          null,
+
+
+        membership_status:
+          document
+            .getElementById(
+              "membershipStatus"
+            )
+            .value ||
+          "active"
+
+      };
+
 
       if (
         !memberData.full_name
@@ -1541,26 +1962,6 @@ const memberData = {
           "error"
         );
 
-        resetSaveButton();
-
-        return;
-
-      }
-
-
-      /* =========================
-         PHONE CHECK
-         ========================= */
-
-      if (
-        !memberData.phone_number
-      ) {
-
-        showMessage(
-          "memberMessage",
-          "Please enter the member's phone number.",
-          "error"
-        );
 
         resetSaveButton();
 
@@ -1572,15 +1973,15 @@ const memberData = {
       let result;
 
 
-      /* =========================
-         UPDATE MEMBER
-         ========================= */
+      /* UPDATE */
 
       if (editingMemberId) {
 
         result =
           await supabaseClient
-            .from("church_members")
+            .from(
+              "church_members"
+            )
             .update(
               memberData
             )
@@ -1591,15 +1992,16 @@ const memberData = {
 
       }
 
-      /* =========================
-         INSERT MEMBER
-         ========================= */
+
+      /* INSERT */
 
       else {
 
         result =
           await supabaseClient
-            .from("church_members")
+            .from(
+              "church_members"
+            )
             .insert([
               memberData
             ]);
@@ -1607,16 +2009,13 @@ const memberData = {
       }
 
 
-      /* =========================
-         ERROR
-         ========================= */
-
       if (result.error) {
 
         console.error(
           "Save member error:",
           result.error
         );
+
 
         let errorMessage =
           result.error.message;
@@ -1629,7 +2028,7 @@ const memberData = {
         ) {
 
           errorMessage =
-            "Phone number is required. Please enter a phone number.";
+            "There is a problem with the phone_number column. Check that the column exists and allows the value being submitted.";
 
         }
 
@@ -1641,7 +2040,7 @@ const memberData = {
         ) {
 
           errorMessage =
-            "The department column does not match the Supabase table.";
+            "The department column is missing from church_members.";
 
         }
 
@@ -1653,7 +2052,19 @@ const memberData = {
         ) {
 
           errorMessage =
-            "The location column does not match the Supabase table.";
+            "The location column is missing from church_members.";
+
+        }
+
+
+        if (
+          errorMessage.includes(
+            "created_at"
+          )
+        ) {
+
+          errorMessage =
+            "The created_at column needs a default value of NOW() in Supabase.";
 
         }
 
@@ -1665,16 +2076,13 @@ const memberData = {
           "error"
         );
 
+
         resetSaveButton();
 
         return;
 
       }
 
-
-      /* =========================
-         SUCCESS
-         ========================= */
 
       showMessage(
         "memberMessage",
@@ -1687,7 +2095,9 @@ const memberData = {
 
       clearMemberForm();
 
+
       await loadMembers();
+
 
       resetSaveButton();
 
@@ -1696,7 +2106,7 @@ const memberData = {
 
 
 /* =========================================================
-   RESET SAVE BUTTON
+   RESET MEMBER BUTTON
    ========================================================= */
 
 function resetSaveButton() {
@@ -1705,6 +2115,7 @@ function resetSaveButton() {
     document.getElementById(
       "saveMemberBtn"
     );
+
 
   button.disabled = false;
 
@@ -1718,8 +2129,6 @@ function resetSaveButton() {
 
 /* =========================================================
    EDIT MEMBER
-   IMPORTANT:
-   Reads phone_number
    ========================================================= */
 
 function editMember(id) {
@@ -1728,84 +2137,116 @@ function editMember(id) {
     members.find(
       function(item) {
 
-        return String(item.id) ===
-          String(id);
+        return String(
+          item.id
+        ) ===
+        String(id);
 
       }
     );
 
-  if (!member) {
-    return;
-  }
+
+  if (!member) return;
+
 
   editingMemberId =
     member.id;
 
+
   document
-    .getElementById("memberId")
+    .getElementById(
+      "memberId"
+    )
     .value =
     member.id || "";
 
+
   document
-    .getElementById("fullName")
+    .getElementById(
+      "fullName"
+    )
     .value =
     member.full_name || "";
 
+
   document
-    .getElementById("phone")
+    .getElementById(
+      "phoneNumber"
+    )
     .value =
     member.phone_number || "";
 
+
   document
-    .getElementById("gender")
+    .getElementById(
+      "gender"
+    )
     .value =
     member.gender || "";
 
+
   document
-    .getElementById("dateOfBirth")
+    .getElementById(
+      "dateOfBirth"
+    )
     .value =
     member.date_of_birth || "";
 
+
   document
-    .getElementById("registrationDate")
+    .getElementById(
+      "registrationDate"
+    )
     .value =
     member.registration_date || "";
 
+
   document
-    .getElementById("location")
+    .getElementById(
+      "location"
+    )
     .value =
     member.location || "";
 
+
   document
-    .getElementById("department")
+    .getElementById(
+      "department"
+    )
     .value =
     member.department || "";
 
+
   document
-    .getElementById("baptismStatus")
+    .getElementById(
+      "baptismStatus"
+    )
     .value =
     member.baptism_status || "";
 
+
   document
-    .getElementById("membershipStatus")
+    .getElementById(
+      "membershipStatus"
+    )
     .value =
     member.membership_status ||
     "active";
 
+
   document
-    .getElementById("saveMemberBtn")
+    .getElementById(
+      "saveMemberBtn"
+    )
     .textContent =
     "Update Member";
 
 
-  const membersButton =
-    document.querySelector(
-      ".sidebar button:nth-of-type(2)"
-    );
-
   showSection(
     "members",
-    membersButton
+    document.querySelector(
+      ".sidebar button:nth-child(3)"
+    )
   );
 
 }
@@ -1822,27 +2263,25 @@ async function deleteMember(id) {
       "Are you sure you want to delete this member?"
     );
 
-  if (!confirmed) {
-    return;
-  }
+
+  if (!confirmed) return;
+
 
   const {
     error
   } =
     await supabaseClient
-      .from("church_members")
+      .from(
+        "church_members"
+      )
       .delete()
       .eq(
         "id",
         id
       );
 
-  if (error) {
 
-    console.error(
-      "Delete error:",
-      error
-    );
+  if (error) {
 
     showMessage(
       "memberMessage",
@@ -1855,11 +2294,13 @@ async function deleteMember(id) {
 
   }
 
+
   showMessage(
     "memberMessage",
     "Member deleted successfully.",
     "success"
   );
+
 
   await loadMembers();
 
@@ -1867,7 +2308,7 @@ async function deleteMember(id) {
 
 
 /* =========================================================
-   CLEAR FORM
+   CLEAR MEMBER FORM
    ========================================================= */
 
 function clearMemberForm() {
@@ -1875,24 +2316,37 @@ function clearMemberForm() {
   editingMemberId =
     null;
 
-  document
-    .getElementById("memberForm")
-    .reset();
 
   document
-    .getElementById("memberId")
+    .getElementById(
+      "memberForm"
+    )
+    .reset();
+
+
+  document
+    .getElementById(
+      "memberId"
+    )
     .value =
     "";
 
+
   setRegistrationDate();
 
+
   document
-    .getElementById("membershipStatus")
+    .getElementById(
+      "membershipStatus"
+    )
     .value =
     "active";
 
+
   document
-    .getElementById("saveMemberBtn")
+    .getElementById(
+      "saveMemberBtn"
+    )
     .textContent =
     "Save Member";
 
@@ -1901,18 +2355,19 @@ function clearMemberForm() {
 
 /* =========================================================
    SEARCH MEMBERS
-   IMPORTANT:
-   Searches phone_number
    ========================================================= */
 
 function filterMembers() {
 
   const search =
     document
-      .getElementById("memberSearch")
+      .getElementById(
+        "memberSearch"
+      )
       .value
       .toLowerCase()
       .trim();
+
 
   if (!search) {
 
@@ -1924,6 +2379,7 @@ function filterMembers() {
 
   }
 
+
   const filtered =
     members.filter(
       function(member) {
@@ -1931,18 +2387,27 @@ function filterMembers() {
         const text = [
 
           member.full_name,
+
           member.phone_number,
+
           member.gender,
+
           member.date_of_birth,
+
           member.registration_date,
+
           member.location,
+
           member.department,
+
           member.baptism_status,
+
           member.membership_status
 
         ]
         .join(" ")
         .toLowerCase();
+
 
         return text.includes(
           search
@@ -1951,9 +2416,563 @@ function filterMembers() {
       }
     );
 
+
   displayMembers(
     filtered
   );
+
+}
+
+
+/* =========================================================
+   =========================================================
+   USERS MANAGEMENT
+   =========================================================
+   ========================================================= */
+
+
+/*
+  Load all user profiles.
+
+  This assumes your user_profiles table has:
+
+  id
+  created_at
+  email
+  role
+  full_name
+  auth_user_id
+  status
+  phone_number
+*/
+
+
+async function loadUsers() {
+
+  const tbody =
+    document.getElementById(
+      "usersTableBody"
+    );
+
+
+  if (!tbody) return;
+
+
+  tbody.innerHTML = `
+    <tr>
+      <td colspan="7" class="loading">
+        Loading users...
+      </td>
+    </tr>
+  `;
+
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from(
+        "user_profiles"
+      )
+      .select(
+        "id, email, role, full_name, auth_user_id, status, phone_number, created_at"
+      )
+      .order(
+        "created_at",
+        {
+          ascending: false
+        }
+      );
+
+
+  if (error) {
+
+    console.error(
+      "Load users error:",
+      error
+    );
+
+
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="7" class="empty">
+          Unable to load users.
+        </td>
+      </tr>
+    `;
+
+
+    showMessage(
+      "usersMessage",
+      "Unable to load users: " +
+      error.message,
+      "error"
+    );
+
+
+    return;
+
+  }
+
+
+  users =
+    data || [];
+
+
+  displayUsers(
+    users
+  );
+
+}
+
+
+/* =========================================================
+   DISPLAY USERS
+   ========================================================= */
+
+function displayUsers(list) {
+
+  const tbody =
+    document.getElementById(
+      "usersTableBody"
+    );
+
+
+  if (!list.length) {
+
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="7" class="empty">
+          No users found.
+        </td>
+      </tr>
+    `;
+
+    return;
+
+  }
+
+
+  tbody.innerHTML =
+    list.map(
+      function(user, index) {
+
+        const status =
+          String(
+            user.status ||
+            "pending"
+          )
+          .toLowerCase()
+          .trim();
+
+
+        let statusClass =
+          "status-pending";
+
+
+        if (
+          status ===
+          "approved"
+        ) {
+
+          statusClass =
+            "status-approved";
+
+        }
+
+
+        if (
+          status ===
+          "rejected"
+        ) {
+
+          statusClass =
+            "status-rejected";
+
+        }
+
+
+        let actions = "";
+
+
+        /*
+          ONLY ADMINISTRATOR
+          CAN APPROVE / REJECT.
+        */
+
+        if (
+          currentUserRole ===
+          "administrator"
+        ) {
+
+          if (
+            status ===
+            "pending"
+          ) {
+
+            actions = `
+
+              <button
+                class="small-btn approve-btn"
+                onclick="approveUser('${user.id}')">
+
+                Approve
+
+              </button>
+
+
+              <button
+                class="small-btn reject-btn"
+                onclick="rejectUser('${user.id}')">
+
+                Reject
+
+              </button>
+
+            `;
+
+          }
+
+
+          else if (
+            status ===
+            "approved"
+          ) {
+
+            actions = `
+
+              <button
+                class="small-btn reject-btn"
+                onclick="rejectUser('${user.id}')">
+
+                Reject
+
+              </button>
+
+            `;
+
+          }
+
+
+          else if (
+            status ===
+            "rejected"
+          ) {
+
+            actions = `
+
+              <button
+                class="small-btn approve-btn"
+                onclick="approveUser('${user.id}')">
+
+                Approve
+
+              </button>
+
+            `;
+
+          }
+
+        }
+
+
+        if (!actions) {
+
+          actions =
+            "<span style='color:#777;font-size:12px;'>View only</span>";
+
+        }
+
+
+        return `
+
+          <tr>
+
+            <td>
+              ${index + 1}
+            </td>
+
+
+            <td>
+              ${escapeHtml(
+                user.full_name || ""
+              )}
+            </td>
+
+
+            <td>
+              ${escapeHtml(
+                user.email || ""
+              )}
+            </td>
+
+
+            <td>
+              ${escapeHtml(
+                user.phone_number || ""
+              )}
+            </td>
+
+
+            <td>
+              ${escapeHtml(
+                user.role ||
+                "Not assigned"
+              )}
+            </td>
+
+
+            <td>
+
+              <span
+                class="status ${statusClass}">
+
+                ${escapeHtml(
+                  status
+                )}
+
+              </span>
+
+            </td>
+
+
+            <td>
+              ${actions}
+            </td>
+
+          </tr>
+
+        `;
+
+      }
+    )
+    .join("");
+
+}
+
+
+/* =========================================================
+   SEARCH USERS
+   ========================================================= */
+
+function filterUsers() {
+
+  const search =
+    document
+      .getElementById(
+        "userSearch"
+      )
+      .value
+      .toLowerCase()
+      .trim();
+
+
+  if (!search) {
+
+    displayUsers(
+      users
+    );
+
+    return;
+
+  }
+
+
+  const filtered =
+    users.filter(
+      function(user) {
+
+        const text = [
+
+          user.full_name,
+
+          user.email,
+
+          user.phone_number,
+
+          user.role,
+
+          user.status
+
+        ]
+        .join(" ")
+        .toLowerCase();
+
+
+        return text.includes(
+          search
+        );
+
+      }
+    );
+
+
+  displayUsers(
+    filtered
+  );
+
+}
+
+
+/* =========================================================
+   APPROVE USER
+   ========================================================= */
+
+async function approveUser(id) {
+
+  if (
+    currentUserRole !==
+    "administrator"
+  ) {
+
+    showMessage(
+      "usersMessage",
+      "Only an Administrator can approve users.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const confirmed =
+    confirm(
+      "Are you sure you want to approve this user?"
+    );
+
+
+  if (!confirmed) return;
+
+
+  const {
+    error
+  } =
+    await supabaseClient
+      .from(
+        "user_profiles"
+      )
+      .update({
+        status:
+          "approved"
+      })
+      .eq(
+        "id",
+        id
+      );
+
+
+  if (error) {
+
+    console.error(
+      "Approve user error:",
+      error
+    );
+
+
+    showMessage(
+      "usersMessage",
+      "User could not be approved: " +
+      error.message,
+      "error"
+    );
+
+
+    return;
+
+  }
+
+
+  showMessage(
+    "usersMessage",
+    "User approved successfully.",
+    "success"
+  );
+
+
+  await loadUsers();
+
+}
+
+
+/* =========================================================
+   REJECT USER
+   ========================================================= */
+
+async function rejectUser(id) {
+
+  if (
+    currentUserRole !==
+    "administrator"
+  ) {
+
+    showMessage(
+      "usersMessage",
+      "Only an Administrator can reject users.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const confirmed =
+    confirm(
+      "Are you sure you want to reject this user?"
+    );
+
+
+  if (!confirmed) return;
+
+
+  const {
+    error
+  } =
+    await supabaseClient
+      .from(
+        "user_profiles"
+      )
+      .update({
+        status:
+          "rejected"
+      })
+      .eq(
+        "id",
+        id
+      );
+
+
+  if (error) {
+
+    console.error(
+      "Reject user error:",
+      error
+    );
+
+
+    showMessage(
+      "usersMessage",
+      "User could not be rejected: " +
+      error.message,
+      "error"
+    );
+
+
+    return;
+
+  }
+
+
+  showMessage(
+    "usersMessage",
+    "User rejected successfully.",
+    "success"
+  );
+
+
+  await loadUsers();
 
 }
 
@@ -1968,7 +2987,9 @@ function showSection(
 ) {
 
   document
-    .querySelectorAll(".section")
+    .querySelectorAll(
+      ".section"
+    )
     .forEach(
       function(section) {
 
@@ -1984,6 +3005,7 @@ function showSection(
     document.getElementById(
       sectionId
     );
+
 
   if (selectedSection) {
 
@@ -2042,20 +3064,48 @@ function showSection(
 
 
   document
-    .getElementById("pageTitle")
+    .getElementById(
+      "pageTitle"
+    )
     .textContent =
     titles[sectionId] ||
     "Dashboard";
 
 
+  /*
+    Close sidebar immediately
+    when a menu item is selected.
+  */
+
   closeSidebar();
 
 
+  /*
+    Load members when opening
+    Members section.
+  */
+
   if (
-    sectionId === "members"
+    sectionId ===
+    "members"
   ) {
 
     loadMembers();
+
+  }
+
+
+  /*
+    Load users when opening
+    Users section.
+  */
+
+  if (
+    sectionId ===
+    "users"
+  ) {
+
+    loadUsers();
 
   }
 
@@ -2063,7 +3113,7 @@ function showSection(
 
 
 /* =========================================================
-   TOGGLE SIDEBAR
+   MOBILE SIDEBAR
    ========================================================= */
 
 function toggleSidebar() {
@@ -2078,16 +3128,20 @@ function toggleSidebar() {
       "sidebarOverlay"
     );
 
+
   const isOpen =
     sidebar.classList.contains(
       "show"
     );
 
+
   if (isOpen) {
 
     closeSidebar();
 
-  } else {
+  }
+
+  else {
 
     sidebar.classList.add(
       "show"
@@ -2108,23 +3162,31 @@ function toggleSidebar() {
 
 function closeSidebar() {
 
-  document
-    .getElementById("sidebar")
-    .classList.remove(
-      "show"
+  const sidebar =
+    document.getElementById(
+      "sidebar"
     );
 
-  document
-    .getElementById("sidebarOverlay")
-    .classList.remove(
-      "show"
+  const overlay =
+    document.getElementById(
+      "sidebarOverlay"
     );
+
+
+  sidebar.classList.remove(
+    "show"
+  );
+
+
+  overlay.classList.remove(
+    "show"
+  );
 
 }
 
 
 /* =========================================================
-   RESIZE
+   CLOSE SIDEBAR ON RESIZE
    ========================================================= */
 
 window.addEventListener(
@@ -2132,7 +3194,8 @@ window.addEventListener(
   function() {
 
     if (
-      window.innerWidth > 700
+      window.innerWidth >
+      700
     ) {
 
       closeSidebar();
@@ -2154,9 +3217,9 @@ async function logout() {
       "Do you want to logout?"
     );
 
-  if (!confirmed) {
-    return;
-  }
+
+  if (!confirmed) return;
+
 
   try {
 
@@ -2164,7 +3227,9 @@ async function logout() {
       .auth
       .signOut();
 
-  } catch (error) {
+  }
+
+  catch(error) {
 
     console.error(
       "Logout error:",
@@ -2172,6 +3237,7 @@ async function logout() {
     );
 
   }
+
 
   window.location.href =
     "index.html";
@@ -2194,15 +3260,17 @@ function showMessage(
       elementId
     );
 
-  if (!element) {
-    return;
-  }
+
+  if (!element) return;
+
 
   element.textContent =
     text;
 
+
   element.className =
     "message " + type;
+
 
   setTimeout(
     function() {
@@ -2250,4 +3318,4 @@ function escapeHtml(value) {
 </script>
 
 </body>
-          </html>
+</html>
