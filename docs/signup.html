@@ -78,50 +78,36 @@ body {
 
 h1 {
   text-align: center;
-
   color: #14532D;
-
   font-size: 22px;
-
   margin: 5px 0;
 }
 
 .subtitle {
   text-align: center;
-
   color: #6b7280;
-
   font-size: 14px;
-
   margin-bottom: 22px;
 }
 
 label {
   display: block;
-
   margin-bottom: 6px;
-
   font-size: 14px;
-
   font-weight: bold;
-
   color: #374151;
 }
 
 input,
 select {
   width: 100%;
-
   padding: 13px;
-
   margin-bottom: 15px;
 
   border: 1px solid #d1d5db;
-
   border-radius: 8px;
 
   font-size: 15px;
-
   background: white;
 }
 
@@ -161,7 +147,6 @@ button:hover {
 
 button:disabled {
   opacity: .6;
-
   cursor: not-allowed;
 }
 
@@ -205,19 +190,16 @@ button:disabled {
 
 .error {
   background: #fee2e2;
-
   color: #991b1b;
 }
 
 .pending {
   background: #fff8cc;
-
   color: #795600;
 }
 
 .success {
   background: #dcfce7;
-
   color: #166534;
 }
 
@@ -292,7 +274,7 @@ button:disabled {
     >
 
 
-    <!-- ROLE -->
+    <!-- ACCOUNT TYPE -->
 
     <label for="role">
       Account Type
@@ -354,7 +336,7 @@ button:disabled {
     >
 
 
-    <!-- SUBMIT -->
+    <!-- CREATE ACCOUNT -->
 
     <button
       type="submit"
@@ -378,9 +360,9 @@ button:disabled {
 
 <script>
 
-/* =========================================================
+/* =====================================================
    SUPABASE CONFIGURATION
-   ========================================================= */
+   ===================================================== */
 
 const SUPABASE_URL =
   "https://lcrhoossfgxpktrvwdtj.supabase.co";
@@ -389,9 +371,9 @@ const SUPABASE_KEY =
   "sb_publishable_KPNyDlm7lteOz0f1bivVAw_CbTAGbtH";
 
 
-/* =========================================================
-   SUPABASE CLIENT
-   ========================================================= */
+/* =====================================================
+   CREATE SUPABASE CLIENT
+   ===================================================== */
 
 const supabaseClient =
   window.supabase.createClient(
@@ -400,9 +382,9 @@ const supabaseClient =
   );
 
 
-/* =========================================================
+/* =====================================================
    SIGNUP FORM
-   ========================================================= */
+   ===================================================== */
 
 document
   .getElementById("signupForm")
@@ -547,7 +529,7 @@ document
       try {
 
         /* =============================================
-           CREATE SUPABASE AUTH ACCOUNT
+           CREATE AUTH ACCOUNT
            ============================================= */
 
         const {
@@ -568,7 +550,7 @@ document
         if (error) {
 
           console.error(
-            "Auth signup error:",
+            "Supabase Auth error:",
             error
           );
 
@@ -603,9 +585,11 @@ document
         /* =============================================
            SAVE USER PROFILE
 
-           IMPORTANT:
-           Your database column is phone_number,
-           NOT phone.
+           DATABASE COLUMN:
+           phone_number
+
+           NOT:
+           phone
            ============================================= */
 
         const {
@@ -643,22 +627,15 @@ document
         if (profileError) {
 
           console.error(
-            "Profile error:",
+            "User profile error:",
             profileError
           );
 
-
-          /*
-             If profile creation fails, show
-             the actual Supabase error.
-          */
-
           showMessage(
-            "Account was created, but the user profile could not be saved: " +
+            "Account was created, but the profile could not be saved: " +
             profileError.message,
             "error"
           );
-
 
           resetButton();
 
@@ -667,7 +644,7 @@ document
 
 
         /* =============================================
-           SIGN OUT AFTER REGISTRATION
+           SIGN OUT
            ============================================= */
 
         await supabaseClient
@@ -685,7 +662,7 @@ document
 
 
         /* =============================================
-           SUCCESS MESSAGE
+           SUCCESS
            ============================================= */
 
         showMessage(
@@ -696,7 +673,6 @@ document
 
         resetButton();
 
-
       }
 
       catch(error) {
@@ -706,13 +682,11 @@ document
           error
         );
 
-
         showMessage(
           "Something went wrong: " +
           error.message,
           "error"
         );
-
 
         resetButton();
 
@@ -722,9 +696,9 @@ document
   );
 
 
-/* =========================================================
+/* =====================================================
    RESET BUTTON
-   ========================================================= */
+   ===================================================== */
 
 function resetButton() {
 
@@ -745,9 +719,9 @@ function resetButton() {
 }
 
 
-/* =========================================================
+/* =====================================================
    SHOW MESSAGE
-   ========================================================= */
+   ===================================================== */
 
 function showMessage(
   text,
@@ -775,9 +749,9 @@ function showMessage(
 }
 
 
-/* =========================================================
+/* =====================================================
    HIDE MESSAGE
-   ========================================================= */
+   ===================================================== */
 
 function hideMessage() {
 
