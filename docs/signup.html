@@ -4,10 +4,7 @@
 
 <meta charset="UTF-8">
 
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Create Account | Hope of the Word Ministry</title>
 
@@ -21,15 +18,11 @@
 
 body {
   margin: 0;
-
   min-height: 100vh;
-
   font-family: Arial, sans-serif;
 
   display: flex;
-
   justify-content: center;
-
   align-items: center;
 
   padding: 20px;
@@ -44,7 +37,6 @@ body {
 
 .card {
   width: 100%;
-
   max-width: 450px;
 
   background: #FFFFFF;
@@ -57,8 +49,6 @@ body {
     0 15px 40px rgba(0, 0, 0, 0.20);
 }
 
-/* LARGE PROFESSIONAL CHURCH ICON */
-
 .logo {
   width: 105px;
   height: 105px;
@@ -70,9 +60,7 @@ body {
   background: #F4C430;
 
   display: flex;
-
   justify-content: center;
-
   align-items: center;
 
   color: #14532D;
@@ -139,7 +127,6 @@ select {
 
 input:focus,
 select:focus {
-
   outline: none;
 
   border-color: #90EE90;
@@ -149,7 +136,6 @@ select:focus {
 }
 
 button {
-
   width: 100%;
 
   padding: 14px;
@@ -170,19 +156,16 @@ button {
 }
 
 button:hover {
-
   background: #7edc7e;
 }
 
 button:disabled {
-
   opacity: .6;
 
   cursor: not-allowed;
 }
 
 .signin {
-
   display: block;
 
   text-align: center;
@@ -203,12 +186,10 @@ button:disabled {
 }
 
 .signin:hover {
-
   background: #fffbea;
 }
 
 .message {
-
   display: none;
 
   padding: 12px;
@@ -223,21 +204,18 @@ button:disabled {
 }
 
 .error {
-
   background: #fee2e2;
 
   color: #991b1b;
 }
 
 .pending {
-
   background: #fff8cc;
 
   color: #795600;
 }
 
 .success {
-
   background: #dcfce7;
 
   color: #166534;
@@ -265,12 +243,14 @@ button:disabled {
 
   <div
     id="message"
-    class="message"
-  ></div>
+    class="message">
+  </div>
 
   <form id="signupForm">
 
-    <label>
+    <!-- FULL NAME -->
+
+    <label for="fullName">
       Full Name
     </label>
 
@@ -281,7 +261,10 @@ button:disabled {
       required
     >
 
-    <label>
+
+    <!-- EMAIL -->
+
+    <label for="email">
       Email Address
     </label>
 
@@ -293,7 +276,10 @@ button:disabled {
       required
     >
 
-    <label>
+
+    <!-- PHONE -->
+
+    <label for="phone">
       Phone Number
     </label>
 
@@ -301,35 +287,44 @@ button:disabled {
       type="tel"
       id="phone"
       placeholder="Enter your phone number"
+      autocomplete="tel"
       required
     >
 
-    <label>
-    <label>
-  Account Type
-</label>
 
-<select
-  id="role"
-  required
->
-  <option value="">
-    Select account type
-  </option>
+    <!-- ROLE -->
 
-  <option value="pastor">
-    Pastor
-  </option>
+    <label for="role">
+      Account Type
+    </label>
 
-  <option value="secretary">
-    Secretary
-  </option>
+    <select
+      id="role"
+      required
+    >
 
-  <option value="treasurer">
-    Treasurer
-  </option>
-</select>
-    <label>
+      <option value="">
+        Select account type
+      </option>
+
+      <option value="pastor">
+        Pastor
+      </option>
+
+      <option value="secretary">
+        Secretary
+      </option>
+
+      <option value="treasurer">
+        Treasurer
+      </option>
+
+    </select>
+
+
+    <!-- PASSWORD -->
+
+    <label for="password">
       Password
     </label>
 
@@ -342,7 +337,10 @@ button:disabled {
       required
     >
 
-    <label>
+
+    <!-- CONFIRM PASSWORD -->
+
+    <label for="confirmPassword">
       Confirm Password
     </label>
 
@@ -355,6 +353,9 @@ button:disabled {
       required
     >
 
+
+    <!-- SUBMIT -->
+
     <button
       type="submit"
       id="signupButton"
@@ -363,6 +364,7 @@ button:disabled {
     </button>
 
   </form>
+
 
   <a
     href="index.html"
@@ -373,254 +375,379 @@ button:disabled {
 
 </div>
 
+
 <script>
 
+/* =========================================================
+   SUPABASE CONFIGURATION
+   ========================================================= */
+
 const SUPABASE_URL =
-"https://lcrhoossfgxpktrvwdtj.supabase.co";
+  "https://lcrhoossfgxpktrvwdtj.supabase.co";
 
 const SUPABASE_KEY =
-"sb_publishable_KPNyDlm7lteOz0f1bivVAw_CbTAGbtH";
+  "sb_publishable_KPNyDlm7lteOz0f1bivVAw_CbTAGbtH";
+
+
+/* =========================================================
+   SUPABASE CLIENT
+   ========================================================= */
 
 const supabaseClient =
-supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
 
+
+/* =========================================================
+   SIGNUP FORM
+   ========================================================= */
 
 document
-.getElementById("signupForm")
-.addEventListener(
-  "submit",
-  async function(event) {
+  .getElementById("signupForm")
+  .addEventListener(
+    "submit",
+    async function(event) {
 
-    event.preventDefault();
-
-    const fullName =
-      document
-      .getElementById("fullName")
-      .value
-      .trim();
-
-    const email =
-      document
-      .getElementById("email")
-      .value
-      .trim()
-      .toLowerCase();
-
-    const phone =
-      document
-      .getElementById("phone")
-      .value
-      .trim();
-
-    const role =
-      document
-      .getElementById("role")
-      .value;
-
-    const password =
-      document
-      .getElementById("password")
-      .value;
-
-    const confirmPassword =
-      document
-      .getElementById("confirmPassword")
-      .value;
-
-    const button =
-      document
-      .getElementById("signupButton");
-
-    hideMessage();
+      event.preventDefault();
 
 
-    if (
-      password !==
-      confirmPassword
-    ) {
+      /* -----------------------------------------------
+         GET FORM VALUES
+         ----------------------------------------------- */
 
-      showMessage(
-        "Passwords do not match.",
-        "error"
-      );
-
-      return;
-    }
+      const fullName =
+        document
+          .getElementById("fullName")
+          .value
+          .trim();
 
 
-    if (
-      password.length < 6
-    ) {
-
-      showMessage(
-        "Password must be at least 6 characters.",
-        "error"
-      );
-
-      return;
-    }
+      const email =
+        document
+          .getElementById("email")
+          .value
+          .trim()
+          .toLowerCase();
 
 
-    if (!role) {
-
-      showMessage(
-        "Please select an account type.",
-        "error"
-      );
-
-      return;
-    }
+      const phone =
+        document
+          .getElementById("phone")
+          .value
+          .trim();
 
 
-    button.disabled = true;
-
-    button.textContent =
-      "Creating account...";
-
-
-    try {
-
-      const {
-        data,
-        error
-      } =
-      await supabaseClient
-      .auth
-      .signUp({
-
-        email: email,
-
-        password: password
-
-      });
+      const role =
+        document
+          .getElementById("role")
+          .value;
 
 
-      if (error) {
+      const password =
+        document
+          .getElementById("password")
+          .value;
 
-        console.error(error);
+
+      const confirmPassword =
+        document
+          .getElementById("confirmPassword")
+          .value;
+
+
+      const button =
+        document
+          .getElementById("signupButton");
+
+
+      hideMessage();
+
+
+      /* -----------------------------------------------
+         VALIDATION
+         ----------------------------------------------- */
+
+      if (!fullName) {
 
         showMessage(
+          "Please enter your full name.",
+          "error"
+        );
+
+        return;
+      }
+
+
+      if (!email) {
+
+        showMessage(
+          "Please enter your email address.",
+          "error"
+        );
+
+        return;
+      }
+
+
+      if (!phone) {
+
+        showMessage(
+          "Please enter your phone number.",
+          "error"
+        );
+
+        return;
+      }
+
+
+      if (!role) {
+
+        showMessage(
+          "Please select an account type.",
+          "error"
+        );
+
+        return;
+      }
+
+
+      if (password.length < 6) {
+
+        showMessage(
+          "Password must be at least 6 characters.",
+          "error"
+        );
+
+        return;
+      }
+
+
+      if (
+        password !==
+        confirmPassword
+      ) {
+
+        showMessage(
+          "Passwords do not match.",
+          "error"
+        );
+
+        return;
+      }
+
+
+      button.disabled = true;
+
+      button.textContent =
+        "Creating account...";
+
+
+      try {
+
+        /* =============================================
+           CREATE SUPABASE AUTH ACCOUNT
+           ============================================= */
+
+        const {
+          data,
+          error
+        } =
+          await supabaseClient
+            .auth
+            .signUp({
+
+              email: email,
+
+              password: password
+
+            });
+
+
+        if (error) {
+
+          console.error(
+            "Auth signup error:",
+            error
+          );
+
+          showMessage(
+            error.message,
+            "error"
+          );
+
+          resetButton();
+
+          return;
+        }
+
+
+        const user =
+          data.user;
+
+
+        if (!user) {
+
+          showMessage(
+            "Account could not be created.",
+            "error"
+          );
+
+          resetButton();
+
+          return;
+        }
+
+
+        /* =============================================
+           SAVE USER PROFILE
+
+           IMPORTANT:
+           Your database column is phone_number,
+           NOT phone.
+           ============================================= */
+
+        const {
+          error: profileError
+        } =
+          await supabaseClient
+            .from("user_profiles")
+            .insert({
+
+              auth_user_id:
+                user.id,
+
+              full_name:
+                fullName,
+
+              email:
+                email,
+
+              phone_number:
+                phone,
+
+              role:
+                role,
+
+              status:
+                "pending"
+
+            });
+
+
+        /* =============================================
+           PROFILE ERROR
+           ============================================= */
+
+        if (profileError) {
+
+          console.error(
+            "Profile error:",
+            profileError
+          );
+
+
+          /*
+             If profile creation fails, show
+             the actual Supabase error.
+          */
+
+          showMessage(
+            "Account was created, but the user profile could not be saved: " +
+            profileError.message,
+            "error"
+          );
+
+
+          resetButton();
+
+          return;
+        }
+
+
+        /* =============================================
+           SIGN OUT AFTER REGISTRATION
+           ============================================= */
+
+        await supabaseClient
+          .auth
+          .signOut();
+
+
+        /* =============================================
+           CLEAR FORM
+           ============================================= */
+
+        document
+          .getElementById("signupForm")
+          .reset();
+
+
+        /* =============================================
+           SUCCESS MESSAGE
+           ============================================= */
+
+        showMessage(
+          "Account created successfully. Your account is now PENDING Administrator approval.",
+          "pending"
+        );
+
+
+        resetButton();
+
+
+      }
+
+      catch(error) {
+
+        console.error(
+          "Signup error:",
+          error
+        );
+
+
+        showMessage(
+          "Something went wrong: " +
           error.message,
           "error"
         );
 
-        button.disabled = false;
 
-        button.textContent =
-          "Create Account";
+        resetButton();
 
-        return;
       }
 
-
-      const user =
-        data.user;
-
-
-      if (!user) {
-
-        showMessage(
-          "Account could not be created.",
-          "error"
-        );
-
-        button.disabled = false;
-
-        button.textContent =
-          "Create Account";
-
-        return;
-      }
+    }
+  );
 
 
-      const {
-        error: profileError
-      } =
-      await supabaseClient
+/* =========================================================
+   RESET BUTTON
+   ========================================================= */
 
-      .from("user_profiles")
+function resetButton() {
 
-      .insert({
-
-        auth_user_id: user.id,
-
-        full_name: fullName,
-
-        email: email,
-
-        phone: phone,
-
-        role: role,
-
-        status: "pending"
-
-      });
-
-
-      if (profileError) {
-
-        console.error(
-          profileError
-        );
-
-        showMessage(
-          "Your login account was created, but your church profile could not be saved.",
-          "error"
-        );
-
-        button.disabled = false;
-
-        button.textContent =
-          "Create Account";
-
-        return;
-      }
-
-
-      await supabaseClient
-      .auth
-      .signOut();
-
-
-      document
-      .getElementById("signupForm")
-      .reset();
-
-
-      showMessage(
-        "Account created successfully. Your account is now PENDING Administrator approval.",
-        "pending"
+  const button =
+    document
+      .getElementById(
+        "signupButton"
       );
 
 
-      button.disabled = false;
+  button.disabled =
+    false;
 
-      button.textContent =
-        "Create Account";
 
-    }
+  button.textContent =
+    "Create Account";
 
-    catch(error) {
+}
 
-      console.error(error);
 
-      showMessage(
-        "Something went wrong. Please try again.",
-        "error"
-      );
-
-      button.disabled = false;
-
-      button.textContent =
-        "Create Account";
-    }
-
-  }
-);
-
+/* =========================================================
+   SHOW MESSAGE
+   ========================================================= */
 
 function showMessage(
   text,
@@ -629,25 +756,41 @@ function showMessage(
 
   const message =
     document
-    .getElementById("message");
+      .getElementById(
+        "message"
+      );
+
 
   message.textContent =
     text;
 
+
   message.className =
     "message " + type;
 
+
   message.style.display =
     "block";
+
 }
 
 
+/* =========================================================
+   HIDE MESSAGE
+   ========================================================= */
+
 function hideMessage() {
 
-  document
-  .getElementById("message")
-  .style.display =
-  "none";
+  const message =
+    document
+      .getElementById(
+        "message"
+      );
+
+
+  message.style.display =
+    "none";
+
 }
 
 </script>
