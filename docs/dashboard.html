@@ -1,684 +1,543 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Hope of the Word Ministry - Dashboard</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+font-family:Arial,sans-serif;
 }
 
-body {
-  background: #f4f6f9;
-  color: #222;
+body{
+background:#f4f6f9;
+color:#222;
 }
 
 /* SIDEBAR */
-
-.sidebar {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 250px;
-  height: 100vh;
-  background: #17365d;
-  color: white;
-  padding: 20px 15px;
-  overflow-y: auto;
-  z-index: 1001;
-  transition: transform .3s ease;
+.sidebar{
+position:fixed;
+left:0;
+top:0;
+width:250px;
+height:100vh;
+background:#17365d;
+color:white;
+padding:20px 15px;
+overflow-y:auto;
+z-index:1001;
+transition:transform .3s ease;
 }
 
-.church-name {
-  text-align: center;
-  font-size: 18px;
-  font-weight: bold;
-  line-height: 1.4;
-  margin-bottom: 25px;
+.church-name{
+text-align:center;
+font-size:18px;
+font-weight:bold;
+line-height:1.4;
+margin-bottom:25px;
 }
 
-.sidebar button {
-  width: 100%;
-  padding: 13px;
-  margin: 5px 0;
-  border: none;
-  border-radius: 6px;
-  background: transparent;
-  color: white;
-  text-align: left;
-  cursor: pointer;
-  font-size: 15px;
+.sidebar button{
+width:100%;
+padding:13px;
+margin:5px 0;
+border:none;
+border-radius:6px;
+background:transparent;
+color:white;
+text-align:left;
+cursor:pointer;
+font-size:15px;
 }
 
 .sidebar button:hover,
-.sidebar button.active {
-  background: #245a91;
+.sidebar button.active{
+background:#245a91;
 }
 
-.logout {
-  margin-top: 20px !important;
-  background: #b42318 !important;
+.logout{
+margin-top:20px!important;
+background:#b42318!important;
 }
 
 /* OVERLAY */
-
-.sidebar-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.45);
-  z-index: 1000;
+.sidebar-overlay{
+display:none;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.45);
+z-index:1000;
 }
 
-.sidebar-overlay.show {
-  display: block;
+.sidebar-overlay.show{
+display:block;
 }
 
 /* MAIN */
-
-.main {
-  margin-left: 250px;
-  padding: 25px;
+.main{
+margin-left:250px;
+padding:25px;
 }
 
-.mobile-menu {
-  display: none;
-  background: #17365d;
-  color: white;
-  border: none;
-  padding: 11px 15px;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-bottom: 12px;
+.mobile-menu{
+display:none;
+background:#17365d;
+color:white;
+border:none;
+padding:11px 15px;
+border-radius:6px;
+cursor:pointer;
+margin-bottom:12px;
 }
 
 /* TOPBAR */
-
-.topbar {
-  background: white;
-  padding: 18px 20px;
-  border-radius: 10px;
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+.topbar{
+background:white;
+padding:18px 20px;
+border-radius:10px;
+margin-bottom:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+box-shadow:0 2px 8px rgba(0,0,0,.06);
 }
 
-.topbar h1 {
-  font-size: 23px;
-  color: #17365d;
+.topbar h1{
+font-size:23px;
+color:#17365d;
 }
 
-.user-info {
-  font-size: 14px;
-  color: #555;
+.user-info{
+font-size:14px;
+color:#555;
 }
 
 /* SECTIONS */
-
-.section {
-  display: none;
+.section{
+display:none;
 }
 
-.section.active {
-  display: block;
+.section.active{
+display:block;
 }
 
 /* CARDS */
-
-.cards {
-  display: grid;
-  grid-template-columns: repeat(4,1fr);
-  gap: 15px;
-  margin-bottom: 25px;
+.cards{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:15px;
+margin-bottom:25px;
 }
 
-.card {
-  background: white;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+.card{
+background:white;
+border-radius:10px;
+padding:20px;
+box-shadow:0 2px 8px rgba(0,0,0,.06);
 }
 
-.card h3 {
-  color: #555;
-  font-size: 14px;
-  margin-bottom: 10px;
+.card h3{
+color:#555;
+font-size:14px;
+margin-bottom:10px;
 }
 
-.number {
-  font-size: 30px;
-  font-weight: bold;
-  color: #17365d;
+.number{
+font-size:30px;
+font-weight:bold;
+color:#17365d;
 }
 
 /* PANELS */
-
-.panel {
-  background: white;
-  border-radius: 10px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+.panel{
+background:white;
+border-radius:10px;
+padding:20px;
+margin-bottom:20px;
+box-shadow:0 2px 8px rgba(0,0,0,.06);
 }
 
-.panel h2 {
-  margin-bottom: 18px;
-  color: #17365d;
+.panel h2{
+margin-bottom:18px;
+color:#17365d;
 }
 
 /* FORMS */
-
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(2,1fr);
-  gap: 15px;
+.form-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:15px;
 }
 
-.form-group {
-  display: flex;
-  flex-direction: column;
+.form-group{
+display:flex;
+flex-direction:column;
 }
 
-label {
-  font-weight: bold;
-  margin-bottom: 6px;
-  font-size: 14px;
+label{
+font-weight:bold;
+margin-bottom:6px;
+font-size:14px;
 }
 
 input,
-select {
-  width: 100%;
-  padding: 11px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 14px;
-  background: white;
+select{
+width:100%;
+padding:11px;
+border:1px solid #ccc;
+border-radius:6px;
+font-size:14px;
+background:white;
 }
 
 /* BUTTONS */
-
-.buttons {
-  display: flex;
-  gap: 10px;
-  margin-top: 18px;
+.buttons{
+display:flex;
+gap:10px;
+margin-top:18px;
 }
 
-.btn {
-  border: none;
-  padding: 11px 18px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
+.btn{
+border:none;
+padding:11px 18px;
+border-radius:6px;
+cursor:pointer;
+font-weight:bold;
 }
 
-.btn-primary {
-  background: #17365d;
-  color: white;
+.btn-primary{
+background:#17365d;
+color:white;
 }
 
-.btn-secondary {
-  background: #6c757d;
-  color: white;
+.btn-secondary{
+background:#6c757d;
+color:white;
 }
 
 /* SEARCH */
-
-.search-box {
-  margin-bottom: 15px;
+.search-box{
+margin-bottom:15px;
 }
 
-.search-box input {
-  max-width: 450px;
+.search-box input{
+max-width:450px;
 }
 
 /* TABLE */
-
-.table-container {
-  overflow-x: auto;
+.table-container{
+overflow-x:auto;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 900px;
+table{
+width:100%;
+border-collapse:collapse;
+min-width:900px;
 }
 
 th,
-td {
-  border-bottom: 1px solid #eee;
-  padding: 11px 8px;
-  text-align: left;
-  font-size: 13px;
+td{
+border-bottom:1px solid #eee;
+padding:11px 8px;
+text-align:left;
+font-size:13px;
 }
 
-th {
-  background: #17365d;
-  color: white;
+th{
+background:#17365d;
+color:white;
+}
+
+tr:hover{
+background:#f8f9fa;
 }
 
 /* STATUS */
-
-.status {
-  display: inline-block;
-  padding: 4px 8px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: bold;
+.status{
+display:inline-block;
+padding:4px 8px;
+border-radius:20px;
+font-size:11px;
+font-weight:bold;
 }
 
 .status-active,
-.status-approved {
-  background: #d1e7dd;
-  color: #0f5132;
+.status-approved{
+background:#d1e7dd;
+color:#0f5132;
 }
 
 .status-inactive,
-.status-pending {
-  background: #fff3cd;
-  color: #664d03;
+.status-pending{
+background:#fff3cd;
+color:#664d03;
 }
 
 .status-stopped,
-.status-rejected {
-  background: #f8d7da;
-  color: #842029;
+.status-rejected{
+background:#f8d7da;
+color:#842029;
 }
 
 /* SMALL BUTTONS */
-
-.small-btn {
-  padding: 6px 9px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 11px;
-  margin: 2px;
+.small-btn{
+padding:6px 9px;
+border:none;
+border-radius:4px;
+cursor:pointer;
+font-size:11px;
+margin:2px;
 }
 
-.edit-btn {
-  background: #0d6efd;
-  color: white;
+.edit-btn{
+background:#0d6efd;
+color:white;
 }
 
 .delete-btn,
-.reject-btn {
-  background: #dc3545;
-  color: white;
+.reject-btn{
+background:#dc3545;
+color:white;
 }
 
-.approve-btn {
-  background: #198754;
-  color: white;
+.approve-btn{
+background:#198754;
+color:white;
 }
 
 /* MESSAGE */
-
-.message {
-  display: none;
-  padding: 12px;
-  margin-bottom: 15px;
-  border-radius: 6px;
-  font-size: 14px;
+.message{
+display:none;
+padding:12px;
+margin-bottom:15px;
+border-radius:6px;
+font-size:14px;
 }
 
-.message.success {
-  display: block;
-  background: #d1e7dd;
-  color: #0f5132;
+.message.success{
+display:block;
+background:#d1e7dd;
+color:#0f5132;
 }
 
-.message.error {
-  display: block;
-  background: #f8d7da;
-  color: #842029;
+.message.error{
+display:block;
+background:#f8d7da;
+color:#842029;
 }
 
 .loading,
-.empty {
-  text-align: center;
-  padding: 30px;
-  color: #777;
+.empty{
+text-align:center;
+padding:30px;
+color:#777;
 }
 
 /* MOBILE */
+@media(max-width:900px){
 
-@media (max-width:900px) {
-
-  .cards {
-    grid-template-columns: repeat(2,1fr);
-  }
+.cards{
+grid-template-columns:repeat(2,1fr);
+}
 
 }
 
-@media (max-width:700px) {
+@media(max-width:700px){
 
-  .sidebar {
-    transform: translateX(-100%);
-    width: 250px;
-    box-shadow: 5px 0 20px rgba(0,0,0,.25);
-  }
+.sidebar{
+transform:translateX(-100%);
+width:250px;
+box-shadow:5px 0 20px rgba(0,0,0,.25);
+}
 
-  .sidebar.show {
-    transform: translateX(0);
-  }
+.sidebar.show{
+transform:translateX(0);
+}
 
-  .main {
-    margin-left: 0;
-    padding: 12px;
-  }
+.main{
+margin-left:0;
+padding:12px;
+}
 
-  .mobile-menu {
-    display: block;
-  }
+.mobile-menu{
+display:block;
+}
 
-  .topbar {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
+.topbar{
+flex-direction:column;
+align-items:flex-start;
+gap:8px;
+}
 
-  .form-grid {
-    grid-template-columns: 1fr;
-  }
+.form-grid{
+grid-template-columns:1fr;
+}
 
-  .buttons {
-    flex-direction: column;
-  }
+.buttons{
+flex-direction:column;
+}
 
-  .btn {
-    width: 100%;
-  }
+.btn{
+width:100%;
+}
 
 }
 
-@media (max-width:400px) {
+@media(max-width:400px){
 
-  .cards {
-    grid-template-columns: 1fr;
-  }
-
+.cards{
+grid-template-columns:1fr;
 }
 
+}
 </style>
-
 </head>
 
 <body>
 
-
 <!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
 
-<aside
-  class="sidebar"
-  id="sidebar"
->
+<div class="church-name">
+HOPE OF THE WORD MINISTRY<br>
+BUOHO FRAMOASE BRANCH
+</div>
 
-  <div class="church-name">
+<button class="active" onclick="showSection('home',this)">
+Dashboard
+</button>
 
-    HOPE OF THE WORD MINISTRY<br>
-    BUOHO FRAMOASE BRANCH
+<button onclick="showSection('members',this)">
+Members Record
+</button>
 
-  </div>
+<button onclick="showSection('attendance',this)">
+Attendance
+</button>
 
+<button onclick="showSection('activities',this)">
+Church Activities
+</button>
 
-  <button
-    class="active"
-    onclick="showSection('home',this)"
-  >
-    Dashboard
-  </button>
+<button onclick="showSection('finances',this)">
+Finances
+</button>
 
+<button onclick="showSection('users',this)">
+Users
+</button>
 
-  <button
-    onclick="showSection('members',this)"
-  >
-    Members Record
-  </button>
-
-
-  <button
-    onclick="showSection('attendance',this)"
-  >
-    Attendance
-  </button>
-
-
-  <button
-    onclick="showSection('activities',this)"
-  >
-    Church Activities
-  </button>
-
-
-  <button
-    onclick="showSection('finances',this)"
-  >
-    Finances
-  </button>
-
-
-  <button
-    onclick="showSection('users',this)"
-  >
-    Users
-  </button>
-
-
-  <button
-    class="logout"
-    onclick="logout()"
-  >
-    Logout
-  </button>
+<button class="logout" onclick="logout()">
+Logout
+</button>
 
 </aside>
 
-
 <div
-  id="sidebarOverlay"
-  class="sidebar-overlay"
-  onclick="closeSidebar()"
-></div>
+id="sidebarOverlay"
+class="sidebar-overlay"
+onclick="closeSidebar()">
+</div>
 
 
 <!-- MAIN -->
-
 <main class="main">
 
-
 <button
-  class="mobile-menu"
-  onclick="toggleSidebar()"
->
-  ☰ Menu
+class="mobile-menu"
+onclick="toggleSidebar()">
+☰ Menu
 </button>
-
-
-<!-- TOPBAR -->
 
 <div class="topbar">
 
-  <h1 id="pageTitle">
-    Dashboard
-  </h1>
+<h1 id="pageTitle">
+Dashboard
+</h1>
 
-
-  <div class="user-info">
-
-    Logged in as:
-    <strong id="currentUser">
-      Loading...
-    </strong>
-
-  </div>
+<div class="user-info">
+Logged in as:
+<strong id="currentUser">Loading...</strong>
+</div>
 
 </div>
 
 
 <!-- DASHBOARD -->
+<section id="home" class="section active">
 
-<section
-  id="home"
-  class="section active"
->
+<div class="cards">
 
-  <div class="cards">
+<div class="card">
+<h3>Total Members</h3>
+<div class="number" id="totalMembers">0</div>
+</div>
 
-    <div class="card">
+<div class="card">
+<h3>Men</h3>
+<div class="number" id="totalMen">0</div>
+</div>
 
-      <h3>Total Members</h3>
+<div class="card">
+<h3>Women</h3>
+<div class="number" id="totalWomen">0</div>
+</div>
 
-      <div
-        class="number"
-        id="totalMembers"
-      >
-        0
-      </div>
+<div class="card">
+<h3>Children</h3>
+<div class="number" id="totalChildren">0</div>
+</div>
 
-    </div>
+</div>
 
+<div class="panel">
 
-    <div class="card">
+<h2>Welcome</h2>
 
-      <h3>Men</h3>
+<p>
+Welcome to the Hope of the Word Ministry
+Church Management System.
+</p>
 
-      <div
-        class="number"
-        id="totalMen"
-      >
-        0
-      </div>
-
-    </div>
-
-
-    <div class="card">
-
-      <h3>Women</h3>
-
-      <div
-        class="number"
-        id="totalWomen"
-      >
-        0
-      </div>
-
-    </div>
-
-
-    <div class="card">
-
-      <h3>Children</h3>
-
-      <div
-        class="number"
-        id="totalChildren"
-      >
-        0
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div class="panel">
-
-    <h2>
-      Welcome
-    </h2>
-
-    <p>
-      Welcome to the Hope of the Word Ministry
-      Church Management System.
-    </p>
-
-  </div>
+</div>
 
 </section>
 
 
 <!-- MEMBERS -->
-
-<section
-  id="members"
-  class="section"
->
+<section id="members" class="section">
 
 <div class="panel">
 
-<h2>
-Membership Registration
-</h2>
+<h2>Membership Registration</h2>
 
-
-<div
-  id="memberMessage"
-  class="message"
-></div>
-
+<div id="memberMessage" class="message"></div>
 
 <form id="memberForm">
 
-<input
-  type="hidden"
-  id="memberId"
->
-
+<input type="hidden" id="memberId">
 
 <div class="form-grid">
 
-
 <div class="form-group">
-
-<label>
-Full Name *
-</label>
-
-<input
-  type="text"
-  id="fullName"
-  required
->
-
+<label>Full Name *</label>
+<input type="text" id="fullName" required>
 </div>
 
-
 <div class="form-group">
-
-<label>
-Phone Number
-</label>
-
-<input
-  type="tel"
-  id="phoneNumber"
->
-
+<label>Phone Number</label>
+<input type="tel" id="phoneNumber">
 </div>
 
-
 <div class="form-group">
-
-<label>
-Gender
-</label>
+<label>Gender</label>
 
 <select id="gender">
 
@@ -699,51 +558,22 @@ Child
 </option>
 
 </select>
-
 </div>
-
 
 <div class="form-group">
-
-<label>
-Date of Birth
-</label>
-
-<input
-  type="date"
-  id="dateOfBirth"
->
-
+<label>Date of Birth</label>
+<input type="date" id="dateOfBirth">
 </div>
-
 
 <div class="form-group">
-
-<label>
-Date of Registration
-</label>
-
-<input
-  type="date"
-  id="registrationDate"
->
-
+<label>Date of Registration</label>
+<input type="date" id="registrationDate">
 </div>
-
 
 <div class="form-group">
-
-<label>
-Location
-</label>
-
-<input
-  type="text"
-  id="location"
->
-
+<label>Location</label>
+<input type="text" id="location">
 </div>
-
 
 <div class="form-group">
 
@@ -757,54 +587,53 @@ Department / Ministry
 Select Department
 </option>
 
-<option value="Men's Fellowship">
+<option>
 Men's Fellowship
 </option>
 
-<option value="Women's Fellowship">
+<option>
 Women's Fellowship
 </option>
 
-<option value="Children's Fellowship">
+<option>
 Children's Fellowship
 </option>
 
-<option value="Youth Ministry">
+<option>
 Youth Ministry
 </option>
 
-<option value="Music Ministry">
+<option>
 Music Ministry
 </option>
 
-<option value="Media Ministry">
+<option>
 Media Ministry
 </option>
 
-<option value="Evangelism">
+<option>
 Evangelism
 </option>
 
-<option value="Prayer Ministry">
+<option>
 Prayer Ministry
 </option>
 
-<option value="Ushering">
+<option>
 Ushering
 </option>
 
-<option value="Sunday School">
+<option>
 Sunday School
 </option>
 
-<option value="Other">
+<option>
 Other
 </option>
 
 </select>
 
 </div>
-
 
 <div class="form-group">
 
@@ -829,7 +658,6 @@ No
 </select>
 
 </div>
-
 
 <div class="form-group">
 
@@ -857,24 +685,24 @@ Stopped
 
 </div>
 
-
 <div class="buttons">
 
 <button
-  type="submit"
-  class="btn btn-primary"
-  id="saveMemberBtn"
->
+type="submit"
+class="btn btn-primary"
+id="saveMemberBtn">
+
 Save Member
+
 </button>
 
-
 <button
-  type="button"
-  class="btn btn-secondary"
-  onclick="clearMemberForm()"
->
+type="button"
+class="btn btn-secondary"
+onclick="clearMemberForm()">
+
 Clear
+
 </button>
 
 </div>
@@ -884,26 +712,19 @@ Clear
 </div>
 
 
-<!-- MEMBERS TABLE -->
-
 <div class="panel">
 
-<h2>
-Members Record
-</h2>
-
+<h2>Members Record</h2>
 
 <div class="search-box">
 
 <input
-  type="text"
-  id="memberSearch"
-  placeholder="Search member..."
-  oninput="filterMembers()"
->
+type="text"
+id="memberSearch"
+placeholder="Search member..."
+oninput="filterMembers()">
 
 </div>
-
 
 <div class="table-container">
 
@@ -912,7 +733,6 @@ Members Record
 <thead>
 
 <tr>
-
 <th>#</th>
 <th>Full Name</th>
 <th>Phone</th>
@@ -924,23 +744,16 @@ Members Record
 <th>Baptism</th>
 <th>Status</th>
 <th>Actions</th>
-
 </tr>
 
 </thead>
 
-
 <tbody id="membersTableBody">
 
 <tr>
-
-<td
-  colspan="11"
-  class="loading"
->
+<td colspan="11" class="loading">
 Loading members...
 </td>
-
 </tr>
 
 </tbody>
@@ -955,21 +768,15 @@ Loading members...
 
 
 <!-- ATTENDANCE -->
-
-<section
-  id="attendance"
-  class="section"
->
+<section id="attendance" class="section">
 
 <div class="panel">
 
-<h2>
-Attendance
-</h2>
+<h2>Attendance</h2>
 
 <p>
-Attendance management will be connected
-to the members record.
+Attendance management will be connected to
+the members record.
 </p>
 
 </div>
@@ -978,21 +785,14 @@ to the members record.
 
 
 <!-- ACTIVITIES -->
-
-<section
-  id="activities"
-  class="section"
->
+<section id="activities" class="section">
 
 <div class="panel">
 
-<h2>
-Church Activities
-</h2>
+<h2>Church Activities</h2>
 
 <p>
-Church programmes and activities can
-be managed here.
+Church programmes and activities can be managed here.
 </p>
 
 </div>
@@ -1001,64 +801,33 @@ be managed here.
 
 
 <!-- FINANCES -->
-
-<section
-  id="finances"
-  class="section"
->
+<section id="finances" class="section">
 
 <div class="cards">
 
 <div class="card">
-
-<h3>
-Total Income
-</h3>
-
-<div class="number">
-GH₵ 0.00
+<h3>Total Income</h3>
+<div class="number">GH₵ 0.00</div>
 </div>
-
-</div>
-
 
 <div class="card">
-
-<h3>
-Total Expenses
-</h3>
-
-<div class="number">
-GH₵ 0.00
+<h3>Total Expenses</h3>
+<div class="number">GH₵ 0.00</div>
 </div>
-
-</div>
-
 
 <div class="card">
-
-<h3>
-Balance
-</h3>
-
-<div class="number">
-GH₵ 0.00
+<h3>Balance</h3>
+<div class="number">GH₵ 0.00</div>
 </div>
 
 </div>
-
-</div>
-
 
 <div class="panel">
 
-<h2>
-Finances
-</h2>
+<h2>Finances</h2>
 
 <p>
-Income and expenses management will be
-connected here.
+Income and expenses management will be connected here.
 </p>
 
 </div>
@@ -1067,36 +836,23 @@ connected here.
 
 
 <!-- USERS -->
-
-<section
-  id="users"
-  class="section"
->
+<section id="users" class="section">
 
 <div class="panel">
 
-<h2>
-Users Management
-</h2>
+<h2>Users Management</h2>
 
-
-<div
-  id="usersMessage"
-  class="message"
-></div>
-
+<div id="usersMessage" class="message"></div>
 
 <div class="search-box">
 
 <input
-  type="text"
-  id="userSearch"
-  placeholder="Search user..."
-  oninput="filterUsers()"
->
+type="text"
+id="userSearch"
+placeholder="Search user..."
+oninput="filterUsers()">
 
 </div>
-
 
 <div class="table-container">
 
@@ -1105,7 +861,6 @@ Users Management
 <thead>
 
 <tr>
-
 <th>#</th>
 <th>Full Name</th>
 <th>Email</th>
@@ -1113,23 +868,16 @@ Users Management
 <th>Role</th>
 <th>Status</th>
 <th>Actions</th>
-
 </tr>
 
 </thead>
 
-
 <tbody id="usersTableBody">
 
 <tr>
-
-<td
-  colspan="7"
-  class="loading"
->
+<td colspan="7" class="loading">
 Loading users...
 </td>
-
 </tr>
 
 </tbody>
@@ -1157,11 +905,10 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_KPNyDlm7lteOz0f1bivVAw_CbTAGbtH";
 
-
 const supabaseClient =
 window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
+SUPABASE_URL,
+SUPABASE_KEY
 );
 
 
@@ -1170,34 +917,31 @@ GLOBAL VARIABLES
 ===================================================== */
 
 let members = [];
-
 let users = [];
-
 let editingMemberId = null;
-
 let currentUserRole = "";
 
 
 /* =====================================================
-START
+START DASHBOARD
 ===================================================== */
 
 document.addEventListener(
-  "DOMContentLoaded",
-  async function(){
+"DOMContentLoaded",
+async function(){
 
-    setRegistrationDate();
+setRegistrationDate();
 
-    const loggedIn =
-      await checkUser();
+const loggedIn =
+await checkUser();
 
-    if(!loggedIn){
-      return;
-    }
+if(!loggedIn){
+return;
+}
 
-    await loadMembers();
+await loadMembers();
 
-  }
+}
 );
 
 
@@ -1207,218 +951,359 @@ CHECK USER
 
 async function checkUser(){
 
-  try{
+try{
 
-    const {
-      data,
-      error
-    } =
-    await supabaseClient
-      .auth
-      .getUser();
+const {
+data,
+error
+} =
+await supabaseClient.auth.getUser();
 
 
-    if(
-      error ||
-      !data ||
-      !data.user
-    ){
+if(error){
 
-      window.location.href =
-        "index.html";
+console.error(
+"Authentication error:",
+error
+);
 
-      return false;
+window.location.href =
+"index.html";
 
-    }
+return false;
 
+}
 
-    const user =
-      data.user;
 
+const user =
+data.user;
 
-    /*
-      Get the current user's profile.
-      This is allowed by the RLS policy.
-    */
 
-    const {
-      data: profile,
-      error: profileError
-    } =
-    await supabaseClient
-      .from("user_profiles")
-      .select(
-        "full_name, role, status"
-      )
-      .eq(
-        "auth_user_id",
-        user.id
-      )
-      .maybeSingle();
+if(!user){
 
+window.location.href =
+"index.html";
 
-    if(profileError){
+return false;
 
-      console.error(
-        "Profile error:",
-        profileError
-      );
+}
 
 
-      alert(
-        "Unable to load your profile: " +
-        profileError.message
-      );
+/* Get profile */
 
+const {
+data: profile,
+error: profileError
+} =
+await supabaseClient
+.from("user_profiles")
+.select(
+"full_name,role,status"
+)
+.eq(
+"auth_user_id",
+user.id
+)
+.maybeSingle();
 
-      return false;
 
-    }
+if(profileError){
 
+console.error(
+"Profile error:",
+profileError
+);
 
-    if(!profile){
+alert(
+"Unable to load your profile: " +
+profileError.message
+);
 
-      alert(
-        "Your user profile was not found."
-      );
+return false;
 
+}
 
-      await supabaseClient
-        .auth
-        .signOut();
 
+if(!profile){
 
-      window.location.href =
-        "index.html";
+alert(
+"Your user profile was not found."
+);
 
+await supabaseClient.auth.signOut();
 
-      return false;
+window.location.href =
+"index.html";
 
-    }
+return false;
 
+}
 
-    currentUserRole =
-      String(
-        profile.role || ""
-      )
-      .toLowerCase()
-      .trim();
 
+/* Role */
 
-    const status =
-      String(
-        profile.status || ""
-      )
-      .toLowerCase()
-      .trim();
+currentUserRole =
+String(
+profile.role || ""
+)
+.toLowerCase()
+.trim();
 
 
-    document
-      .getElementById(
-        "currentUser"
-      )
-      .textContent =
-        profile.full_name ||
-        user.email ||
-        "User";
+/* Display name */
 
+document.getElementById(
+"currentUser"
+).textContent =
+profile.full_name ||
+user.email ||
+"User";
 
-    /*
-      Pending account
-    */
 
-    if(status === "pending"){
+/* Account status */
 
-      alert(
-        "Your account is still pending administrator approval."
-      );
+const status =
+String(
+profile.status || ""
+)
+.toLowerCase()
+.trim();
 
 
-      await supabaseClient
-        .auth
-        .signOut();
+if(status === "pending"){
 
+alert(
+"Your account is still pending administrator approval."
+);
 
-      window.location.href =
-        "index.html";
+await supabaseClient.auth.signOut();
 
+window.location.href =
+"index.html";
 
-      return false;
+return false;
 
-    }
+}
 
 
-    /*
-      Rejected account
-    */
+if(status === "rejected"){
 
-    if(status === "rejected"){
+alert(
+"Your account has been rejected by the administrator."
+);
 
-      alert(
-        "Your account has been rejected by the administrator."
-      );
+await supabaseClient.auth.signOut();
 
+window.location.href =
+"index.html";
 
-      await supabaseClient
-        .auth
-        .signOut();
+return false;
 
+}
 
-      window.location.href =
-        "index.html";
 
+if(
+status !== "approved" &&
+status !== "active"
+){
 
-      return false;
+alert(
+"Your account has not been approved yet."
+);
 
-    }
+await supabaseClient.auth.signOut();
 
+window.location.href =
+"index.html";
 
-    /*
-      Only approved users can enter.
-    */
+return false;
 
-    if(status !== "approved"){
+}
 
-      alert(
-        "Your account has not been approved yet."
-      );
 
+/* Show Users menu only to administrator */
 
-      await supabaseClient
-        .auth
-        .signOut();
+const userButtons =
+document.querySelectorAll(
+".sidebar button"
+);
 
+const usersButton =
+Array.from(userButtons).find(
+button =>
+button.textContent.trim() === "Users"
+);
 
-      window.location.href =
-        "index.html";
+if(usersButton){
 
+if(
+currentUserRole !==
+"administrator"
+){
 
-      return false;
+usersButton.style.display =
+"none";
 
-    }
+}
 
+}
 
-    return true;
 
-  }
+return true;
 
-  catch(error){
+}catch(error){
 
-    console.error(
-      "Check user error:",
-      error
-    );
+console.error(
+"Dashboard error:",
+error
+);
 
+alert(
+"Dashboard error: " +
+error.message
+);
 
-    alert(
-      "Dashboard error: " +
-      error.message
-    );
+return false;
 
+}
 
-    return false;
+}
 
-  }
+
+/* =====================================================
+MENU
+===================================================== */
+
+function showSection(
+sectionId,
+button
+){
+
+/* Hide all sections */
+
+document
+.querySelectorAll(".section")
+.forEach(
+section =>
+section.classList.remove("active")
+);
+
+
+/* Show selected */
+
+const section =
+document.getElementById(
+sectionId
+);
+
+if(section){
+
+section.classList.add(
+"active"
+);
+
+}
+
+
+/* Active menu */
+
+document
+.querySelectorAll(".sidebar button")
+.forEach(
+btn =>
+btn.classList.remove("active")
+);
+
+if(button){
+
+button.classList.add(
+"active"
+);
+
+}
+
+
+/* Page title */
+
+const titles = {
+
+home:"Dashboard",
+members:"Members Record",
+attendance:"Attendance",
+activities:"Church Activities",
+finances:"Finances",
+users:"Users Management"
+
+};
+
+document.getElementById(
+"pageTitle"
+).textContent =
+titles[sectionId] ||
+"Dashboard";
+
+
+/* Load users when Users is opened */
+
+if(sectionId === "users"){
+
+if(
+currentUserRole ===
+"administrator"
+){
+
+loadUsers();
+
+}else{
+
+document.getElementById(
+"usersTableBody"
+).innerHTML = `
+<tr>
+<td colspan="7" class="empty">
+Administrator access required.
+</td>
+</tr>
+`;
+
+}
+
+}
+
+
+/* Close mobile menu */
+
+closeSidebar();
+
+}
+
+
+/* =====================================================
+MOBILE MENU
+===================================================== */
+
+function toggleSidebar(){
+
+document
+.getElementById("sidebar")
+.classList.toggle("show");
+
+document
+.getElementById("sidebarOverlay")
+.classList.toggle("show");
+
+}
+
+
+function closeSidebar(){
+
+document
+.getElementById("sidebar")
+.classList.remove("show");
+
+document
+.getElementById("sidebarOverlay")
+.classList.remove("show");
 
 }
 
@@ -1429,20 +1314,19 @@ REGISTRATION DATE
 
 function setRegistrationDate(){
 
-  const field =
-    document.getElementById(
-      "registrationDate"
-    );
+const field =
+document.getElementById(
+"registrationDate"
+);
 
+if(field){
 
-  if(field){
+field.value =
+new Date()
+.toISOString()
+.split("T")[0];
 
-    field.value =
-      new Date()
-        .toISOString()
-        .split("T")[0];
-
-  }
+}
 
 }
 
@@ -1453,84 +1337,72 @@ LOAD MEMBERS
 
 async function loadMembers(){
 
-  const tbody =
-    document.getElementById(
-      "membersTableBody"
-    );
+const tbody =
+document.getElementById(
+"membersTableBody"
+);
+
+tbody.innerHTML = `
+<tr>
+<td colspan="11" class="loading">
+Loading members...
+</td>
+</tr>
+`;
 
 
-  tbody.innerHTML = `
-    <tr>
-      <td
-        colspan="11"
-        class="loading"
-      >
-        Loading members...
-      </td>
-    </tr>
-  `;
+const {
+data,
+error
+} =
+await supabaseClient
+.from("church_members")
+.select("*")
+.order(
+"created_at",
+{
+ascending:false
+}
+);
 
 
-  const {
-    data,
-    error
-  } =
-  await supabaseClient
-    .from("church_members")
-    .select("*")
-    .order(
-      "created_at",
-      {
-        ascending:false
-      }
-    );
+if(error){
+
+console.error(
+"Members error:",
+error
+);
+
+tbody.innerHTML = `
+<tr>
+<td colspan="11" class="empty">
+Unable to load members.
+</td>
+</tr>
+`;
+
+showMessage(
+"memberMessage",
+"Unable to load members: " +
+error.message,
+"error"
+);
+
+return;
+
+}
 
 
-  if(error){
+members =
+data || [];
 
-    console.error(
-      "Load members error:",
-      error
-    );
+displayMembers(
+members
+);
 
-
-    tbody.innerHTML = `
-      <tr>
-        <td
-          colspan="11"
-          class="empty"
-        >
-          Unable to load members.
-        </td>
-      </tr>
-    `;
-
-
-    showMessage(
-      "memberMessage",
-      "Unable to load members: " +
-      error.message,
-      "error"
-    );
-
-
-    return;
-
-  }
-
-
-  members =
-    data || [];
-
-
-  displayMembers(
-    members
-  );
-
-
-  updateStatistics(
-    members
-  );
+updateStatistics(
+members
+);
 
 }
 
@@ -1541,176 +1413,142 @@ DISPLAY MEMBERS
 
 function displayMembers(list){
 
-  const tbody =
-    document.getElementById(
-      "membersTableBody"
-    );
+const tbody =
+document.getElementById(
+"membersTableBody"
+);
+
+if(!list.length){
+
+tbody.innerHTML = `
+<tr>
+<td colspan="11" class="empty">
+No members found.
+</td>
+</tr>
+`;
+
+return;
+
+}
 
 
-  if(!list.length){
+tbody.innerHTML =
+list.map(
+(member,index)=>{
 
-    tbody.innerHTML = `
-      <tr>
-        <td
-          colspan="11"
-          class="empty"
-        >
-          No members found.
-        </td>
-      </tr>
-    `;
+const status =
+String(
+member.membership_status ||
+"active"
+)
+.toLowerCase();
 
 
-    return;
-
-  }
-
-
-  tbody.innerHTML =
-    list
-      .map(
-        (member,index)=>{
-
-          const status =
-            String(
-              member.membership_status ||
-              "active"
-            )
-            .toLowerCase();
+let statusClass =
+"status-active";
 
 
-          let statusClass =
-            "status-active";
+if(status === "inactive")
+statusClass =
+"status-inactive";
 
 
-          if(
-            status ===
-            "inactive"
-          ){
-
-            statusClass =
-              "status-inactive";
-
-          }
+if(status === "stopped")
+statusClass =
+"status-stopped";
 
 
-          if(
-            status ===
-            "stopped"
-          ){
+return `
 
-            statusClass =
-              "status-stopped";
+<tr>
 
-          }
+<td>${index+1}</td>
 
+<td>
+${escapeHtml(
+member.full_name || ""
+)}
+</td>
 
-          return `
+<td>
+${escapeHtml(
+member.phone_number ||
+member.phone ||
+""
+)}
+</td>
 
-            <tr>
+<td>
+${escapeHtml(
+member.gender || ""
+)}
+</td>
 
-              <td>
-                ${index + 1}
-              </td>
+<td>
+${escapeHtml(
+member.date_of_birth || ""
+)}
+</td>
 
+<td>
+${escapeHtml(
+member.registration_date || ""
+)}
+</td>
 
-              <td>
-                ${escapeHtml(
-                  member.full_name || ""
-                )}
-              </td>
+<td>
+${escapeHtml(
+member.location || ""
+)}
+</td>
 
+<td>
+${escapeHtml(
+member.department || ""
+)}
+</td>
 
-              <td>
-                ${escapeHtml(
-                  member.phone_number || ""
-                )}
-              </td>
+<td>
+${escapeHtml(
+member.baptism_status || ""
+)}
+</td>
 
+<td>
 
-              <td>
-                ${escapeHtml(
-                  member.gender || ""
-                )}
-              </td>
+<span class="status ${statusClass}">
+${escapeHtml(status)}
+</span>
 
+</td>
 
-              <td>
-                ${escapeHtml(
-                  member.date_of_birth || ""
-                )}
-              </td>
+<td>
 
+<button
+class="small-btn edit-btn"
+onclick="editMember('${member.id}')">
 
-              <td>
-                ${escapeHtml(
-                  member.registration_date || ""
-                )}
-              </td>
+Edit
 
+</button>
 
-              <td>
-                ${escapeHtml(
-                  member.location || ""
-                )}
-              </td>
+<button
+class="small-btn delete-btn"
+onclick="deleteMember('${member.id}')">
 
+Delete
 
-              <td>
-                ${escapeHtml(
-                  member.department || ""
-                )}
-              </td>
+</button>
 
+</td>
 
-              <td>
-                ${escapeHtml(
-                  member.baptism_status || ""
-                )}
-              </td>
+</tr>
 
+`;
 
-              <td>
-
-                <span
-                  class="status ${statusClass}"
-                >
-
-                  ${escapeHtml(
-                    status
-                  )}
-
-                </span>
-
-              </td>
-
-
-              <td>
-
-                <button
-                  class="small-btn edit-btn"
-                  onclick="editMember('${member.id}')"
-                >
-                  Edit
-                </button>
-
-
-                <button
-                  class="small-btn delete-btn"
-                  onclick="deleteMember('${member.id}')"
-                >
-                  Delete
-                </button>
-
-              </td>
-
-            </tr>
-
-          `;
-
-        }
-      )
-      .join("");
+}
+).join("");
 
 }
 
@@ -1721,57 +1559,49 @@ STATISTICS
 
 function updateStatistics(list){
 
-  document
-    .getElementById(
-      "totalMembers"
-    )
-    .textContent =
-      list.length;
+document.getElementById(
+"totalMembers"
+).textContent =
+list.length;
 
 
-  document
-    .getElementById(
-      "totalMen"
-    )
-    .textContent =
-      list.filter(
-        member =>
-          String(
-            member.gender || ""
-          )
-          .toLowerCase() ===
-          "male"
-      ).length;
+document.getElementById(
+"totalMen"
+).textContent =
+list.filter(
+m =>
+String(
+m.gender || ""
+)
+.toLowerCase() ===
+"male"
+).length;
 
 
-  document
-    .getElementById(
-      "totalWomen"
-    )
-    .textContent =
-      list.filter(
-        member =>
-          String(
-            member.gender || ""
-          )
-          .toLowerCase() ===
-          "female"
-      ).length;
+document.getElementById(
+"totalWomen"
+).textContent =
+list.filter(
+m =>
+String(
+m.gender || ""
+)
+.toLowerCase() ===
+"female"
+).length;
 
 
-  document
-    .getElementById(
-      "totalChildren"
-    )
-    .textContent =
-      list.filter(
-        member =>
-          String(
-            member.gender || ""
-          )
-          .toLowerCase() ===
-          "child"
-      ).length;
+document.getElementById(
+"totalChildren"
+).textContent =
+list.filter(
+m =>
+String(
+m.gender || ""
+)
+.toLowerCase() ===
+"child"
+).length;
 
 }
 
@@ -1780,236 +1610,178 @@ function updateStatistics(list){
 SAVE MEMBER
 ===================================================== */
 
-document
-  .getElementById(
-    "memberForm"
-  )
-  .addEventListener(
-    "submit",
-    async function(event){
-
-      event.preventDefault();
-
-
-      const button =
-        document.getElementById(
-          "saveMemberBtn"
-        );
+document.getElementById(
+"memberForm"
+).addEventListener(
+"submit",
+async function(event){
 
+event.preventDefault();
 
-      button.disabled = true;
-
 
-      button.textContent =
-        editingMemberId
-          ? "Updating..."
-          : "Saving...";
-
-
-      const memberData = {
+const button =
+document.getElementById(
+"saveMemberBtn"
+);
 
-        full_name:
-          document
-            .getElementById(
-              "fullName"
-            )
-            .value
-            .trim(),
 
+button.disabled =
+true;
 
-        phone_number:
-          document
-            .getElementById(
-              "phoneNumber"
-            )
-            .value
-            .trim() ||
-          "",
 
+button.textContent =
+editingMemberId
+? "Updating..."
+: "Saving...";
 
-        gender:
-          document
-            .getElementById(
-              "gender"
-            )
-            .value ||
-          null,
 
+const memberData = {
 
-        date_of_birth:
-          document
-            .getElementById(
-              "dateOfBirth"
-            )
-            .value ||
-          null,
+full_name:
+document.getElementById(
+"fullName"
+).value.trim(),
 
+phone_number:
+document.getElementById(
+"phoneNumber"
+).value.trim(),
 
-        registration_date:
-          document
-            .getElementById(
-              "registrationDate"
-            )
-            .value ||
-          new Date()
-            .toISOString()
-            .split("T")[0],
+gender:
+document.getElementById(
+"gender"
+).value || null,
 
+date_of_birth:
+document.getElementById(
+"dateOfBirth"
+).value || null,
 
-        location:
-          document
-            .getElementById(
-              "location"
-            )
-            .value
-            .trim() ||
-          null,
+registration_date:
+document.getElementById(
+"registrationDate"
+).value ||
+new Date()
+.toISOString()
+.split("T")[0],
 
+location:
+document.getElementById(
+"location"
+).value.trim() || null,
 
-        department:
-          document
-            .getElementById(
-              "department"
-            )
-            .value ||
-          null,
+department:
+document.getElementById(
+"department"
+).value || null,
 
+baptism_status:
+document.getElementById(
+"baptismStatus"
+).value || null,
 
-        baptism_status:
-          document
-            .getElementById(
-              "baptismStatus"
-            )
-            .value ||
-          null,
+membership_status:
+document.getElementById(
+"membershipStatus"
+).value ||
+"active"
 
+};
 
-        membership_status:
-          document
-            .getElementById(
-              "membershipStatus"
-            )
-            .value ||
-          "active"
 
-      };
+if(!memberData.full_name){
 
+showMessage(
+"memberMessage",
+"Please enter the member's full name.",
+"error"
+);
 
-      if(
-        !memberData.full_name
-      ){
+button.disabled =
+false;
 
-        showMessage(
-          "memberMessage",
-          "Please enter the member's full name.",
-          "error"
-        );
+button.textContent =
+"Save Member";
 
+return;
 
-        button.disabled =
-          false;
+}
 
 
-        button.textContent =
-          "Save Member";
+let result;
 
 
-        return;
+if(editingMemberId){
 
-      }
+result =
+await supabaseClient
+.from("church_members")
+.update(memberData)
+.eq(
+"id",
+editingMemberId
+);
 
+}else{
 
-      let result;
+result =
+await supabaseClient
+.from("church_members")
+.insert(
+[memberData]
+);
 
+}
 
-      if(
-        editingMemberId
-      ){
 
-        result =
-          await supabaseClient
-            .from(
-              "church_members"
-            )
-            .update(
-              memberData
-            )
-            .eq(
-              "id",
-              editingMemberId
-            );
+if(result.error){
 
-      }
+console.error(
+"Save member error:",
+result.error
+);
 
-      else{
+showMessage(
+"memberMessage",
+"Member could not be saved: " +
+result.error.message,
+"error"
+);
 
-        result =
-          await supabaseClient
-            .from(
-              "church_members"
-            )
-            .insert([
-              memberData
-            ]);
+button.disabled =
+false;
 
-      }
+button.textContent =
+editingMemberId
+? "Update Member"
+: "Save Member";
 
+return;
 
-      if(result.error){
+}
 
-        console.error(
-          "Member save error:",
-          result.error
-        );
 
+showMessage(
+"memberMessage",
+editingMemberId
+? "Member updated successfully."
+: "Member registered successfully.",
+"success"
+);
 
-        showMessage(
-          "memberMessage",
-          "Member could not be saved: " +
-          result.error.message,
-          "error"
-        );
 
+clearMemberForm();
 
-        button.disabled =
-          false;
+await loadMembers();
 
+button.disabled =
+false;
 
-        button.textContent =
-          editingMemberId
-            ? "Update Member"
-            : "Save Member";
+button.textContent =
+"Save Member";
 
-
-        return;
-
-      }
-
-
-      showMessage(
-        "memberMessage",
-        editingMemberId
-          ? "Member updated successfully."
-          : "Member registered successfully.",
-        "success"
-      );
-
-
-      clearMemberForm();
-
-
-      await loadMembers();
-
-
-      button.disabled =
-        false;
-
-
-      button.textContent =
-        "Save Member";
-
-    }
-  );
+}
+);
 
 
 /* =====================================================
@@ -2018,108 +1790,91 @@ EDIT MEMBER
 
 function editMember(id){
 
-  const member =
-    members.find(
-      item =>
-        String(item.id) ===
-        String(id)
-    );
+const member =
+members.find(
+m =>
+String(m.id) ===
+String(id)
+);
 
 
-  if(!member) return;
+if(!member)
+return;
 
 
-  editingMemberId =
-    member.id;
+editingMemberId =
+member.id;
 
 
-  document
-    .getElementById(
-      "fullName"
-    )
-    .value =
-      member.full_name || "";
+document.getElementById(
+"fullName"
+).value =
+member.full_name || "";
 
 
-  document
-    .getElementById(
-      "phoneNumber"
-    )
-    .value =
-      member.phone_number || "";
+document.getElementById(
+"phoneNumber"
+).value =
+member.phone_number ||
+member.phone ||
+"";
 
 
-  document
-    .getElementById(
-      "gender"
-    )
-    .value =
-      member.gender || "";
+document.getElementById(
+"gender"
+).value =
+member.gender || "";
 
 
-  document
-    .getElementById(
-      "dateOfBirth"
-    )
-    .value =
-      member.date_of_birth || "";
+document.getElementById(
+"dateOfBirth"
+).value =
+member.date_of_birth || "";
 
 
-  document
-    .getElementById(
-      "registrationDate"
-    )
-    .value =
-      member.registration_date || "";
+document.getElementById(
+"registrationDate"
+).value =
+member.registration_date || "";
 
 
-  document
-    .getElementById(
-      "location"
-    )
-    .value =
-      member.location || "";
+document.getElementById(
+"location"
+).value =
+member.location || "";
 
 
-  document
-    .getElementById(
-      "department"
-    )
-    .value =
-      member.department || "";
+document.getElementById(
+"department"
+).value =
+member.department || "";
 
 
-  document
-    .getElementById(
-      "baptismStatus"
-    )
-    .value =
-      member.baptism_status || "";
+document.getElementById(
+"baptismStatus"
+).value =
+member.baptism_status || "";
 
 
-  document
-    .getElementById(
-      "membershipStatus"
-    )
-    .value =
-      member.membership_status ||
-      "active";
+document.getElementById(
+"membershipStatus"
+).value =
+member.membership_status ||
+"active";
 
 
-  document
-    .getElementById(
-      "saveMemberBtn"
-    )
-    .textContent =
-      "Update Member";
+document.getElementById(
+"saveMemberBtn"
+).textContent =
+"Update Member";
 
 
-  showSection(
-    "members",
-    document.querySelectorAll(
-      ".sidebar button"
-    )[1]
-  );
+showSection(
+"members",
+document.querySelectorAll(
+".sidebar button"
+)[1]
+);
 
 }
 
@@ -2130,92 +1885,83 @@ DELETE MEMBER
 
 async function deleteMember(id){
 
-  if(
-    !confirm(
-      "Are you sure you want to delete this member?"
-    )
-  ){
+if(
+!confirm(
+"Are you sure you want to delete this member?"
+)
+){
 
-    return;
+return;
 
-  }
-
-
-  const {
-    error
-  } =
-  await supabaseClient
-    .from(
-      "church_members"
-    )
-    .delete()
-    .eq(
-      "id",
-      id
-    );
+}
 
 
-  if(error){
-
-    showMessage(
-      "memberMessage",
-      "Member could not be deleted: " +
-      error.message,
-      "error"
-    );
-
-
-    return;
-
-  }
+const {
+error
+} =
+await supabaseClient
+.from("church_members")
+.delete()
+.eq(
+"id",
+id
+);
 
 
-  showMessage(
-    "memberMessage",
-    "Member deleted successfully.",
-    "success"
-  );
+if(error){
+
+showMessage(
+"memberMessage",
+"Member could not be deleted: " +
+error.message,
+"error"
+);
+
+return;
+
+}
 
 
-  await loadMembers();
+showMessage(
+"memberMessage",
+"Member deleted successfully.",
+"success"
+);
+
+
+await loadMembers();
 
 }
 
 
 /* =====================================================
-CLEAR FORM
+CLEAR MEMBER FORM
 ===================================================== */
 
 function clearMemberForm(){
 
-  editingMemberId =
-    null;
+editingMemberId =
+null;
 
 
-  document
-    .getElementById(
-      "memberForm"
-    )
-    .reset();
+document.getElementById(
+"memberForm"
+).reset();
 
 
-  setRegistrationDate();
+setRegistrationDate();
 
 
-  document
-    .getElementById(
-      "membershipStatus"
-    )
-    .value =
-      "active";
+document.getElementById(
+"membershipStatus"
+).value =
+"active";
 
 
-  document
-    .getElementById(
-      "saveMemberBtn"
-    )
-    .textContent =
-      "Save Member";
+document.getElementById(
+"saveMemberBtn"
+).textContent =
+"Save Member";
 
 }
 
@@ -2226,68 +1972,58 @@ SEARCH MEMBERS
 
 function filterMembers(){
 
-  const search =
-    document
-      .getElementById(
-        "memberSearch"
-      )
-      .value
-      .toLowerCase()
-      .trim();
+const search =
+document.getElementById(
+"memberSearch"
+).value
+.toLowerCase()
+.trim();
 
 
-  if(!search){
+if(!search){
 
-    displayMembers(
-      members
-    );
+displayMembers(
+members
+);
 
+return;
 
-    return;
-
-  }
-
-
-  const filtered =
-    members.filter(
-      member => {
-
-        const text = [
-
-          member.full_name,
-
-          member.phone_number,
-
-          member.gender,
-
-          member.date_of_birth,
-
-          member.registration_date,
-
-          member.location,
-
-          member.department,
-
-          member.baptism_status,
-
-          member.membership_status
-
-        ]
-        .join(" ")
-        .toLowerCase();
+}
 
 
-        return text.includes(
-          search
-        );
+const filtered =
+members.filter(
+member => {
 
-      }
-    );
+const text = [
+
+member.full_name,
+member.phone_number,
+member.phone,
+member.gender,
+member.date_of_birth,
+member.registration_date,
+member.location,
+member.department,
+member.baptism_status,
+member.membership_status
+
+]
+.join(" ")
+.toLowerCase();
 
 
-  displayMembers(
-    filtered
-  );
+return text.includes(
+search
+);
+
+}
+);
+
+
+displayMembers(
+filtered
+);
 
 }
 
@@ -2298,83 +2034,99 @@ LOAD USERS
 
 async function loadUsers(){
 
-  const tbody =
-    document.getElementById(
-      "usersTableBody"
-    );
+const tbody =
+document.getElementById(
+"usersTableBody"
+);
 
 
-  tbody.innerHTML = `
-    <tr>
-      <td
-        colspan="7"
-        class="loading"
-      >
-        Loading users...
-      </td>
-    </tr>
-  `;
+tbody.innerHTML = `
+<tr>
+<td colspan="7" class="loading">
+Loading users...
+</td>
+</tr>
+`;
 
 
-  const {
-    data,
-    error
-  } =
-  await supabaseClient
-    .from(
-      "user_profiles"
-    )
-    .select(
-      "id,email,role,full_name,auth_user_id,status,phone_number,created_at"
-    )
-    .order(
-      "created_at",
-      {
-        ascending:false
-      }
-    );
+if(
+currentUserRole !==
+"administrator"
+){
+
+tbody.innerHTML = `
+<tr>
+<td colspan="7" class="empty">
+Administrator access required.
+</td>
+</tr>
+`;
+
+return;
+
+}
 
 
-  if(error){
+/*
+Load user profiles.
 
-    console.error(
-      "Load users error:",
-      error
-    );
+This does NOT query auth.users,
+so it avoids the previous recursion problem.
+*/
 
-
-    tbody.innerHTML = `
-      <tr>
-        <td
-          colspan="7"
-          class="empty"
-        >
-          Unable to load users.
-        </td>
-      </tr>
-    `;
-
-
-    showMessage(
-      "usersMessage",
-      "Unable to load users: " +
-      error.message,
-      "error"
-    );
+const {
+data,
+error
+} =
+await supabaseClient
+.from("user_profiles")
+.select(
+"id,email,role,full_name,auth_user_id,status,phone_number,created_at"
+)
+.order(
+"created_at",
+{
+ascending:false
+}
+);
 
 
-    return;
+if(error){
 
-  }
+console.error(
+"Load users error:",
+error
+);
 
 
-  users =
-    data || [];
+tbody.innerHTML = `
+<tr>
+<td colspan="7" class="empty">
+Unable to load users.
+</td>
+</tr>
+`;
 
 
-  displayUsers(
-    users
-  );
+showMessage(
+"usersMessage",
+"Unable to load users: " +
+error.message,
+"error"
+);
+
+return;
+
+}
+
+
+users =
+data || [];
+
+
+displayUsers(
+users
+);
 
 }
 
@@ -2385,244 +2137,457 @@ DISPLAY USERS
 
 function displayUsers(list){
 
-  const tbody =
-    document.getElementById(
-      "usersTableBody"
-    );
+const tbody =
+document.getElementById(
+"usersTableBody"
+);
 
 
-  if(!list.length){
+if(!list.length){
 
-    tbody.innerHTML = `
-      <tr>
-        <td
-          colspan="7"
-          class="empty"
-        >
-          No users found.
-        </td>
-      </tr>
-    `;
+tbody.innerHTML = `
+<tr>
+<td colspan="7" class="empty">
+No users found.
+</td>
+</tr>
+`;
 
+return;
 
-    return;
+}
 
-  }
 
+tbody.innerHTML =
+list.map(
+(user,index)=>{
 
-  tbody.innerHTML =
-    list
-      .map(
-        (user,index)=>{
+const status =
+String(
+user.status ||
+"pending"
+)
+.toLowerCase()
+.trim();
 
-          const status =
-            String(
-              user.status ||
-              "pending"
-            )
-            .toLowerCase()
-            .trim();
 
+let statusClass =
+"status-pending";
 
-          let statusClass =
-            "status-pending";
 
+if(status === "approved")
+statusClass =
+"status-approved";
 
-          if(
-            status ===
-            "approved"
-          ){
 
-            statusClass =
-              "status-approved";
+if(status === "rejected")
+statusClass =
+"status-rejected";
 
-          }
 
+let actions =
+"<span style='color:#777;font-size:12px;'>View only</span>";
 
-          if(
-            status ===
-            "rejected"
-          ){
 
-            statusClass =
-              "status-rejected";
+if(
+currentUserRole ===
+"administrator"
+){
 
-          }
+if(status === "pending"){
 
+actions = `
 
-          let actions =
-            "<span style='color:#777;font-size:12px;'>View only</span>";
+<button
+class="small-btn approve-btn"
+onclick="approveUser('${user.id}')">
 
+Approve
 
-          /*
-            Administrator can approve/reject.
-          */
+</button>
 
-          if(
-            currentUserRole ===
-            "administrator"
-          ){
+<button
+class="small-btn reject-btn"
+onclick="rejectUser('${user.id}')">
 
-            if(
-              status ===
-              "pending"
-            ){
+Reject
 
-              actions = `
+</button>
 
-                <button
-                  class="small-btn approve-btn"
-                  onclick="approveUser('${user.id}')"
-                >
-                  Approve
-                </button>
+`;
 
+}
 
-                <button
-                  class="small-btn reject-btn"
-                  onclick="rejectUser('${user.id}')"
-                >
-                  Reject
-                </button>
+else if(
+status === "approved"
+){
 
-              `;
+actions = `
 
-            }
+<button
+class="small-btn reject-btn"
+onclick="rejectUser('${user.id}')">
 
-            else if(
-              status ===
-              "approved"
-            ){
+Reject
 
-              actions = `
+</button>
 
-                <button
-                  class="small-btn reject-btn"
-                  onclick="rejectUser('${user.id}')"
-                >
-                  Reject
-                </button>
+`;
 
-              `;
+}
 
-            }
+else if(
+status === "rejected"
+){
 
-            else if(
-              status ===
-              "rejected"
-            ){
+actions = `
 
-              actions = `
+<button
+class="small-btn approve-btn"
+onclick="approveUser('${user.id}')">
 
-                <button
-                  class="small-btn approve-btn"
-                  onclick="approveUser('${user.id}')"
-                >
-                  Approve
-                </button>
+Approve
 
-              `;
+</button>
 
-            }
+`;
 
-          }
+}
 
+}
 
-          return `
 
-            <tr>
+return `
 
-              <td>
-                ${index + 1}
-              </td>
+<tr>
 
+<td>${index+1}</td>
 
-              <td>
-                ${escapeHtml(
-                  user.full_name || ""
-                )}
-              </td>
+<td>
+${escapeHtml(
+user.full_name || ""
+)}
+</td>
 
+<td>
+${escapeHtml(
+user.email || ""
+)}
+</td>
 
-              <td>
-                ${escapeHtml(
-                  user.email || ""
-                )}
-              </td>
+<td>
+${escapeHtml(
+user.phone_number || ""
+)}
+</td>
 
+<td>
+${escapeHtml(
+user.role || ""
+)}
+</td>
 
-              <td>
-                ${escapeHtml(
-                  user.phone_number || ""
-                )}
-              </td>
+<td>
 
+<span class="status ${statusClass}">
+${escapeHtml(status)}
+</span>
 
-              <td>
-                ${escapeHtml(
-                  user.role ||
-                  "Not assigned"
-                )}
-              </td>
+</td>
 
+<td>
+${actions}
+</td>
 
-              <td>
+</tr>
 
-                <span
-                  class="status ${statusClass}"
-                >
+`;
 
-                  ${escapeHtml(
-                    status
-                  )}
-
-                </span>
-
-              </td>
-
-
-              <td>
-                ${actions}
-              </td>
-
-            </tr>
-
-          `;
-
-        }
-      )
-      .join("");
+}
+).join("");
 
 }
 
 
 /* =====================================================
-SEARCH USERS
+FILTER USERS
 ===================================================== */
 
 function filterUsers(){
 
-  const search =
-    document
-      .getElementById(
-        "userSearch"
-      )
-      .value
-      .toLowerCase()
-      .trim();
+const search =
+document.getElementById(
+"userSearch"
+).value
+.toLowerCase()
+.trim();
 
 
-  if(!search){
+if(!search){
 
-    displayUsers(
-      users
-    );
+displayUsers(
+users
+);
+
+return;
+
+}
 
 
-    return;
+const filtered =
+users.filter(
+user => {
 
-  }
+const text = [
+
+user.full_name,
+user.email,
+user.phone_number,
+user.role,
+user.status
+
+]
+.join(" ")
+.toLowerCase();
 
 
-  const filtered =
-   
+return text.includes(
+search
+);
+
+}
+);
+
+
+displayUsers(
+filtered
+);
+
+}
+
+
+/* =====================================================
+APPROVE USER
+===================================================== */
+
+async function approveUser(id){
+
+if(
+currentUserRole !==
+"administrator"
+){
+
+alert(
+"Administrator access required."
+);
+
+return;
+
+}
+
+
+const {
+error
+} =
+await supabaseClient
+.from("user_profiles")
+.update({
+status:"approved"
+})
+.eq(
+"id",
+id
+);
+
+
+if(error){
+
+console.error(
+"Approve user error:",
+error
+);
+
+showMessage(
+"usersMessage",
+"Unable to approve user: " +
+error.message,
+"error"
+);
+
+return;
+
+}
+
+
+showMessage(
+"usersMessage",
+"User approved successfully.",
+"success"
+);
+
+
+await loadUsers();
+
+}
+
+
+/* =====================================================
+REJECT USER
+===================================================== */
+
+async function rejectUser(id){
+
+if(
+currentUserRole !==
+"administrator"
+){
+
+alert(
+"Administrator access required."
+);
+
+return;
+
+}
+
+
+if(
+!confirm(
+"Are you sure you want to reject this user?"
+)
+){
+
+return;
+
+}
+
+
+const {
+error
+} =
+await supabaseClient
+.from("user_profiles")
+.update({
+status:"rejected"
+})
+.eq(
+"id",
+id
+);
+
+
+if(error){
+
+console.error(
+"Reject user error:",
+error
+);
+
+showMessage(
+"usersMessage",
+"Unable to reject user: " +
+error.message,
+"error"
+);
+
+return;
+
+}
+
+
+showMessage(
+"usersMessage",
+"User rejected successfully.",
+"success"
+);
+
+
+await loadUsers();
+
+}
+
+
+/* =====================================================
+LOGOUT
+===================================================== */
+
+async function logout(){
+
+const confirmed =
+confirm(
+"Are you sure you want to logout?"
+);
+
+
+if(!confirmed)
+return;
+
+
+await supabaseClient.auth.signOut();
+
+
+window.location.href =
+"index.html";
+
+}
+
+
+/* =====================================================
+MESSAGE
+===================================================== */
+
+function showMessage(
+elementId,
+text,
+type
+){
+
+const element =
+document.getElementById(
+elementId
+);
+
+
+if(!element)
+return;
+
+
+element.textContent =
+text;
+
+
+element.className =
+"message " +
+type;
+
+
+setTimeout(
+()=>{
+element.className =
+"message";
+},
+5000
+);
+
+}
+
+
+/* =====================================================
+ESCAPE HTML
+===================================================== */
+
+function escapeHtml(value){
+
+return String(value)
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+</script>
+
+</body>
+  </html>
